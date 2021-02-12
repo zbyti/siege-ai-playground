@@ -9,6 +9,10 @@ const
   PLY_CRASH           = $51;
   PLY1_COLOUR         = $5f;
   PLY2_COLOUR         = $5d;
+  JOY_UP              = 1;
+  JOY_DOWN            = 2;
+  JOY_LEFT            = 4;
+  JOY_RIGHT           = 8;
 
 //-----------------------------------------------------------------------------
 
@@ -26,8 +30,7 @@ const
 type
   Direction = (up = 8, down = 4, left = 2, right = 1);
   Player = record
-    x, y, colour : byte;
-    dir          : Direction;
+    x, y, colour, dir : byte;
   end;
 
 //-----------------------------------------------------------------------------
@@ -91,10 +94,10 @@ begin
   availDir := 0;
   t0w := SCREEN_ADDR + mul40[y] + x;
 
-  if Peek(t0w - 40) = EMPTY then availDir := availDir or up;
-  if Peek(t0w + 40) = EMPTY then availDir := availDir or down;
-  if Peek(t0w - 1)  = EMPTY then availDir := availDir or left;
-  if Peek(t0w + 1)  = EMPTY then availDir := availDir or right;
+  if Peek(t0w - 40) = EMPTY then availDir := availDir or JOY_UP;
+  if Peek(t0w + 40) = EMPTY then availDir := availDir or JOY_DOWN;
+  if Peek(t0w - 1)  = EMPTY then availDir := availDir or JOY_LEFT;
+  if Peek(t0w + 1)  = EMPTY then availDir := availDir or JOY_RIGHT;
 end;
 
 
@@ -116,15 +119,15 @@ begin
       if (availDir and t0b) <> 0 then t0n := true;
     until t0n;
 
-    ply.dir := Direction(t0b);
+    ply.dir := t0b;
 
     putChar(ply.x, ply.y, PLY_TAIL, ply.colour);
 
     case t0b of
-      8 : Dec(ply.y);
-      4 : Inc(ply.y);
-      2 : Dec(ply.x);
-      1 : Inc(ply.x);
+      JOY_UP    : Dec(ply.y);
+      JOY_DOWN  : Inc(ply.y);
+      JOY_LEFT  : Dec(ply.x);
+      JOY_RIGHT : Inc(ply.x);
     end;
 
     putChar(ply.x, ply.y, PLY_HEAD, ply.colour);
