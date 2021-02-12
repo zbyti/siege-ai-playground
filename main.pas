@@ -24,11 +24,13 @@ const
     18 * 40, 19 * 40, 20 * 40, 21 * 40, 22 * 40, 23 * 40,
     24 * 40
   );
+  direction: array [0..3] of byte = (
+    JOY_UP, JOY_DOWN, JOY_LEFT, JOY_RIGHT
+  );
 
 //-----------------------------------------------------------------------------
 
 type
-  Direction = (up = 8, down = 4, left = 2, right = 1);
   Player = record
     x, y, colour, dir : byte;
   end;
@@ -115,7 +117,7 @@ begin
   end else begin
     t0n := false;
     repeat
-      t0b := 1 shl Random(4);
+      t0b := direction[Random(4)];
       if (availDir and t0b) <> 0 then t0n := true;
     until t0n;
 
