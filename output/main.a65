@@ -1,0 +1,1120 @@
+; ------------------------------------------------------------
+; Mad Pascal Compiler version 1.6.5 [2021/02/09] for 6502
+; ------------------------------------------------------------
+
+STACKWIDTH	= 16
+
+TRUE		= 1
+FALSE		= 0
+
+; ------------------------------------------------------------
+
+	org $02
+
+psptr	.ds 2						; PROGRAMSTACK Pointer
+
+eax	.ds 4						;8 bytes (aex + edx) -> divREAL
+edx	.ds 4
+ecx	.ds 4
+bp	.ds 2
+bp2	.ds 2
+
+TMP
+ztmp
+ztmp8	.ds 1
+ztmp9	.ds 1
+ztmp10	.ds 1
+ztmp11	.ds 1
+
+STACKORIGIN	.ds STACKWIDTH*4
+zpend
+
+; ------------------------------------------------------------
+
+ax	= eax
+al	= eax
+ah	= eax+1
+
+cx	= ecx
+cl	= ecx
+ch	= ecx+1
+
+dx	= edx
+dl	= edx
+dh	= edx+1
+
+	org eax
+
+FP1MAN0	.ds 1
+FP1MAN1	.ds 1
+FP1MAN2	.ds 1
+FP1MAN3	.ds 1
+
+	org ztmp8
+
+FP1SGN	.ds 1
+FP1EXP	.ds 1
+
+	org edx
+
+FP2MAN0	.ds 1
+FP2MAN1	.ds 1
+FP2MAN2	.ds 1
+FP2MAN3	.ds 1
+
+	org ztmp10
+
+FP2SGN	.ds 1
+FP2EXP	.ds 1
+
+	org ecx
+
+FPMAN0	.ds 1
+FPMAN1	.ds 1
+FPMAN2	.ds 1
+FPMAN3	.ds 1
+
+	org bp2
+
+FPSGN	.ds 1
+FPEXP	.ds 1
+
+; ------------------------------------------------------------
+	opt h-f+
+	org $1001
+	org [a($1001)],$1001				; BASIC start address
+
+	basic_start(START)
+	org $100E
+
+CODEORIGIN
+
+	STATICDATA
+
+; ------------------------------------------------------------
+
+RTLIB
+	icl 'rtl6502_c4p.asm'
+
+.print 'ZPAGE: ',psptr,'..',zpend-1
+
+.print 'RTLIB: ',RTLIB,'..',*-1
+
+; ------------------------------------------------------------
+
+START
+	tsx
+	stx MAIN.@halt+1
+
+	.ifdef fmulinit
+	fmulinit
+	eif
+
+VLEN	= VARDATASIZE-VARINITSIZE
+VADR	= DATAORIGIN+VARINITSIZE
+
+	ift VADR > $BFFF
+	ert 'Invalid memory address range ',VADR
+	eli (VLEN>0) && (VLEN<=256)
+	ldx #256-VLEN
+	lda #$00
+	sta:rne VADR+VLEN-256,x+
+	eli VLEN>0
+	@fill #VADR #VLEN #$00
+	eif
+
+	mwa #PROGRAMSTACK psptr
+
+	ldx #$00
+	stx bp						; BP = 0
+
+	dex						; X = 255
+
+	UNITINITIALIZATION
+
+.local	MAIN						; PROCEDURE
+
+	jmp l_0007
+
+; ------------------------------------------------------------
+
+.local	SYSTEM						; UNIT
+
+.local	PEEK						; FUNCTION | ASSEMBLER | REGISTER
+
+; ------------------------------------------------------------
+
+; Generate Assignment for WORD / SMALLINT / SHORTREAL / POINTER
+; as Pointer
+	lda :STACKORIGIN,x
+	sta A
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta A+1
+	dex
+
+; ---------------------  ASM Block 001  ---------------------
+
+	ldy #0
+	mva (edx),y Result
+
+@exit
+
+; ------------------------------------------------------------
+
+; Push BYTE / CHAR / SHORTINT / BOOLEAN
+; as Pointer
+
+	inx
+	mva RESULT :STACKORIGIN,x
+
+	.ifdef @new
+	lda <@VarData
+	sta :ztmp
+	lda >@VarData
+	ldy #@VarDataSize-1
+	jmp @FreeMem
+	eif
+
+; ------------------------------------------------------------
+
+A	= edx
+RESULT	= DATAORIGIN+$000B
+
+@VarData	= RESULT
+@VarDataSize	= 1
+
+	rts						; ret
+.endl
+
+.local	POKE						; PROCEDURE | ASSEMBLER | REGISTER
+
+; ------------------------------------------------------------
+
+; Generate Assignment for BYTE / CHAR / SHORTINT / BOOLEAN
+; as Pointer
+	lda :STACKORIGIN,x
+	sta VALUE
+	dex
+
+; ------------------------------------------------------------
+
+; Generate Assignment for WORD / SMALLINT / SHORTREAL / POINTER
+; as Pointer
+	lda :STACKORIGIN,x
+	sta A
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta A+1
+	dex
+
+; ---------------------  ASM Block 016  ---------------------
+
+	ldy #0
+	mva value (edx),y
+
+
+; ------------------------------------------------------------
+
+A	= edx
+VALUE	= ecx
+@exit
+	.ifdef @new
+	lda <@VarData
+	sta :ztmp
+	lda >@VarData
+	ldy #@VarDataSize-1
+	jmp @FreeMem
+	els
+	rts						; ret
+	eif
+.endl
+
+.local	DPOKE						; PROCEDURE | ASSEMBLER | REGISTER
+
+; ------------------------------------------------------------
+
+; Generate Assignment for WORD / SMALLINT / SHORTREAL / POINTER
+; as Pointer
+	lda :STACKORIGIN,x
+	sta VALUE
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta VALUE+1
+	dex
+
+; ------------------------------------------------------------
+
+; Generate Assignment for WORD / SMALLINT / SHORTREAL / POINTER
+; as Pointer
+	lda :STACKORIGIN,x
+	sta A
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta A+1
+	dex
+
+; ---------------------  ASM Block 017  ---------------------
+
+	ldy #0
+	mva value (edx),y
+	iny
+	mva value+1 (edx),y
+
+
+; ------------------------------------------------------------
+
+A	= edx
+VALUE	= ecx
+@exit
+	.ifdef @new
+	lda <@VarData
+	sta :ztmp
+	lda >@VarData
+	ldy #@VarDataSize-1
+	jmp @FreeMem
+	els
+	rts						; ret
+	eif
+.endl
+
+.local	FILLCHAR_0056					; PROCEDURE | ASSEMBLER | OVERLOAD | REGISTER
+
+; ---------------------  ASM Block 019  ---------------------
+
+	jsr @fill
+
+
+; ------------------------------------------------------------
+
+A	= edx
+COUNT	= ecx
+VALUE	= eax
+@exit
+	.ifdef @new
+	lda <@VarData
+	sta :ztmp
+	lda >@VarData
+	ldy #@VarDataSize-1
+	jmp @FreeMem
+	els
+	rts						; ret
+	eif
+.endl
+
+.local	PAUSE_006B					; PROCEDURE | ASSEMBLER | OVERLOAD
+
+; ---------------------  ASM Block 035  ---------------------
+
+
+loop  lda n
+  ora n+1
+  beq stop
+
+  lda:cmp:req :c4p_time+2
+
+  dew n
+
+  jmp loop
+stop
+
+
+; ------------------------------------------------------------
+
+N	= DATAORIGIN+$000C
+
+@VarData	= N
+@VarDataSize	= 2
+
+@exit
+	.ifdef @new
+	lda <@VarData
+	sta :ztmp
+	lda >@VarData
+	ldy #@VarDataSize-1
+	jmp @FreeMem
+	els
+	rts						; ret
+	eif
+.endl
+
+.local	RANDOM_006C					; FUNCTION | ASSEMBLER | OVERLOAD
+	sta RANGE
+
+; ---------------------  ASM Block 039  ---------------------
+
+
+  lda ted_timer_1   //Timer A Lo byte
+  eor ted_timer_1+1 //Timer A Hi byte
+  eor ted_timer_2   //Timer B Lo byte
+  adc ted_hcount    //Horizontal counter
+  eor ted_timer_3   //Timer C Lo byte
+  eor ted_hcount    //Horizontal counter
+  tay
+
+  lda range
+  beq stop
+
+  sta ecx
+  sty eax
+
+  jsr imulCL
+  tay
+
+stop  sty Result
+
+@exit
+
+; ------------------------------------------------------------
+
+; Push BYTE / CHAR / SHORTINT / BOOLEAN
+; as Pointer
+
+	inx
+	mva RESULT :STACKORIGIN,x
+
+	.ifdef @new
+	lda <@VarData
+	sta :ztmp
+	lda >@VarData
+	ldy #@VarDataSize-1
+	jmp @FreeMem
+	eif
+
+; ------------------------------------------------------------
+
+RANGE	= DATAORIGIN+$000E
+RESULT	= DATAORIGIN+$000F
+
+@VarData	= RANGE
+@VarDataSize	= 2
+
+	rts						; ret
+.endl
+
+; ------------------------------------------------------------
+
+__PORTB_BANKS	= $0101
+M_PI_2	= $0648
+D_PI_2	= $0192
+D_PI_180	= $04
+MGTIA	= $00
+MVBXE	= $80
+VBXE_XDLADR	= $00
+VBXE_BCBADR	= $0100
+VBXE_MAPADR	= $1000
+VBXE_OVRADR	= $5000
+VBXE_WINDOW	= $B000
+IDLI	= $00
+IVBL	= $01
+CH_DELCHR	= $FE
+CH_ENTER	= $9B
+CH_ESC	= $1B
+CH_CURS_UP	= $1C
+CH_CURS_DOWN	= $1D
+CH_CURS_LEFT	= $1E
+CH_CURS_RIGHT	= $1F
+CH_TAB	= $7F
+CH_EOL	= $9B
+CH_CLR	= $7D
+CH_BELL	= $FD
+CH_DEL	= $7E
+CH_DELLINE	= $9C
+CH_INSLINE	= $9D
+COLOR_BLACK	= $00
+COLOR_WHITE	= $0E
+COLOR_RED	= $32
+COLOR_CYAN	= $96
+COLOR_VIOLET	= $68
+COLOR_GREEN	= $C4
+COLOR_BLUE	= $74
+COLOR_YELLOW	= $EE
+COLOR_ORANGE	= $28
+COLOR_BROWN	= $E4
+COLOR_LIGHTRED	= $3C
+COLOR_GRAY1	= $04
+COLOR_GRAY2	= $06
+COLOR_GRAY3	= $0A
+COLOR_LIGHTGREEN	= $CC
+COLOR_LIGHTBLUE	= $7C
+FMOPENREAD	= $04
+FMOPENWRITE	= $08
+FMOPENAPPEND	= $09
+FMOPENREADWRITE	= $0C
+SCREENWIDTH	= DATAORIGIN+$0000
+SCREENHEIGHT	= DATAORIGIN+$0002
+DATESEPARATOR	= DATAORIGIN+$0004
+TVSYSTEM	= $D014
+RND	= $D20A
+adr.PALETTE	= $02C0
+.var PALETTE	= adr.PALETTE .word
+adr.HPALETTE	= $D012
+.var HPALETTE	= adr.HPALETTE .word
+FILEMODE	= DATAORIGIN+$0005
+GRAPHMODE	= DATAORIGIN+$0006
+IORESULT	= DATAORIGIN+$0007
+EOLN	= DATAORIGIN+$0008
+RNDSEED	= DATAORIGIN+$0009
+
+.endl							; UNIT SYSTEM
+
+.local	INITPLAYFIELD					; PROCEDURE
+
+; optimize OK (main.pas), line = 57
+
+	lda #$00
+	sta PLAYERDIE
+
+; optimize OK (main.pas), line = 59
+
+	lda #$1F
+	sta BORDERCOLOR
+	lda #$00
+	sta BGCOLOR
+
+; optimize OK (main.pas), line = 60
+
+	lda #$20
+	sta SYSTEM.FILLCHAR_0056.VALUE
+	lda #$C0
+	sta SYSTEM.FILLCHAR_0056.COUNT
+	lda #$03
+	sta SYSTEM.FILLCHAR_0056.COUNT+1
+	lda #$00
+	sta SYSTEM.FILLCHAR_0056.A
+	lda #$0C
+	sta SYSTEM.FILLCHAR_0056.A+1
+	jsr SYSTEM.FILLCHAR_0056
+
+; optimize OK (main.pas), line = 62
+
+	lda #$27
+	sta T0B
+
+l_008D
+; --- ForToDoCondition
+
+; optimize OK (main.pas), line = 63
+
+	ldy T0B
+	lda #$A0
+	sta $0C00,y
+
+; optimize OK (main.pas), line = 64
+
+	sta $0FC0,y
+
+; optimize OK (main.pas), line = 65
+
+	lda #$41
+	sta $0800,y
+
+; optimize OK (main.pas), line = 66
+
+	sta $0BC0,y
+
+; --- ForToDoEpilog
+	dec T0B
+	jpl l_008D
+l_009B
+
+; optimize OK (main.pas), line = 69
+
+	lda #$18
+	sta T0B
+
+l_00CD
+; --- ForToDoCondition
+	lda T0B
+	cmp #$01
+	jcc l_00DB
+
+; optimize OK (main.pas), line = 70
+
+	asl @
+	tay
+	lda #$FF
+	add adr.MUL40,y
+	sta :bp2
+	lda #$0B
+	adc adr.MUL40+1,y
+	sta :bp2+1
+	ldy #$00
+	lda #$A0
+	sta (:bp2),y
+	iny
+	sta (:bp2),y
+
+; optimize OK (main.pas), line = 71
+
+	lda T0B
+	asl @
+	tay
+	lda #$FF
+	add adr.MUL40,y
+	sta :bp2
+	lda #$07
+	adc adr.MUL40+1,y
+	sta :bp2+1
+	ldy #$00
+	lda #$41
+	sta (:bp2),y
+	iny
+	sta (:bp2),y
+
+; --- ForToDoEpilog
+	dec T0B
+	jpl l_00CD
+l_00DB
+
+; ------------------------------------------------------------
+
+@FORTMP_008A	= $00
+@FORTMP_00CA	= $01
+@exit
+	.ifdef @new
+	lda <@VarData
+	sta :ztmp
+	lda >@VarData
+	ldy #@VarDataSize-1
+	jmp @FreeMem
+	els
+	rts						; ret
+	eif
+.endl
+
+.local	INITPLAYERS					; PROCEDURE
+
+; optimize OK (main.pas), line = 77
+
+	lda #$0A
+	sta PLAYER1.X
+	sta PLAYER1.Y
+	lda #$5F
+	sta PLAYER1.COLOUR
+
+; optimize OK (main.pas), line = 78
+
+	lda #$1E
+	sta PLAYER2.X
+	lda #$0A
+	sta PLAYER2.Y
+	lda #$5D
+	sta PLAYER2.COLOUR
+@exit
+	.ifdef @new
+	lda <@VarData
+	sta :ztmp
+	lda >@VarData
+	ldy #@VarDataSize-1
+	jmp @FreeMem
+	els
+	rts						; ret
+	eif
+.endl
+
+.local	PUTCHAR						; PROCEDURE
+
+; optimize OK (main.pas), line = 85
+
+	lda Y
+	asl @
+	tay
+	lda adr.MUL40,y
+	add X
+	sta T0W
+	lda adr.MUL40+1,y
+	adc #$08
+	sta T0W+1
+
+; optimize OK (main.pas), line = 86
+
+	sta :bp+1
+	ldy T0W
+	lda C
+	sta (:bp),y
+	lda T0W+1
+	add #$04
+	sta :bp+1
+	lda V
+	sta (:bp),y
+
+; ------------------------------------------------------------
+
+X	= DATAORIGIN+$001B
+Y	= DATAORIGIN+$001C
+V	= DATAORIGIN+$001D
+C	= DATAORIGIN+$001E
+
+@VarData	= X
+@VarDataSize	= 4
+
+@exit
+	.ifdef @new
+	lda <@VarData
+	sta :ztmp
+	lda >@VarData
+	ldy #@VarDataSize-1
+	jmp @FreeMem
+	els
+	rts						; ret
+	eif
+.endl
+
+.local	CHECKAVAILDIR					; PROCEDURE
+
+; optimize OK (main.pas), line = 91
+
+	lda #$00
+	sta AVAILDIR
+
+; optimize OK (main.pas), line = 92
+
+	lda Y
+	asl @
+	tay
+	lda adr.MUL40,y
+	add X
+	sta T0W
+	lda adr.MUL40+1,y
+	adc #$0C
+	sta T0W+1
+
+; optimize OK (main.pas), line = 94
+
+	lda T0W
+	sub #$28
+	sta :STACKORIGIN+9
+	lda T0W+1
+	sbc #$00
+	sta :bp+1
+	ldy :STACKORIGIN+9
+	lda (:bp),y
+	cmp #$20
+	jne l_0168
+	lda AVAILDIR
+	ora #$08
+	sta AVAILDIR
+l_0168
+
+; optimize OK (main.pas), line = 95
+
+	mwy T0W :bp2
+	ldy #$28
+	lda (:bp2),y
+	cmp #$20
+	jne l_018B
+	lda AVAILDIR
+	ora #$04
+	sta AVAILDIR
+l_018B
+
+; optimize OK (main.pas), line = 96
+
+	lda T0W
+	sub #$01
+	sta :STACKORIGIN+9
+	lda T0W+1
+	sbc #$00
+	sta :bp+1
+	ldy :STACKORIGIN+9
+	lda (:bp),y
+	cmp #$20
+	jne l_01AE
+	lda AVAILDIR
+	ora #$02
+	sta AVAILDIR
+l_01AE
+
+; optimize OK (main.pas), line = 97
+
+	mwy T0W :bp2
+	ldy #$01
+	lda (:bp2),y
+	cmp #$20
+	jne l_01D1
+	lda AVAILDIR
+	ora #$01
+	sta AVAILDIR
+l_01D1
+
+; ------------------------------------------------------------
+
+X	= DATAORIGIN+$001F
+Y	= DATAORIGIN+$0020
+
+@VarData	= X
+@VarDataSize	= 2
+
+@exit
+	.ifdef @new
+	lda <@VarData
+	sta :ztmp
+	lda >@VarData
+	ldy #@VarDataSize-1
+	jmp @FreeMem
+	els
+	rts						; ret
+	eif
+.endl
+
+.local	PLAYERMOVE					; PROCEDURE
+
+; optimize OK (main.pas), line = 107
+
+	lda P
+	sta PLY
+	sta :bp2
+	lda P+1
+	sta PLY+1
+	sta :bp2+1
+; optimize OK (main.pas), line = 108
+	ldy #PLY.X-DATAORIGIN
+	lda (:bp2),y
+	sta CHECKAVAILDIR.X
+	ldy #PLY.Y-DATAORIGIN
+	lda (:bp2),y
+	sta CHECKAVAILDIR.Y
+	jsr CHECKAVAILDIR
+
+; optimize OK (main.pas), line = 109
+
+	lda AVAILDIR
+	jne l_0200
+
+; optimize OK (main.pas), line = 110
+
+	lda #$01
+	sta PLAYERDIE
+
+; optimize OK (main.pas), line = 111
+
+	mwy PLY :bp2
+	ldy #PLY.X-DATAORIGIN
+	lda (:bp2),y
+	sta PUTCHAR.X
+	ldy #PLY.Y-DATAORIGIN
+	lda (:bp2),y
+	sta PUTCHAR.Y
+	ldy #PLY.COLOUR-DATAORIGIN
+	lda (:bp2),y
+	add #$80
+	sta PUTCHAR.C
+	lda #$51
+	sta PUTCHAR.V
+	jsr PUTCHAR
+	jmp l_021D
+l_0200
+
+; optimize OK (main.pas), line = 113
+
+	lda #$00
+	sta T0N
+
+; --- RepeatUntilProlog
+l_0222
+
+; optimize FAIL (1, main.pas), line = 115
+
+	inx
+	mva #$01 :STACKORIGIN,x
+	lda #$04
+	jsr SYSTEM.RANDOM_006C
+	jsr shlEAX_CL.BYTE
+	dex
+	lda :STACKORIGIN,x
+	sta T0B
+	dex
+
+; optimize OK (main.pas), line = 116
+
+	lda AVAILDIR
+	and T0B
+	jeq l_0243
+	lda #$01
+	sta T0N
+l_0243
+
+; optimize OK (main.pas), line = 117
+
+	lda T0N
+	jeq l_0222
+
+; optimize OK (main.pas), line = 119
+
+	mwy PLY :bp2
+	ldy #PLY.DIR-DATAORIGIN
+	lda T0B
+	sta (:bp2),y
+
+; optimize OK (main.pas), line = 121
+
+	ldy #PLY.X-DATAORIGIN
+	lda (:bp2),y
+	sta PUTCHAR.X
+	ldy #PLY.Y-DATAORIGIN
+	lda (:bp2),y
+	sta PUTCHAR.Y
+	ldy #PLY.COLOUR-DATAORIGIN
+	lda (:bp2),y
+	sta PUTCHAR.C
+	lda #$2A
+	sta PUTCHAR.V
+	jsr PUTCHAR
+
+; optimize OK (main.pas), line = 123
+
+	lda T0B
+	sta @CASETMP_0003
+	cmp #$08
+	jne l_026D
+@
+
+; optimize OK (main.pas), line = 124
+
+	mwy PLY :bp2
+	ldy #PLY.Y-DATAORIGIN
+	lda (:bp2),y
+	sub #$01
+	sta (:bp2),y
+
+	jmp a_0003
+l_026D
+	cmp #$04
+	jne l_0277
+@
+
+; optimize OK (main.pas), line = 125
+
+	mwy PLY :bp2
+	ldy #PLY.Y-DATAORIGIN
+	lda (:bp2),y
+	add #$01
+	sta (:bp2),y
+
+	jmp a_0003
+l_0277
+	cmp #$02
+	jne l_0281
+@
+
+; optimize OK (main.pas), line = 126
+
+	mwy PLY :bp2
+	ldy #PLY.X-DATAORIGIN
+	lda (:bp2),y
+	sub #$01
+	sta (:bp2),y
+
+	jmp a_0003
+l_0281
+	cmp #$01
+	jne l_028B
+@
+
+; optimize OK (main.pas), line = 127
+
+	mwy PLY :bp2
+	ldy #PLY.X-DATAORIGIN
+	lda (:bp2),y
+	add #$01
+	sta (:bp2),y
+
+l_028B
+a_0003
+
+; optimize OK (main.pas), line = 130
+
+	mwy PLY :bp2
+	ldy #PLY.X-DATAORIGIN
+	lda (:bp2),y
+	sta PUTCHAR.X
+	ldy #PLY.Y-DATAORIGIN
+	lda (:bp2),y
+	sta PUTCHAR.Y
+	ldy #PLY.COLOUR-DATAORIGIN
+	lda (:bp2),y
+	sta PUTCHAR.C
+	lda #$57
+	sta PUTCHAR.V
+	jsr PUTCHAR
+l_021D
+
+; ------------------------------------------------------------
+
+P	= DATAORIGIN+$0021
+PLY	= DATAORIGIN+$0023
+PLY.X	= DATAORIGIN+$0000
+PLY.Y	= DATAORIGIN+$0001
+PLY.COLOUR	= DATAORIGIN+$0002
+PLY.DIR	= DATAORIGIN+$0003
+@CASETMP_0003	= DATAORIGIN+$0025
+
+@VarData	= P
+@VarDataSize	= 17
+
+@exit
+	.ifdef @new
+	lda <@VarData
+	sta :ztmp
+	lda >@VarData
+	ldy #@VarDataSize-1
+	jmp @FreeMem
+	els
+	rts						; ret
+	eif
+.endl
+l_0007
+
+; optimize OK (main.pas), line = 138
+
+	lda #$00
+	sta GAMEOVER
+
+; --- RepeatUntilProlog
+l_02A5
+
+; optimize FAIL ('INITPLAYERS', main.pas), line = 141
+
+	jsr INITPLAYERS
+
+; optimize FAIL ('INITPLAYFIELD', main.pas), line = 142
+
+	jsr INITPLAYFIELD
+
+; --- RepeatUntilProlog
+l_02A8
+
+; optimize OK (main.pas), line = 145
+
+	lda #$0A
+	sta SYSTEM.PAUSE_006B.N
+	lda #$00
+	sta SYSTEM.PAUSE_006B.N+1
+	jsr SYSTEM.PAUSE_006B
+
+; optimize OK (main.pas), line = 146
+
+	lda PLAYER1
+	sta PLAYERMOVE.P
+	lda PLAYER1+1
+	sta PLAYERMOVE.P+1
+	jsr PLAYERMOVE
+
+; optimize OK (main.pas), line = 147
+
+	lda PLAYER2
+	sta PLAYERMOVE.P
+	lda PLAYER2+1
+	sta PLAYERMOVE.P+1
+	jsr PLAYERMOVE
+
+; optimize OK (main.pas), line = 148
+
+	lda PLAYERDIE
+	jeq l_02A8
+
+; optimize OK (main.pas), line = 150
+
+	lda #$64
+	sta SYSTEM.PAUSE_006B.N
+	lda #$00
+	sta SYSTEM.PAUSE_006B.N+1
+	jsr SYSTEM.PAUSE_006B
+
+; optimize OK (main.pas), line = 151
+
+	lda GAMEOVER
+	jeq l_02A5
+
+; ------------------------------------------------------------
+
+ATTRIBUTE_ADDR	= $0800
+SCREEN_ADDR	= $0C00
+WALL	= $A0
+WALL_COLOUR	= $41
+EMPTY	= $20
+PLY_HEAD	= $57
+PLY_TAIL	= $2A
+PLY_CRASH	= $51
+PLY1_COLOUR	= $5F
+PLY2_COLOUR	= $5D
+adr.MUL40	= CODEORIGIN+$0000
+.var MUL40	= adr.MUL40 .word
+BORDERCOLOR	= $FF15
+BGCOLOR	= $FF19
+T0B	= $58
+T0N	= $59
+T0W	= $5A
+GAMEOVER	= DATAORIGIN+$0010
+PLAYERDIE	= DATAORIGIN+$0011
+AVAILDIR	= DATAORIGIN+$0012
+adr.PLAYER1	= [DATAORIGIN+$0013] .array [7]
+.var PLAYER1	= adr.PLAYER1 .word
+PLAYER1.X	= DATAORIGIN+$0013
+PLAYER1.Y	= DATAORIGIN+$0014
+PLAYER1.COLOUR	= DATAORIGIN+$0015
+PLAYER1.DIR	= DATAORIGIN+$0016
+adr.PLAYER2	= [DATAORIGIN+$0017] .array [7]
+.var PLAYER2	= adr.PLAYER2 .word
+PLAYER2.X	= DATAORIGIN+$0017
+PLAYER2.Y	= DATAORIGIN+$0018
+PLAYER2.COLOUR	= DATAORIGIN+$0019
+PLAYER2.DIR	= DATAORIGIN+$001A
+@exit
+
+@halt	ldx #$00
+	txs
+
+	rts
+
+; ------------------------------------------------------------
+
+; ------------------------------------------------------------
+
+.local	@DEFINES
+C4P
+.endl
+
+.local	@RESOURCE
+.endl
+
+.endl							; MAIN
+
+; ------------------------------------------------------------
+; ------------------------------------------------------------
+
+.macro	UNITINITIALIZATION
+
+	.ifdef MAIN.SYSTEM.@UnitInit
+	jsr MAIN.SYSTEM.@UnitInit
+	eif
+.endm
+
+; ------------------------------------------------------------
+
+	ift .SIZEOF(MAIN.SYSTEM) > 0
+	.print 'SYSTEM: ',MAIN.SYSTEM,'..',MAIN.SYSTEM+.SIZEOF(MAIN.SYSTEM)-1
+	eif
+
+	.print 'CODE: ',CODEORIGIN,'..',MAIN.@RESOURCE-1
+
+; ------------------------------------------------------------
+
+	.align $04
+
+DATAORIGIN
+.by  $28 $00 $18 $00 $2D $0C
+
+VARINITSIZE	= *-DATAORIGIN
+VARDATASIZE	= 38
+
+PROGRAMSTACK	= DATAORIGIN+VARDATASIZE
+
+	.print 'DATA: ',DATAORIGIN,'..',PROGRAMSTACK
+
+; ------------------------------------------------------------
+
+.macro	STATICDATA
+.by  $00 $00 $28 $00 $50 $00 $78 $00  $A0 $00 $C8 $00 $F0 $00 $18 $01  $40 $01 $68 $01 $90 $01 $B8 $01
+.by  $E0 $01 $08 $02 $30 $02 $58 $02  $80 $02 $A8 $02 $D0 $02 $F8 $02  $20 $03 $48 $03 $70 $03 $98 $03
+.by  $C0 $03
+.endm
+
+	end

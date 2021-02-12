@@ -1,13 +1,16 @@
 const
-  ATTRIBUTE_ADDR   = $0800;
-  SCREEN_ADDR      = $0c00;
-  WALL             = $a0;
-  WALL_COLOUR      = $31;
-  EMPTY            = $20;
-  PLY_HEAD         = $57;
-  PLY_TAIL         = $a0;
-  PLY1_COLOUR      = $7f;
-  PLY2_COLOUR      = $4e;
+  ATTRIBUTE_ADDR      = $0800;
+  SCREEN_ADDR         = $0c00;
+  WALL                = $a0;
+  WALL_COLOUR         = $41;
+  EMPTY               = $20;
+  PLY_HEAD            = $57;
+  PLY_TAIL            = $2a;
+  PLY_CRASH           = $51;
+  PLY1_COLOUR         = $5f;
+  PLY2_COLOUR         = $5d;
+
+//-----------------------------------------------------------------------------
 
 const
   mul40: array [0..24] of word = (
@@ -18,53 +21,133 @@ const
     24 * 40
   );
 
+//-----------------------------------------------------------------------------
+
 type
-  TPlayer = record
-    x,y: byte;
+  Direction = (up = 8, down = 4, left = 2, right = 1);
+  Player = record
+    x, y, colour : byte;
+    dir          : Direction;
   end;
 
-var
-  BORDERCOLOR      : byte absolute $ff15;
-  BGCOLOR          : byte absolute $ff19;
+//-----------------------------------------------------------------------------
 
 var
-  i0b              : byte absolute $58;
-  t0w              : word absolute $59;
+  BORDERCOLOR         : byte absolute $ff15;
+  BGCOLOR             : byte absolute $ff19;
+  t0b                 : byte absolute $58;
+  t0n                 : boolean absolute $59;
+  t0w                 : word absolute $5a;
+
+//-----------------------------------------------------------------------------
 
 var
-  player1, player2 : TPlayer;
+  gameOver, playerDie : boolean;
+  availDir            : byte;
 
+//-----------------------------------------------------------------------------
 
-procedure init;
+var
+  player1, player2 : Player;
+
+//-----------------------------------------------------------------------------
+
+procedure initPlayfield;
 begin
-  BORDERCOLOR := 0; BGCOLOR := 0;
+  playerDie := false;
+
+  BORDERCOLOR := $1f; BGCOLOR := 0;
   FillChar(pointer(SCREEN_ADDR), 24 * 40, EMPTY);
 
-  for i0b := 39 downto 0 do begin
-    Poke(SCREEN_ADDR + i0b, WALL);
-    Poke((SCREEN_ADDR + 24 * 40 ) + i0b, WALL);
-    Poke(ATTRIBUTE_ADDR + i0b, WALL_COLOUR);
-    Poke((ATTRIBUTE_ADDR + 24 * 40) + i0b, WALL_COLOUR);
+  for t0b := 39 downto 0 do begin
+    Poke(SCREEN_ADDR + t0b, WALL);
+    Poke((SCREEN_ADDR + 24 * 40 ) + t0b, WALL);
+    Poke(ATTRIBUTE_ADDR + t0b, WALL_COLOUR);
+    Poke((ATTRIBUTE_ADDR + 24 * 40) + t0b, WALL_COLOUR);
   end;
 
-  for i0b := 24 downto 1 do begin
-    DPoke((SCREEN_ADDR - 1) + mul40[i0b], WALL * 256 + WALL);
-    DPoke((ATTRIBUTE_ADDR - 1) + mul40[i0b], WALL_COLOUR * 256 + WALL_COLOUR);
+  for t0b := 24 downto 1 do begin
+    DPoke((SCREEN_ADDR - 1) + mul40[t0b], WALL * 256 + WALL);
+    DPoke((ATTRIBUTE_ADDR - 1) + mul40[t0b], WALL_COLOUR * 256 + WALL_COLOUR);
   end;
-
-  player1.x := 10; player1.y := 10;
 end;
 
-procedure putChar(x, y, v, c : byte);
+procedure initPlayers;
+begin
+  player1.x := 10; player1.y := 10; player1.colour := PLY1_COLOUR;
+  player2.x := 30; player2.y := 10; player2.colour := PLY2_COLOUR;
+end;
+
+//-----------------------------------------------------------------------------
+
+procedure putChar(x, y, v, c: byte);
 begin
   t0w := ATTRIBUTE_ADDR + mul40[y] + x;
   Poke(t0w, c); Poke(t0w + (SCREEN_ADDR - ATTRIBUTE_ADDR), v);
 end;
 
+procedure checkAvailDir(x, y: byte);
 begin
-  init;
-  putChar(player1.x, player1.x, PLY_HEAD, PLY1_COLOUR);
+  availDir := 0;
+  t0w := SCREEN_ADDR + mul40[y] + x;
+
+  if Peek(t0w - 40) = EMPTY then availDir := availDir or up;
+  if Peek(t0w + 40) = EMPTY then availDir := availDir or down;
+  if Peek(t0w - 1)  = EMPTY then availDir := availDir or left;
+  if Peek(t0w + 1)  = EMPTY then availDir := availDir or right;
+end;
+
+
+//-----------------------------------------------------------------------------
+
+procedure playerMove(p: pointer);
+var
+  ply : ^Player;
+begin
+  ply := p;
+  checkAvailDir(ply.x, ply.y);
+  if availDir = 0 then begin
+    playerDie := true;
+    putChar(ply.x, ply.y, PLY_CRASH, ply.colour + $80);
+  end else begin
+    t0n := false;
+    repeat
+      t0b := 1 shl Random(4);
+      if (availDir and t0b) <> 0 then t0n := true;
+    until t0n;
+
+    ply.dir := Direction(t0b);
+
+    putChar(ply.x, ply.y, PLY_TAIL, ply.colour);
+
+    case t0b of
+      8 : Dec(ply.y);
+      4 : Inc(ply.y);
+      2 : Dec(ply.x);
+      1 : Inc(ply.x);
+    end;
+
+    putChar(ply.x, ply.y, PLY_HEAD, ply.colour);
+  end;
+end;
+
+//-----------------------------------------------------------------------------
+
+begin
+
+  gameOver := false;
+
   repeat
-    pause;
-  until false;
+    initPlayers;
+    initPlayfield;
+
+    repeat
+      pause(10);
+      playerMove(@player1);
+      playerMove(@player2);
+    until playerDie;
+
+    pause(100);
+  until gameOver;
+
 end.
