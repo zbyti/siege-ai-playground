@@ -80,10 +80,10 @@ end;
 
 procedure initPlayers;
 begin
-  player1.brain := 1; player1.x := 10; player1.y := 10; player1.head := PLY_HEAD;
+  player1.brain := 1; player1.x := 10; player1.y := 12; player1.head := PLY_HEAD;
   player1.colour := PLY1_COLOUR; player1.isDead := false; player1.dir := JOY_RIGHT;
 
-  player2.brain := 1; player2.x := 30; player2.y := 10; player2.head := PLY_HEAD;
+  player2.brain := 1; player2.x := 30; player2.y := 12; player2.head := PLY_HEAD;
   player2.colour := PLY2_COLOUR; player2.isDead := false; player2.dir := JOY_LEFT;
 
   player3.brain := 1; player3.x := 20; player3.y := 6;  player3.head := PLY_HEAD;
@@ -205,7 +205,7 @@ begin
     player1.brain := 1;
     player2.brain := 1;
     player3.brain := 1;
-    player4.brain := 1;
+    player4.brain := 0;
 
     repeat
       pause(1); playerMove(@player1);

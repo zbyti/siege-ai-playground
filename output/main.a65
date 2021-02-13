@@ -582,6 +582,7 @@ l_00D7
 	sta PLAYER1.BRAIN
 	lda #$0A
 	sta PLAYER1.X
+	lda #$0C
 	sta PLAYER1.Y
 	lda #$51
 	sta PLAYER1.HEAD
@@ -601,7 +602,7 @@ l_00D7
 	sta PLAYER2.BRAIN
 	lda #$1E
 	sta PLAYER2.X
-	lda #$0A
+	lda #$0C
 	sta PLAYER2.Y
 	lda #$51
 	sta PLAYER2.HEAD
@@ -1295,6 +1296,7 @@ l_04DD
 
 ; optimize OK (main.pas), line = 208
 
+	lda #$00
 	sta PLAYER4.BRAIN
 
 ; --- RepeatUntilProlog
