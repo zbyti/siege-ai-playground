@@ -916,73 +916,29 @@ l_02AC
 	eif
 .endl
 
-.local	AI_SIMPLERANDOM					; PROCEDURE
-
-; optimize OK (main.pas), line = 138
-
-	lda #$00
-	sta T0N
-
-; --- RepeatUntilProlog
-l_02C4
-
-; optimize FAIL (0, main.pas), line = 140
-
-	lda #$04
-	jsr SYSTEM.RANDOM_006C
-	ldy :STACKORIGIN,x
-	lda adr.DIRECTION,y
-	sta NEWDIR
-	dex
-
-; optimize OK (main.pas), line = 141
-
-	lda AVAILDIR
-	and NEWDIR
-	jeq l_02E4
-	lda #$01
-	sta T0N
-l_02E4
-
-; optimize OK (main.pas), line = 142
-
-	lda T0N
-	jeq l_02C4
-@exit
-	.ifdef @new
-	lda <@VarData
-	sta :ztmp
-	lda >@VarData
-	ldy #@VarDataSize-1
-	jmp @FreeMem
-	els
-	rts						; ret
-	eif
-.endl
-
 .local	AI_STRAIGHTFORWARD				; PROCEDURE
 
-; optimize OK (main.pas), line = 148
+; optimize OK (main.pas), line = 138
 
 	mwy PLY :bp2
 	ldy #PLY.DIR-DATAORIGIN
 	lda (:bp2),y
 	and AVAILDIR
-	jeq l_030E
+	jeq l_02D7
 	lda (:bp2),y
 	sta NEWDIR
-	jmp l_031E
-l_030E
+	jmp l_02E7
+l_02D7
 
-; optimize OK (main.pas), line = 150
+; optimize OK (main.pas), line = 140
 
 	lda #$00
 	sta T0N
 
 ; --- RepeatUntilProlog
-l_0323
+l_02EC
 
-; optimize FAIL (0, main.pas), line = 152
+; optimize FAIL (0, main.pas), line = 142
 
 	lda #$04
 	jsr SYSTEM.RANDOM_006C
@@ -991,180 +947,20 @@ l_0323
 	sta NEWDIR
 	dex
 
-; optimize OK (main.pas), line = 153
+; optimize OK (main.pas), line = 143
 
 	lda AVAILDIR
 	and NEWDIR
-	jeq l_0343
+	jeq l_030C
 	lda #$01
 	sta T0N
-l_0343
+l_030C
 
-; optimize OK (main.pas), line = 154
-
-	lda T0N
-	jeq l_0323
-l_031E
-@exit
-	.ifdef @new
-	lda <@VarData
-	sta :ztmp
-	lda >@VarData
-	ldy #@VarDataSize-1
-	jmp @FreeMem
-	els
-	rts						; ret
-	eif
-.endl
-
-.local	AI_SWINGER					; PROCEDURE
-
-; optimize FAIL (1, main.pas), line = 161
-
-	inx
-	mva AVAILDIR :STACKORIGIN,x
-	inx
-	mwy PLY :bp2
-	ldy #PLY.DIR-DATAORIGIN
-	mva (:bp2),y :STACKORIGIN,x
-	jsr andAL_CL
-	ldy #1
-	lda :STACKORIGIN-1,x
-	bne @+
-	dey
-@
-	sty :STACKORIGIN-1,x
-	dex
-	lda #$03
-	jsr SYSTEM.RANDOM_006C
-	dex
-	ldy #1
-	lda :STACKORIGIN+1,x
-	beq @+
-	dey
-@
-	dex
-	tya
-	and :STACKORIGIN+1,x
-	jeq l_0378
-	mwy PLY :bp2
-	ldy #PLY.DIR-DATAORIGIN
-	lda (:bp2),y
-	sta NEWDIR
-	jmp l_0388
-l_0378
-
-; optimize OK (main.pas), line = 163
-
-	lda #$00
-	sta T0N
-
-; --- RepeatUntilProlog
-l_038D
-
-; optimize FAIL (0, main.pas), line = 165
-
-	lda #$04
-	jsr SYSTEM.RANDOM_006C
-	ldy :STACKORIGIN,x
-	lda adr.DIRECTION,y
-	sta NEWDIR
-	dex
-
-; optimize OK (main.pas), line = 166
-
-	lda AVAILDIR
-	and NEWDIR
-	jeq l_03AD
-	lda #$01
-	sta T0N
-l_03AD
-
-; optimize OK (main.pas), line = 167
+; optimize OK (main.pas), line = 144
 
 	lda T0N
-	jeq l_038D
-l_0388
-@exit
-	.ifdef @new
-	lda <@VarData
-	sta :ztmp
-	lda >@VarData
-	ldy #@VarDataSize-1
-	jmp @FreeMem
-	els
-	rts						; ret
-	eif
-.endl
-
-.local	AI_SLOWSWINGER					; PROCEDURE
-
-; optimize FAIL (1, main.pas), line = 174
-
-	inx
-	mva AVAILDIR :STACKORIGIN,x
-	inx
-	mwy PLY :bp2
-	ldy #PLY.DIR-DATAORIGIN
-	mva (:bp2),y :STACKORIGIN,x
-	jsr andAL_CL
-	ldy #1
-	lda :STACKORIGIN-1,x
-	bne @+
-	dey
-@
-	sty :STACKORIGIN-1,x
-	dex
-	lda #$20
-	jsr SYSTEM.RANDOM_006C
-	dex
-	ldy #1
-	lda :STACKORIGIN+1,x
-	beq @+
-	dey
-@
-	dex
-	tya
-	and :STACKORIGIN+1,x
-	jeq l_03E2
-	mwy PLY :bp2
-	ldy #PLY.DIR-DATAORIGIN
-	lda (:bp2),y
-	sta NEWDIR
-	jmp l_03F2
-l_03E2
-
-; optimize OK (main.pas), line = 176
-
-	lda #$00
-	sta T0N
-
-; --- RepeatUntilProlog
-l_03F7
-
-; optimize FAIL (0, main.pas), line = 178
-
-	lda #$04
-	jsr SYSTEM.RANDOM_006C
-	ldy :STACKORIGIN,x
-	lda adr.DIRECTION,y
-	sta NEWDIR
-	dex
-
-; optimize OK (main.pas), line = 179
-
-	lda AVAILDIR
-	and NEWDIR
-	jeq l_0417
-	lda #$01
-	sta T0N
-l_0417
-
-; optimize OK (main.pas), line = 180
-
-	lda T0N
-	jeq l_03F7
-l_03F2
+	jeq l_02EC
+l_02E7
 @exit
 	.ifdef @new
 	lda <@VarData
@@ -1179,7 +975,7 @@ l_03F2
 
 .local	PLAYERMOVE					; PROCEDURE
 
-; optimize OK (main.pas), line = 188
+; optimize OK (main.pas), line = 152
 
 	lda P
 	sta PLY
@@ -1187,12 +983,12 @@ l_03F2
 	lda P+1
 	sta PLY+1
 	sta :bp2+1
-; optimize OK (main.pas), line = 190
+; optimize OK (main.pas), line = 154
 	ldy #PLY.ISDEAD-DATAORIGIN
 	lda (:bp2),y
-	jne l_043D
+	jne l_0332
 
-; optimize OK (main.pas), line = 192
+; optimize OK (main.pas), line = 156
 
 	ldy #PLY.X-DATAORIGIN
 	lda (:bp2),y
@@ -1202,12 +998,12 @@ l_03F2
 	sta CHECKAVAILDIR.Y
 	jsr CHECKAVAILDIR
 
-; optimize OK (main.pas), line = 194
+; optimize OK (main.pas), line = 158
 
 	lda AVAILDIR
-	jne l_0457
+	jne l_034C
 
-; optimize OK (main.pas), line = 195
+; optimize OK (main.pas), line = 159
 
 	mwy PLY :bp2
 	ldy #PLY.ISDEAD-DATAORIGIN
@@ -1215,7 +1011,7 @@ l_03F2
 	sta (:bp2),y
 	dec ALIVE
 
-; optimize OK (main.pas), line = 196
+; optimize OK (main.pas), line = 160
 
 	ldy #PLY.X-DATAORIGIN
 	lda (:bp2),y
@@ -1230,142 +1026,115 @@ l_03F2
 	lda #$57
 	sta PUTCHAR.V
 	jsr PUTCHAR
-	jmp l_0478
-l_0457
+	jmp l_036D
+l_034C
 
-; optimize OK (main.pas), line = 199
+; optimize OK (main.pas), line = 163
 
 	mwy PLY :bp2
 	ldy #PLY.BRAIN-DATAORIGIN
 	lda (:bp2),y
 	sta @CASETMP_0004
 	cmp #$00
-	jne l_0483
+	jne l_0378
 @
 
-; optimize FAIL ('HUMAN', main.pas), line = 200
+; optimize FAIL ('HUMAN', main.pas), line = 164
 
 	jsr HUMAN
 	jmp a_0004
-l_0483
+l_0378
 	cmp #$01
-	jne l_048D
+	jne l_0382
 @
 
-; optimize FAIL ('AI_SIMPLERANDOM', main.pas), line = 201
-
-	jsr AI_SIMPLERANDOM
-	jmp a_0004
-l_048D
-	cmp #$02
-	jne l_0497
-@
-
-; optimize FAIL ('AI_STRAIGHTFORWARD', main.pas), line = 202
+; optimize FAIL ('AI_STRAIGHTFORWARD', main.pas), line = 165
 
 	jsr AI_STRAIGHTFORWARD
-	jmp a_0004
-l_0497
-	cmp #$03
-	jne l_04A1
-@
-
-; optimize FAIL ('AI_SWINGER', main.pas), line = 203
-
-	jsr AI_SWINGER
-	jmp a_0004
-l_04A1
-	cmp #$04
-	jne l_04AB
-@
-
-; optimize FAIL ('AI_SLOWSWINGER', main.pas), line = 204
-
-	jsr AI_SLOWSWINGER
-l_04AB
+l_0382
 a_0004
 
-; optimize OK (main.pas), line = 207
+; optimize OK (main.pas), line = 168
 
 	mwy PLY :bp2
 	ldy #PLY.DIR-DATAORIGIN
 	lda (:bp2),y
 	cmp NEWDIR
-	jne l_04C9
+	jne l_039D
 
-; optimize OK (main.pas), line = 208
+; optimize OK (main.pas), line = 169
 
 	lda NEWDIR
 	and #$0C
-	jeq l_04E0
+	jeq l_03B4
 	lda #$40
 	sta T0B
-	jmp l_04EE
-l_04E0
+	jmp l_03C2
+l_03B4
 	lda #$42
 	sta T0B
-l_04EE
-	jmp l_04FB
-l_04C9
+l_03C2
+	jmp l_03CF
+l_039D
 
-; optimize OK (main.pas), line = 210
+; optimize OK (main.pas), line = 171
 
 	mwy PLY :bp2
 	ldy #PLY.DIR-DATAORIGIN
 	lda (:bp2),y
 	and #$0A
-	jeq l_0521
+	jeq l_03F5
 	lda NEWDIR
 	and #$05
-	jeq l_0521
+	jeq l_03F5
 	lda #$7D
 	sta T0B
-l_0521
+l_03F5
 
-; optimize OK (main.pas), line = 211
+; optimize OK (main.pas), line = 172
 
 	mwy PLY :bp2
 	ldy #PLY.DIR-DATAORIGIN
 	lda (:bp2),y
 	and #$09
-	jeq l_054E
+	jeq l_0422
 	lda NEWDIR
 	and #$06
-	jeq l_054E
+	jeq l_0422
 	lda #$6E
 	sta T0B
-l_054E
+l_0422
 
-; optimize OK (main.pas), line = 212
+; optimize OK (main.pas), line = 173
 
 	mwy PLY :bp2
 	ldy #PLY.DIR-DATAORIGIN
 	lda (:bp2),y
 	and #$06
-	jeq l_057B
+	jeq l_044F
 	lda NEWDIR
 	and #$09
-	jeq l_057B
+	jeq l_044F
 	lda #$6D
 	sta T0B
-l_057B
+l_044F
 
-; optimize OK (main.pas), line = 213
+; optimize OK (main.pas), line = 174
 
 	mwy PLY :bp2
 	ldy #PLY.DIR-DATAORIGIN
 	lda (:bp2),y
 	and #$05
-	jeq l_05A8
+	jeq l_047C
 	lda NEWDIR
 	and #$0A
-	jeq l_05A8
+	jeq l_047C
 	lda #$70
 	sta T0B
-l_05A8
-l_04FB
+l_047C
+l_03CF
 
-; optimize OK (main.pas), line = 215
+; optimize OK (main.pas), line = 176
 
 	mwy PLY :bp2
 	ldy #PLY.X-DATAORIGIN
@@ -1381,22 +1150,22 @@ l_04FB
 	sta PUTCHAR.V
 	jsr PUTCHAR
 
-; optimize OK (main.pas), line = 217
+; optimize OK (main.pas), line = 178
 
 	mwy PLY :bp2
 	ldy #PLY.DIR-DATAORIGIN
 	lda NEWDIR
 	sta (:bp2),y
 
-; optimize OK (main.pas), line = 219
+; optimize OK (main.pas), line = 180
 
 	lda NEWDIR
 	sta @CASETMP_0005
 	cmp #$01
-	jne l_05CD
+	jne l_04A1
 @
 
-; optimize OK (main.pas), line = 220
+; optimize OK (main.pas), line = 181
 
 	mwy PLY :bp2
 	ldy #PLY.Y-DATAORIGIN
@@ -1405,12 +1174,12 @@ l_04FB
 	sta (:bp2),y
 
 	jmp a_0005
-l_05CD
+l_04A1
 	cmp #$02
-	jne l_05D7
+	jne l_04AB
 @
 
-; optimize OK (main.pas), line = 221
+; optimize OK (main.pas), line = 182
 
 	mwy PLY :bp2
 	ldy #PLY.Y-DATAORIGIN
@@ -1419,12 +1188,12 @@ l_05CD
 	sta (:bp2),y
 
 	jmp a_0005
-l_05D7
+l_04AB
 	cmp #$04
-	jne l_05E1
+	jne l_04B5
 @
 
-; optimize OK (main.pas), line = 222
+; optimize OK (main.pas), line = 183
 
 	mwy PLY :bp2
 	ldy #PLY.X-DATAORIGIN
@@ -1433,12 +1202,12 @@ l_05D7
 	sta (:bp2),y
 
 	jmp a_0005
-l_05E1
+l_04B5
 	cmp #$08
-	jne l_05EB
+	jne l_04BF
 @
 
-; optimize OK (main.pas), line = 223
+; optimize OK (main.pas), line = 184
 
 	mwy PLY :bp2
 	ldy #PLY.X-DATAORIGIN
@@ -1446,10 +1215,10 @@ l_05E1
 	add #$01
 	sta (:bp2),y
 
-l_05EB
+l_04BF
 a_0005
 
-; optimize OK (main.pas), line = 226
+; optimize OK (main.pas), line = 187
 
 	mwy PLY :bp2
 	ldy #PLY.X-DATAORIGIN
@@ -1465,8 +1234,8 @@ a_0005
 	lda (:bp2),y
 	sta PUTCHAR.C
 	jsr PUTCHAR
-l_0478
-l_043D
+l_036D
+l_0332
 
 ; ------------------------------------------------------------
 
@@ -1490,51 +1259,48 @@ P	= DATAORIGIN+$0038
 .endl
 l_0007
 
-; optimize OK (main.pas), line = 237
+; optimize OK (main.pas), line = 198
 
 	lda #$00
 	sta GAMEOVER
 
 ; --- RepeatUntilProlog
-l_0609
+l_04DD
 
-; optimize OK (main.pas), line = 240
+; optimize OK (main.pas), line = 201
 
 	lda #$03
 	sta ALIVE
 
-; optimize FAIL ('INITPLAYERS', main.pas), line = 241
+; optimize FAIL ('INITPLAYERS', main.pas), line = 202
 
 	jsr INITPLAYERS
 
-; optimize FAIL ('INITPLAYFIELD', main.pas), line = 242
+; optimize FAIL ('INITPLAYFIELD', main.pas), line = 203
 
 	jsr INITPLAYFIELD
 
-; optimize OK (main.pas), line = 244
-
-	lda #$03
-	sta PLAYER1.BRAIN
-
-; optimize OK (main.pas), line = 245
+; optimize OK (main.pas), line = 205
 
 	lda #$01
+	sta PLAYER1.BRAIN
+
+; optimize OK (main.pas), line = 206
+
 	sta PLAYER2.BRAIN
 
-; optimize OK (main.pas), line = 246
+; optimize OK (main.pas), line = 207
 
-	lda #$02
 	sta PLAYER3.BRAIN
 
-; optimize OK (main.pas), line = 247
+; optimize OK (main.pas), line = 208
 
-	lda #$04
 	sta PLAYER4.BRAIN
 
 ; --- RepeatUntilProlog
-l_0620
+l_04F4
 
-; optimize OK (main.pas), line = 250
+; optimize OK (main.pas), line = 211
 
 	lda #$01
 	sta SYSTEM.PAUSE_006B.N
@@ -1547,7 +1313,7 @@ l_0620
 	sta PLAYERMOVE.P+1
 	jsr PLAYERMOVE
 
-; optimize OK (main.pas), line = 251
+; optimize OK (main.pas), line = 212
 
 	lda #$01
 	sta SYSTEM.PAUSE_006B.N
@@ -1560,7 +1326,7 @@ l_0620
 	sta PLAYERMOVE.P+1
 	jsr PLAYERMOVE
 
-; optimize OK (main.pas), line = 252
+; optimize OK (main.pas), line = 213
 
 	lda #$01
 	sta SYSTEM.PAUSE_006B.N
@@ -1573,7 +1339,7 @@ l_0620
 	sta PLAYERMOVE.P+1
 	jsr PLAYERMOVE
 
-; optimize OK (main.pas), line = 253
+; optimize OK (main.pas), line = 214
 
 	lda #$01
 	sta SYSTEM.PAUSE_006B.N
@@ -1586,15 +1352,15 @@ l_0620
 	sta PLAYERMOVE.P+1
 	jsr PLAYERMOVE
 
-; optimize OK (main.pas), line = 254
+; optimize OK (main.pas), line = 215
 
 	lda ALIVE
-	jeq l_0620x
+	jeq l_04F4x
 	cmp #$FF
-	jne l_0620
-l_0620x
+	jne l_04F4
+l_04F4x
 
-; optimize OK (main.pas), line = 256
+; optimize OK (main.pas), line = 217
 
 	lda #$64
 	sta SYSTEM.PAUSE_006B.N
@@ -1602,10 +1368,10 @@ l_0620x
 	sta SYSTEM.PAUSE_006B.N+1
 	jsr SYSTEM.PAUSE_006B
 
-; optimize OK (main.pas), line = 257
+; optimize OK (main.pas), line = 218
 
 	lda GAMEOVER
-	jeq l_0609
+	jeq l_04DD
 
 ; ------------------------------------------------------------
 

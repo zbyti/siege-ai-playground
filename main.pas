@@ -133,45 +133,9 @@ begin
 end;
 
 // brain = 1
-procedure ai_SimpleRandom;
-begin
-  t0n := false;
-  repeat
-    newDir := direction[Random(4)];
-    if (availDir and newDir) <> 0 then t0n := true;
-  until t0n;
-end;
-
-// brain = 2
 procedure ai_Straightforward;
 begin
   if (availDir and ply.dir) <> 0 then newDir := ply.dir
-  else begin
-    t0n := false;
-    repeat
-      newDir := direction[Random(4)];
-      if (availDir and newDir) <> 0 then t0n := true;
-    until t0n;
-  end;
-end;
-
-// brain = 3
-procedure ai_Swinger;
-begin
-  if ((availDir and ply.dir) <> 0) and (Random(3) = 0) then newDir := ply.dir
-  else begin
-    t0n := false;
-    repeat
-      newDir := direction[Random(4)];
-      if (availDir and newDir) <> 0 then t0n := true;
-    until t0n;
-  end;
-end;
-
-// brain = 4
-procedure ai_SlowSwinger;
-begin
-  if ((availDir and ply.dir) <> 0) and (Random(32) = 0) then newDir := ply.dir
   else begin
     t0n := false;
     repeat
@@ -198,10 +162,7 @@ begin
 
       case ply.brain of
         0 : human;
-        1 : ai_SimpleRandom;
-        2 : ai_Straightforward;
-        3 : ai_Swinger;
-        4 : ai_SlowSwinger;
+        1 : ai_Straightforward;
       end;
 
       if ply.dir = newDir then begin
@@ -241,10 +202,10 @@ begin
     initPlayers;
     initPlayfield;
 
-    player1.brain := 3; // ai_Swinger
-    player2.brain := 1; // ai_SimpleRandom
-    player3.brain := 2; // ai_Straightforward
-    player4.brain := 4; // human
+    player1.brain := 1;
+    player2.brain := 1;
+    player3.brain := 1;
+    player4.brain := 1;
 
     repeat
       pause(1); playerMove(@player1);
