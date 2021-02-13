@@ -1,3 +1,5 @@
+// set Z flag to 2
+
 const
   ATTRIBUTE_ADDR = $0800; SCREEN_ADDR = $0c00;
 
