@@ -113,6 +113,16 @@ begin
   if Peek(t0w + 1)  = EMPTY then availDir := availDir or JOY_RIGHT;
 end;
 
+//-----------------------------------------------------------------------------
+
+function ai_random: byte;
+begin
+  t0n := false;
+  repeat
+    Result := direction[Random(4)];
+    if (availDir and Result) <> 0 then t0n := true;
+  until t0n;
+end;
 
 //-----------------------------------------------------------------------------
 
@@ -131,13 +141,7 @@ begin
       putChar(ply.x, ply.y, PLY_CRASH, ply.colour + $80);
     end else begin
 
-      //>>>>>>>>>>>>>>> ai code
-      t0n := false;
-      repeat
-        newDir := direction[Random(4)];
-        if (availDir and newDir) <> 0 then t0n := true;
-      until t0n;
-      //>>>>>>>>>>>>>>>
+      newDir := ai_random;
 
       if ply.dir = newDir then begin
         if (newDir and %1100) <> 0 then t0b := PLY_TAIl_LR else t0b := PLY_TAIl_UD;
