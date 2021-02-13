@@ -62,8 +62,6 @@ var
 
 procedure initPlayfield;
 begin
-  alive := 3;
-
   BORDERCOLOR := $1f; BGCOLOR := 0;
   FillChar(pointer(SCREEN_ADDR), 24 * 40, EMPTY);
 
@@ -170,6 +168,19 @@ begin
   end;
 end;
 
+// brain = 4
+procedure ai_SlowSwinger;
+begin
+  if ((availDir and ply.dir) <> 0) and (Random(32) = 0) then newDir := ply.dir
+  else begin
+    t0n := false;
+    repeat
+      newDir := direction[Random(4)];
+      if (availDir and newDir) <> 0 then t0n := true;
+    until t0n;
+  end;
+end;
+
 //-----------------------------------------------------------------------------
 
 procedure playerMove(p: pointer);
@@ -190,6 +201,7 @@ begin
         1 : ai_SimpleRandom;
         2 : ai_Straightforward;
         3 : ai_Swinger;
+        4 : ai_SlowSwinger;
       end;
 
       if ply.dir = newDir then begin
@@ -225,20 +237,21 @@ begin
   gameOver := false;
 
   repeat
+    alive := 3;
     initPlayers;
     initPlayfield;
 
     player1.brain := 3; // ai_Swinger
     player2.brain := 1; // ai_SimpleRandom
     player3.brain := 2; // ai_Straightforward
-    player4.brain := 1; // human
+    player4.brain := 4; // human
 
     repeat
       pause(1); playerMove(@player1);
       pause(1); playerMove(@player2);
       pause(1); playerMove(@player3);
       pause(1); playerMove(@player4);
-    until alive = 0;
+    until (alive = 0) or (alive = $ff);
 
     pause(100);
   until gameOver;
