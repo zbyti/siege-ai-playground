@@ -1,25 +1,13 @@
 const
-  ATTRIBUTE_ADDR      = $0800;
-  SCREEN_ADDR         = $0c00;
-  WALL                = $a0;
-  WALL_COLOUR         = $41;
-  EMPTY               = $20;
-  PLY_HEAD            = $51;
-  PLY_CRASH           = $57;
-  PLY_TAIl_UD          = $42;
-  PLY_TAIl_LR          = $40;
-  PLY_TAIl_RD         = $7d;
-  PLY_TAIl_RU         = $6e;
-  PLY_TAIl_LD         = $6d;
-  PLY_TAIl_LU         = $70;
-  PLY1_COLOUR         = $5f;
-  PLY2_COLOUR         = $5d;
-  PLY3_COLOUR         = $71;
-  PLY4_COLOUR         = $55;
-  JOY_UP              = 1;
-  JOY_DOWN            = 2;
-  JOY_LEFT            = 4;
-  JOY_RIGHT           = 8;
+  ATTRIBUTE_ADDR = $0800; SCREEN_ADDR = $0c00;
+
+  WALL = $a0; WALL_COLOUR = $41; EMPTY = $20;
+
+  PLY_HEAD = $51; PLY_CRASH = $57; PLY_TAIl_UD = $42; PLY_TAIl_LR = $40;
+  PLY_TAIl_RD = $7d; PLY_TAIl_RU = $6e; PLY_TAIl_LD = $6d; PLY_TAIl_LU = $70;
+  PLY1_COLOUR = $5f; PLY2_COLOUR = $5d; PLY3_COLOUR = $71; PLY4_COLOUR = $55;
+
+  JOY_UP = 1; JOY_DOWN = 2; JOY_LEFT = 4; JOY_RIGHT = 8;
 
 //-----------------------------------------------------------------------------
 
@@ -39,8 +27,8 @@ const
 
 type
   Player = record
-    x, y, colour, dir : byte;
-    isDead            : boolean;
+    x, y, colour, dir, brain : byte;
+    isDead                   : boolean;
   end;
 
 //-----------------------------------------------------------------------------
@@ -88,10 +76,10 @@ end;
 
 procedure initPlayers;
 begin
-  player1.x := 10; player1.y := 10; player1.colour := PLY1_COLOUR; player1.isDead := false; player1.dir := JOY_RIGHT;
-  player2.x := 30; player2.y := 10; player2.colour := PLY2_COLOUR; player2.isDead := false; player2.dir := JOY_LEFT;
-  player3.x := 20; player3.y := 6;  player3.colour := PLY3_COLOUR; player3.isDead := false; player3.dir := JOY_DOWN;
-  player4.x := 20; player4.y := 18; player4.colour := PLY4_COLOUR; player4.isDead := false; player4.dir := JOY_UP;
+  player1.brain := 1; player1.x := 10; player1.y := 10; player1.colour := PLY1_COLOUR; player1.isDead := false; player1.dir := JOY_RIGHT;
+  player2.brain := 1; player2.x := 30; player2.y := 10; player2.colour := PLY2_COLOUR; player2.isDead := false; player2.dir := JOY_LEFT;
+  player3.brain := 1; player3.x := 20; player3.y := 6;  player3.colour := PLY3_COLOUR; player3.isDead := false; player3.dir := JOY_DOWN;
+  player4.brain := 1; player4.x := 20; player4.y := 18; player4.colour := PLY4_COLOUR; player4.isDead := false; player4.dir := JOY_UP;
 end;
 
 //-----------------------------------------------------------------------------
@@ -115,12 +103,13 @@ end;
 
 //-----------------------------------------------------------------------------
 
-function ai_random: byte;
+// brain = 1
+procedure ai_SimpleRandom;
 begin
   t0n := false;
   repeat
-    Result := direction[Random(4)];
-    if (availDir and Result) <> 0 then t0n := true;
+    newDir := direction[Random(4)];
+    if (availDir and newDir) <> 0 then t0n := true;
   until t0n;
 end;
 
@@ -141,7 +130,9 @@ begin
       putChar(ply.x, ply.y, PLY_CRASH, ply.colour + $80);
     end else begin
 
-      newDir := ai_random;
+      case ply.brain of
+        1 : ai_SimpleRandom;
+      end;
 
       if ply.dir = newDir then begin
         if (newDir and %1100) <> 0 then t0b := PLY_TAIl_LR else t0b := PLY_TAIl_UD;
@@ -180,7 +171,7 @@ begin
     initPlayfield;
 
     repeat
-      pause(10);
+      pause(5);
       playerMove(@player1);
       playerMove(@player2);
       playerMove(@player3);
