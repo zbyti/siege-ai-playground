@@ -178,6 +178,22 @@ begin
   end;
 end;
 
+// brain = 4
+procedure ai_SlowSwinger(p: pointer);
+var
+  ply : ^Player;
+begin
+  ply := p;
+  if ((availDir and ply.dir) <> 0) and (Random(16) = 0) then newDir := ply.dir
+  else begin
+    t0n := false;
+    repeat
+      newDir := direction[Random(4)];
+      if (availDir and newDir) <> 0 then t0n := true;
+    until t0n;
+  end;
+end;
+
 //-----------------------------------------------------------------------------
 
 procedure playerMove(p: pointer);
@@ -200,6 +216,7 @@ begin
         1 : ai_SimpleRandom;
         2 : ai_Straightforward(p);
         3 : ai_Swinger(p);
+        4 : ai_SlowSwinger(p);
       end;
 
       if ply.dir = newDir then begin
@@ -241,7 +258,7 @@ begin
     player1.brain := 3; // ai_Swinger
     player2.brain := 1; // ai_SimpleRandom
     player3.brain := 2; // ai_Straightforward
-    player4.brain := 0; // human
+    player4.brain := 4; // ai_SlowSwinger
 
     repeat
       pause(1);
@@ -252,7 +269,7 @@ begin
       playerMove(@player3);
       pause(1);
       playerMove(@player4);
-    until alive = 0;
+    until (alive = 0) or (alive = $ff);
 
     pause(100);
   until gameOver;
