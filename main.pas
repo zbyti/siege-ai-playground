@@ -49,8 +49,9 @@ var
   BORDERCOLOR         : byte absolute $ff15;
   BGCOLOR             : byte absolute $ff19;
   t0b                 : byte absolute $58;
-  t0n                 : boolean absolute $59;
-  t0w                 : word absolute $5a;
+  newDir              : byte absolute $59;
+  t0n                 : boolean absolute $5a;
+  t0w                 : word absolute $5b;
 
 //-----------------------------------------------------------------------------
 
@@ -129,28 +130,28 @@ begin
       ply.isDead := true; Dec(alive);
       putChar(ply.x, ply.y, PLY_CRASH, ply.colour + $80);
     end else begin
+
       //>>>>>>>>>>>>>>> ai code
       t0n := false;
       repeat
-        t0b := direction[Random(4)];
-        if (availDir and t0b) <> 0 then t0n := true;
+        newDir := direction[Random(4)];
+        if (availDir and newDir) <> 0 then t0n := true;
       until t0n;
       //>>>>>>>>>>>>>>>
 
-      if ply.dir = t0b then begin
-        if (t0b and %1100) <> 0 then putChar(ply.x, ply.y, PLY_TAIl_LR, ply.colour)
-        else putChar(ply.x, ply.y, PLY_TAIl_UD, ply.colour);
+      if ply.dir = newDir then begin
+        if (newDir and %1100) <> 0 then t0b := PLY_TAIl_LR else t0b := PLY_TAIl_UD;
       end else begin
-        if ((ply.dir and %1010) <> 0) and ((t0b and %0101) <> 0) then putChar(ply.x, ply.y, PLY_TAIl_RD, ply.colour);
-        if ((ply.dir and %1001) <> 0) and ((t0b and %0110) <> 0) then putChar(ply.x, ply.y, PLY_TAIl_RU, ply.colour);
-        if ((ply.dir and %0110) <> 0) and ((t0b and %1001) <> 0) then putChar(ply.x, ply.y, PLY_TAIl_LD, ply.colour);
-        if ((ply.dir and %0101) <> 0) and ((t0b and %1010) <> 0) then putChar(ply.x, ply.y, PLY_TAIl_LU, ply.colour);
+        if ((ply.dir and %1010) <> 0) and ((newDir and %0101) <> 0) then t0b := PLY_TAIl_RD;
+        if ((ply.dir and %1001) <> 0) and ((newDir and %0110) <> 0) then t0b := PLY_TAIl_RU;
+        if ((ply.dir and %0110) <> 0) and ((newDir and %1001) <> 0) then t0b := PLY_TAIl_LD;
+        if ((ply.dir and %0101) <> 0) and ((newDir and %1010) <> 0) then t0b := PLY_TAIl_LU;
       end;
+      putChar(ply.x, ply.y, t0b, ply.colour);
 
+      ply.dir := newDir;
 
-      ply.dir := t0b;
-
-      case t0b of
+      case newDir of
         JOY_UP    : Dec(ply.y);
         JOY_DOWN  : Inc(ply.y);
         JOY_LEFT  : Dec(ply.x);
