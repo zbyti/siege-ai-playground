@@ -40,6 +40,7 @@ const
 type
   Player = record
     x, y, colour, dir : byte;
+    isDead            : boolean;
   end;
 
 //-----------------------------------------------------------------------------
@@ -54,8 +55,8 @@ var
 //-----------------------------------------------------------------------------
 
 var
-  gameOver, playerDie : boolean;
-  availDir            : byte;
+  gameOver            : boolean;
+  availDir, alive     : byte;
 
 //-----------------------------------------------------------------------------
 
@@ -66,7 +67,7 @@ var
 
 procedure initPlayfield;
 begin
-  playerDie := false;
+  alive := 3;
 
   BORDERCOLOR := $1f; BGCOLOR := 0;
   FillChar(pointer(SCREEN_ADDR), 24 * 40, EMPTY);
@@ -86,10 +87,10 @@ end;
 
 procedure initPlayers;
 begin
-  player1.x := 10; player1.y := 10; player1.colour := PLY1_COLOUR; player1.dir := JOY_UP;
-  player2.x := 30; player2.y := 10; player2.colour := PLY2_COLOUR; player2.dir := JOY_DOWN;
-  player3.x := 20; player3.y := 5; player3.colour := PLY3_COLOUR; player3.dir := JOY_DOWN;
-  player4.x := 20; player4.y := 15; player4.colour := PLY4_COLOUR; player4.dir := JOY_UP;
+  player1.x := 10; player1.y := 10; player1.colour := PLY1_COLOUR; player1.isDead := false; player1.dir := JOY_RIGHT;
+  player2.x := 30; player2.y := 10; player2.colour := PLY2_COLOUR; player2.isDead := false; player2.dir := JOY_LEFT;
+  player3.x := 20; player3.y := 6;  player3.colour := PLY3_COLOUR; player3.isDead := false; player3.dir := JOY_DOWN;
+  player4.x := 20; player4.y := 18; player4.colour := PLY4_COLOUR; player4.isDead := false; player4.dir := JOY_UP;
 end;
 
 //-----------------------------------------------------------------------------
@@ -119,42 +120,48 @@ var
   ply : ^Player;
 begin
   ply := p;
-  checkAvailDir(ply.x, ply.y);
 
-  if availDir = 0 then begin
-    playerDie := true;
-    putChar(ply.x, ply.y, PLY_CRASH, ply.colour + $80);
-  end else begin
-    //>>>>>>>>>>>>>>> ai code
-    t0n := false;
-    repeat
-      t0b := direction[Random(4)];
-      if (availDir and t0b) <> 0 then t0n := true;
-    until t0n;
-    //>>>>>>>>>>>>>>>
+  if not ply.isDead then begin
 
-    if ply.dir = t0b then begin
-      if (t0b and %1100) <> 0 then putChar(ply.x, ply.y, PLY_TAIl_LR, ply.colour)
-      else putChar(ply.x, ply.y, PLY_TAIl_UD, ply.colour);
+    checkAvailDir(ply.x, ply.y);
+
+    if availDir = 0 then begin
+      ply.isDead := true; Dec(alive);
+      putChar(ply.x, ply.y, PLY_CRASH, ply.colour + $80);
     end else begin
-      if ((ply.dir and %1010) <> 0) and ((t0b and %0101) <> 0) then putChar(ply.x, ply.y, PLY_TAIl_RD, ply.colour);
-      if ((ply.dir and %1001) <> 0) and ((t0b and %0110) <> 0) then putChar(ply.x, ply.y, PLY_TAIl_RU, ply.colour);
-      if ((ply.dir and %0110) <> 0) and ((t0b and %1001) <> 0) then putChar(ply.x, ply.y, PLY_TAIl_LD, ply.colour);
-      if ((ply.dir and %0101) <> 0) and ((t0b and %1010) <> 0) then putChar(ply.x, ply.y, PLY_TAIl_LU, ply.colour);
+      //>>>>>>>>>>>>>>> ai code
+      t0n := false;
+      repeat
+        t0b := direction[Random(4)];
+        if (availDir and t0b) <> 0 then t0n := true;
+      until t0n;
+      //>>>>>>>>>>>>>>>
+
+      if ply.dir = t0b then begin
+        if (t0b and %1100) <> 0 then putChar(ply.x, ply.y, PLY_TAIl_LR, ply.colour)
+        else putChar(ply.x, ply.y, PLY_TAIl_UD, ply.colour);
+      end else begin
+        if ((ply.dir and %1010) <> 0) and ((t0b and %0101) <> 0) then putChar(ply.x, ply.y, PLY_TAIl_RD, ply.colour);
+        if ((ply.dir and %1001) <> 0) and ((t0b and %0110) <> 0) then putChar(ply.x, ply.y, PLY_TAIl_RU, ply.colour);
+        if ((ply.dir and %0110) <> 0) and ((t0b and %1001) <> 0) then putChar(ply.x, ply.y, PLY_TAIl_LD, ply.colour);
+        if ((ply.dir and %0101) <> 0) and ((t0b and %1010) <> 0) then putChar(ply.x, ply.y, PLY_TAIl_LU, ply.colour);
+      end;
+
+
+      ply.dir := t0b;
+
+      case t0b of
+        JOY_UP    : Dec(ply.y);
+        JOY_DOWN  : Inc(ply.y);
+        JOY_LEFT  : Dec(ply.x);
+        JOY_RIGHT : Inc(ply.x);
+      end;
+
+      putChar(ply.x, ply.y, PLY_HEAD, ply.colour);
     end;
 
-
-    ply.dir := t0b;
-
-    case t0b of
-      JOY_UP    : Dec(ply.y);
-      JOY_DOWN  : Inc(ply.y);
-      JOY_LEFT  : Dec(ply.x);
-      JOY_RIGHT : Inc(ply.x);
-    end;
-
-    putChar(ply.x, ply.y, PLY_HEAD, ply.colour);
   end;
+
 end;
 
 //-----------------------------------------------------------------------------
@@ -173,7 +180,7 @@ begin
       playerMove(@player2);
       playerMove(@player3);
       playerMove(@player4);
-    until playerDie;
+    until alive = 0;
 
     pause(100);
   until gameOver;
