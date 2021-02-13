@@ -1652,12 +1652,22 @@ l_063C
 	lda #$00
 	sta SYSTEM.PAUSE_006B.N+1
 	jsr SYSTEM.PAUSE_006B
-
-; optimize OK (main.pas), line = 265
-
 	lda PLAYER1
 	sta PLAYERMOVE.P
 	lda PLAYER1+1
+	sta PLAYERMOVE.P+1
+	jsr PLAYERMOVE
+
+; optimize OK (main.pas), line = 265
+
+	lda #$01
+	sta SYSTEM.PAUSE_006B.N
+	lda #$00
+	sta SYSTEM.PAUSE_006B.N+1
+	jsr SYSTEM.PAUSE_006B
+	lda PLAYER2
+	sta PLAYERMOVE.P
+	lda PLAYER2+1
 	sta PLAYERMOVE.P+1
 	jsr PLAYERMOVE
 
@@ -1668,48 +1678,26 @@ l_063C
 	lda #$00
 	sta SYSTEM.PAUSE_006B.N+1
 	jsr SYSTEM.PAUSE_006B
-
-; optimize OK (main.pas), line = 267
-
-	lda PLAYER2
-	sta PLAYERMOVE.P
-	lda PLAYER2+1
-	sta PLAYERMOVE.P+1
-	jsr PLAYERMOVE
-
-; optimize OK (main.pas), line = 268
-
-	lda #$01
-	sta SYSTEM.PAUSE_006B.N
-	lda #$00
-	sta SYSTEM.PAUSE_006B.N+1
-	jsr SYSTEM.PAUSE_006B
-
-; optimize OK (main.pas), line = 269
-
 	lda PLAYER3
 	sta PLAYERMOVE.P
 	lda PLAYER3+1
 	sta PLAYERMOVE.P+1
 	jsr PLAYERMOVE
 
-; optimize OK (main.pas), line = 270
+; optimize OK (main.pas), line = 267
 
 	lda #$01
 	sta SYSTEM.PAUSE_006B.N
 	lda #$00
 	sta SYSTEM.PAUSE_006B.N+1
 	jsr SYSTEM.PAUSE_006B
-
-; optimize OK (main.pas), line = 271
-
 	lda PLAYER4
 	sta PLAYERMOVE.P
 	lda PLAYER4+1
 	sta PLAYERMOVE.P+1
 	jsr PLAYERMOVE
 
-; optimize OK (main.pas), line = 272
+; optimize OK (main.pas), line = 268
 
 	lda ALIVE
 	jeq l_063Cx
@@ -1717,7 +1705,7 @@ l_063C
 	jne l_063C
 l_063Cx
 
-; optimize OK (main.pas), line = 274
+; optimize OK (main.pas), line = 270
 
 	lda #$64
 	sta SYSTEM.PAUSE_006B.N
@@ -1725,7 +1713,7 @@ l_063Cx
 	sta SYSTEM.PAUSE_006B.N+1
 	jsr SYSTEM.PAUSE_006B
 
-; optimize OK (main.pas), line = 275
+; optimize OK (main.pas), line = 271
 
 	lda GAMEOVER
 	jeq l_0629
