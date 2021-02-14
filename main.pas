@@ -92,10 +92,15 @@ begin
 
   alive := 3;
   repeat
-    pause(3); // 2 fast; 3 normal; 4 slow
+    pause(2); // 2 fast; 3 normal; 4 slow
     playerMove(@player1); playerMove(@player2);
     playerMove(@player3); playerMove(@player4);
   until (alive = 0) or (alive = $ff);
+
+  if not player1.isDead then Inc(player1.score);
+  if not player2.isDead then Inc(player2.score);
+  if not player3.isDead then Inc(player3.score);
+  if not player4.isDead then Inc(player4.score);
 
   pause(100);
 end;
@@ -103,5 +108,20 @@ end;
 //-----------------------------------------------------------------------------
 
 begin
-  repeat mainLoop until false;
+  repeat
+    player1.score := ZERO; player2.score := ZERO;
+    player3.score := ZERO; player4.score := ZERO;
+
+    gameOver := false;
+    repeat
+      mainLoop;
+      if player1.score = ZERO + 9 then gameOver := true;
+      if player2.score = ZERO + 9 then gameOver := true;
+      if player3.score = ZERO + 9 then gameOver := true;
+      if player4.score = ZERO + 9 then gameOver := true;
+    until gameOver;
+    showScore;
+
+    pause(200);
+  until false;
 end.

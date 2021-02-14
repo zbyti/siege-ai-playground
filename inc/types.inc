@@ -2,8 +2,8 @@
 
 type
   Player = record
-    x, y, head, colour, dir, brain : byte;
-    isDead                   : boolean;
+    x, y, head, colour, dir, brain, score : byte;
+    isDead                                : boolean;
   end;
 
 //-----------------------------------------------------------------------------

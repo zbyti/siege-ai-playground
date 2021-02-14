@@ -8,6 +8,16 @@ end;
 
 //-----------------------------------------------------------------------------
 
+procedure showScore;
+begin
+  putChar(30, 0, player1.score, player1.colour);
+  putChar(32, 0, player2.score, player2.colour);
+  putChar(34, 0, player3.score, player3.colour);
+  putChar(36, 0, player4.score, player4.colour);
+end;
+
+//-----------------------------------------------------------------------------
+
 procedure checkAvailDir(x, y: byte);
 begin
   availDir := 0;

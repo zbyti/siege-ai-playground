@@ -3,7 +3,7 @@
 const
   ATTRIBUTE_ADDR = $0800; SCREEN_ADDR = $0c00;
 
-  EMPTY = $20; WALL = $a0; WALL_COLOUR = $41;
+  EMPTY = $20; WALL = $a0; WALL_COLOUR = $41; ZERO = $30;
 
   PLY_HEAD = $51; PLY_CRASH = $57; PLY_TAIl_UD = $42; PLY_TAIl_LR = $40;
   PLY_TAIl_RD = $7d; PLY_TAIl_RU = $6e; PLY_TAIl_LD = $6d; PLY_TAIl_LU = $70;

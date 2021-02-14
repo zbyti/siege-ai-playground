@@ -5,7 +5,6 @@ begin
   ply := p;
   ply.brain := brain; ply.x := x; ply.y := y; ply.dir := dir;
   ply.head := head; ply.colour := colour; ply.isDead := isDead;
-
 end;
 
 //-----------------------------------------------------------------------------
@@ -36,6 +35,8 @@ begin
   putChar(player2.x, player2.y, player2.head, player2.colour);
   putChar(player3.x, player3.y, player3.head, player3.colour);
   putChar(player4.x, player4.y, player4.head, player4.colour);
+
+  showScore;
 end;
 
 //-----------------------------------------------------------------------------
