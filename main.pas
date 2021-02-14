@@ -67,7 +67,7 @@ begin
 
   for t0b := 39 downto 0 do begin
     Poke(SCREEN_ADDR + t0b, WALL);
-    Poke((SCREEN_ADDR + 24 * 40 ) + t0b, WALL);
+    Poke((SCREEN_ADDR + 24 * 40) + t0b, WALL);
     Poke(ATTRIBUTE_ADDR + t0b, WALL_COLOUR);
     Poke((ATTRIBUTE_ADDR + 24 * 40) + t0b, WALL_COLOUR);
   end;
