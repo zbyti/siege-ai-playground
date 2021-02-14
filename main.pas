@@ -78,19 +78,12 @@ begin
   end;
 end;
 
-procedure initPlayers;
+procedure initPlayers(p: pointer; x, y, dir, brain, head, colour: byte);
 begin
-  player1.brain := 1; player1.x := 10; player1.y := 12; player1.head := PLY_HEAD;
-  player1.colour := PLY1_COLOUR; player1.isDead := false; player1.dir := JOY_RIGHT;
+  ply := p;
+  ply.brain := brain; ply.x := x; ply.y := y; ply.dir := dir;
+  ply.head := head; ply.colour := colour; ply.isDead := false;
 
-  player2.brain := 1; player2.x := 30; player2.y := 12; player2.head := PLY_HEAD;
-  player2.colour := PLY2_COLOUR; player2.isDead := false; player2.dir := JOY_LEFT;
-
-  player3.brain := 1; player3.x := 20; player3.y := 6;  player3.head := PLY_HEAD;
-  player3.colour := PLY3_COLOUR; player3.isDead := false; player3.dir := JOY_DOWN;
-
-  player4.brain := 1; player4.x := 20; player4.y := 18; player4.head := PLY_HEAD;
-  player4.colour := PLY4_COLOUR; player4.isDead := false; player4.dir := JOY_UP;
 end;
 
 //-----------------------------------------------------------------------------
@@ -205,16 +198,15 @@ end;
 begin
 
   gameOver := false;
-
   repeat
     alive := 3;
-    initPlayers;
-    initPlayfield;
 
-    player1.brain := 1;
-    player2.brain := 1;
-    player3.brain := 1;
-    player4.brain := 1;
+    initPlayers(@player1, 10, 12, JOY_RIGHT, 1, PLY_HEAD, PLY1_COLOUR);
+    initPlayers(@player2, 30, 12, JOY_LEFT,  1, PLY_HEAD, PLY2_COLOUR);
+    initPlayers(@player3, 20,  6, JOY_DOWN,  1, PLY_HEAD, PLY3_COLOUR);
+    initPlayers(@player4, 20, 18, JOY_UP,    1, PLY_HEAD, PLY4_COLOUR);
+
+    initPlayfield;
 
     repeat
       pause(1); playerMove(@player1);
