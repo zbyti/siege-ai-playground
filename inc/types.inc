@@ -1,0 +1,5 @@
+type
+  Player = record
+    x, y, head, colour, dir, brain : byte;
+    isDead                   : boolean;
+  end;
