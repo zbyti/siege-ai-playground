@@ -78,11 +78,11 @@ begin
   end;
 end;
 
-procedure initPlayers(p: pointer; x, y, dir, brain, head, colour: byte);
+procedure initPlayers(p: pointer; x, y, dir, brain, head, colour: byte; isDead: boolean);
 begin
   ply := p;
   ply.brain := brain; ply.x := x; ply.y := y; ply.dir := dir;
-  ply.head := head; ply.colour := colour; ply.isDead := false;
+  ply.head := head; ply.colour := colour; ply.isDead := isDead;
 
 end;
 
@@ -130,14 +130,14 @@ procedure ai_Straightforward;
 begin
   if (availDir and ply.dir) <> 0 then newDir := ply.dir
   else begin
-    if availDir = (JOY_UP or JOY_DOWN) then newDir := direction[Random(2)]
+    if availDir = (JOY_UP or JOY_DOWN) then newDir := direction[Random(0) and 1]
     else begin
       case availDir of
         JOY_UP    : newDir := JOY_UP;
         JOY_DOWN  : newDir := JOY_DOWN;
       end;
     end;
-    if availDir = (JOY_LEFT or JOY_RIGHT) then newDir := direction[Random(2) + 2]
+    if availDir = (JOY_LEFT or JOY_RIGHT) then newDir := direction[(Random(0) and 1) + 2]
     else begin
       case availDir of
         JOY_LEFT   : newDir := JOY_LEFT;
@@ -199,20 +199,26 @@ begin
 
   gameOver := false;
   repeat
-    alive := 3;
+    alive := $ff;
 
-    initPlayers(@player1, 10, 12, JOY_RIGHT, 1, PLY_HEAD, PLY1_COLOUR);
-    initPlayers(@player2, 30, 12, JOY_LEFT,  1, PLY_HEAD, PLY2_COLOUR);
-    initPlayers(@player3, 20,  6, JOY_DOWN,  1, PLY_HEAD, PLY3_COLOUR);
-    initPlayers(@player4, 20, 18, JOY_UP,    1, PLY_HEAD, PLY4_COLOUR);
+    initPlayers(@player1, 10, 12, JOY_RIGHT, 1, PLY_HEAD, PLY1_COLOUR, false);
+    initPlayers(@player2, 30, 12, JOY_LEFT,  1, PLY_HEAD, PLY2_COLOUR, false);
+    initPlayers(@player3, 20,  6, JOY_DOWN,  1, PLY_HEAD, PLY3_COLOUR, true);
+    initPlayers(@player4, 20, 18, JOY_UP,    1, PLY_HEAD, PLY4_COLOUR, true);
+
+    if not player1.isDead then Inc(alive);
+    if not player2.isDead then Inc(alive);
+    if not player3.isDead then Inc(alive);
+    if not player4.isDead then Inc(alive);
 
     initPlayfield;
 
     repeat
-      pause(1); playerMove(@player1);
-      pause(1); playerMove(@player2);
-      pause(1); playerMove(@player3);
-      pause(1); playerMove(@player4);
+      pause(1);
+      playerMove(@player1);
+      playerMove(@player2);
+      playerMove(@player3);
+      playerMove(@player4);
     until (alive = 0) or (alive = $ff);
 
     pause(100);
