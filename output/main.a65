@@ -917,7 +917,7 @@ l_01FE
 	eif
 .endl
 
-.local	AI_STRAIGHTFORWARD				; PROCEDURE
+.local	AISTRAIGHT					; PROCEDURE
 
 ; optimize OK (ai.inc), line = 18
 
@@ -1048,7 +1048,7 @@ l_0279
 	eif
 .endl
 
-.local	AI_MIRROR					; PROCEDURE
+.local	AIMIRROR					; PROCEDURE
 
 ; optimize OK (ai.inc), line = 41
 
@@ -1109,9 +1109,9 @@ a_0005
 	jmp l_037B
 l_036B
 
-; optimize FAIL ('AI_STRAIGHTFORWARD', ai.inc), line = 49
+; optimize FAIL ('AISTRAIGHT', ai.inc), line = 49
 
-	jsr AI_STRAIGHTFORWARD
+	jsr AISTRAIGHT
 l_037B
 
 ; ------------------------------------------------------------
@@ -1133,7 +1133,7 @@ l_037B
 	eif
 .endl
 
-.local	AI_RANDOM					; PROCEDURE
+.local	AIRANDOM					; PROCEDURE
 
 ; optimize OK (ai.inc), line = 56
 
@@ -1169,9 +1169,9 @@ l_039B
 	jmp l_03CE
 l_03BE
 
-; optimize FAIL ('AI_STRAIGHTFORWARD', ai.inc), line = 60
+; optimize FAIL ('AISTRAIGHT', ai.inc), line = 60
 
-	jsr AI_STRAIGHTFORWARD
+	jsr AISTRAIGHT
 l_03CE
 @exit
 	.ifdef @new
@@ -1288,11 +1288,10 @@ a_0006
 	ldy #PLY.ISDEAD-DATAORIGIN
 	lda #$01
 	sta (:bp2),y
-	lda #$00
-	sta ALIVE
 	ldy #PLY.HEAD-DATAORIGIN
 	lda #$57
 	sta (:bp2),y
+	dec ALIVE
 l_0495
 
 ; ------------------------------------------------------------
@@ -1389,27 +1388,27 @@ l_0502
 	jne l_050C
 @
 
-; optimize FAIL ('AI_STRAIGHTFORWARD', main.pas), line = 46
+; optimize FAIL ('AISTRAIGHT', main.pas), line = 46
 
-	jsr AI_STRAIGHTFORWARD
+	jsr AISTRAIGHT
 	jmp a_0007
 l_050C
 	cmp #$02
 	jne l_0516
 @
 
-; optimize FAIL ('AI_MIRROR', main.pas), line = 47
+; optimize FAIL ('AIMIRROR', main.pas), line = 47
 
-	jsr AI_MIRROR
+	jsr AIMIRROR
 	jmp a_0007
 l_0516
 	cmp #$03
 	jne l_0520
 @
 
-; optimize FAIL ('AI_RANDOM', main.pas), line = 48
+; optimize FAIL ('AIRANDOM', main.pas), line = 48
 
-	jsr AI_RANDOM
+	jsr AIRANDOM
 l_0520
 a_0007
 
@@ -1668,7 +1667,7 @@ l_06A6
 
 ; optimize OK (main.pas), line = 95
 
-	lda #$03
+	lda #$04
 	sta SYSTEM.PAUSE_006B.N
 	lda #$00
 	sta SYSTEM.PAUSE_006B.N+1
@@ -1681,32 +1680,26 @@ l_06A6
 	lda PLAYER1+1
 	sta PLAYERMOVE.P+1
 	jsr PLAYERMOVE
-
-; optimize OK (main.pas), line = 97
-
 	lda PLAYER2
 	sta PLAYERMOVE.P
 	lda PLAYER2+1
 	sta PLAYERMOVE.P+1
 	jsr PLAYERMOVE
 
-; optimize OK (main.pas), line = 98
+; optimize OK (main.pas), line = 97
 
 	lda PLAYER3
 	sta PLAYERMOVE.P
 	lda PLAYER3+1
 	sta PLAYERMOVE.P+1
 	jsr PLAYERMOVE
-
-; optimize OK (main.pas), line = 99
-
 	lda PLAYER4
 	sta PLAYERMOVE.P
 	lda PLAYER4+1
 	sta PLAYERMOVE.P+1
 	jsr PLAYERMOVE
 
-; optimize OK (main.pas), line = 100
+; optimize OK (main.pas), line = 98
 
 	lda ALIVE
 	jeq l_06A6x
@@ -1714,7 +1707,7 @@ l_06A6
 	jne l_06A6
 l_06A6x
 
-; optimize OK (main.pas), line = 102
+; optimize OK (main.pas), line = 100
 
 	lda #$64
 	sta SYSTEM.PAUSE_006B.N
@@ -1737,7 +1730,7 @@ l_0007
 ; --- RepeatUntilProlog
 l_06D1
 
-; optimize FAIL ('MAINLOOP', main.pas), line = 108
+; optimize FAIL ('MAINLOOP', main.pas), line = 106
 
 	jsr MAINLOOP
 	jmp l_06D1
@@ -1761,6 +1754,10 @@ PLY1_COLOUR	= $5F
 PLY2_COLOUR	= $5D
 PLY3_COLOUR	= $71
 PLY4_COLOUR	= $55
+PLY_CTRL	= $00
+AI_STRAIGHT	= $01
+AI_MIRROR	= $02
+AI_RANDOM	= $03
 JOY_UP	= $01
 JOY_DOWN	= $02
 JOY_LEFT	= $04

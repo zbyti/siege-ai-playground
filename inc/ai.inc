@@ -13,7 +13,7 @@
 // );
 //-----------------------------------------------------------------------------
 
-procedure ai_Straightforward; // brain = 1
+procedure aiStraight; // brain = 1
 begin
   if (availDir and ply.dir) <> 0 then newDir := ply.dir
   else begin
@@ -36,7 +36,7 @@ end;
 
 //-----------------------------------------------------------------------------
 
-procedure ai_Mirror; // brain = 2
+procedure aiMirror; // brain = 2
 begin
   case player1.dir of
     JOY_UP    : t0b := JOY_DOWN;
@@ -46,18 +46,18 @@ begin
   end;
 
   if (availDir and t0b) <> 0 then newDir := t0b
-  else ai_Straightforward;
+  else aiStraight;
 end;
 
 //-----------------------------------------------------------------------------
 
-procedure ai_Random; // brain = 3
+procedure aiRandom; // brain = 3
 begin
   t0b := ply.dir;
   if (Random(0) and 3) = 0 then t0b := direction[Random(4)];
 
   if (availDir and t0b) <> 0 then newDir := t0b
-  else ai_Straightforward;
+  else aiStraight;
 end;
 
 //-----------------------------------------------------------------------------

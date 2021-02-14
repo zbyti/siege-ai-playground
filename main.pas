@@ -22,7 +22,7 @@ begin
   end;
 
   if (newDir and availDir) = 0 then begin
-    ply.isDead := true; alive := 0; ply.head := PLY_CRASH;
+    ply.isDead := true; ply.head := PLY_CRASH; Dec(alive);
   end;
 end;
 
@@ -42,10 +42,10 @@ begin
     end else begin
 
       case ply.brain of
-        0 : human;
-        1 : ai_Straightforward;
-        2 : ai_Mirror;
-        3 : ai_Random;
+        PLY_CTRL    : human;
+        AI_STRAIGHT : aiStraight;
+        AI_MIRROR   : aiMirror;
+        AI_RANDOM   : aiRandom;
       end;
 
       if ply.dir = newDir then begin
@@ -92,11 +92,9 @@ begin
 
   alive := 3;
   repeat
-    pause(3); // 2 fast; 3 normal; 4 slow
-    playerMove(@player1);
-    playerMove(@player2);
-    playerMove(@player3);
-    playerMove(@player4);
+    pause(4); // 2 fast; 3 normal; 4 slow
+    playerMove(@player1); playerMove(@player2);
+    playerMove(@player3); playerMove(@player4);
   until (alive = 0) or (alive = $ff);
 
   pause(100);
