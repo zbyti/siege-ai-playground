@@ -1,5 +1,20 @@
+procedure initPlayers(p: pointer; x, y, dir, brain, head, colour: byte; isDead: boolean);
+begin
+  ply := p;
+  ply.brain := brain; ply.x := x; ply.y := y; ply.dir := dir;
+  ply.head := head; ply.colour := colour; ply.isDead := isDead;
+
+end;
+
+//-----------------------------------------------------------------------------
+
 procedure initPlayfield;
 begin
+  initPlayers(@player1, 10, 12, JOY_RIGHT, 0, PLY_HEAD, PLY1_COLOUR, false);
+  initPlayers(@player2, 30, 12, JOY_LEFT,  2, PLY_HEAD, PLY2_COLOUR, false);
+  initPlayers(@player3, 20,  6, JOY_DOWN,  1, PLY_HEAD, PLY3_COLOUR, false);
+  initPlayers(@player4, 20, 18, JOY_UP,    3, PLY_HEAD, PLY4_COLOUR, false);
+
   BORDERCOLOR := $1f; BGCOLOR := 0;
   FillChar(pointer(SCREEN_ADDR), 24 * 40, EMPTY);
 
@@ -14,16 +29,11 @@ begin
     DPoke((SCREEN_ADDR - 1) + mul40[t0b], WALL * 256 + WALL);
     DPoke((ATTRIBUTE_ADDR - 1) + mul40[t0b], WALL_COLOUR * 256 + WALL_COLOUR);
   end;
-end;
 
-//-----------------------------------------------------------------------------
-
-procedure initPlayers(p: pointer; x, y, dir, brain, head, colour: byte; isDead: boolean);
-begin
-  ply := p;
-  ply.brain := brain; ply.x := x; ply.y := y; ply.dir := dir;
-  ply.head := head; ply.colour := colour; ply.isDead := isDead;
-
+  putChar(player1.x, player1.y, player1.head, player1.colour);
+  putChar(player2.x, player2.y, player2.head, player2.colour);
+  putChar(player3.x, player3.y, player3.head, player3.colour);
+  putChar(player4.x, player4.y, player4.head, player4.colour);
 end;
 
 //-----------------------------------------------------------------------------

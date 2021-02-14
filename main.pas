@@ -76,18 +76,8 @@ end;
 
 //-----------------------------------------------------------------------------
 
-procedure start;
+procedure startScreen;
 begin
-  initPlayers(@player1, 10, 12, JOY_RIGHT, 0, PLY_HEAD, PLY1_COLOUR, false);
-  initPlayers(@player2, 30, 12, JOY_LEFT,  2, PLY_HEAD, PLY2_COLOUR, false);
-  initPlayers(@player3, 20,  6, JOY_DOWN,  1, PLY_HEAD, PLY3_COLOUR, false);
-  initPlayers(@player4, 20, 18, JOY_UP,    3, PLY_HEAD, PLY4_COLOUR, false);
-
-  putChar(player1.x, player1.y, player1.head, player1.colour);
-  putChar(player2.x, player2.y, player2.head, player2.colour);
-  putChar(player3.x, player3.y, player3.head, player3.colour);
-  putChar(player4.x, player4.y, player4.head, player4.colour);
-
   repeat
     JOY := JOY_SELECT_1; KEY_PIO := $ff; t0b := JOY xor $ff;
   until t0b = JOY_FIRE;
@@ -98,7 +88,7 @@ end;
 procedure mainLoop;
 begin
   initPlayfield;
-  start;
+  startScreen;
 
   alive := 3;
   repeat
