@@ -1,3 +1,5 @@
+//-----------------------------------------------------------------------------
+
 procedure putChar(x, y, v, c: byte);
 begin
   t0w := ATTRIBUTE_ADDR + mul40[y] + x;

@@ -456,7 +456,7 @@ RNDSEED	= DATAORIGIN+$0009
 
 .local	PUTCHAR						; PROCEDURE
 
-; optimize OK (tools.inc), line = 3
+; optimize OK (tools.inc), line = 5
 
 	lda Y
 	asl @
@@ -468,7 +468,7 @@ RNDSEED	= DATAORIGIN+$0009
 	adc #$08
 	sta T0W+1
 
-; optimize OK (tools.inc), line = 4
+; optimize OK (tools.inc), line = 6
 
 	sta :bp+1
 	ldy T0W
@@ -504,12 +504,12 @@ C	= DATAORIGIN+$0034
 
 .local	CHECKAVAILDIR					; PROCEDURE
 
-; optimize OK (tools.inc), line = 11
+; optimize OK (tools.inc), line = 13
 
 	lda #$00
 	sta AVAILDIR
 
-; optimize OK (tools.inc), line = 12
+; optimize OK (tools.inc), line = 14
 
 	lda Y
 	asl @
@@ -521,7 +521,7 @@ C	= DATAORIGIN+$0034
 	adc #$0C
 	sta T0W+1
 
-; optimize OK (tools.inc), line = 14
+; optimize OK (tools.inc), line = 16
 
 	lda T0W
 	sub #$28
@@ -538,7 +538,7 @@ C	= DATAORIGIN+$0034
 	sta AVAILDIR
 l_00C6
 
-; optimize OK (tools.inc), line = 15
+; optimize OK (tools.inc), line = 17
 
 	mwy T0W :bp2
 	ldy #$28
@@ -550,7 +550,7 @@ l_00C6
 	sta AVAILDIR
 l_00E9
 
-; optimize OK (tools.inc), line = 16
+; optimize OK (tools.inc), line = 18
 
 	lda T0W
 	sub #$01
@@ -567,7 +567,7 @@ l_00E9
 	sta AVAILDIR
 l_010C
 
-; optimize OK (tools.inc), line = 17
+; optimize OK (tools.inc), line = 19
 
 	mwy T0W :bp2
 	ldy #$01
@@ -601,7 +601,7 @@ Y	= DATAORIGIN+$0036
 
 .local	INITPLAYERS					; PROCEDURE
 
-; optimize OK (init.inc), line = 3
+; optimize OK (init.inc), line = 5
 
 	lda P
 	sta PLY
@@ -609,7 +609,7 @@ Y	= DATAORIGIN+$0036
 	lda P+1
 	sta PLY+1
 	sta :bp2+1
-; optimize OK (init.inc), line = 4
+; optimize OK (init.inc), line = 6
 	ldy #PLY.BRAIN-DATAORIGIN
 	lda BRAIN
 	sta (:bp2),y
@@ -623,7 +623,7 @@ Y	= DATAORIGIN+$0036
 	lda DIR
 	sta (:bp2),y
 
-; optimize OK (init.inc), line = 5
+; optimize OK (init.inc), line = 7
 
 	ldy #PLY.HEAD-DATAORIGIN
 	lda HEAD
@@ -663,7 +663,7 @@ ISDEAD	= DATAORIGIN+$003F
 
 .local	INITPLAYFIELD					; PROCEDURE
 
-; optimize OK (init.inc), line = 13
+; optimize OK (init.inc), line = 15
 
 	lda #$00
 	sta INITPLAYERS.ISDEAD
@@ -685,7 +685,7 @@ ISDEAD	= DATAORIGIN+$003F
 	sta INITPLAYERS.P+1
 	jsr INITPLAYERS
 
-; optimize OK (init.inc), line = 14
+; optimize OK (init.inc), line = 16
 
 	lda #$00
 	sta INITPLAYERS.ISDEAD
@@ -707,7 +707,7 @@ ISDEAD	= DATAORIGIN+$003F
 	sta INITPLAYERS.P+1
 	jsr INITPLAYERS
 
-; optimize OK (init.inc), line = 15
+; optimize OK (init.inc), line = 17
 
 	lda #$00
 	sta INITPLAYERS.ISDEAD
@@ -729,7 +729,7 @@ ISDEAD	= DATAORIGIN+$003F
 	sta INITPLAYERS.P+1
 	jsr INITPLAYERS
 
-; optimize OK (init.inc), line = 16
+; optimize OK (init.inc), line = 18
 
 	lda #$00
 	sta INITPLAYERS.ISDEAD
@@ -751,14 +751,14 @@ ISDEAD	= DATAORIGIN+$003F
 	sta INITPLAYERS.P+1
 	jsr INITPLAYERS
 
-; optimize OK (init.inc), line = 18
+; optimize OK (init.inc), line = 20
 
 	lda #$1F
 	sta BORDERCOLOR
 	lda #$00
 	sta BGCOLOR
 
-; optimize OK (init.inc), line = 19
+; optimize OK (init.inc), line = 21
 
 	lda #$20
 	sta SYSTEM.FILLCHAR_0056.VALUE
@@ -772,7 +772,7 @@ ISDEAD	= DATAORIGIN+$003F
 	sta SYSTEM.FILLCHAR_0056.A+1
 	jsr SYSTEM.FILLCHAR_0056
 
-; optimize OK (init.inc), line = 21
+; optimize OK (init.inc), line = 23
 
 	lda #$27
 	sta T0B
@@ -780,22 +780,22 @@ ISDEAD	= DATAORIGIN+$003F
 l_01B0
 ; --- ForToDoCondition
 
-; optimize OK (init.inc), line = 22
+; optimize OK (init.inc), line = 24
 
 	ldy T0B
 	lda #$A0
 	sta $0C00,y
 
-; optimize OK (init.inc), line = 23
+; optimize OK (init.inc), line = 25
 
 	sta $0FC0,y
 
-; optimize OK (init.inc), line = 24
+; optimize OK (init.inc), line = 26
 
 	lda #$41
 	sta $0800,y
 
-; optimize OK (init.inc), line = 25
+; optimize OK (init.inc), line = 27
 
 	sta $0BC0,y
 
@@ -804,7 +804,7 @@ l_01B0
 	jpl l_01B0
 l_01BE
 
-; optimize OK (init.inc), line = 28
+; optimize OK (init.inc), line = 30
 
 	lda #$18
 	sta T0B
@@ -815,7 +815,7 @@ l_01F0
 	cmp #$01
 	jcc l_01FE
 
-; optimize OK (init.inc), line = 29
+; optimize OK (init.inc), line = 31
 
 	asl @
 	tay
@@ -831,7 +831,7 @@ l_01F0
 	iny
 	sta (:bp2),y
 
-; optimize OK (init.inc), line = 30
+; optimize OK (init.inc), line = 32
 
 	lda T0B
 	asl @
@@ -853,7 +853,7 @@ l_01F0
 	jpl l_01F0
 l_01FE
 
-; optimize OK (init.inc), line = 33
+; optimize OK (init.inc), line = 35
 
 	lda PLAYER1.COLOUR
 	sta PUTCHAR.C
@@ -865,7 +865,7 @@ l_01FE
 	sta PUTCHAR.X
 	jsr PUTCHAR
 
-; optimize OK (init.inc), line = 34
+; optimize OK (init.inc), line = 36
 
 	lda PLAYER2.COLOUR
 	sta PUTCHAR.C
@@ -877,7 +877,7 @@ l_01FE
 	sta PUTCHAR.X
 	jsr PUTCHAR
 
-; optimize OK (init.inc), line = 35
+; optimize OK (init.inc), line = 37
 
 	lda PLAYER3.COLOUR
 	sta PUTCHAR.C
@@ -889,7 +889,7 @@ l_01FE
 	sta PUTCHAR.X
 	jsr PUTCHAR
 
-; optimize OK (init.inc), line = 36
+; optimize OK (init.inc), line = 38
 
 	lda PLAYER4.COLOUR
 	sta PUTCHAR.C

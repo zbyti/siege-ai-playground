@@ -1,3 +1,5 @@
+//-----------------------------------------------------------------------------
+
 procedure initPlayers(p: pointer; x, y, dir, brain, head, colour: byte; isDead: boolean);
 begin
   ply := p;

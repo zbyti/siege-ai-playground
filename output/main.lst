@@ -367,7 +367,7 @@ Source: main.a65
    456
    457 1171			.local	PUTCHAR						; PROCEDURE
    458
-   459 				; optimize OK (tools.inc), line = 3
+   459 				; optimize OK (tools.inc), line = 5
    460
    461 1171 AD A6 18			lda Y
    462 1174 0A				asl @
@@ -379,7 +379,7 @@ Source: main.a65
    468 1182 69 08			adc #$08
    469 1184 85 5B			sta T0W+1
    470
-   471 				; optimize OK (tools.inc), line = 4
+   471 				; optimize OK (tools.inc), line = 6
    472
    473 1186 85 11			sta :bp+1
    474 1188 A4 5A			ldy T0W
@@ -415,12 +415,12 @@ Source: main.a65
    504
    505 119C			.local	CHECKAVAILDIR					; PROCEDURE
    506
-   507 				; optimize OK (tools.inc), line = 11
+   507 				; optimize OK (tools.inc), line = 13
    508
    509 119C A9 00			lda #$00
    510 119E 8D 84 18			sta AVAILDIR
    511
-   512 				; optimize OK (tools.inc), line = 12
+   512 				; optimize OK (tools.inc), line = 14
    513
    514 11A1 AD AA 18			lda Y
    515 11A4 0A				asl @
@@ -432,7 +432,7 @@ Source: main.a65
    521 11B2 69 0C			adc #$0C
    522 11B4 85 5B			sta T0W+1
    523
-   524 				; optimize OK (tools.inc), line = 14
+   524 				; optimize OK (tools.inc), line = 16
    525
    526 11B6 A5 5A			lda T0W
    527 11B8 38 E9 28			sub #$28
@@ -449,7 +449,7 @@ Source: main.a65
    538 11D0 8D 84 18			sta AVAILDIR
    539 11D3			l_00C6
    540
-   541 				; optimize OK (tools.inc), line = 15
+   541 				; optimize OK (tools.inc), line = 17
    542
    543 11D3 A4 5A 84 12 A4 5B + 	mwy T0W :bp2
    544 11DB A0 28			ldy #$28
@@ -461,7 +461,7 @@ Source: main.a65
    550 11E8 8D 84 18			sta AVAILDIR
    551 11EB			l_00E9
    552
-   553 				; optimize OK (tools.inc), line = 16
+   553 				; optimize OK (tools.inc), line = 18
    554
    555 11EB A5 5A			lda T0W
    556 11ED 38 E9 01			sub #$01
@@ -478,7 +478,7 @@ Source: main.a65
    567 1205 8D 84 18			sta AVAILDIR
    568 1208			l_010C
    569
-   570 				; optimize OK (tools.inc), line = 17
+   570 				; optimize OK (tools.inc), line = 19
    571
    572 1208 A4 5A 84 12 A4 5B + 	mwy T0W :bp2
    573 1210 A0 01			ldy #$01
@@ -512,7 +512,7 @@ Source: main.a65
    601
    602 1221			.local	INITPLAYERS					; PROCEDURE
    603
-   604 				; optimize OK (init.inc), line = 3
+   604 				; optimize OK (init.inc), line = 5
    605
    606 1221 AD AB 18			lda P
    607 1224 8D 87 18			sta PLY
@@ -520,7 +520,7 @@ Source: main.a65
    609 1229 AD AC 18			lda P+1
    610 122C 8D 88 18			sta PLY+1
    611 122F 85 13			sta :bp2+1
-   612 				; optimize OK (init.inc), line = 4
+   612 				; optimize OK (init.inc), line = 6
    613 1231 A0 05			ldy #PLY.BRAIN-DATAORIGIN
    614 1233 AD B0 18			lda BRAIN
    615 1236 91 12			sta (:bp2),y
@@ -534,7 +534,7 @@ Source: main.a65
    623 1248 AD AF 18			lda DIR
    624 124B 91 12			sta (:bp2),y
    625
-   626 				; optimize OK (init.inc), line = 5
+   626 				; optimize OK (init.inc), line = 7
    627
    628 124D A0 02			ldy #PLY.HEAD-DATAORIGIN
    629 124F AD B1 18			lda HEAD
@@ -574,7 +574,7 @@ Source: main.a65
    663
    664 1263			.local	INITPLAYFIELD					; PROCEDURE
    665
-   666 				; optimize OK (init.inc), line = 13
+   666 				; optimize OK (init.inc), line = 15
    667
    668 1263 A9 00			lda #$00
    669 1265 8D B3 18			sta INITPLAYERS.ISDEAD
@@ -596,7 +596,7 @@ Source: main.a65
    685 128F 8D AC 18			sta INITPLAYERS.P+1
    686 1292 20 21 12			jsr INITPLAYERS
    687
-   688 				; optimize OK (init.inc), line = 14
+   688 				; optimize OK (init.inc), line = 16
    689
    690 1295 A9 00			lda #$00
    691 1297 8D B3 18			sta INITPLAYERS.ISDEAD
@@ -618,7 +618,7 @@ Source: main.a65
    707 12C1 8D AC 18			sta INITPLAYERS.P+1
    708 12C4 20 21 12			jsr INITPLAYERS
    709
-   710 				; optimize OK (init.inc), line = 15
+   710 				; optimize OK (init.inc), line = 17
    711
    712 12C7 A9 00			lda #$00
    713 12C9 8D B3 18			sta INITPLAYERS.ISDEAD
@@ -640,7 +640,7 @@ Source: main.a65
    729 12F3 8D AC 18			sta INITPLAYERS.P+1
    730 12F6 20 21 12			jsr INITPLAYERS
    731
-   732 				; optimize OK (init.inc), line = 16
+   732 				; optimize OK (init.inc), line = 18
    733
    734 12F9 A9 00			lda #$00
    735 12FB 8D B3 18			sta INITPLAYERS.ISDEAD
@@ -662,14 +662,14 @@ Source: main.a65
    751 1325 8D AC 18			sta INITPLAYERS.P+1
    752 1328 20 21 12			jsr INITPLAYERS
    753
-   754 				; optimize OK (init.inc), line = 18
+   754 				; optimize OK (init.inc), line = 20
    755
    756 132B A9 1F			lda #$1F
    757 132D 8D 15 FF			sta BORDERCOLOR
    758 1330 A9 00			lda #$00
    759 1332 8D 19 FF			sta BGCOLOR
    760
-   761 				; optimize OK (init.inc), line = 19
+   761 				; optimize OK (init.inc), line = 21
    762
    763 1335 A9 20			lda #$20
    764 1337 85 04			sta SYSTEM.FILLCHAR_0056.VALUE
@@ -683,7 +683,7 @@ Source: main.a65
    772 1347 85 09			sta SYSTEM.FILLCHAR_0056.A+1
    773 1349 20 1F 11			jsr SYSTEM.FILLCHAR_0056
    774
-   775 				; optimize OK (init.inc), line = 21
+   775 				; optimize OK (init.inc), line = 23
    776
    777 134C A9 27			lda #$27
    778 134E 85 58			sta T0B
@@ -691,22 +691,22 @@ Source: main.a65
    780 1350			l_01B0
    781 				; --- ForToDoCondition
    782
-   783 				; optimize OK (init.inc), line = 22
+   783 				; optimize OK (init.inc), line = 24
    784
    785 1350 A4 58			ldy T0B
    786 1352 A9 A0			lda #$A0
    787 1354 99 00 0C			sta $0C00,y
    788
-   789 				; optimize OK (init.inc), line = 23
+   789 				; optimize OK (init.inc), line = 25
    790
    791 1357 99 C0 0F			sta $0FC0,y
    792
-   793 				; optimize OK (init.inc), line = 24
+   793 				; optimize OK (init.inc), line = 26
    794
    795 135A A9 41			lda #$41
    796 135C 99 00 08			sta $0800,y
    797
-   798 				; optimize OK (init.inc), line = 25
+   798 				; optimize OK (init.inc), line = 27
    799
    800 135F 99 C0 0B			sta $0BC0,y
    801
@@ -715,7 +715,7 @@ Source: main.a65
    804 1364 10 EA			jpl l_01B0
    805 1366			l_01BE
    806
-   807 				; optimize OK (init.inc), line = 28
+   807 				; optimize OK (init.inc), line = 30
    808
    809 1366 A9 18			lda #$18
    810 1368 85 58			sta T0B
@@ -726,7 +726,7 @@ Source: main.a65
    815 136C C9 01			cmp #$01
    816 136E 90 3A			jcc l_01FE
    817
-   818 				; optimize OK (init.inc), line = 29
+   818 				; optimize OK (init.inc), line = 31
    819
    820 1370 0A				asl @
    821 1371 A8				tay
@@ -742,7 +742,7 @@ Source: main.a65
    831 1387 C8				iny
    832 1388 91 12			sta (:bp2),y
    833
-   834 				; optimize OK (init.inc), line = 30
+   834 				; optimize OK (init.inc), line = 32
    835
    836 138A A5 58			lda T0B
    837 138C 0A				asl @
@@ -764,7 +764,7 @@ Source: main.a65
    853 13A8 10 C0			jpl l_01F0
    854 13AA			l_01FE
    855
-   856 				; optimize OK (init.inc), line = 33
+   856 				; optimize OK (init.inc), line = 35
    857
    858 13AA AD 8C 18			lda PLAYER1.COLOUR
    859 13AD 8D A8 18			sta PUTCHAR.C
@@ -776,7 +776,7 @@ Source: main.a65
    865 13BF 8D A5 18			sta PUTCHAR.X
    866 13C2 20 71 11			jsr PUTCHAR
    867
-   868 				; optimize OK (init.inc), line = 34
+   868 				; optimize OK (init.inc), line = 36
    869
    870 13C5 AD 93 18			lda PLAYER2.COLOUR
    871 13C8 8D A8 18			sta PUTCHAR.C
@@ -788,7 +788,7 @@ Source: main.a65
    877 13DA 8D A5 18			sta PUTCHAR.X
    878 13DD 20 71 11			jsr PUTCHAR
    879
-   880 				; optimize OK (init.inc), line = 35
+   880 				; optimize OK (init.inc), line = 37
    881
    882 13E0 AD 9A 18			lda PLAYER3.COLOUR
    883 13E3 8D A8 18			sta PUTCHAR.C
@@ -800,7 +800,7 @@ Source: main.a65
    889 13F5 8D A5 18			sta PUTCHAR.X
    890 13F8 20 71 11			jsr PUTCHAR
    891
-   892 				; optimize OK (init.inc), line = 36
+   892 				; optimize OK (init.inc), line = 38
    893
    894 13FB AD A1 18			lda PLAYER4.COLOUR
    895 13FE 8D A8 18			sta PUTCHAR.C
