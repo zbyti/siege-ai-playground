@@ -1,16 +1,3 @@
-//---------------------- GLOBALS ----------------------------------------------
-// t0b                 : byte absolute $58;
-// newDir              : byte absolute $59;
-// t0n                 : boolean absolute $5a;
-// t0w                 : word absolute $5b;
-// availDir            : byte;
-// ply                 : ^Player;
-// player1, player2, player3, player4 : Player;
-//----------------------- CONST -----------------------------------------------
-// JOY_UP = 1; JOY_DOWN = 2; JOY_LEFT = 4; JOY_RIGHT = 8; JOY_FIRE = 64;
-// direction: array [0..3] of byte = (
-//   JOY_UP, JOY_DOWN, JOY_LEFT, JOY_RIGHT
-// );
 //-----------------------------------------------------------------------------
 
 procedure aiStraight; // brain = 1

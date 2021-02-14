@@ -1,5 +1,5 @@
 ; ------------------------------------------------------------
-; Mad Pascal Compiler version 1.6.5 [2021/02/09] for 6502
+; Mad Pascal Compiler version 1.6.5 [2021/02/14] for 6502
 ; ------------------------------------------------------------
 
 STACKWIDTH	= 16
@@ -732,7 +732,7 @@ ISDEAD	= DATAORIGIN+$0041
 	sta INITPLAYERS.COLOUR
 	lda #$51
 	sta INITPLAYERS.HEAD
-	lda #$00
+	lda #$03
 	sta INITPLAYERS.BRAIN
 	lda #$08
 	sta INITPLAYERS.DIR
@@ -1681,46 +1681,11 @@ P	= DATAORIGIN+$0046
 	eif
 .endl
 
-.local	STARTSCREEN					; PROCEDURE
-
-; --- RepeatUntilProlog
-l_06A5
-
-; optimize OK (main.pas), line = 82
-
-	lda #$02
-	sta JOY
-	lda #$FF
-	sta KEY_PIO
-	lda JOY
-	eor #$FF
-	sta T0B
-
-; optimize OK (main.pas), line = 83
-
-	cmp #$40
-	jne l_06A5
-@exit
-	.ifdef @new
-	lda <@VarData
-	sta :ztmp
-	lda >@VarData
-	ldy #@VarDataSize-1
-	jmp @FreeMem
-	els
-	rts						; ret
-	eif
-.endl
-
 .local	MAINLOOP					; PROCEDURE
 
 ; optimize FAIL ('INITPLAYFIELD', main.pas), line = 90
 
 	jsr INITPLAYFIELD
-
-; optimize FAIL ('STARTSCREEN', main.pas), line = 91
-
-	jsr STARTSCREEN
 
 ; optimize OK (main.pas), line = 93
 
@@ -1728,15 +1693,7 @@ l_06A5
 	sta ALIVE
 
 ; --- RepeatUntilProlog
-l_06CF
-
-; optimize OK (main.pas), line = 95
-
-	lda #$03
-	sta SYSTEM.PAUSE_006B.N
-	lda #$00
-	sta SYSTEM.PAUSE_006B.N+1
-	jsr SYSTEM.PAUSE_006B
+l_06AB
 
 ; optimize OK (main.pas), line = 96
 
@@ -1767,38 +1724,38 @@ l_06CF
 ; optimize OK (main.pas), line = 98
 
 	lda ALIVE
-	jeq l_06CFx
+	jeq l_06ABx
 	cmp #$FF
-	jne l_06CF
-l_06CFx
+	jne l_06AB
+l_06ABx
 
 ; optimize OK (main.pas), line = 100
 
 	lda PLAYER1.ISDEAD
-	jne l_0705
+	jne l_06DF
 	inc PLAYER1.SCORE
-l_0705
+l_06DF
 
 ; optimize OK (main.pas), line = 101
 
 	lda PLAYER2.ISDEAD
-	jne l_071B
+	jne l_06F5
 	inc PLAYER2.SCORE
-l_071B
+l_06F5
 
 ; optimize OK (main.pas), line = 102
 
 	lda PLAYER3.ISDEAD
-	jne l_0731
+	jne l_070B
 	inc PLAYER3.SCORE
-l_0731
+l_070B
 
 ; optimize OK (main.pas), line = 103
 
 	lda PLAYER4.ISDEAD
-	jne l_0747
+	jne l_0721
 	inc PLAYER4.SCORE
-l_0747
+l_0721
 
 ; optimize OK (main.pas), line = 105
 
@@ -1821,7 +1778,7 @@ l_0747
 l_0007
 
 ; --- RepeatUntilProlog
-l_0752
+l_072C
 
 ; optimize OK (main.pas), line = 112
 
@@ -1840,7 +1797,7 @@ l_0752
 	sta GAMEOVER
 
 ; --- RepeatUntilProlog
-l_0767
+l_0741
 
 ; optimize FAIL ('MAINLOOP', main.pas), line = 117
 
@@ -1850,42 +1807,42 @@ l_0767
 
 	lda PLAYER1.SCORE
 	cmp #$39
-	jne l_077A
+	jne l_0754
 	lda #$01
 	sta GAMEOVER
-l_077A
+l_0754
 
 ; optimize OK (main.pas), line = 119
 
 	lda PLAYER2.SCORE
 	cmp #$39
-	jne l_0793
+	jne l_076D
 	lda #$01
 	sta GAMEOVER
-l_0793
+l_076D
 
 ; optimize OK (main.pas), line = 120
 
 	lda PLAYER3.SCORE
 	cmp #$39
-	jne l_07AC
+	jne l_0786
 	lda #$01
 	sta GAMEOVER
-l_07AC
+l_0786
 
 ; optimize OK (main.pas), line = 121
 
 	lda PLAYER4.SCORE
 	cmp #$39
-	jne l_07C5
+	jne l_079F
 	lda #$01
 	sta GAMEOVER
-l_07C5
+l_079F
 
 ; optimize OK (main.pas), line = 122
 
 	lda GAMEOVER
-	jeq l_0767
+	jeq l_0741
 
 ; optimize FAIL ('SHOWSCORE', main.pas), line = 123
 
@@ -1901,7 +1858,7 @@ l_07C5
 
 ; optimize OK (main.pas), line = 126
 
-	jmp l_0752
+	jmp l_072C
 
 ; ------------------------------------------------------------
 
