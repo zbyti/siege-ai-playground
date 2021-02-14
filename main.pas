@@ -92,7 +92,7 @@ begin
 
   alive := 3;
   repeat
-    pause(2); // 2 fast; 3 normal; 4 slow
+    pause(3); // 2 fast; 3 normal; 4 slow
     playerMove(@player1); playerMove(@player2);
     playerMove(@player3); playerMove(@player4);
   until (alive = 0) or (alive = $ff);

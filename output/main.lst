@@ -1643,7 +1643,7 @@ Source: main.a65
   1732
   1733 				; optimize OK (main.pas), line = 95
   1734
-  1735 1864 A9 02			lda #$02
+  1735 1864 A9 03			lda #$03
   1736 1866 8D 60 19			sta SYSTEM.PAUSE_006B.N
   1737 1869 A9 00			lda #$00
   1738 186B 8D 61 19			sta SYSTEM.PAUSE_006B.N+1

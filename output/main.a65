@@ -1732,7 +1732,7 @@ l_06CF
 
 ; optimize OK (main.pas), line = 95
 
-	lda #$02
+	lda #$03
 	sta SYSTEM.PAUSE_006B.N
 	lda #$00
 	sta SYSTEM.PAUSE_006B.N+1
