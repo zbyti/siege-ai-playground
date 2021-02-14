@@ -121,10 +121,10 @@ begin
   JOY := JOY_SELECT_1; KEY_PIO := $ff; t0b := JOY xor $ff;
 
   case t0b of
-    JOY_UP    : newDir := JOY_UP;
-    JOY_DOWN  : newDir := JOY_DOWN;
-    JOY_LEFT  : newDir := JOY_LEFT;
-    JOY_RIGHT : newDir := JOY_RIGHT;
+    JOY_UP    : if ply.dir <> JOY_DOWN  then newDir := JOY_UP;
+    JOY_DOWN  : if ply.dir <> JOY_UP    then newDir := JOY_DOWN;
+    JOY_LEFT  : if ply.dir <> JOY_RIGHT then newDir := JOY_LEFT;
+    JOY_RIGHT : if ply.dir <> JOY_LEFT  then newDir := JOY_RIGHT;
   end;
 
   if (newDir and availDir) = 0 then begin
