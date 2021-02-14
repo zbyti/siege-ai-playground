@@ -137,11 +137,20 @@ procedure ai_Straightforward;
 begin
   if (availDir and ply.dir) <> 0 then newDir := ply.dir
   else begin
-    t0n := false;
-    repeat
-      newDir := direction[Random(4)];
-      if (availDir and newDir) <> 0 then t0n := true;
-    until t0n;
+    if availDir = %0011 then newDir := direction[Random(2)]
+    else begin
+      case availDir of
+        JOY_UP    : newDir := JOY_UP;
+        JOY_DOWN  : newDir := JOY_DOWN;
+      end;
+    end;
+    if availDir = %1100 then newDir := direction[Random(2) + 2]
+    else begin
+      case availDir of
+        JOY_LEFT   : newDir := JOY_LEFT;
+        JOY_RIGHT  : newDir := JOY_RIGHT;
+      end;
+    end;
   end;
 end;
 
@@ -205,7 +214,7 @@ begin
     player1.brain := 1;
     player2.brain := 1;
     player3.brain := 1;
-    player4.brain := 0;
+    player4.brain := 1;
 
     repeat
       pause(1); playerMove(@player1);
