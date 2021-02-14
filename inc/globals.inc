@@ -5,8 +5,7 @@ var
   BGCOLOR                            : byte absolute $ff19;
   t0b                                : byte absolute $58;
   newDir                             : byte absolute $59;
-  t0n                                : boolean absolute $5a;
-  t0w                                : word absolute $5b;
+  t0w                                : word absolute $5a;
 
 //-----------------------------------------------------------------------------
 

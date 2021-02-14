@@ -1481,7 +1481,7 @@ P	= DATAORIGIN+$0044
 	eif
 .endl
 
-.local	MAINLOOP					; PROCEDURE
+.local	START						; PROCEDURE
 
 ; optimize OK (main.pas), line = 81
 
@@ -1573,45 +1573,100 @@ P	= DATAORIGIN+$0044
 
 ; optimize OK (main.pas), line = 86
 
-	lda #$FF
-	sta ALIVE
+	lda PLAYER1.COLOUR
+	sta PUTCHAR.C
+	lda PLAYER1.HEAD
+	sta PUTCHAR.V
+	lda PLAYER1.Y
+	sta PUTCHAR.Y
+	lda PLAYER1.X
+	sta PUTCHAR.X
+	jsr PUTCHAR
 
 ; optimize OK (main.pas), line = 87
 
-	lda PLAYER1.ISDEAD
-	jne l_065A
-	inc ALIVE
-l_065A
+	lda PLAYER2.COLOUR
+	sta PUTCHAR.C
+	lda PLAYER2.HEAD
+	sta PUTCHAR.V
+	lda PLAYER2.Y
+	sta PUTCHAR.Y
+	lda PLAYER2.X
+	sta PUTCHAR.X
+	jsr PUTCHAR
 
 ; optimize OK (main.pas), line = 88
 
-	lda PLAYER2.ISDEAD
-	jne l_0670
-	inc ALIVE
-l_0670
+	lda PLAYER3.COLOUR
+	sta PUTCHAR.C
+	lda PLAYER3.HEAD
+	sta PUTCHAR.V
+	lda PLAYER3.Y
+	sta PUTCHAR.Y
+	lda PLAYER3.X
+	sta PUTCHAR.X
+	jsr PUTCHAR
 
 ; optimize OK (main.pas), line = 89
 
-	lda PLAYER3.ISDEAD
-	jne l_0686
-	inc ALIVE
-l_0686
+	lda PLAYER4.COLOUR
+	sta PUTCHAR.C
+	lda PLAYER4.HEAD
+	sta PUTCHAR.V
+	lda PLAYER4.Y
+	sta PUTCHAR.Y
+	lda PLAYER4.X
+	sta PUTCHAR.X
+	jsr PUTCHAR
 
-; optimize OK (main.pas), line = 90
+; --- RepeatUntilProlog
+l_067C
 
-	lda PLAYER4.ISDEAD
-	jne l_069C
-	inc ALIVE
-l_069C
+; optimize OK (main.pas), line = 92
 
-; optimize FAIL ('INITPLAYFIELD', main.pas), line = 92
+	lda #$02
+	sta JOY
+	lda #$FF
+	sta KEY_PIO
+	lda JOY
+	eor #$FF
+	sta T0B
+
+; optimize OK (main.pas), line = 93
+
+	cmp #$40
+	jne l_067C
+@exit
+	.ifdef @new
+	lda <@VarData
+	sta :ztmp
+	lda >@VarData
+	ldy #@VarDataSize-1
+	jmp @FreeMem
+	els
+	rts						; ret
+	eif
+.endl
+
+.local	MAINLOOP					; PROCEDURE
+
+; optimize FAIL ('INITPLAYFIELD', main.pas), line = 100
 
 	jsr INITPLAYFIELD
 
-; --- RepeatUntilProlog
-l_06A5
+; optimize FAIL ('START', main.pas), line = 101
 
-; optimize OK (main.pas), line = 95
+	jsr START
+
+; optimize OK (main.pas), line = 103
+
+	lda #$03
+	sta ALIVE
+
+; --- RepeatUntilProlog
+l_06A6
+
+; optimize OK (main.pas), line = 105
 
 	lda #$03
 	sta SYSTEM.PAUSE_006B.N
@@ -1619,7 +1674,7 @@ l_06A5
 	sta SYSTEM.PAUSE_006B.N+1
 	jsr SYSTEM.PAUSE_006B
 
-; optimize OK (main.pas), line = 96
+; optimize OK (main.pas), line = 106
 
 	lda PLAYER1
 	sta PLAYERMOVE.P
@@ -1627,7 +1682,7 @@ l_06A5
 	sta PLAYERMOVE.P+1
 	jsr PLAYERMOVE
 
-; optimize OK (main.pas), line = 97
+; optimize OK (main.pas), line = 107
 
 	lda PLAYER2
 	sta PLAYERMOVE.P
@@ -1635,7 +1690,7 @@ l_06A5
 	sta PLAYERMOVE.P+1
 	jsr PLAYERMOVE
 
-; optimize OK (main.pas), line = 98
+; optimize OK (main.pas), line = 108
 
 	lda PLAYER3
 	sta PLAYERMOVE.P
@@ -1643,7 +1698,7 @@ l_06A5
 	sta PLAYERMOVE.P+1
 	jsr PLAYERMOVE
 
-; optimize OK (main.pas), line = 99
+; optimize OK (main.pas), line = 109
 
 	lda PLAYER4
 	sta PLAYERMOVE.P
@@ -1651,15 +1706,15 @@ l_06A5
 	sta PLAYERMOVE.P+1
 	jsr PLAYERMOVE
 
-; optimize OK (main.pas), line = 100
+; optimize OK (main.pas), line = 110
 
 	lda ALIVE
-	jeq l_06A5x
+	jeq l_06A6x
 	cmp #$FF
-	jne l_06A5
-l_06A5x
+	jne l_06A6
+l_06A6x
 
-; optimize OK (main.pas), line = 102
+; optimize OK (main.pas), line = 112
 
 	lda #$64
 	sta SYSTEM.PAUSE_006B.N
@@ -1680,12 +1735,12 @@ l_06A5x
 l_0007
 
 ; --- RepeatUntilProlog
-l_06D0
+l_06D1
 
-; optimize FAIL ('MAINLOOP', main.pas), line = 108
+; optimize FAIL ('MAINLOOP', main.pas), line = 118
 
 	jsr MAINLOOP
-	jmp l_06D0
+	jmp l_06D1
 
 ; ------------------------------------------------------------
 
