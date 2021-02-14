@@ -11,26 +11,26 @@ mads 2.1.1
    104
    105 10B7			START
    106 10B7 BA				tsx
-   107 10B8 8E 74 17			stx MAIN.@halt+1
+   107 10B8 8E BF 17			stx MAIN.@halt+1
    108
    109 					.ifdef fmulinit
    110 					fmulinit
    111 					eif
    112
-   113 = 0041			VLEN	= VARDATASIZE-VARINITSIZE
-   114 = 178A			VADR	= DATAORIGIN+VARINITSIZE
+   113 = 0042			VLEN	= VARDATASIZE-VARINITSIZE
+   114 = 17D6			VADR	= DATAORIGIN+VARINITSIZE
    115
    116 					ift VADR > $BFFF
    117 					ert 'Invalid memory address range ',VADR
    118 					eli (VLEN>0) && (VLEN<=256)
-   119 10BB A2 BF			ldx #256-VLEN
+   119 10BB A2 BE			ldx #256-VLEN
    120 10BD A9 00			lda #$00
-   121 10BF 9D CB 16 E8 D0 FA		sta:rne VADR+VLEN-256,x+
+   121 10BF 9D 18 17 E8 D0 FA		sta:rne VADR+VLEN-256,x+
    122 					eli VLEN>0
    123 					@fill #VADR #VLEN #$00
    124 					eif
    125
-   126 10C5 A9 CB 85 02 A9 17 + 	mwa #PROGRAMSTACK psptr
+   126 10C5 A9 18 85 02 A9 18 + 	mwa #PROGRAMSTACK psptr
    127
    128 10CD A2 00			ldx #$00
    129 10CF 86 10			stx bp						; BP = 0
@@ -43,7 +43,7 @@ Source: main.a65
    134
    135 10D2			.local	MAIN						; PROCEDURE
    136
-   137 10D2 4C 19 16			jmp l_0007
+   137 10D2 4C 64 16			jmp l_0007
    138
    139 				; ------------------------------------------------------------
    140
@@ -64,7 +64,7 @@ Source: main.a65
    155 				; ---------------------  ASM Block 001  ---------------------
    156
    157 10DE A0 00			ldy #0
-   158 10E0 B1 08 8D 8F 17		mva (edx),y Result
+   158 10E0 B1 08 8D DB 17		mva (edx),y Result
    159
    160 10E5			@exit
    161
@@ -74,7 +74,7 @@ Source: main.a65
    165 				; as Pointer
    166
    167 10E5 E8				inx
-   168 10E6 AD 8F 17 95 18		mva RESULT :STACKORIGIN,x
+   168 10E6 AD DB 17 95 18		mva RESULT :STACKORIGIN,x
    169
    170 					.ifdef @new
    171 					lda <@VarData
@@ -87,9 +87,9 @@ Source: main.a65
    178 				; ------------------------------------------------------------
    179
    180 = 0008			A	= edx
-   181 = 178F			RESULT	= DATAORIGIN+$000B
+   181 = 17DB			RESULT	= DATAORIGIN+$000B
    182
-   183 = 178F			@VarData	= RESULT
+   183 = 17DB			@VarData	= RESULT
    184 = 0001			@VarDataSize	= 1
    185
    186 10EB 60				rts						; ret
@@ -212,13 +212,13 @@ Source: main.a65
    303 				; ---------------------  ASM Block 035  ---------------------
    304
    305
-   306 1123 AD 90 17		loop  lda n
-   307 1126 0D 91 17		  ora n+1
+   306 1123 AD DC 17		loop  lda n
+   307 1126 0D DD 17		  ora n+1
    308 1129 F0 14		  beq stop
    309
    310 112B A5 A5 C5 A5 F0 FC	  lda:cmp:req :c4p_time+2
    311
-   312 1131 AD 90 17 D0 03 CE +   dew n
+   312 1131 AD DC 17 D0 03 CE +   dew n
    313
    314 113C 4C 23 11		  jmp loop
    315 113F			stop
@@ -226,9 +226,9 @@ Source: main.a65
    317
    318 				; ------------------------------------------------------------
    319
-   320 = 1790			N	= DATAORIGIN+$000C
+   320 = 17DC			N	= DATAORIGIN+$000C
    321
-   322 = 1790			@VarData	= N
+   322 = 17DC			@VarData	= N
    323 = 0002			@VarDataSize	= 2
    324
    325 113F			@exit
@@ -244,7 +244,7 @@ Source: main.a65
    335 				.endl
    336
    337 1140			.local	RANDOM_006C					; FUNCTION | ASSEMBLER | OVERLOAD
-   338 1140 8D 92 17			sta RANGE
+   338 1140 8D DE 17			sta RANGE
    339
    340 				; ---------------------  ASM Block 039  ---------------------
    341
@@ -257,7 +257,7 @@ Source: main.a65
    348 1152 4D 1E FF		  eor ted_hcount    //Horizontal counter
    349 1155 A8			  tay
    350
-   351 1156 AD 92 17		  lda range
+   351 1156 AD DE 17		  lda range
    352 1159 F0 08		  beq stop
    353
    354 115B 85 0C		  sta ecx
@@ -266,7 +266,7 @@ Source: main.a65
    357 115F 20 A3 10		  jsr imulCL
    358 1162 A8			  tay
    359
-   360 1163 8C 93 17		stop  sty Result
+   360 1163 8C DF 17		stop  sty Result
    361
    362 1166			@exit
    363
@@ -276,7 +276,7 @@ Source: main.a65
    367 				; as Pointer
    368
    369 1166 E8				inx
-   370 1167 AD 93 17 95 18		mva RESULT :STACKORIGIN,x
+   370 1167 AD DF 17 95 18		mva RESULT :STACKORIGIN,x
    371
    372 					.ifdef @new
    373 					lda <@VarData
@@ -288,10 +288,10 @@ Source: main.a65
    379
    380 				; ------------------------------------------------------------
    381
-   382 = 1792			RANGE	= DATAORIGIN+$000E
-   383 = 1793			RESULT	= DATAORIGIN+$000F
+   382 = 17DE			RANGE	= DATAORIGIN+$000E
+   383 = 17DF			RESULT	= DATAORIGIN+$000F
    384
-   385 = 1792			@VarData	= RANGE
+   385 = 17DE			@VarData	= RANGE
    386 = 0002			@VarDataSize	= 2
    387
    388 116C 60				rts						; ret
@@ -346,20 +346,20 @@ Source: main.a65
    437 = 0008			FMOPENWRITE	= $08
    438 = 0009			FMOPENAPPEND	= $09
    439 = 000C			FMOPENREADWRITE	= $0C
-   440 = 1784			SCREENWIDTH	= DATAORIGIN+$0000
-   441 = 1786			SCREENHEIGHT	= DATAORIGIN+$0002
-   442 = 1788			DATESEPARATOR	= DATAORIGIN+$0004
+   440 = 17D0			SCREENWIDTH	= DATAORIGIN+$0000
+   441 = 17D2			SCREENHEIGHT	= DATAORIGIN+$0002
+   442 = 17D4			DATESEPARATOR	= DATAORIGIN+$0004
    443 = D014			TVSYSTEM	= $D014
    444 = D20A			RND	= $D20A
    445 = 02C0			adr.PALETTE	= $02C0
    446 116D			.var PALETTE	= adr.PALETTE .word
    447 = D012			adr.HPALETTE	= $D012
    448 116D			.var HPALETTE	= adr.HPALETTE .word
-   449 = 1789			FILEMODE	= DATAORIGIN+$0005
-   450 = 178A			GRAPHMODE	= DATAORIGIN+$0006
-   451 = 178B			IORESULT	= DATAORIGIN+$0007
-   452 = 178C			EOLN	= DATAORIGIN+$0008
-   453 = 178D			RNDSEED	= DATAORIGIN+$0009
+   449 = 17D5			FILEMODE	= DATAORIGIN+$0005
+   450 = 17D6			GRAPHMODE	= DATAORIGIN+$0006
+   451 = 17D7			IORESULT	= DATAORIGIN+$0007
+   452 = 17D8			EOLN	= DATAORIGIN+$0008
+   453 = 17D9			RNDSEED	= DATAORIGIN+$0009
    454
    455 = 116D C0 02		PALETTE
    455 = 116F 12 D0		HPALETTE
@@ -369,11 +369,11 @@ Source: main.a65
    458
    459 				; optimize OK (tools.inc), line = 3
    460
-   461 1171 AD B6 17			lda Y
+   461 1171 AD 02 18			lda Y
    462 1174 0A				asl @
    463 1175 A8				tay
    464 1176 B9 0E 10			lda adr.MUL40,y
-   465 1179 18 6D B5 17			add X
+   465 1179 18 6D 01 18			add X
    466 117D 85 5B			sta T0W
    467 117F B9 0F 10			lda adr.MUL40+1,y
    468 1182 69 08			adc #$08
@@ -383,22 +383,22 @@ Source: main.a65
    472
    473 1186 85 11			sta :bp+1
    474 1188 A4 5B			ldy T0W
-   475 118A AD B8 17			lda C
+   475 118A AD 04 18			lda C
    476 118D 91 10			sta (:bp),y
    477 118F A5 5C			lda T0W+1
    478 1191 18 69 04			add #$04
    479 1194 85 11			sta :bp+1
-   480 1196 AD B7 17			lda V
+   480 1196 AD 03 18			lda V
    481 1199 91 10			sta (:bp),y
    482
    483 				; ------------------------------------------------------------
    484
-   485 = 17B5			X	= DATAORIGIN+$0031
-   486 = 17B6			Y	= DATAORIGIN+$0032
-   487 = 17B7			V	= DATAORIGIN+$0033
-   488 = 17B8			C	= DATAORIGIN+$0034
+   485 = 1801			X	= DATAORIGIN+$0031
+   486 = 1802			Y	= DATAORIGIN+$0032
+   487 = 1803			V	= DATAORIGIN+$0033
+   488 = 1804			C	= DATAORIGIN+$0034
    489
-   490 = 17B5			@VarData	= X
+   490 = 1801			@VarData	= X
    491 = 0004			@VarDataSize	= 4
    492
    493 119B			@exit
@@ -415,24 +415,24 @@ Source: main.a65
    504
    505 119C			.local	CHECKAVAILDIR					; PROCEDURE
    506
-   507 				; optimize OK (tools.inc), line = 9
+   507 				; optimize OK (tools.inc), line = 11
    508
    509 119C A9 00			lda #$00
-   510 119E 8D 95 17			sta AVAILDIR
+   510 119E 8D E1 17			sta AVAILDIR
    511
-   512 				; optimize OK (tools.inc), line = 10
+   512 				; optimize OK (tools.inc), line = 12
    513
-   514 11A1 AD BA 17			lda Y
+   514 11A1 AD 06 18			lda Y
    515 11A4 0A				asl @
    516 11A5 A8				tay
    517 11A6 B9 0E 10			lda adr.MUL40,y
-   518 11A9 18 6D B9 17			add X
+   518 11A9 18 6D 05 18			add X
    519 11AD 85 5B			sta T0W
    520 11AF B9 0F 10			lda adr.MUL40+1,y
    521 11B2 69 0C			adc #$0C
    522 11B4 85 5C			sta T0W+1
    523
-   524 				; optimize OK (tools.inc), line = 12
+   524 				; optimize OK (tools.inc), line = 14
    525
    526 11B6 A5 5B			lda T0W
    527 11B8 38 E9 28			sub #$28
@@ -444,24 +444,24 @@ Source: main.a65
    533 11C5 B1 10			lda (:bp),y
    534 11C7 C9 20			cmp #$20
    535 11C9 D0 08			jne l_00C6
-   536 11CB AD 95 17			lda AVAILDIR
+   536 11CB AD E1 17			lda AVAILDIR
    537 11CE 09 01			ora #$01
-   538 11D0 8D 95 17			sta AVAILDIR
+   538 11D0 8D E1 17			sta AVAILDIR
    539 11D3			l_00C6
    540
-   541 				; optimize OK (tools.inc), line = 13
+   541 				; optimize OK (tools.inc), line = 15
    542
    543 11D3 A4 5B 84 12 A4 5C + 	mwy T0W :bp2
    544 11DB A0 28			ldy #$28
    545 11DD B1 12			lda (:bp2),y
    546 11DF C9 20			cmp #$20
    547 11E1 D0 08			jne l_00E9
-   548 11E3 AD 95 17			lda AVAILDIR
+   548 11E3 AD E1 17			lda AVAILDIR
    549 11E6 09 02			ora #$02
-   550 11E8 8D 95 17			sta AVAILDIR
+   550 11E8 8D E1 17			sta AVAILDIR
    551 11EB			l_00E9
    552
-   553 				; optimize OK (tools.inc), line = 14
+   553 				; optimize OK (tools.inc), line = 16
    554
    555 11EB A5 5B			lda T0W
    556 11ED 38 E9 01			sub #$01
@@ -473,29 +473,29 @@ Source: main.a65
    562 11FA B1 10			lda (:bp),y
    563 11FC C9 20			cmp #$20
    564 11FE D0 08			jne l_010C
-   565 1200 AD 95 17			lda AVAILDIR
+   565 1200 AD E1 17			lda AVAILDIR
    566 1203 09 04			ora #$04
-   567 1205 8D 95 17			sta AVAILDIR
+   567 1205 8D E1 17			sta AVAILDIR
    568 1208			l_010C
    569
-   570 				; optimize OK (tools.inc), line = 15
+   570 				; optimize OK (tools.inc), line = 17
    571
    572 1208 A4 5B 84 12 A4 5C + 	mwy T0W :bp2
    573 1210 A0 01			ldy #$01
    574 1212 B1 12			lda (:bp2),y
    575 1214 C9 20			cmp #$20
    576 1216 D0 08			jne l_012F
-   577 1218 AD 95 17			lda AVAILDIR
+   577 1218 AD E1 17			lda AVAILDIR
    578 121B 09 08			ora #$08
-   579 121D 8D 95 17			sta AVAILDIR
+   579 121D 8D E1 17			sta AVAILDIR
    580 1220			l_012F
    581
    582 				; ------------------------------------------------------------
    583
-   584 = 17B9			X	= DATAORIGIN+$0035
-   585 = 17BA			Y	= DATAORIGIN+$0036
+   584 = 1805			X	= DATAORIGIN+$0035
+   585 = 1806			Y	= DATAORIGIN+$0036
    586
-   587 = 17B9			@VarData	= X
+   587 = 1805			@VarData	= X
    588 = 0002			@VarDataSize	= 2
    589
    590 1220			@exit
@@ -632,52 +632,52 @@ Source: main.a65
    721
    722 12A1			.local	INITPLAYERS					; PROCEDURE
    723
-   724 				; optimize OK (init.inc), line = 21
+   724 				; optimize OK (init.inc), line = 23
    725
-   726 12A1 AD BB 17			lda P
-   727 12A4 8D 97 17			sta PLY
+   726 12A1 AD 07 18			lda P
+   727 12A4 8D E3 17			sta PLY
    728 12A7 85 12			sta :bp2
-   729 12A9 AD BC 17			lda P+1
-   730 12AC 8D 98 17			sta PLY+1
+   729 12A9 AD 08 18			lda P+1
+   730 12AC 8D E4 17			sta PLY+1
    731 12AF 85 13			sta :bp2+1
-   732 				; optimize OK (init.inc), line = 22
+   732 				; optimize OK (init.inc), line = 24
    733 12B1 A0 05			ldy #PLY.BRAIN-DATAORIGIN
-   734 12B3 AD C0 17			lda BRAIN
+   734 12B3 AD 0C 18			lda BRAIN
    735 12B6 91 12			sta (:bp2),y
    736 12B8 A0 00			ldy #PLY.X-DATAORIGIN
-   737 12BA AD BD 17			lda X
+   737 12BA AD 09 18			lda X
    738 12BD 91 12			sta (:bp2),y
    739 12BF A0 01			ldy #PLY.Y-DATAORIGIN
-   740 12C1 AD BE 17			lda Y
+   740 12C1 AD 0A 18			lda Y
    741 12C4 91 12			sta (:bp2),y
    742 12C6 A0 04			ldy #PLY.DIR-DATAORIGIN
-   743 12C8 AD BF 17			lda DIR
+   743 12C8 AD 0B 18			lda DIR
    744 12CB 91 12			sta (:bp2),y
    745
-   746 				; optimize OK (init.inc), line = 23
+   746 				; optimize OK (init.inc), line = 25
    747
    748 12CD A0 02			ldy #PLY.HEAD-DATAORIGIN
-   749 12CF AD C1 17			lda HEAD
+   749 12CF AD 0D 18			lda HEAD
    750 12D2 91 12			sta (:bp2),y
    751 12D4 A0 03			ldy #PLY.COLOUR-DATAORIGIN
-   752 12D6 AD C2 17			lda COLOUR
+   752 12D6 AD 0E 18			lda COLOUR
    753 12D9 91 12			sta (:bp2),y
    754 12DB A0 06			ldy #PLY.ISDEAD-DATAORIGIN
-   755 12DD AD C3 17			lda ISDEAD
+   755 12DD AD 0F 18			lda ISDEAD
    756 12E0 91 12			sta (:bp2),y
    757
    758 				; ------------------------------------------------------------
    759
-   760 = 17BB			P	= DATAORIGIN+$0037
-   761 = 17BD			X	= DATAORIGIN+$0039
-   762 = 17BE			Y	= DATAORIGIN+$003A
-   763 = 17BF			DIR	= DATAORIGIN+$003B
-   764 = 17C0			BRAIN	= DATAORIGIN+$003C
-   765 = 17C1			HEAD	= DATAORIGIN+$003D
-   766 = 17C2			COLOUR	= DATAORIGIN+$003E
-   767 = 17C3			ISDEAD	= DATAORIGIN+$003F
+   760 = 1807			P	= DATAORIGIN+$0037
+   761 = 1809			X	= DATAORIGIN+$0039
+   762 = 180A			Y	= DATAORIGIN+$003A
+   763 = 180B			DIR	= DATAORIGIN+$003B
+   764 = 180C			BRAIN	= DATAORIGIN+$003C
+   765 = 180D			HEAD	= DATAORIGIN+$003D
+   766 = 180E			COLOUR	= DATAORIGIN+$003E
+   767 = 180F			ISDEAD	= DATAORIGIN+$003F
    768
-   769 = 17BB			@VarData	= P
+   769 = 1807			@VarData	= P
    770 = 0009			@VarDataSize	= 9
    771
    772 12E2			@exit
@@ -694,21 +694,21 @@ Source: main.a65
    783
    784 12E3			.local	AI_STRAIGHTFORWARD				; PROCEDURE
    785
-   786 				; optimize OK (ai.inc), line = 13
+   786 				; optimize OK (ai.inc), line = 18
    787
-   788 12E3 AC 97 17 84 12 AC + 	mwy PLY :bp2
+   788 12E3 AC E3 17 84 12 AC + 	mwy PLY :bp2
    789 12ED A0 04			ldy #PLY.DIR-DATAORIGIN
    790 12EF B1 12			lda (:bp2),y
-   791 12F1 2D 95 17			and AVAILDIR
+   791 12F1 2D E1 17			and AVAILDIR
    792 12F4 F0 07			jeq l_020D
    793 12F6 B1 12			lda (:bp2),y
    794 12F8 85 59			sta NEWDIR
    795 12FA 4C 78 13			jmp l_021D
    796 12FD			l_020D
    797
-   798 				; optimize OK (ai.inc), line = 15
+   798 				; optimize OK (ai.inc), line = 20
    799
-   800 12FD AD 95 17			lda AVAILDIR
+   800 12FD AD E1 17			lda AVAILDIR
    801 1300 C9 03			cmp #$03
    802 1302 D0 16			jne l_022F
    803 1304 A9 00			lda #$00
@@ -723,15 +723,15 @@ Source: main.a65
    812 1317 4C 33 13			jmp l_0245
    813 131A			l_022F
    814
-   815 				; optimize OK (ai.inc), line = 17
+   815 				; optimize OK (ai.inc), line = 22
    816
-   817 131A AD 95 17			lda AVAILDIR
-   818 131D 8D C4 17			sta @CASETMP_0003
+   817 131A AD E1 17			lda AVAILDIR
+   818 131D 8D 10 18			sta @CASETMP_0003
    819 1320 C9 01			cmp #$01
    820 1322 D0 07			jne l_0250
    821 1324			@
    822
-   823 				; optimize OK (ai.inc), line = 18
+   823 				; optimize OK (ai.inc), line = 23
    824
    825 1324 A9 01			lda #$01
    826 1326 85 59			sta NEWDIR
@@ -742,7 +742,7 @@ Source: main.a65
    831 132D D0 04			jne l_025D
    832 132F			@
    833
-   834 				; optimize OK (ai.inc), line = 19
+   834 				; optimize OK (ai.inc), line = 24
    835
    836 132F A9 02			lda #$02
    837 1331 85 59			sta NEWDIR
@@ -751,9 +751,9 @@ Source: main.a65
    840 1333			a_0003
    841 1333			l_0245
    842
-   843 				; optimize OK (ai.inc), line = 22
+   843 				; optimize OK (ai.inc), line = 27
    844
-   845 1333 AD 95 17			lda AVAILDIR
+   845 1333 AD E1 17			lda AVAILDIR
    846 1336 C9 0C			cmp #$0C
    847 1338 D0 25			jne l_0279
    848 133A A9 00			lda #$00
@@ -774,15 +774,15 @@ Source: main.a65
    863 135C 4C 78 13			jmp l_0293
    864 135F			l_0279
    865
-   866 				; optimize OK (ai.inc), line = 24
+   866 				; optimize OK (ai.inc), line = 29
    867
-   868 135F AD 95 17			lda AVAILDIR
-   869 1362 8D C5 17			sta @CASETMP_0004
+   868 135F AD E1 17			lda AVAILDIR
+   869 1362 8D 11 18			sta @CASETMP_0004
    870 1365 C9 04			cmp #$04
    871 1367 D0 07			jne l_029E
    872 1369			@
    873
-   874 				; optimize OK (ai.inc), line = 25
+   874 				; optimize OK (ai.inc), line = 30
    875
    876 1369 A9 04			lda #$04
    877 136B 85 59			sta NEWDIR
@@ -793,7 +793,7 @@ Source: main.a65
    882 1372 D0 04			jne l_02AB
    883 1374			@
    884
-   885 				; optimize OK (ai.inc), line = 26
+   885 				; optimize OK (ai.inc), line = 31
    886
    887 1374 A9 08			lda #$08
    888 1376 85 59			sta NEWDIR
@@ -805,10 +805,10 @@ Source: main.a65
    894
    895 				; ------------------------------------------------------------
    896
-   897 = 17C4			@CASETMP_0003	= DATAORIGIN+$0040
-   898 = 17C5			@CASETMP_0004	= DATAORIGIN+$0041
+   897 = 1810			@CASETMP_0003	= DATAORIGIN+$0040
+   898 = 1811			@CASETMP_0004	= DATAORIGIN+$0041
    899
-   900 = 17C4			@VarData	= @CASETMP_0003
+   900 = 1810			@VarData	= @CASETMP_0003
    901 = 0002			@VarDataSize	= 2
    902
    903 1378			@exit
@@ -823,769 +823,863 @@ Source: main.a65
    912 					eif
    913 				.endl
    914
-   915 1379			.local	HUMAN						; PROCEDURE
+   915 1379			.local	AI_MIRROR					; PROCEDURE
    916
-   917 				; optimize OK (main.pas), line = 14
+   917 				; optimize OK (ai.inc), line = 41
    918
-   919 1379 AC 97 17 84 12 AC + 	mwy PLY :bp2
-   920 1383 A0 04			ldy #PLY.DIR-DATAORIGIN
-   921 1385 B1 12			lda (:bp2),y
-   922 1387 85 59			sta NEWDIR
-   923
-   924 				; optimize OK (main.pas), line = 15
-   925
-   926 1389 A9 02			lda #$02
-   927 138B 8D 08 FF			sta JOY
-   928 138E A9 FF			lda #$FF
-   929 1390 8D 30 FD			sta KEY_PIO
-   930 1393 AD 08 FF			lda JOY
-   931 1396 49 FF			eor #$FF
-   932 1398 85 58			sta T0B
-   933
-   934 				; optimize OK (main.pas), line = 17
+   919 1379 AD E9 17			lda PLAYER1.DIR
+   920 137C 8D 12 18			sta @CASETMP_0005
+   921 137F C9 01			cmp #$01
+   922 1381 D0 07			jne l_02C4
+   923 1383			@
+   924
+   925 				; optimize OK (ai.inc), line = 42
+   926
+   927 1383 A9 02			lda #$02
+   928 1385 85 58			sta T0B
+   929
+   930 1387 4C A8 13			jmp a_0005
+   931 138A			l_02C4
+   932 138A C9 02			cmp #$02
+   933 138C D0 07			jne l_02D1
+   934 138E			@
    935
-   936 139A 8D C6 17			sta @CASETMP_0005
-   937 139D C9 01			cmp #$01
-   938 139F D0 19			jne l_02DC
-   939 13A1			@
+   936 				; optimize OK (ai.inc), line = 43
+   937
+   938 138E A9 01			lda #$01
+   939 1390 85 58			sta T0B
    940
-   941 				; optimize OK (main.pas), line = 18
-   942
-   943 13A1 AC 97 17 84 12 AC + 	mwy PLY :bp2
-   944 13AB A0 04			ldy #PLY.DIR-DATAORIGIN
-   945 13AD B1 12			lda (:bp2),y
-   946 13AF C9 02			cmp #$02
-   947 13B1 F0 04			jeq l_02EE
-   948 13B3 A9 01			lda #$01
-   949 13B5 85 59			sta NEWDIR
-   950 13B7			l_02EE
+   941 1392 4C A8 13			jmp a_0005
+   942 1395			l_02D1
+   943 1395 C9 04			cmp #$04
+   944 1397 D0 07			jne l_02DE
+   945 1399			@
+   946
+   947 				; optimize OK (ai.inc), line = 44
+   948
+   949 1399 A9 08			lda #$08
+   950 139B 85 58			sta T0B
    951
-   952 13B7 4C 0E 14			jmp a_0005
-   953 13BA			l_02DC
-   954 13BA C9 02			cmp #$02
-   955 13BC D0 19			jne l_02FE
-   956 13BE			@
+   952 139D 4C A8 13			jmp a_0005
+   953 13A0			l_02DE
+   954 13A0 C9 08			cmp #$08
+   955 13A2 D0 04			jne l_02EB
+   956 13A4			@
    957
-   958 				; optimize OK (main.pas), line = 19
+   958 				; optimize OK (ai.inc), line = 45
    959
-   960 13BE AC 97 17 84 12 AC + 	mwy PLY :bp2
-   961 13C8 A0 04			ldy #PLY.DIR-DATAORIGIN
-   962 13CA B1 12			lda (:bp2),y
-   963 13CC C9 01			cmp #$01
-   964 13CE F0 04			jeq l_0310
-   965 13D0 A9 02			lda #$02
-   966 13D2 85 59			sta NEWDIR
-   967 13D4			l_0310
-   968
-   969 13D4 4C 0E 14			jmp a_0005
-   970 13D7			l_02FE
-   971 13D7 C9 04			cmp #$04
-   972 13D9 D0 19			jne l_0320
-   973 13DB			@
-   974
-   975 				; optimize OK (main.pas), line = 20
-   976
-   977 13DB AC 97 17 84 12 AC + 	mwy PLY :bp2
-   978 13E5 A0 04			ldy #PLY.DIR-DATAORIGIN
-   979 13E7 B1 12			lda (:bp2),y
-   980 13E9 C9 08			cmp #$08
-   981 13EB F0 04			jeq l_0332
-   982 13ED A9 04			lda #$04
-   983 13EF 85 59			sta NEWDIR
-   984 13F1			l_0332
-   985
-   986 13F1 4C 0E 14			jmp a_0005
-   987 13F4			l_0320
-   988 13F4 C9 08			cmp #$08
-   989 13F6 D0 16			jne l_0342
-   990 13F8			@
-   991
-   992 				; optimize OK (main.pas), line = 21
-   993
-   994 13F8 AC 97 17 84 12 AC + 	mwy PLY :bp2
-   995 1402 A0 04			ldy #PLY.DIR-DATAORIGIN
-   996 1404 B1 12			lda (:bp2),y
-   997 1406 C9 04			cmp #$04
-   998 1408 F0 04			jeq l_0354
-   999 140A A9 08			lda #$08
-  1000 140C 85 59			sta NEWDIR
-  1001 140E			l_0354
-  1002
-  1003 140E			l_0342
-  1004 140E			a_0005
-  1005
-  1006 				; optimize OK (main.pas), line = 24
-  1007
-  1008 140E A5 59			lda NEWDIR
-  1009 1410 2D 95 17			and AVAILDIR
-  1010 1413 D0 1B			jne l_037B
-  1011
-  1012 				; optimize OK (main.pas), line = 25
-  1013
-  1014 1415 AC 97 17 84 12 AC + 	mwy PLY :bp2
-  1015 141F A0 06			ldy #PLY.ISDEAD-DATAORIGIN
-  1016 1421 A9 01			lda #$01
-  1017 1423 91 12			sta (:bp2),y
-  1018 1425 A9 00			lda #$00
-  1019 1427 8D 96 17			sta ALIVE
-  1020 142A A0 02			ldy #PLY.HEAD-DATAORIGIN
-  1021 142C A9 57			lda #$57
-  1022 142E 91 12			sta (:bp2),y
-  1023 1430			l_037B
-  1024
-  1025 				; ------------------------------------------------------------
-  1026
-  1027 = 17C6			@CASETMP_0005	= DATAORIGIN+$0042
-  1028
-  1029 = 17C6			@VarData	= @CASETMP_0005
-  1030 = 0001			@VarDataSize	= 1
-  1031
-  1032 1430			@exit
-  1033 					.ifdef @new
-  1034 					lda <@VarData
-  1035 					sta :ztmp
-  1036 					lda >@VarData
-  1037 					ldy #@VarDataSize-1
-  1038 					jmp @FreeMem
-  1039 					els
-  1040 1430 60				rts						; ret
-  1041 					eif
-  1042 				.endl
-  1043
-  1044 1431			.local	PLAYERMOVE					; PROCEDURE
-  1045
-  1046 				; optimize OK (main.pas), line = 33
-  1047
-  1048 1431 AD C7 17			lda P
-  1049 1434 8D 97 17			sta PLY
-  1050 1437 85 12			sta :bp2
-  1051 1439 AD C8 17			lda P+1
-  1052 143C 8D 98 17			sta PLY+1
-  1053 143F 85 13			sta :bp2+1
-  1054 				; optimize OK (main.pas), line = 35
-  1055 1441 A0 06			ldy #PLY.ISDEAD-DATAORIGIN
-  1056 1443 B1 12			lda (:bp2),y
-  1057 1445 F0 03 4C 18 16		jne l_03A2
-  1058
-  1059 				; optimize OK (main.pas), line = 37
-  1060
-  1061 144A A0 00			ldy #PLY.X-DATAORIGIN
-  1062 144C B1 12			lda (:bp2),y
-  1063 144E 8D B9 17			sta CHECKAVAILDIR.X
-  1064 1451 A0 01			ldy #PLY.Y-DATAORIGIN
-  1065 1453 B1 12			lda (:bp2),y
-  1066 1455 8D BA 17			sta CHECKAVAILDIR.Y
-  1067 1458 20 9C 11			jsr CHECKAVAILDIR
-  1068
-  1069 				; optimize OK (main.pas), line = 39
+   960 13A4 A9 04			lda #$04
+   961 13A6 85 58			sta T0B
+   962
+   963 13A8			l_02EB
+   964 13A8			a_0005
+   965
+   966 				; optimize OK (ai.inc), line = 48
+   967
+   968 13A8 AD E1 17			lda AVAILDIR
+   969 13AB 25 58			and T0B
+   970 13AD F0 07			jeq l_030F
+   971 13AF A5 58			lda T0B
+   972 13B1 85 59			sta NEWDIR
+   973 13B3 4C B9 13			jmp l_031F
+   974 13B6			l_030F
+   975
+   976 				; optimize FAIL ('AI_STRAIGHTFORWARD', ai.inc), line = 49
+   977
+   978 13B6 20 E3 12			jsr AI_STRAIGHTFORWARD
+   979 13B9			l_031F
+   980
+   981 				; ------------------------------------------------------------
+   982
+   983 = 1812			@CASETMP_0005	= DATAORIGIN+$0042
+   984
+   985 = 1812			@VarData	= @CASETMP_0005
+   986 = 0001			@VarDataSize	= 1
+   987
+   988 13B9			@exit
+   989 					.ifdef @new
+   990 					lda <@VarData
+   991 					sta :ztmp
+   992 					lda >@VarData
+   993 					ldy #@VarDataSize-1
+   994 					jmp @FreeMem
+   995 					els
+   996 13B9 60				rts						; ret
+   997 					eif
+   998 				.endl
+   999
+  1000 13BA			.local	HUMAN						; PROCEDURE
+  1001
+  1002 				; optimize OK (main.pas), line = 14
+  1003
+  1004 13BA AC E3 17 84 12 AC + 	mwy PLY :bp2
+  1005 13C4 A0 04			ldy #PLY.DIR-DATAORIGIN
+  1006 13C6 B1 12			lda (:bp2),y
+  1007 13C8 85 59			sta NEWDIR
+  1008
+  1009 				; optimize OK (main.pas), line = 15
+  1010
+  1011 13CA A9 02			lda #$02
+  1012 13CC 8D 08 FF			sta JOY
+  1013 13CF A9 FF			lda #$FF
+  1014 13D1 8D 30 FD			sta KEY_PIO
+  1015 13D4 AD 08 FF			lda JOY
+  1016 13D7 49 FF			eor #$FF
+  1017 13D9 85 58			sta T0B
+  1018
+  1019 				; optimize OK (main.pas), line = 17
+  1020
+  1021 13DB 8D 13 18			sta @CASETMP_0006
+  1022 13DE C9 01			cmp #$01
+  1023 13E0 D0 19			jne l_0347
+  1024 13E2			@
+  1025
+  1026 				; optimize OK (main.pas), line = 18
+  1027
+  1028 13E2 AC E3 17 84 12 AC + 	mwy PLY :bp2
+  1029 13EC A0 04			ldy #PLY.DIR-DATAORIGIN
+  1030 13EE B1 12			lda (:bp2),y
+  1031 13F0 C9 02			cmp #$02
+  1032 13F2 F0 04			jeq l_0359
+  1033 13F4 A9 01			lda #$01
+  1034 13F6 85 59			sta NEWDIR
+  1035 13F8			l_0359
+  1036
+  1037 13F8 4C 4F 14			jmp a_0006
+  1038 13FB			l_0347
+  1039 13FB C9 02			cmp #$02
+  1040 13FD D0 19			jne l_0369
+  1041 13FF			@
+  1042
+  1043 				; optimize OK (main.pas), line = 19
+  1044
+  1045 13FF AC E3 17 84 12 AC + 	mwy PLY :bp2
+  1046 1409 A0 04			ldy #PLY.DIR-DATAORIGIN
+  1047 140B B1 12			lda (:bp2),y
+  1048 140D C9 01			cmp #$01
+  1049 140F F0 04			jeq l_037B
+  1050 1411 A9 02			lda #$02
+  1051 1413 85 59			sta NEWDIR
+  1052 1415			l_037B
+  1053
+  1054 1415 4C 4F 14			jmp a_0006
+  1055 1418			l_0369
+  1056 1418 C9 04			cmp #$04
+  1057 141A D0 19			jne l_038B
+  1058 141C			@
+  1059
+  1060 				; optimize OK (main.pas), line = 20
+  1061
+  1062 141C AC E3 17 84 12 AC + 	mwy PLY :bp2
+  1063 1426 A0 04			ldy #PLY.DIR-DATAORIGIN
+  1064 1428 B1 12			lda (:bp2),y
+  1065 142A C9 08			cmp #$08
+  1066 142C F0 04			jeq l_039D
+  1067 142E A9 04			lda #$04
+  1068 1430 85 59			sta NEWDIR
+  1069 1432			l_039D
   1070
-  1071 145B AD 95 17			lda AVAILDIR
-  1072 145E D0 36			jne l_03BC
-  1073
-  1074 				; optimize OK (main.pas), line = 40
-  1075
-  1076 1460 AC 97 17 84 12 AC + 	mwy PLY :bp2
-  1077 146A A0 06			ldy #PLY.ISDEAD-DATAORIGIN
-  1078 146C A9 01			lda #$01
-  1079 146E 91 12			sta (:bp2),y
-  1080 1470 CE 96 17			dec ALIVE
-  1081
-  1082 				; optimize OK (main.pas), line = 41
-  1083
-  1084 1473 A0 00			ldy #PLY.X-DATAORIGIN
-  1085 1475 B1 12			lda (:bp2),y
-  1086 1477 8D B5 17			sta PUTCHAR.X
-  1087 147A A0 01			ldy #PLY.Y-DATAORIGIN
-  1088 147C B1 12			lda (:bp2),y
-  1089 147E 8D B6 17			sta PUTCHAR.Y
-  1090 1481 A0 03			ldy #PLY.COLOUR-DATAORIGIN
-  1091 1483 B1 12			lda (:bp2),y
-  1092 1485 18 69 80			add #$80
-  1093 1488 8D B8 17			sta PUTCHAR.C
-  1094 148B A9 57			lda #$57
-  1095 148D 8D B7 17			sta PUTCHAR.V
-  1096 1490 20 71 11			jsr PUTCHAR
-  1097 1493 4C 18 16			jmp l_03DD
-  1098 1496			l_03BC
-  1099
-  1100 				; optimize OK (main.pas), line = 44
-  1101
-  1102 1496 AC 97 17 84 12 AC + 	mwy PLY :bp2
-  1103 14A0 A0 05			ldy #PLY.BRAIN-DATAORIGIN
-  1104 14A2 B1 12			lda (:bp2),y
-  1105 14A4 8D C9 17			sta @CASETMP_0006
-  1106 14A7 C9 00			cmp #$00
-  1107 14A9 D0 06			jne l_03E8
-  1108 14AB			@
+  1071 1432 4C 4F 14			jmp a_0006
+  1072 1435			l_038B
+  1073 1435 C9 08			cmp #$08
+  1074 1437 D0 16			jne l_03AD
+  1075 1439			@
+  1076
+  1077 				; optimize OK (main.pas), line = 21
+  1078
+  1079 1439 AC E3 17 84 12 AC + 	mwy PLY :bp2
+  1080 1443 A0 04			ldy #PLY.DIR-DATAORIGIN
+  1081 1445 B1 12			lda (:bp2),y
+  1082 1447 C9 04			cmp #$04
+  1083 1449 F0 04			jeq l_03BF
+  1084 144B A9 08			lda #$08
+  1085 144D 85 59			sta NEWDIR
+  1086 144F			l_03BF
+  1087
+  1088 144F			l_03AD
+  1089 144F			a_0006
+  1090
+  1091 				; optimize OK (main.pas), line = 24
+  1092
+  1093 144F A5 59			lda NEWDIR
+  1094 1451 2D E1 17			and AVAILDIR
+  1095 1454 D0 1B			jne l_03E6
+  1096
+  1097 				; optimize OK (main.pas), line = 25
+  1098
+  1099 1456 AC E3 17 84 12 AC + 	mwy PLY :bp2
+  1100 1460 A0 06			ldy #PLY.ISDEAD-DATAORIGIN
+  1101 1462 A9 01			lda #$01
+  1102 1464 91 12			sta (:bp2),y
+  1103 1466 A9 00			lda #$00
+  1104 1468 8D E2 17			sta ALIVE
+  1105 146B A0 02			ldy #PLY.HEAD-DATAORIGIN
+  1106 146D A9 57			lda #$57
+  1107 146F 91 12			sta (:bp2),y
+  1108 1471			l_03E6
   1109
-  1110 				; optimize FAIL ('HUMAN', main.pas), line = 45
+  1110 				; ------------------------------------------------------------
   1111
-  1112 14AB 20 79 13			jsr HUMAN
-  1113 14AE 4C B8 14			jmp a_0006
-  1114 14B1			l_03E8
-  1115 14B1 C9 01			cmp #$01
-  1116 14B3 D0 03			jne l_03F2
-  1117 14B5			@
-  1118
-  1119 				; optimize FAIL ('AI_STRAIGHTFORWARD', main.pas), line = 46
-  1120
-  1121 14B5 20 E3 12			jsr AI_STRAIGHTFORWARD
-  1122 14B8			l_03F2
-  1123 14B8			a_0006
-  1124
-  1125 				; optimize OK (main.pas), line = 49
-  1126
-  1127 14B8 AC 97 17 84 12 AC + 	mwy PLY :bp2
-  1128 14C2 A0 04			ldy #PLY.DIR-DATAORIGIN
-  1129 14C4 B1 12			lda (:bp2),y
-  1130 14C6 C5 59			cmp NEWDIR
-  1131 14C8 D0 14			jne l_040D
+  1112 = 1813			@CASETMP_0006	= DATAORIGIN+$0043
+  1113
+  1114 = 1813			@VarData	= @CASETMP_0006
+  1115 = 0001			@VarDataSize	= 1
+  1116
+  1117 1471			@exit
+  1118 					.ifdef @new
+  1119 					lda <@VarData
+  1120 					sta :ztmp
+  1121 					lda >@VarData
+  1122 					ldy #@VarDataSize-1
+  1123 					jmp @FreeMem
+  1124 					els
+  1125 1471 60				rts						; ret
+  1126 					eif
+  1127 				.endl
+  1128
+  1129 1472			.local	PLAYERMOVE					; PROCEDURE
+  1130
+  1131 				; optimize OK (main.pas), line = 33
   1132
-  1133 				; optimize OK (main.pas), line = 50
-  1134
-  1135 14CA A5 59			lda NEWDIR
-  1136 14CC 29 0C			and #$0C
-  1137 14CE F0 07			jeq l_0424
-  1138 14D0 A9 40			lda #$40
-  1139 14D2 85 58			sta T0B
-  1140 14D4 4C DB 14			jmp l_0432
-  1141 14D7			l_0424
-  1142 14D7 A9 42			lda #$42
-  1143 14D9 85 58			sta T0B
-  1144 14DB			l_0432
-  1145 14DB 4C 4E 15			jmp l_043F
-  1146 14DE			l_040D
-  1147
-  1148 				; optimize OK (main.pas), line = 52
-  1149
-  1150 14DE AC 97 17 84 12 AC + 	mwy PLY :bp2
-  1151 14E8 A0 04			ldy #PLY.DIR-DATAORIGIN
-  1152 14EA B1 12			lda (:bp2),y
-  1153 14EC 29 0A			and #$0A
-  1154 14EE F0 0A			jeq l_0465
-  1155 14F0 A5 59			lda NEWDIR
-  1156 14F2 29 05			and #$05
-  1157 14F4 F0 04			jeq l_0465
-  1158 14F6 A9 7D			lda #$7D
-  1159 14F8 85 58			sta T0B
-  1160 14FA			l_0465
-  1161
-  1162 				; optimize OK (main.pas), line = 53
-  1163
-  1164 14FA AC 97 17 84 12 AC + 	mwy PLY :bp2
-  1165 1504 A0 04			ldy #PLY.DIR-DATAORIGIN
-  1166 1506 B1 12			lda (:bp2),y
-  1167 1508 29 09			and #$09
-  1168 150A F0 0A			jeq l_0492
-  1169 150C A5 59			lda NEWDIR
-  1170 150E 29 06			and #$06
-  1171 1510 F0 04			jeq l_0492
-  1172 1512 A9 6E			lda #$6E
-  1173 1514 85 58			sta T0B
-  1174 1516			l_0492
-  1175
-  1176 				; optimize OK (main.pas), line = 54
-  1177
-  1178 1516 AC 97 17 84 12 AC + 	mwy PLY :bp2
-  1179 1520 A0 04			ldy #PLY.DIR-DATAORIGIN
-  1180 1522 B1 12			lda (:bp2),y
-  1181 1524 29 06			and #$06
-  1182 1526 F0 0A			jeq l_04BF
-  1183 1528 A5 59			lda NEWDIR
-  1184 152A 29 09			and #$09
-  1185 152C F0 04			jeq l_04BF
-  1186 152E A9 6D			lda #$6D
-  1187 1530 85 58			sta T0B
-  1188 1532			l_04BF
-  1189
-  1190 				; optimize OK (main.pas), line = 55
-  1191
-  1192 1532 AC 97 17 84 12 AC + 	mwy PLY :bp2
-  1193 153C A0 04			ldy #PLY.DIR-DATAORIGIN
-  1194 153E B1 12			lda (:bp2),y
-  1195 1540 29 05			and #$05
-  1196 1542 F0 0A			jeq l_04EC
-  1197 1544 A5 59			lda NEWDIR
-  1198 1546 29 0A			and #$0A
-  1199 1548 F0 04			jeq l_04EC
-  1200 154A A9 70			lda #$70
-  1201 154C 85 58			sta T0B
-  1202 154E			l_04EC
-  1203 154E			l_043F
-  1204
-  1205 				; optimize OK (main.pas), line = 57
-  1206
-  1207 154E AC 97 17 84 12 AC + 	mwy PLY :bp2
-  1208 1558 A0 00			ldy #PLY.X-DATAORIGIN
-  1209 155A B1 12			lda (:bp2),y
-  1210 155C 8D B5 17			sta PUTCHAR.X
-  1211 155F A0 01			ldy #PLY.Y-DATAORIGIN
-  1212 1561 B1 12			lda (:bp2),y
-  1213 1563 8D B6 17			sta PUTCHAR.Y
-  1214 1566 A0 03			ldy #PLY.COLOUR-DATAORIGIN
-  1215 1568 B1 12			lda (:bp2),y
-  1216 156A 8D B8 17			sta PUTCHAR.C
-  1217 156D A5 58			lda T0B
-  1218 156F 8D B7 17			sta PUTCHAR.V
-  1219 1572 20 71 11			jsr PUTCHAR
+  1133 1472 AD 14 18			lda P
+  1134 1475 8D E3 17			sta PLY
+  1135 1478 85 12			sta :bp2
+  1136 147A AD 15 18			lda P+1
+  1137 147D 8D E4 17			sta PLY+1
+  1138 1480 85 13			sta :bp2+1
+  1139 				; optimize OK (main.pas), line = 35
+  1140 1482 A0 06			ldy #PLY.ISDEAD-DATAORIGIN
+  1141 1484 B1 12			lda (:bp2),y
+  1142 1486 F0 03 4C 63 16		jne l_040D
+  1143
+  1144 				; optimize OK (main.pas), line = 37
+  1145
+  1146 148B A0 00			ldy #PLY.X-DATAORIGIN
+  1147 148D B1 12			lda (:bp2),y
+  1148 148F 8D 05 18			sta CHECKAVAILDIR.X
+  1149 1492 A0 01			ldy #PLY.Y-DATAORIGIN
+  1150 1494 B1 12			lda (:bp2),y
+  1151 1496 8D 06 18			sta CHECKAVAILDIR.Y
+  1152 1499 20 9C 11			jsr CHECKAVAILDIR
+  1153
+  1154 				; optimize OK (main.pas), line = 39
+  1155
+  1156 149C AD E1 17			lda AVAILDIR
+  1157 149F D0 36			jne l_0427
+  1158
+  1159 				; optimize OK (main.pas), line = 40
+  1160
+  1161 14A1 AC E3 17 84 12 AC + 	mwy PLY :bp2
+  1162 14AB A0 06			ldy #PLY.ISDEAD-DATAORIGIN
+  1163 14AD A9 01			lda #$01
+  1164 14AF 91 12			sta (:bp2),y
+  1165 14B1 CE E2 17			dec ALIVE
+  1166
+  1167 				; optimize OK (main.pas), line = 41
+  1168
+  1169 14B4 A0 00			ldy #PLY.X-DATAORIGIN
+  1170 14B6 B1 12			lda (:bp2),y
+  1171 14B8 8D 01 18			sta PUTCHAR.X
+  1172 14BB A0 01			ldy #PLY.Y-DATAORIGIN
+  1173 14BD B1 12			lda (:bp2),y
+  1174 14BF 8D 02 18			sta PUTCHAR.Y
+  1175 14C2 A0 03			ldy #PLY.COLOUR-DATAORIGIN
+  1176 14C4 B1 12			lda (:bp2),y
+  1177 14C6 18 69 80			add #$80
+  1178 14C9 8D 04 18			sta PUTCHAR.C
+  1179 14CC A9 57			lda #$57
+  1180 14CE 8D 03 18			sta PUTCHAR.V
+  1181 14D1 20 71 11			jsr PUTCHAR
+  1182 14D4 4C 63 16			jmp l_0448
+  1183 14D7			l_0427
+  1184
+  1185 				; optimize OK (main.pas), line = 44
+  1186
+  1187 14D7 AC E3 17 84 12 AC + 	mwy PLY :bp2
+  1188 14E1 A0 05			ldy #PLY.BRAIN-DATAORIGIN
+  1189 14E3 B1 12			lda (:bp2),y
+  1190 14E5 8D 16 18			sta @CASETMP_0007
+  1191 14E8 C9 00			cmp #$00
+  1192 14EA D0 06			jne l_0453
+  1193 14EC			@
+  1194
+  1195 				; optimize FAIL ('HUMAN', main.pas), line = 45
+  1196
+  1197 14EC 20 BA 13			jsr HUMAN
+  1198 14EF 4C 03 15			jmp a_0007
+  1199 14F2			l_0453
+  1200 14F2 C9 01			cmp #$01
+  1201 14F4 D0 06			jne l_045D
+  1202 14F6			@
+  1203
+  1204 				; optimize FAIL ('AI_STRAIGHTFORWARD', main.pas), line = 46
+  1205
+  1206 14F6 20 E3 12			jsr AI_STRAIGHTFORWARD
+  1207 14F9 4C 03 15			jmp a_0007
+  1208 14FC			l_045D
+  1209 14FC C9 02			cmp #$02
+  1210 14FE D0 03			jne l_0467
+  1211 1500			@
+  1212
+  1213 				; optimize FAIL ('AI_MIRROR', main.pas), line = 47
+  1214
+  1215 1500 20 79 13			jsr AI_MIRROR
+  1216 1503			l_0467
+  1217 1503			a_0007
+  1218
+  1219 				; optimize OK (main.pas), line = 50
   1220
-  1221 				; optimize OK (main.pas), line = 59
-  1222
-  1223 1575 AC 97 17 84 12 AC + 	mwy PLY :bp2
-  1224 157F A0 04			ldy #PLY.DIR-DATAORIGIN
-  1225 1581 A5 59			lda NEWDIR
-  1226 1583 91 12			sta (:bp2),y
-  1227
-  1228 				; optimize OK (main.pas), line = 61
-  1229
-  1230 1585 A5 59			lda NEWDIR
-  1231 1587 8D CA 17			sta @CASETMP_0007
-  1232 158A C9 01			cmp #$01
-  1233 158C D0 16			jne l_0511
-  1234 158E			@
-  1235
-  1236 				; optimize OK (main.pas), line = 62
-  1237
-  1238 158E AC 97 17 84 12 AC + 	mwy PLY :bp2
-  1239 1598 A0 01			ldy #PLY.Y-DATAORIGIN
-  1240 159A B1 12			lda (:bp2),y
-  1241 159C 38 E9 01			sub #$01
-  1242 159F 91 12			sta (:bp2),y
+  1221 1503 AC E3 17 84 12 AC + 	mwy PLY :bp2
+  1222 150D A0 04			ldy #PLY.DIR-DATAORIGIN
+  1223 150F B1 12			lda (:bp2),y
+  1224 1511 C5 59			cmp NEWDIR
+  1225 1513 D0 14			jne l_0483
+  1226
+  1227 				; optimize OK (main.pas), line = 51
+  1228
+  1229 1515 A5 59			lda NEWDIR
+  1230 1517 29 0C			and #$0C
+  1231 1519 F0 07			jeq l_049A
+  1232 151B A9 40			lda #$40
+  1233 151D 85 58			sta T0B
+  1234 151F 4C 26 15			jmp l_04A8
+  1235 1522			l_049A
+  1236 1522 A9 42			lda #$42
+  1237 1524 85 58			sta T0B
+  1238 1526			l_04A8
+  1239 1526 4C 99 15			jmp l_04B5
+  1240 1529			l_0483
+  1241
+  1242 				; optimize OK (main.pas), line = 53
   1243
-  1244 15A1 4C EF 15			jmp a_0007
-  1245 15A4			l_0511
-  1246 15A4 C9 02			cmp #$02
-  1247 15A6 D0 16			jne l_051B
-  1248 15A8			@
-  1249
-  1250 				; optimize OK (main.pas), line = 63
-  1251
-  1252 15A8 AC 97 17 84 12 AC + 	mwy PLY :bp2
-  1253 15B2 A0 01			ldy #PLY.Y-DATAORIGIN
-  1254 15B4 B1 12			lda (:bp2),y
-  1255 15B6 18 69 01			add #$01
-  1256 15B9 91 12			sta (:bp2),y
+  1244 1529 AC E3 17 84 12 AC + 	mwy PLY :bp2
+  1245 1533 A0 04			ldy #PLY.DIR-DATAORIGIN
+  1246 1535 B1 12			lda (:bp2),y
+  1247 1537 29 0A			and #$0A
+  1248 1539 F0 0A			jeq l_04DB
+  1249 153B A5 59			lda NEWDIR
+  1250 153D 29 05			and #$05
+  1251 153F F0 04			jeq l_04DB
+  1252 1541 A9 7D			lda #$7D
+  1253 1543 85 58			sta T0B
+  1254 1545			l_04DB
+  1255
+  1256 				; optimize OK (main.pas), line = 54
   1257
-  1258 15BB 4C EF 15			jmp a_0007
-  1259 15BE			l_051B
-  1260 15BE C9 04			cmp #$04
-  1261 15C0 D0 16			jne l_0525
-  1262 15C2			@
-  1263
-  1264 				; optimize OK (main.pas), line = 64
-  1265
-  1266 15C2 AC 97 17 84 12 AC + 	mwy PLY :bp2
-  1267 15CC A0 00			ldy #PLY.X-DATAORIGIN
-  1268 15CE B1 12			lda (:bp2),y
-  1269 15D0 38 E9 01			sub #$01
-  1270 15D3 91 12			sta (:bp2),y
+  1258 1545 AC E3 17 84 12 AC + 	mwy PLY :bp2
+  1259 154F A0 04			ldy #PLY.DIR-DATAORIGIN
+  1260 1551 B1 12			lda (:bp2),y
+  1261 1553 29 09			and #$09
+  1262 1555 F0 0A			jeq l_0508
+  1263 1557 A5 59			lda NEWDIR
+  1264 1559 29 06			and #$06
+  1265 155B F0 04			jeq l_0508
+  1266 155D A9 6E			lda #$6E
+  1267 155F 85 58			sta T0B
+  1268 1561			l_0508
+  1269
+  1270 				; optimize OK (main.pas), line = 55
   1271
-  1272 15D5 4C EF 15			jmp a_0007
-  1273 15D8			l_0525
-  1274 15D8 C9 08			cmp #$08
-  1275 15DA D0 13			jne l_052F
-  1276 15DC			@
-  1277
-  1278 				; optimize OK (main.pas), line = 65
-  1279
-  1280 15DC AC 97 17 84 12 AC + 	mwy PLY :bp2
-  1281 15E6 A0 00			ldy #PLY.X-DATAORIGIN
-  1282 15E8 B1 12			lda (:bp2),y
-  1283 15EA 18 69 01			add #$01
-  1284 15ED 91 12			sta (:bp2),y
+  1272 1561 AC E3 17 84 12 AC + 	mwy PLY :bp2
+  1273 156B A0 04			ldy #PLY.DIR-DATAORIGIN
+  1274 156D B1 12			lda (:bp2),y
+  1275 156F 29 06			and #$06
+  1276 1571 F0 0A			jeq l_0535
+  1277 1573 A5 59			lda NEWDIR
+  1278 1575 29 09			and #$09
+  1279 1577 F0 04			jeq l_0535
+  1280 1579 A9 6D			lda #$6D
+  1281 157B 85 58			sta T0B
+  1282 157D			l_0535
+  1283
+  1284 				; optimize OK (main.pas), line = 56
   1285
-  1286 15EF			l_052F
-  1287 15EF			a_0007
-  1288
-  1289 				; optimize OK (main.pas), line = 68
-  1290
-  1291 15EF AC 97 17 84 12 AC + 	mwy PLY :bp2
-  1292 15F9 A0 00			ldy #PLY.X-DATAORIGIN
-  1293 15FB B1 12			lda (:bp2),y
-  1294 15FD 8D B5 17			sta PUTCHAR.X
-  1295 1600 A0 01			ldy #PLY.Y-DATAORIGIN
-  1296 1602 B1 12			lda (:bp2),y
-  1297 1604 8D B6 17			sta PUTCHAR.Y
-  1298 1607 A0 02			ldy #PLY.HEAD-DATAORIGIN
-  1299 1609 B1 12			lda (:bp2),y
-  1300 160B 8D B7 17			sta PUTCHAR.V
-  1301 160E A0 03			ldy #PLY.COLOUR-DATAORIGIN
-  1302 1610 B1 12			lda (:bp2),y
-  1303 1612 8D B8 17			sta PUTCHAR.C
-  1304 1615 20 71 11			jsr PUTCHAR
-  1305 1618			l_03DD
-  1306 1618			l_03A2
-  1307
-  1308 				; ------------------------------------------------------------
-  1309
-  1310 = 17C7			P	= DATAORIGIN+$0043
-  1311 = 17C9			@CASETMP_0006	= DATAORIGIN+$0045
-  1312 = 17CA			@CASETMP_0007	= DATAORIGIN+$0046
-  1313
-  1314 = 17C7			@VarData	= P
-  1315 = 0004			@VarDataSize	= 4
+  1286 157D AC E3 17 84 12 AC + 	mwy PLY :bp2
+  1287 1587 A0 04			ldy #PLY.DIR-DATAORIGIN
+  1288 1589 B1 12			lda (:bp2),y
+  1289 158B 29 05			and #$05
+  1290 158D F0 0A			jeq l_0562
+  1291 158F A5 59			lda NEWDIR
+  1292 1591 29 0A			and #$0A
+  1293 1593 F0 04			jeq l_0562
+  1294 1595 A9 70			lda #$70
+  1295 1597 85 58			sta T0B
+  1296 1599			l_0562
+  1297 1599			l_04B5
+  1298
+  1299 				; optimize OK (main.pas), line = 58
+  1300
+  1301 1599 AC E3 17 84 12 AC + 	mwy PLY :bp2
+  1302 15A3 A0 00			ldy #PLY.X-DATAORIGIN
+  1303 15A5 B1 12			lda (:bp2),y
+  1304 15A7 8D 01 18			sta PUTCHAR.X
+  1305 15AA A0 01			ldy #PLY.Y-DATAORIGIN
+  1306 15AC B1 12			lda (:bp2),y
+  1307 15AE 8D 02 18			sta PUTCHAR.Y
+  1308 15B1 A0 03			ldy #PLY.COLOUR-DATAORIGIN
+  1309 15B3 B1 12			lda (:bp2),y
+  1310 15B5 8D 04 18			sta PUTCHAR.C
+  1311 15B8 A5 58			lda T0B
+  1312 15BA 8D 03 18			sta PUTCHAR.V
+  1313 15BD 20 71 11			jsr PUTCHAR
+  1314
+  1315 				; optimize OK (main.pas), line = 60
   1316
-  1317 1618			@exit
-  1318 					.ifdef @new
-  1319 					lda <@VarData
-  1320 					sta :ztmp
-  1321 					lda >@VarData
-  1322 					ldy #@VarDataSize-1
-  1323 					jmp @FreeMem
-  1324 					els
-  1325 1618 60				rts						; ret
-  1326 					eif
-  1327 				.endl
-  1328 1619			l_0007
+  1317 15C0 AC E3 17 84 12 AC + 	mwy PLY :bp2
+  1318 15CA A0 04			ldy #PLY.DIR-DATAORIGIN
+  1319 15CC A5 59			lda NEWDIR
+  1320 15CE 91 12			sta (:bp2),y
+  1321
+  1322 				; optimize OK (main.pas), line = 62
+  1323
+  1324 15D0 A5 59			lda NEWDIR
+  1325 15D2 8D 17 18			sta @CASETMP_0008
+  1326 15D5 C9 01			cmp #$01
+  1327 15D7 D0 16			jne l_0587
+  1328 15D9			@
   1329
-  1330 				; optimize OK (main.pas), line = 79
+  1330 				; optimize OK (main.pas), line = 63
   1331
-  1332 1619 A9 00			lda #$00
-  1333 161B 8D 94 17			sta GAMEOVER
-  1334
-  1335 				; --- RepeatUntilProlog
-  1336 161E			l_054D
+  1332 15D9 AC E3 17 84 12 AC + 	mwy PLY :bp2
+  1333 15E3 A0 01			ldy #PLY.Y-DATAORIGIN
+  1334 15E5 B1 12			lda (:bp2),y
+  1335 15E7 38 E9 01			sub #$01
+  1336 15EA 91 12			sta (:bp2),y
   1337
-  1338 				; optimize OK (main.pas), line = 81
-  1339
-  1340 161E A9 FF			lda #$FF
-  1341 1620 8D 96 17			sta ALIVE
-  1342
-  1343 				; optimize OK (main.pas), line = 83
-  1344
-  1345 1623 A9 00			lda #$00
-  1346 1625 8D C3 17			sta INITPLAYERS.ISDEAD
-  1347 1628 A9 5F			lda #$5F
-  1348 162A 8D C2 17			sta INITPLAYERS.COLOUR
-  1349 162D A9 51			lda #$51
-  1350 162F 8D C1 17			sta INITPLAYERS.HEAD
-  1351 1632 A9 01			lda #$01
-  1352 1634 8D C0 17			sta INITPLAYERS.BRAIN
-  1353 1637 A9 08			lda #$08
-  1354 1639 8D BF 17			sta INITPLAYERS.DIR
-  1355 163C A9 0C			lda #$0C
-  1356 163E 8D BE 17			sta INITPLAYERS.Y
-  1357 1641 A9 0A			lda #$0A
-  1358 1643 8D BD 17			sta INITPLAYERS.X
-  1359 1646 AD 7B 17			lda PLAYER1
-  1360 1649 8D BB 17			sta INITPLAYERS.P
-  1361 164C AD 7C 17			lda PLAYER1+1
-  1362 164F 8D BC 17			sta INITPLAYERS.P+1
-  1363 1652 20 A1 12			jsr INITPLAYERS
-  1364
-  1365 				; optimize OK (main.pas), line = 84
-  1366
-  1367 1655 A9 00			lda #$00
-  1368 1657 8D C3 17			sta INITPLAYERS.ISDEAD
-  1369 165A A9 5D			lda #$5D
-  1370 165C 8D C2 17			sta INITPLAYERS.COLOUR
-  1371 165F A9 51			lda #$51
-  1372 1661 8D C1 17			sta INITPLAYERS.HEAD
-  1373 1664 A9 01			lda #$01
-  1374 1666 8D C0 17			sta INITPLAYERS.BRAIN
-  1375 1669 A9 04			lda #$04
-  1376 166B 8D BF 17			sta INITPLAYERS.DIR
-  1377 166E A9 0C			lda #$0C
-  1378 1670 8D BE 17			sta INITPLAYERS.Y
-  1379 1673 A9 1E			lda #$1E
-  1380 1675 8D BD 17			sta INITPLAYERS.X
-  1381 1678 AD 7D 17			lda PLAYER2
-  1382 167B 8D BB 17			sta INITPLAYERS.P
-  1383 167E AD 7E 17			lda PLAYER2+1
-  1384 1681 8D BC 17			sta INITPLAYERS.P+1
-  1385 1684 20 A1 12			jsr INITPLAYERS
-  1386
-  1387 				; optimize OK (main.pas), line = 85
-  1388
-  1389 1687 A9 01			lda #$01
-  1390 1689 8D C3 17			sta INITPLAYERS.ISDEAD
-  1391 168C A9 71			lda #$71
-  1392 168E 8D C2 17			sta INITPLAYERS.COLOUR
-  1393 1691 A9 51			lda #$51
-  1394 1693 8D C1 17			sta INITPLAYERS.HEAD
-  1395 1696 A9 01			lda #$01
-  1396 1698 8D C0 17			sta INITPLAYERS.BRAIN
-  1397 169B A9 02			lda #$02
-  1398 169D 8D BF 17			sta INITPLAYERS.DIR
-  1399 16A0 A9 06			lda #$06
-  1400 16A2 8D BE 17			sta INITPLAYERS.Y
-  1401 16A5 A9 14			lda #$14
-  1402 16A7 8D BD 17			sta INITPLAYERS.X
-  1403 16AA AD 7F 17			lda PLAYER3
-  1404 16AD 8D BB 17			sta INITPLAYERS.P
-  1405 16B0 AD 80 17			lda PLAYER3+1
-  1406 16B3 8D BC 17			sta INITPLAYERS.P+1
-  1407 16B6 20 A1 12			jsr INITPLAYERS
-  1408
-  1409 				; optimize OK (main.pas), line = 86
+  1338 15EC 4C 3A 16			jmp a_0008
+  1339 15EF			l_0587
+  1340 15EF C9 02			cmp #$02
+  1341 15F1 D0 16			jne l_0591
+  1342 15F3			@
+  1343
+  1344 				; optimize OK (main.pas), line = 64
+  1345
+  1346 15F3 AC E3 17 84 12 AC + 	mwy PLY :bp2
+  1347 15FD A0 01			ldy #PLY.Y-DATAORIGIN
+  1348 15FF B1 12			lda (:bp2),y
+  1349 1601 18 69 01			add #$01
+  1350 1604 91 12			sta (:bp2),y
+  1351
+  1352 1606 4C 3A 16			jmp a_0008
+  1353 1609			l_0591
+  1354 1609 C9 04			cmp #$04
+  1355 160B D0 16			jne l_059B
+  1356 160D			@
+  1357
+  1358 				; optimize OK (main.pas), line = 65
+  1359
+  1360 160D AC E3 17 84 12 AC + 	mwy PLY :bp2
+  1361 1617 A0 00			ldy #PLY.X-DATAORIGIN
+  1362 1619 B1 12			lda (:bp2),y
+  1363 161B 38 E9 01			sub #$01
+  1364 161E 91 12			sta (:bp2),y
+  1365
+  1366 1620 4C 3A 16			jmp a_0008
+  1367 1623			l_059B
+  1368 1623 C9 08			cmp #$08
+  1369 1625 D0 13			jne l_05A5
+  1370 1627			@
+  1371
+  1372 				; optimize OK (main.pas), line = 66
+  1373
+  1374 1627 AC E3 17 84 12 AC + 	mwy PLY :bp2
+  1375 1631 A0 00			ldy #PLY.X-DATAORIGIN
+  1376 1633 B1 12			lda (:bp2),y
+  1377 1635 18 69 01			add #$01
+  1378 1638 91 12			sta (:bp2),y
+  1379
+  1380 163A			l_05A5
+  1381 163A			a_0008
+  1382
+  1383 				; optimize OK (main.pas), line = 69
+  1384
+  1385 163A AC E3 17 84 12 AC + 	mwy PLY :bp2
+  1386 1644 A0 00			ldy #PLY.X-DATAORIGIN
+  1387 1646 B1 12			lda (:bp2),y
+  1388 1648 8D 01 18			sta PUTCHAR.X
+  1389 164B A0 01			ldy #PLY.Y-DATAORIGIN
+  1390 164D B1 12			lda (:bp2),y
+  1391 164F 8D 02 18			sta PUTCHAR.Y
+  1392 1652 A0 02			ldy #PLY.HEAD-DATAORIGIN
+  1393 1654 B1 12			lda (:bp2),y
+  1394 1656 8D 03 18			sta PUTCHAR.V
+  1395 1659 A0 03			ldy #PLY.COLOUR-DATAORIGIN
+  1396 165B B1 12			lda (:bp2),y
+  1397 165D 8D 04 18			sta PUTCHAR.C
+  1398 1660 20 71 11			jsr PUTCHAR
+  1399 1663			l_0448
+  1400 1663			l_040D
+  1401
+  1402 				; ------------------------------------------------------------
+  1403
+  1404 = 1814			P	= DATAORIGIN+$0044
+  1405 = 1816			@CASETMP_0007	= DATAORIGIN+$0046
+  1406 = 1817			@CASETMP_0008	= DATAORIGIN+$0047
+  1407
+  1408 = 1814			@VarData	= P
+  1409 = 0004			@VarDataSize	= 4
   1410
-  1411 16B9 A9 01			lda #$01
-  1412 16BB 8D C3 17			sta INITPLAYERS.ISDEAD
-  1413 16BE A9 55			lda #$55
-  1414 16C0 8D C2 17			sta INITPLAYERS.COLOUR
-  1415 16C3 A9 51			lda #$51
-  1416 16C5 8D C1 17			sta INITPLAYERS.HEAD
-  1417 16C8 A9 01			lda #$01
-  1418 16CA 8D C0 17			sta INITPLAYERS.BRAIN
-  1419 16CD 8D BF 17			sta INITPLAYERS.DIR
-  1420 16D0 A9 12			lda #$12
-  1421 16D2 8D BE 17			sta INITPLAYERS.Y
-  1422 16D5 A9 14			lda #$14
-  1423 16D7 8D BD 17			sta INITPLAYERS.X
-  1424 16DA AD 81 17			lda PLAYER4
-  1425 16DD 8D BB 17			sta INITPLAYERS.P
-  1426 16E0 AD 82 17			lda PLAYER4+1
-  1427 16E3 8D BC 17			sta INITPLAYERS.P+1
-  1428 16E6 20 A1 12			jsr INITPLAYERS
-  1429
-  1430 				; optimize OK (main.pas), line = 88
+  1411 1663			@exit
+  1412 					.ifdef @new
+  1413 					lda <@VarData
+  1414 					sta :ztmp
+  1415 					lda >@VarData
+  1416 					ldy #@VarDataSize-1
+  1417 					jmp @FreeMem
+  1418 					els
+  1419 1663 60				rts						; ret
+  1420 					eif
+  1421 				.endl
+  1422 1664			l_0007
+  1423
+  1424 				; optimize OK (main.pas), line = 80
+  1425
+  1426 1664 A9 00			lda #$00
+  1427 1666 8D E0 17			sta GAMEOVER
+  1428
+  1429 				; --- RepeatUntilProlog
+  1430 1669			l_05C3
   1431
-  1432 16E9 AD 9F 17			lda PLAYER1.ISDEAD
-  1433 16EC D0 03			jne l_0588
-  1434 16EE EE 96 17			inc ALIVE
-  1435 16F1			l_0588
-  1436
-  1437 				; optimize OK (main.pas), line = 89
-  1438
-  1439 16F1 AD A6 17			lda PLAYER2.ISDEAD
-  1440 16F4 D0 03			jne l_059E
-  1441 16F6 EE 96 17			inc ALIVE
-  1442 16F9			l_059E
-  1443
-  1444 				; optimize OK (main.pas), line = 90
-  1445
-  1446 16F9 AD AD 17			lda PLAYER3.ISDEAD
-  1447 16FC D0 03			jne l_05B4
-  1448 16FE EE 96 17			inc ALIVE
-  1449 1701			l_05B4
-  1450
-  1451 				; optimize OK (main.pas), line = 91
-  1452
-  1453 1701 AD B4 17			lda PLAYER4.ISDEAD
-  1454 1704 D0 03			jne l_05CA
-  1455 1706 EE 96 17			inc ALIVE
-  1456 1709			l_05CA
-  1457
-  1458 				; optimize FAIL ('INITPLAYFIELD', main.pas), line = 93
-  1459
-  1460 1709 20 21 12			jsr INITPLAYFIELD
-  1461
-  1462 				; --- RepeatUntilProlog
-  1463 170C			l_05D3
-  1464
-  1465 				; optimize OK (main.pas), line = 96
-  1466
-  1467 170C A9 01			lda #$01
-  1468 170E 8D 90 17			sta SYSTEM.PAUSE_006B.N
-  1469 1711 A9 00			lda #$00
-  1470 1713 8D 91 17			sta SYSTEM.PAUSE_006B.N+1
-  1471 1716 20 23 11			jsr SYSTEM.PAUSE_006B
-  1472
-  1473 				; optimize OK (main.pas), line = 97
-  1474
-  1475 1719 AD 7B 17			lda PLAYER1
-  1476 171C 8D C7 17			sta PLAYERMOVE.P
-  1477 171F AD 7C 17			lda PLAYER1+1
-  1478 1722 8D C8 17			sta PLAYERMOVE.P+1
-  1479 1725 20 31 14			jsr PLAYERMOVE
-  1480
-  1481 				; optimize OK (main.pas), line = 98
-  1482
-  1483 1728 AD 7D 17			lda PLAYER2
-  1484 172B 8D C7 17			sta PLAYERMOVE.P
-  1485 172E AD 7E 17			lda PLAYER2+1
-  1486 1731 8D C8 17			sta PLAYERMOVE.P+1
-  1487 1734 20 31 14			jsr PLAYERMOVE
-  1488
-  1489 				; optimize OK (main.pas), line = 99
-  1490
-  1491 1737 AD 7F 17			lda PLAYER3
-  1492 173A 8D C7 17			sta PLAYERMOVE.P
-  1493 173D AD 80 17			lda PLAYER3+1
-  1494 1740 8D C8 17			sta PLAYERMOVE.P+1
-  1495 1743 20 31 14			jsr PLAYERMOVE
-  1496
-  1497 				; optimize OK (main.pas), line = 100
-  1498
-  1499 1746 AD 81 17			lda PLAYER4
-  1500 1749 8D C7 17			sta PLAYERMOVE.P
-  1501 174C AD 82 17			lda PLAYER4+1
-  1502 174F 8D C8 17			sta PLAYERMOVE.P+1
-  1503 1752 20 31 14			jsr PLAYERMOVE
-  1504
-  1505 				; optimize OK (main.pas), line = 101
-  1506
-  1507 1755 AD 96 17			lda ALIVE
-  1508 1758 F0 04			jeq l_05D3x
-  1509 175A C9 FF			cmp #$FF
-  1510 175C D0 AE			jne l_05D3
-  1511 175E			l_05D3x
-  1512
-  1513 				; optimize OK (main.pas), line = 103
-  1514
-  1515 175E A9 64			lda #$64
-  1516 1760 8D 90 17			sta SYSTEM.PAUSE_006B.N
-  1517 1763 A9 00			lda #$00
-  1518 1765 8D 91 17			sta SYSTEM.PAUSE_006B.N+1
-  1519 1768 20 23 11			jsr SYSTEM.PAUSE_006B
+  1432 				; optimize OK (main.pas), line = 82
+  1433
+  1434 1669 A9 00			lda #$00
+  1435 166B 8D 0F 18			sta INITPLAYERS.ISDEAD
+  1436 166E A9 5F			lda #$5F
+  1437 1670 8D 0E 18			sta INITPLAYERS.COLOUR
+  1438 1673 A9 51			lda #$51
+  1439 1675 8D 0D 18			sta INITPLAYERS.HEAD
+  1440 1678 A9 00			lda #$00
+  1441 167A 8D 0C 18			sta INITPLAYERS.BRAIN
+  1442 167D A9 08			lda #$08
+  1443 167F 8D 0B 18			sta INITPLAYERS.DIR
+  1444 1682 A9 0C			lda #$0C
+  1445 1684 8D 0A 18			sta INITPLAYERS.Y
+  1446 1687 A9 0A			lda #$0A
+  1447 1689 8D 09 18			sta INITPLAYERS.X
+  1448 168C AD C6 17			lda PLAYER1
+  1449 168F 8D 07 18			sta INITPLAYERS.P
+  1450 1692 AD C7 17			lda PLAYER1+1
+  1451 1695 8D 08 18			sta INITPLAYERS.P+1
+  1452 1698 20 A1 12			jsr INITPLAYERS
+  1453
+  1454 				; optimize OK (main.pas), line = 83
+  1455
+  1456 169B A9 00			lda #$00
+  1457 169D 8D 0F 18			sta INITPLAYERS.ISDEAD
+  1458 16A0 A9 5D			lda #$5D
+  1459 16A2 8D 0E 18			sta INITPLAYERS.COLOUR
+  1460 16A5 A9 51			lda #$51
+  1461 16A7 8D 0D 18			sta INITPLAYERS.HEAD
+  1462 16AA A9 02			lda #$02
+  1463 16AC 8D 0C 18			sta INITPLAYERS.BRAIN
+  1464 16AF A9 04			lda #$04
+  1465 16B1 8D 0B 18			sta INITPLAYERS.DIR
+  1466 16B4 A9 0C			lda #$0C
+  1467 16B6 8D 0A 18			sta INITPLAYERS.Y
+  1468 16B9 A9 1E			lda #$1E
+  1469 16BB 8D 09 18			sta INITPLAYERS.X
+  1470 16BE AD C8 17			lda PLAYER2
+  1471 16C1 8D 07 18			sta INITPLAYERS.P
+  1472 16C4 AD C9 17			lda PLAYER2+1
+  1473 16C7 8D 08 18			sta INITPLAYERS.P+1
+  1474 16CA 20 A1 12			jsr INITPLAYERS
+  1475
+  1476 				; optimize OK (main.pas), line = 84
+  1477
+  1478 16CD A9 00			lda #$00
+  1479 16CF 8D 0F 18			sta INITPLAYERS.ISDEAD
+  1480 16D2 A9 71			lda #$71
+  1481 16D4 8D 0E 18			sta INITPLAYERS.COLOUR
+  1482 16D7 A9 51			lda #$51
+  1483 16D9 8D 0D 18			sta INITPLAYERS.HEAD
+  1484 16DC A9 01			lda #$01
+  1485 16DE 8D 0C 18			sta INITPLAYERS.BRAIN
+  1486 16E1 A9 02			lda #$02
+  1487 16E3 8D 0B 18			sta INITPLAYERS.DIR
+  1488 16E6 A9 06			lda #$06
+  1489 16E8 8D 0A 18			sta INITPLAYERS.Y
+  1490 16EB A9 14			lda #$14
+  1491 16ED 8D 09 18			sta INITPLAYERS.X
+  1492 16F0 AD CA 17			lda PLAYER3
+  1493 16F3 8D 07 18			sta INITPLAYERS.P
+  1494 16F6 AD CB 17			lda PLAYER3+1
+  1495 16F9 8D 08 18			sta INITPLAYERS.P+1
+  1496 16FC 20 A1 12			jsr INITPLAYERS
+  1497
+  1498 				; optimize OK (main.pas), line = 85
+  1499
+  1500 16FF A9 01			lda #$01
+  1501 1701 8D 0F 18			sta INITPLAYERS.ISDEAD
+  1502 1704 A9 55			lda #$55
+  1503 1706 8D 0E 18			sta INITPLAYERS.COLOUR
+  1504 1709 A9 51			lda #$51
+  1505 170B 8D 0D 18			sta INITPLAYERS.HEAD
+  1506 170E A9 01			lda #$01
+  1507 1710 8D 0C 18			sta INITPLAYERS.BRAIN
+  1508 1713 8D 0B 18			sta INITPLAYERS.DIR
+  1509 1716 A9 12			lda #$12
+  1510 1718 8D 0A 18			sta INITPLAYERS.Y
+  1511 171B A9 14			lda #$14
+  1512 171D 8D 09 18			sta INITPLAYERS.X
+  1513 1720 AD CC 17			lda PLAYER4
+  1514 1723 8D 07 18			sta INITPLAYERS.P
+  1515 1726 AD CD 17			lda PLAYER4+1
+  1516 1729 8D 08 18			sta INITPLAYERS.P+1
+  1517 172C 20 A1 12			jsr INITPLAYERS
+  1518
+  1519 				; optimize OK (main.pas), line = 87
   1520
-  1521 				; optimize OK (main.pas), line = 104
-  1522
-  1523 176B AD 94 17			lda GAMEOVER
-  1524 176E D0 03 4C 1E 16		jeq l_054D
+  1521 172F A9 FF			lda #$FF
+  1522 1731 8D E2 17			sta ALIVE
+  1523
+  1524 				; optimize OK (main.pas), line = 88
   1525
-  1526 				; ------------------------------------------------------------
-  1527
-  1528 = 0800			ATTRIBUTE_ADDR	= $0800
-  1529 = 0C00			SCREEN_ADDR	= $0C00
-  1530 = 0020			EMPTY	= $20
-  1531 = 00A0			WALL	= $A0
-  1532 = 0041			WALL_COLOUR	= $41
-  1533 = 0051			PLY_HEAD	= $51
-  1534 = 0057			PLY_CRASH	= $57
-  1535 = 0042			PLY_TAIL_UD	= $42
-  1536 = 0040			PLY_TAIL_LR	= $40
-  1537 = 007D			PLY_TAIL_RD	= $7D
-  1538 = 006E			PLY_TAIL_RU	= $6E
-  1539 = 006D			PLY_TAIL_LD	= $6D
-  1540 = 0070			PLY_TAIL_LU	= $70
-  1541 = 005F			PLY1_COLOUR	= $5F
-  1542 = 005D			PLY2_COLOUR	= $5D
-  1543 = 0071			PLY3_COLOUR	= $71
-  1544 = 0055			PLY4_COLOUR	= $55
-  1545 = 0001			JOY_UP	= $01
-  1546 = 0002			JOY_DOWN	= $02
-  1547 = 0004			JOY_LEFT	= $04
-  1548 = 0008			JOY_RIGHT	= $08
-  1549 = 0040			JOY_FIRE	= $40
-  1550 = 0002			JOY_SELECT_1	= $02
-  1551 = 0004			JOY_SELECT_2	= $04
-  1552 = 100E			adr.MUL40	= CODEORIGIN+$0000
-  1553 1773			.var MUL40	= adr.MUL40 .word
-  1554 = 1040			adr.DIRECTION	= CODEORIGIN+$0032
-  1555 1773			.var DIRECTION	= adr.DIRECTION .word
-  1556 = FD30			KEY_PIO	= $FD30
-  1557 = FF08			JOY	= $FF08
-  1558 = FF15			BORDERCOLOR	= $FF15
-  1559 = FF19			BGCOLOR	= $FF19
-  1560 = 0058			T0B	= $58
-  1561 = 0059			NEWDIR	= $59
-  1562 = 005A			T0N	= $5A
-  1563 = 005B			T0W	= $5B
-  1564 = 1794			GAMEOVER	= DATAORIGIN+$0010
-  1565 = 1795			AVAILDIR	= DATAORIGIN+$0011
-  1566 = 1796			ALIVE	= DATAORIGIN+$0012
-  1567 = 1797			PLY	= DATAORIGIN+$0013
-  1568 = 1784			PLY.X	= DATAORIGIN+$0000
-  1569 = 1785			PLY.Y	= DATAORIGIN+$0001
-  1570 = 1786			PLY.HEAD	= DATAORIGIN+$0002
-  1571 = 1787			PLY.COLOUR	= DATAORIGIN+$0003
-  1572 = 1788			PLY.DIR	= DATAORIGIN+$0004
-  1573 = 1789			PLY.BRAIN	= DATAORIGIN+$0005
-  1574 = 178A			PLY.ISDEAD	= DATAORIGIN+$0006
-  1575 = 1799			adr.PLAYER1	= [DATAORIGIN+$0015] .array [6]
-  1576 1773			.var PLAYER1	= adr.PLAYER1 .word
-  1577 = 1799			PLAYER1.X	= DATAORIGIN+$0015
-  1578 = 179A			PLAYER1.Y	= DATAORIGIN+$0016
-  1579 = 179B			PLAYER1.HEAD	= DATAORIGIN+$0017
-  1580 = 179C			PLAYER1.COLOUR	= DATAORIGIN+$0018
-  1581 = 179D			PLAYER1.DIR	= DATAORIGIN+$0019
-  1582 = 179E			PLAYER1.BRAIN	= DATAORIGIN+$001A
-  1583 = 179F			PLAYER1.ISDEAD	= DATAORIGIN+$001B
-  1584 = 17A0			adr.PLAYER2	= [DATAORIGIN+$001C] .array [6]
-  1585 1773			.var PLAYER2	= adr.PLAYER2 .word
-  1586 = 17A0			PLAYER2.X	= DATAORIGIN+$001C
-  1587 = 17A1			PLAYER2.Y	= DATAORIGIN+$001D
-  1588 = 17A2			PLAYER2.HEAD	= DATAORIGIN+$001E
-  1589 = 17A3			PLAYER2.COLOUR	= DATAORIGIN+$001F
-  1590 = 17A4			PLAYER2.DIR	= DATAORIGIN+$0020
-  1591 = 17A5			PLAYER2.BRAIN	= DATAORIGIN+$0021
-  1592 = 17A6			PLAYER2.ISDEAD	= DATAORIGIN+$0022
-  1593 = 17A7			adr.PLAYER3	= [DATAORIGIN+$0023] .array [6]
-  1594 1773			.var PLAYER3	= adr.PLAYER3 .word
-  1595 = 17A7			PLAYER3.X	= DATAORIGIN+$0023
-  1596 = 17A8			PLAYER3.Y	= DATAORIGIN+$0024
-  1597 = 17A9			PLAYER3.HEAD	= DATAORIGIN+$0025
-  1598 = 17AA			PLAYER3.COLOUR	= DATAORIGIN+$0026
-  1599 = 17AB			PLAYER3.DIR	= DATAORIGIN+$0027
-  1600 = 17AC			PLAYER3.BRAIN	= DATAORIGIN+$0028
-  1601 = 17AD			PLAYER3.ISDEAD	= DATAORIGIN+$0029
-  1602 = 17AE			adr.PLAYER4	= [DATAORIGIN+$002A] .array [6]
-  1603 1773			.var PLAYER4	= adr.PLAYER4 .word
-  1604 = 17AE			PLAYER4.X	= DATAORIGIN+$002A
-  1605 = 17AF			PLAYER4.Y	= DATAORIGIN+$002B
-  1606 = 17B0			PLAYER4.HEAD	= DATAORIGIN+$002C
-  1607 = 17B1			PLAYER4.COLOUR	= DATAORIGIN+$002D
-  1608 = 17B2			PLAYER4.DIR	= DATAORIGIN+$002E
-  1609 = 17B3			PLAYER4.BRAIN	= DATAORIGIN+$002F
-  1610 = 17B4			PLAYER4.ISDEAD	= DATAORIGIN+$0030
-  1611 1773			@exit
-  1612
-  1613 1773 A2 00		@halt	ldx #$00
-  1614 1775 9A				txs
-  1615
-  1616 1776 60				rts
-  1617
-  1618 				; ------------------------------------------------------------
+  1526 1734 AD EB 17			lda PLAYER1.ISDEAD
+  1527 1737 D0 03			jne l_05FE
+  1528 1739 EE E2 17			inc ALIVE
+  1529 173C			l_05FE
+  1530
+  1531 				; optimize OK (main.pas), line = 89
+  1532
+  1533 173C AD F2 17			lda PLAYER2.ISDEAD
+  1534 173F D0 03			jne l_0614
+  1535 1741 EE E2 17			inc ALIVE
+  1536 1744			l_0614
+  1537
+  1538 				; optimize OK (main.pas), line = 90
+  1539
+  1540 1744 AD F9 17			lda PLAYER3.ISDEAD
+  1541 1747 D0 03			jne l_062A
+  1542 1749 EE E2 17			inc ALIVE
+  1543 174C			l_062A
+  1544
+  1545 				; optimize OK (main.pas), line = 91
+  1546
+  1547 174C AD 00 18			lda PLAYER4.ISDEAD
+  1548 174F D0 03			jne l_0640
+  1549 1751 EE E2 17			inc ALIVE
+  1550 1754			l_0640
+  1551
+  1552 				; optimize FAIL ('INITPLAYFIELD', main.pas), line = 93
+  1553
+  1554 1754 20 21 12			jsr INITPLAYFIELD
+  1555
+  1556 				; --- RepeatUntilProlog
+  1557 1757			l_0649
+  1558
+  1559 				; optimize OK (main.pas), line = 96
+  1560
+  1561 1757 A9 03			lda #$03
+  1562 1759 8D DC 17			sta SYSTEM.PAUSE_006B.N
+  1563 175C A9 00			lda #$00
+  1564 175E 8D DD 17			sta SYSTEM.PAUSE_006B.N+1
+  1565 1761 20 23 11			jsr SYSTEM.PAUSE_006B
+  1566
+  1567 				; optimize OK (main.pas), line = 97
+  1568
+  1569 1764 AD C6 17			lda PLAYER1
+  1570 1767 8D 14 18			sta PLAYERMOVE.P
+  1571 176A AD C7 17			lda PLAYER1+1
+  1572 176D 8D 15 18			sta PLAYERMOVE.P+1
+  1573 1770 20 72 14			jsr PLAYERMOVE
+  1574
+  1575 				; optimize OK (main.pas), line = 98
+  1576
+  1577 1773 AD C8 17			lda PLAYER2
+  1578 1776 8D 14 18			sta PLAYERMOVE.P
+  1579 1779 AD C9 17			lda PLAYER2+1
+  1580 177C 8D 15 18			sta PLAYERMOVE.P+1
+  1581 177F 20 72 14			jsr PLAYERMOVE
+  1582
+  1583 				; optimize OK (main.pas), line = 99
+  1584
+  1585 1782 AD CA 17			lda PLAYER3
+  1586 1785 8D 14 18			sta PLAYERMOVE.P
+  1587 1788 AD CB 17			lda PLAYER3+1
+  1588 178B 8D 15 18			sta PLAYERMOVE.P+1
+  1589 178E 20 72 14			jsr PLAYERMOVE
+  1590
+  1591 				; optimize OK (main.pas), line = 100
+  1592
+  1593 1791 AD CC 17			lda PLAYER4
+  1594 1794 8D 14 18			sta PLAYERMOVE.P
+  1595 1797 AD CD 17			lda PLAYER4+1
+  1596 179A 8D 15 18			sta PLAYERMOVE.P+1
+  1597 179D 20 72 14			jsr PLAYERMOVE
+  1598
+  1599 				; optimize OK (main.pas), line = 101
+  1600
+  1601 17A0 AD E2 17			lda ALIVE
+  1602 17A3 F0 04			jeq l_0649x
+  1603 17A5 C9 FF			cmp #$FF
+  1604 17A7 D0 AE			jne l_0649
+  1605 17A9			l_0649x
+  1606
+  1607 				; optimize OK (main.pas), line = 103
+  1608
+  1609 17A9 A9 64			lda #$64
+  1610 17AB 8D DC 17			sta SYSTEM.PAUSE_006B.N
+  1611 17AE A9 00			lda #$00
+  1612 17B0 8D DD 17			sta SYSTEM.PAUSE_006B.N+1
+  1613 17B3 20 23 11			jsr SYSTEM.PAUSE_006B
+  1614
+  1615 				; optimize OK (main.pas), line = 104
+  1616
+  1617 17B6 AD E0 17			lda GAMEOVER
+  1618 17B9 D0 03 4C 69 16		jeq l_05C3
   1619
   1620 				; ------------------------------------------------------------
   1621
-  1622 1777			.local	@DEFINES
-  1623 1777			C4P
-  1624 				.endl
-  1625
-  1626 1777			.local	@RESOURCE
-  1627 				.endl
-  1628
-  1629 = 1777 0E 10		MUL40
-  1629 = 1779 40 10		DIRECTION
-  1629 = 177B 99 17		PLAYER1
-  1629 = 177D A0 17		PLAYER2
-  1629 = 177F A7 17		PLAYER3
-  1629 = 1781 AE 17		PLAYER4
-  1629 				.endl							; MAIN
-  1630
-  1631 				; ------------------------------------------------------------
-  1632 				; ------------------------------------------------------------
-  1633
-  1634 				.macro	UNITINITIALIZATION
-  1635 				
-  1636 					.ifdef MAIN.SYSTEM.@UnitInit
-  1637 					jsr MAIN.SYSTEM.@UnitInit
-  1638 					eif
-  1639 				.endm
-  1640
-  1641 				; ------------------------------------------------------------
-  1642
-  1643 					ift .SIZEOF(MAIN.SYSTEM) > 0
-  1644 					.print 'SYSTEM: ',MAIN.SYSTEM,'..',MAIN.SYSTEM+.SIZEOF(MAIN.SYSTEM)-1
-  1644 				SYSTEM: $10D5..$1170
-  1645 					eif
-  1646
-  1647 					.print 'CODE: ',CODEORIGIN,'..',MAIN.@RESOURCE-1
-  1647 				CODE: $100E..$1776
-  1648
-  1649 				; ------------------------------------------------------------
-  1650
-  1651 1783				.align $04
-  1652
-  1653 1784			DATAORIGIN
-  1654 1784 28 00 18 00 2D 0C	.by  $28 $00 $18 $00 $2D $0C
-  1655
-  1656 = 0006			VARINITSIZE	= *-DATAORIGIN
-  1657 = 0047			VARDATASIZE	= 71
-  1658
-  1659 = 17CB			PROGRAMSTACK	= DATAORIGIN+VARDATASIZE
-  1660
-  1661 					.print 'DATA: ',DATAORIGIN,'..',PROGRAMSTACK
-  1661 				DATA: $1784..$17CB
-  1662
-  1663 				; ------------------------------------------------------------
-  1664
-  1665 				.macro	STATICDATA
-  1666 				.by  $00 $00 $28 $00 $50 $00 $78 $00  $A0 $00 $C8 $00 $F0 $00 $18 $01  $40 $01 $68 $01 $90 $01 $B8 $01
-  1667 				.by  $E0 $01 $08 $02 $30 $02 $58 $02  $80 $02 $A8 $02 $D0 $02 $F8 $02  $20 $03 $48 $03 $70 $03 $98 $03
-  1668 				.by  $C0 $03 $01 $02 $04 $08
-  1669 				.endm
-  1670
-  1671 					end
+  1622 = 0800			ATTRIBUTE_ADDR	= $0800
+  1623 = 0C00			SCREEN_ADDR	= $0C00
+  1624 = 0020			EMPTY	= $20
+  1625 = 00A0			WALL	= $A0
+  1626 = 0041			WALL_COLOUR	= $41
+  1627 = 0051			PLY_HEAD	= $51
+  1628 = 0057			PLY_CRASH	= $57
+  1629 = 0042			PLY_TAIL_UD	= $42
+  1630 = 0040			PLY_TAIL_LR	= $40
+  1631 = 007D			PLY_TAIL_RD	= $7D
+  1632 = 006E			PLY_TAIL_RU	= $6E
+  1633 = 006D			PLY_TAIL_LD	= $6D
+  1634 = 0070			PLY_TAIL_LU	= $70
+  1635 = 005F			PLY1_COLOUR	= $5F
+  1636 = 005D			PLY2_COLOUR	= $5D
+  1637 = 0071			PLY3_COLOUR	= $71
+  1638 = 0055			PLY4_COLOUR	= $55
+  1639 = 0001			JOY_UP	= $01
+  1640 = 0002			JOY_DOWN	= $02
+  1641 = 0004			JOY_LEFT	= $04
+  1642 = 0008			JOY_RIGHT	= $08
+  1643 = 0040			JOY_FIRE	= $40
+  1644 = 0002			JOY_SELECT_1	= $02
+  1645 = 0004			JOY_SELECT_2	= $04
+  1646 = 100E			adr.MUL40	= CODEORIGIN+$0000
+  1647 17BE			.var MUL40	= adr.MUL40 .word
+  1648 = 1040			adr.DIRECTION	= CODEORIGIN+$0032
+  1649 17BE			.var DIRECTION	= adr.DIRECTION .word
+  1650 = FD30			KEY_PIO	= $FD30
+  1651 = FF08			JOY	= $FF08
+  1652 = FF15			BORDERCOLOR	= $FF15
+  1653 = FF19			BGCOLOR	= $FF19
+  1654 = 0058			T0B	= $58
+  1655 = 0059			NEWDIR	= $59
+  1656 = 005A			T0N	= $5A
+  1657 = 005B			T0W	= $5B
+  1658 = 17E0			GAMEOVER	= DATAORIGIN+$0010
+  1659 = 17E1			AVAILDIR	= DATAORIGIN+$0011
+  1660 = 17E2			ALIVE	= DATAORIGIN+$0012
+  1661 = 17E3			PLY	= DATAORIGIN+$0013
+  1662 = 17D0			PLY.X	= DATAORIGIN+$0000
+  1663 = 17D1			PLY.Y	= DATAORIGIN+$0001
+  1664 = 17D2			PLY.HEAD	= DATAORIGIN+$0002
+  1665 = 17D3			PLY.COLOUR	= DATAORIGIN+$0003
+  1666 = 17D4			PLY.DIR	= DATAORIGIN+$0004
+  1667 = 17D5			PLY.BRAIN	= DATAORIGIN+$0005
+  1668 = 17D6			PLY.ISDEAD	= DATAORIGIN+$0006
+  1669 = 17E5			adr.PLAYER1	= [DATAORIGIN+$0015] .array [6]
+  1670 17BE			.var PLAYER1	= adr.PLAYER1 .word
+  1671 = 17E5			PLAYER1.X	= DATAORIGIN+$0015
+  1672 = 17E6			PLAYER1.Y	= DATAORIGIN+$0016
+  1673 = 17E7			PLAYER1.HEAD	= DATAORIGIN+$0017
+  1674 = 17E8			PLAYER1.COLOUR	= DATAORIGIN+$0018
+  1675 = 17E9			PLAYER1.DIR	= DATAORIGIN+$0019
+  1676 = 17EA			PLAYER1.BRAIN	= DATAORIGIN+$001A
+  1677 = 17EB			PLAYER1.ISDEAD	= DATAORIGIN+$001B
+  1678 = 17EC			adr.PLAYER2	= [DATAORIGIN+$001C] .array [6]
+  1679 17BE			.var PLAYER2	= adr.PLAYER2 .word
+  1680 = 17EC			PLAYER2.X	= DATAORIGIN+$001C
+  1681 = 17ED			PLAYER2.Y	= DATAORIGIN+$001D
+  1682 = 17EE			PLAYER2.HEAD	= DATAORIGIN+$001E
+  1683 = 17EF			PLAYER2.COLOUR	= DATAORIGIN+$001F
+  1684 = 17F0			PLAYER2.DIR	= DATAORIGIN+$0020
+  1685 = 17F1			PLAYER2.BRAIN	= DATAORIGIN+$0021
+  1686 = 17F2			PLAYER2.ISDEAD	= DATAORIGIN+$0022
+  1687 = 17F3			adr.PLAYER3	= [DATAORIGIN+$0023] .array [6]
+  1688 17BE			.var PLAYER3	= adr.PLAYER3 .word
+  1689 = 17F3			PLAYER3.X	= DATAORIGIN+$0023
+  1690 = 17F4			PLAYER3.Y	= DATAORIGIN+$0024
+  1691 = 17F5			PLAYER3.HEAD	= DATAORIGIN+$0025
+  1692 = 17F6			PLAYER3.COLOUR	= DATAORIGIN+$0026
+  1693 = 17F7			PLAYER3.DIR	= DATAORIGIN+$0027
+  1694 = 17F8			PLAYER3.BRAIN	= DATAORIGIN+$0028
+  1695 = 17F9			PLAYER3.ISDEAD	= DATAORIGIN+$0029
+  1696 = 17FA			adr.PLAYER4	= [DATAORIGIN+$002A] .array [6]
+  1697 17BE			.var PLAYER4	= adr.PLAYER4 .word
+  1698 = 17FA			PLAYER4.X	= DATAORIGIN+$002A
+  1699 = 17FB			PLAYER4.Y	= DATAORIGIN+$002B
+  1700 = 17FC			PLAYER4.HEAD	= DATAORIGIN+$002C
+  1701 = 17FD			PLAYER4.COLOUR	= DATAORIGIN+$002D
+  1702 = 17FE			PLAYER4.DIR	= DATAORIGIN+$002E
+  1703 = 17FF			PLAYER4.BRAIN	= DATAORIGIN+$002F
+  1704 = 1800			PLAYER4.ISDEAD	= DATAORIGIN+$0030
+  1705 17BE			@exit
+  1706
+  1707 17BE A2 00		@halt	ldx #$00
+  1708 17C0 9A				txs
+  1709
+  1710 17C1 60				rts
+  1711
+  1712 				; ------------------------------------------------------------
+  1713
+  1714 				; ------------------------------------------------------------
+  1715
+  1716 17C2			.local	@DEFINES
+  1717 17C2			C4P
+  1718 				.endl
+  1719
+  1720 17C2			.local	@RESOURCE
+  1721 				.endl
+  1722
+  1723 = 17C2 0E 10		MUL40
+  1723 = 17C4 40 10		DIRECTION
+  1723 = 17C6 E5 17		PLAYER1
+  1723 = 17C8 EC 17		PLAYER2
+  1723 = 17CA F3 17		PLAYER3
+  1723 = 17CC FA 17		PLAYER4
+  1723 				.endl							; MAIN
+  1724
+  1725 				; ------------------------------------------------------------
+  1726 				; ------------------------------------------------------------
+  1727
+  1728 				.macro	UNITINITIALIZATION
+  1729 				
+  1730 					.ifdef MAIN.SYSTEM.@UnitInit
+  1731 					jsr MAIN.SYSTEM.@UnitInit
+  1732 					eif
+  1733 				.endm
+  1734
+  1735 				; ------------------------------------------------------------
+  1736
+  1737 					ift .SIZEOF(MAIN.SYSTEM) > 0
+  1738 					.print 'SYSTEM: ',MAIN.SYSTEM,'..',MAIN.SYSTEM+.SIZEOF(MAIN.SYSTEM)-1
+  1738 				SYSTEM: $10D5..$1170
+  1739 					eif
+  1740
+  1741 					.print 'CODE: ',CODEORIGIN,'..',MAIN.@RESOURCE-1
+  1741 				CODE: $100E..$17C1
+  1742
+  1743 				; ------------------------------------------------------------
+  1744
+  1745 17CE				.align $04
+  1746
+  1747 17D0			DATAORIGIN
+  1748 17D0 28 00 18 00 2D 0C	.by  $28 $00 $18 $00 $2D $0C
+  1749
+  1750 = 0006			VARINITSIZE	= *-DATAORIGIN
+  1751 = 0048			VARDATASIZE	= 72
+  1752
+  1753 = 1818			PROGRAMSTACK	= DATAORIGIN+VARDATASIZE
+  1754
+  1755 					.print 'DATA: ',DATAORIGIN,'..',PROGRAMSTACK
+  1755 				DATA: $17D0..$1818
+  1756
+  1757 				; ------------------------------------------------------------
+  1758
+  1759 				.macro	STATICDATA
+  1760 				.by  $00 $00 $28 $00 $50 $00 $78 $00  $A0 $00 $C8 $00 $F0 $00 $18 $01  $40 $01 $68 $01 $90 $01 $B8 $01
+  1761 				.by  $E0 $01 $08 $02 $30 $02 $58 $02  $80 $02 $A8 $02 $D0 $02 $F8 $02  $20 $03 $48 $03 $70 $03 $98 $03
+  1762 				.by  $C0 $03 $01 $02 $04 $08
+  1763 				.endm
+  1764
+  1765 					end

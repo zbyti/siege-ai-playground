@@ -44,6 +44,7 @@ begin
       case ply.brain of
         0 : human;
         1 : ai_Straightforward;
+        2 : ai_Mirror;
       end;
 
       if ply.dir = newDir then begin
@@ -78,9 +79,9 @@ begin
 
   gameOver := false;
   repeat
-    initPlayers(@player1, 10, 12, JOY_RIGHT, 1, PLY_HEAD, PLY1_COLOUR, false);
-    initPlayers(@player2, 30, 12, JOY_LEFT,  1, PLY_HEAD, PLY2_COLOUR, false);
-    initPlayers(@player3, 20,  6, JOY_DOWN,  1, PLY_HEAD, PLY3_COLOUR, true);
+    initPlayers(@player1, 10, 12, JOY_RIGHT, 0, PLY_HEAD, PLY1_COLOUR, false);
+    initPlayers(@player2, 30, 12, JOY_LEFT,  2, PLY_HEAD, PLY2_COLOUR, false);
+    initPlayers(@player3, 20,  6, JOY_DOWN,  1, PLY_HEAD, PLY3_COLOUR, false);
     initPlayers(@player4, 20, 18, JOY_UP,    1, PLY_HEAD, PLY4_COLOUR, true);
 
     alive := $ff;
@@ -92,7 +93,7 @@ begin
     initPlayfield;
 
     repeat
-      pause(1);
+      pause(3);
       playerMove(@player1);
       playerMove(@player2);
       playerMove(@player3);
