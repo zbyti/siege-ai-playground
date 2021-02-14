@@ -9,12 +9,12 @@ var
   newDir                             : byte absolute $59;
   availDir                           : byte absolute $5a;
   t0w                                : word absolute $5b;
+  ply                                : ^Player absolute $5d;
 
 //-----------------------------------------------------------------------------
 
   alive, speed                       : byte;
   gameOver                           : boolean;
-  ply                                : ^Player;
 
 //-----------------------------------------------------------------------------
 
