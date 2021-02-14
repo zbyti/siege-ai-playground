@@ -137,14 +137,14 @@ procedure ai_Straightforward;
 begin
   if (availDir and ply.dir) <> 0 then newDir := ply.dir
   else begin
-    if availDir = %0011 then newDir := direction[Random(2)]
+    if availDir = (JOY_UP or JOY_DOWN) then newDir := direction[Random(2)]
     else begin
       case availDir of
         JOY_UP    : newDir := JOY_UP;
         JOY_DOWN  : newDir := JOY_DOWN;
       end;
     end;
-    if availDir = %1100 then newDir := direction[Random(2) + 2]
+    if availDir = (JOY_LEFT or JOY_RIGHT) then newDir := direction[Random(2) + 2]
     else begin
       case availDir of
         JOY_LEFT   : newDir := JOY_LEFT;
