@@ -45,6 +45,7 @@ begin
         0 : human;
         1 : ai_Straightforward;
         2 : ai_Mirror;
+        3 : ai_Random;
       end;
 
       if ply.dir = newDir then begin
@@ -75,32 +76,34 @@ end;
 
 //-----------------------------------------------------------------------------
 
+procedure mainLoop;
 begin
+  initPlayers(@player1, 10, 12, JOY_RIGHT, 0, PLY_HEAD, PLY1_COLOUR, false);
+  initPlayers(@player2, 30, 12, JOY_LEFT,  2, PLY_HEAD, PLY2_COLOUR, false);
+  initPlayers(@player3, 20,  6, JOY_DOWN,  1, PLY_HEAD, PLY3_COLOUR, false);
+  initPlayers(@player4, 20, 18, JOY_UP,    3, PLY_HEAD, PLY4_COLOUR, false);
 
-  gameOver := false;
+  alive := $ff;
+  if not player1.isDead then Inc(alive);
+  if not player2.isDead then Inc(alive);
+  if not player3.isDead then Inc(alive);
+  if not player4.isDead then Inc(alive);
+
+  initPlayfield;
+
   repeat
-    initPlayers(@player1, 10, 12, JOY_RIGHT, 0, PLY_HEAD, PLY1_COLOUR, false);
-    initPlayers(@player2, 30, 12, JOY_LEFT,  2, PLY_HEAD, PLY2_COLOUR, false);
-    initPlayers(@player3, 20,  6, JOY_DOWN,  1, PLY_HEAD, PLY3_COLOUR, false);
-    initPlayers(@player4, 20, 18, JOY_UP,    1, PLY_HEAD, PLY4_COLOUR, true);
+    pause(3); // 2 fast; 3 normal; 4 slow
+    playerMove(@player1);
+    playerMove(@player2);
+    playerMove(@player3);
+    playerMove(@player4);
+  until (alive = 0) or (alive = $ff);
 
-    alive := $ff;
-    if not player1.isDead then Inc(alive);
-    if not player2.isDead then Inc(alive);
-    if not player3.isDead then Inc(alive);
-    if not player4.isDead then Inc(alive);
+  pause(100);
+end;
 
-    initPlayfield;
+//-----------------------------------------------------------------------------
 
-    repeat
-      pause(3);
-      playerMove(@player1);
-      playerMove(@player2);
-      playerMove(@player3);
-      playerMove(@player4);
-    until (alive = 0) or (alive = $ff);
-
-    pause(100);
-  until gameOver;
-
+begin
+  repeat mainLoop until false;
 end.
