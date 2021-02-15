@@ -36,10 +36,10 @@ begin
   if not player3.isDead then putChar(player3.x, player3.y, player3.head, player3.colour);
   if not player4.isDead then putChar(player4.x, player4.y, player4.head, player4.colour);
 
-  putChar(10, 6, OBSTACLE, OBST_COLOUR);
-  putChar(30, 6, OBSTACLE, OBST_COLOUR);
-  putChar(10, 18, OBSTACLE, OBST_COLOUR);
-  putChar(30, 18, OBSTACLE, OBST_COLOUR);
+  putChar(10, 6, OBSTACLE_1, OBST_COLOUR);
+  putChar(30, 6, OBSTACLE_1, OBST_COLOUR);
+  putChar(10, 18, OBSTACLE_1, OBST_COLOUR);
+  putChar(30, 18, OBSTACLE_1, OBST_COLOUR);
 
   showScore;
 end;

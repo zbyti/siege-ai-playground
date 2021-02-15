@@ -4,14 +4,14 @@ procedure aiStraight; // brain = 1
 begin
   if (availDir and ply.dir) <> 0 then newDir := ply.dir
   else begin
-    if availDir = (JOY_UP or JOY_DOWN) then newDir := direction[Random(0) and 1]
+    if availDir = (JOY_UP or JOY_DOWN) then newDir := direction[Random(2)]
     else begin
       case availDir of
         JOY_UP    : newDir := JOY_UP;
         JOY_DOWN  : newDir := JOY_DOWN;
       end;
     end;
-    if availDir = (JOY_LEFT or JOY_RIGHT) then newDir := direction[(Random(0) and 1) + 2]
+    if availDir = (JOY_LEFT or JOY_RIGHT) then newDir := direction[Random(2) + 2]
     else begin
       case availDir of
         JOY_LEFT   : newDir := JOY_LEFT;

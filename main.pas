@@ -100,6 +100,7 @@ begin
     pause(3); // 1 for AI; 2 fast; 3 normal; 4 slow
     playerMove(@player1); playerMove(@player2);
     playerMove(@player3); playerMove(@player4);
+    animateObstacles;
   until (alive = 0) or (alive = $ff);
 
   if not player1.isDead then Inc(player1.score);
