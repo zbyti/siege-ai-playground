@@ -16,8 +16,6 @@ const
   JOY_UP = 1; JOY_DOWN = 2; JOY_LEFT = 4; JOY_RIGHT = 8; JOY_FIRE = 64;
   JOY_SELECT_1 = %00000010; JOY_SELECT_2 = %00000100;
 
-  LOOK_AHEAD = 10;
-
 //-----------------------------------------------------------------------------
 
   mul40: array [0..24] of word = (
