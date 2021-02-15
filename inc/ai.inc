@@ -48,3 +48,15 @@ begin
 end;
 
 //-----------------------------------------------------------------------------
+
+procedure aiMad; // brain = 4
+begin
+  t0b := (Random(3) + 1);
+  case t0b of
+    AI_STRAIGHT : aiStraight;
+    AI_MIRROR   : aiMirror;
+    AI_RANDOM   : aiRandom;
+  end;
+end;
+
+//-----------------------------------------------------------------------------
