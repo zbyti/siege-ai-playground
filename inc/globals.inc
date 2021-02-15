@@ -6,10 +6,13 @@ var
   BORDERCOLOR                        : byte absolute $ff15;
   BGCOLOR                            : byte absolute $ff19;
   t0b                                : byte absolute $58;
-  newDir                             : byte absolute $59;
-  availDir                           : byte absolute $5a;
-  t0w                                : word absolute $5b;
-  ply                                : ^Player absolute $5d;
+  t1b                                : byte absolute $59;
+  i0b                                : byte absolute $5a;
+  i1b                                : byte absolute $5b;
+  newDir                             : byte absolute $5c;
+  availDir                           : byte absolute $5d;
+  t0w                                : word absolute $5e;
+  ply                                : ^Player absolute $60;
 
 //-----------------------------------------------------------------------------
 

@@ -11,10 +11,10 @@ end;
 
 procedure initPlayfield;
 begin
-  initPlayers(@player1, 10, 12, JOY_RIGHT, PLY_CTRL,    PLY_HEAD, PLY1_COLOUR, false);
-  initPlayers(@player2, 30, 12, JOY_LEFT,  AI_BULLY,      PLY_HEAD, PLY2_COLOUR, false);
-  initPlayers(@player3, 20,  6, JOY_DOWN,  AI_STRAIGHT, PLY_HEAD, PLY3_COLOUR, true);
-  initPlayers(@player4, 20, 18, JOY_UP,    AI_RANDOM,   PLY_HEAD, PLY4_COLOUR, true);
+  initPlayers(@player1, 10, 12, JOY_RIGHT, PLY_CTRL, PLY_HEAD, PLY1_COLOUR, false);
+  initPlayers(@player2, 30, 12, JOY_LEFT,  AI_MIRROR, PLY_HEAD, PLY2_COLOUR, false);
+  initPlayers(@player3, 20,  6, JOY_DOWN,  AI_BULLY, PLY_HEAD, PLY3_COLOUR, false);
+  initPlayers(@player4, 20, 18, JOY_UP,    AI_BULLY, PLY_HEAD, PLY4_COLOUR, false);
 
   BORDERCOLOR := $1f; BGCOLOR := 0;
   FillChar(pointer(SCREEN_ADDR), 24 * 40, EMPTY);
@@ -31,10 +31,10 @@ begin
     DPoke((ATTRIBUTE_ADDR - 1) + mul40[t0b], WALL_COLOUR * 256 + WALL_COLOUR);
   end;
 
-  putChar(player1.x, player1.y, player1.head, player1.colour);
-  putChar(player2.x, player2.y, player2.head, player2.colour);
-  putChar(player3.x, player3.y, player3.head, player3.colour);
-  putChar(player4.x, player4.y, player4.head, player4.colour);
+  if not player1.isDead then putChar(player1.x, player1.y, player1.head, player1.colour);
+  if not player2.isDead then putChar(player2.x, player2.y, player2.head, player2.colour);
+  if not player3.isDead then putChar(player3.x, player3.y, player3.head, player3.colour);
+  if not player4.isDead then putChar(player4.x, player4.y, player4.head, player4.colour);
 
   putChar(10, 6, OBSTACLE, OBST_COLOUR);
   putChar(30, 6, OBSTACLE, OBST_COLOUR);
