@@ -1163,7 +1163,7 @@ Source: main.a65
   1252 1627			l_042F
   1253 1627			l_040C
   1254
-  1255 				; optimize OK (ai.inc), line = 37
+  1255 				; optimize OK (ai.inc), line = 36
   1256
   1257 1627 A5 5B			lda AVAILDIR
   1258 1629 25 58			and T0B
@@ -1173,7 +1173,7 @@ Source: main.a65
   1262 1631 4C 37 16			jmp l_045D
   1263 1634			l_044D
   1264
-  1265 				; optimize FAIL ('AISTRAIGHT', ai.inc), line = 38
+  1265 				; optimize FAIL ('AISTRAIGHT', ai.inc), line = 37
   1266
   1267 1634 20 E4 14			jsr AISTRAIGHT
   1268 1637			l_045D
@@ -1191,7 +1191,7 @@ Source: main.a65
   1280
   1281 1638			.local	AIMIRROR					; PROCEDURE
   1282
-  1283 				; optimize OK (ai.inc), line = 45
+  1283 				; optimize OK (ai.inc), line = 44
   1284
   1285 1638 AD 69 1A			lda PLAYER1.DIR
   1286 163B 8D 96 1A			sta @CASETMP_0005
@@ -1199,7 +1199,7 @@ Source: main.a65
   1288 1640 D0 07			jne l_046D
   1289 1642			@
   1290
-  1291 				; optimize OK (ai.inc), line = 46
+  1291 				; optimize OK (ai.inc), line = 45
   1292
   1293 1642 A9 02			lda #$02
   1294 1644 85 58			sta T0B
@@ -1210,7 +1210,7 @@ Source: main.a65
   1299 164B D0 07			jne l_047A
   1300 164D			@
   1301
-  1302 				; optimize OK (ai.inc), line = 47
+  1302 				; optimize OK (ai.inc), line = 46
   1303
   1304 164D A9 01			lda #$01
   1305 164F 85 58			sta T0B
@@ -1221,7 +1221,7 @@ Source: main.a65
   1310 1656 D0 07			jne l_0487
   1311 1658			@
   1312
-  1313 				; optimize OK (ai.inc), line = 48
+  1313 				; optimize OK (ai.inc), line = 47
   1314
   1315 1658 A9 08			lda #$08
   1316 165A 85 58			sta T0B
@@ -1232,7 +1232,7 @@ Source: main.a65
   1321 1661 D0 04			jne l_0494
   1322 1663			@
   1323
-  1324 				; optimize OK (ai.inc), line = 49
+  1324 				; optimize OK (ai.inc), line = 48
   1325
   1326 1663 A9 04			lda #$04
   1327 1665 85 58			sta T0B
@@ -1240,7 +1240,7 @@ Source: main.a65
   1329 1667			l_0494
   1330 1667			a_0005
   1331
-  1332 				; optimize OK (ai.inc), line = 52
+  1332 				; optimize OK (ai.inc), line = 51
   1333
   1334 1667 A5 5B			lda AVAILDIR
   1335 1669 25 58			and T0B
@@ -1250,7 +1250,7 @@ Source: main.a65
   1339 1671 4C 77 16			jmp l_04C8
   1340 1674			l_04B8
   1341
-  1342 				; optimize FAIL ('AISTRAIGHT', ai.inc), line = 53
+  1342 				; optimize FAIL ('AISTRAIGHT', ai.inc), line = 52
   1343
   1344 1674 20 E4 14			jsr AISTRAIGHT
   1345 1677			l_04C8
@@ -1939,11 +1939,11 @@ Source: main.a65
   2028 1A27 AD 64 1A			lda GAMEOVER
   2029 1A2A F0 C8			jeq l_0890
   2030
-  2031 				; optimize FAIL ('SHOWSCORE', main.pas), line = 128
+  2031 				; optimize FAIL ('SHOWSCORE', main.pas), line = 129
   2032
   2033 1A2C 20 9C 11			jsr SHOWSCORE
   2034
-  2035 				; optimize OK (main.pas), line = 130
+  2035 				; optimize OK (main.pas), line = 131
   2036
   2037 1A2F A9 C8			lda #$C8
   2038 1A31 8D 60 1A			sta SYSTEM.PAUSE_006B.N
@@ -1951,7 +1951,7 @@ Source: main.a65
   2040 1A36 8D 61 1A			sta SYSTEM.PAUSE_006B.N+1
   2041 1A39 20 23 11			jsr SYSTEM.PAUSE_006B
   2042
-  2043 				; optimize OK (main.pas), line = 131
+  2043 				; optimize OK (main.pas), line = 132
   2044
   2045 1A3C 4C E1 19			jmp l_087B
   2046

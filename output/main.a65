@@ -1252,7 +1252,7 @@ l_0421
 l_042F
 l_040C
 
-; optimize OK (ai.inc), line = 37
+; optimize OK (ai.inc), line = 36
 
 	lda AVAILDIR
 	and T0B
@@ -1262,7 +1262,7 @@ l_040C
 	jmp l_045D
 l_044D
 
-; optimize FAIL ('AISTRAIGHT', ai.inc), line = 38
+; optimize FAIL ('AISTRAIGHT', ai.inc), line = 37
 
 	jsr AISTRAIGHT
 l_045D
@@ -1280,7 +1280,7 @@ l_045D
 
 .local	AIMIRROR					; PROCEDURE
 
-; optimize OK (ai.inc), line = 45
+; optimize OK (ai.inc), line = 44
 
 	lda PLAYER1.DIR
 	sta @CASETMP_0005
@@ -1288,7 +1288,7 @@ l_045D
 	jne l_046D
 @
 
-; optimize OK (ai.inc), line = 46
+; optimize OK (ai.inc), line = 45
 
 	lda #$02
 	sta T0B
@@ -1299,7 +1299,7 @@ l_046D
 	jne l_047A
 @
 
-; optimize OK (ai.inc), line = 47
+; optimize OK (ai.inc), line = 46
 
 	lda #$01
 	sta T0B
@@ -1310,7 +1310,7 @@ l_047A
 	jne l_0487
 @
 
-; optimize OK (ai.inc), line = 48
+; optimize OK (ai.inc), line = 47
 
 	lda #$08
 	sta T0B
@@ -1321,7 +1321,7 @@ l_0487
 	jne l_0494
 @
 
-; optimize OK (ai.inc), line = 49
+; optimize OK (ai.inc), line = 48
 
 	lda #$04
 	sta T0B
@@ -1329,7 +1329,7 @@ l_0487
 l_0494
 a_0005
 
-; optimize OK (ai.inc), line = 52
+; optimize OK (ai.inc), line = 51
 
 	lda AVAILDIR
 	and T0B
@@ -1339,7 +1339,7 @@ a_0005
 	jmp l_04C8
 l_04B8
 
-; optimize FAIL ('AISTRAIGHT', ai.inc), line = 53
+; optimize FAIL ('AISTRAIGHT', ai.inc), line = 52
 
 	jsr AISTRAIGHT
 l_04C8
@@ -2028,11 +2028,11 @@ l_08EE
 	lda GAMEOVER
 	jeq l_0890
 
-; optimize FAIL ('SHOWSCORE', main.pas), line = 128
+; optimize FAIL ('SHOWSCORE', main.pas), line = 129
 
 	jsr SHOWSCORE
 
-; optimize OK (main.pas), line = 130
+; optimize OK (main.pas), line = 131
 
 	lda #$C8
 	sta SYSTEM.PAUSE_006B.N
@@ -2040,7 +2040,7 @@ l_08EE
 	sta SYSTEM.PAUSE_006B.N+1
 	jsr SYSTEM.PAUSE_006B
 
-; optimize OK (main.pas), line = 131
+; optimize OK (main.pas), line = 132
 
 	jmp l_087B
 

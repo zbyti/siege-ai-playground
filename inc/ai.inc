@@ -30,9 +30,8 @@ begin
   if player1.isDead then tmpPly := @player2 else tmpPly := @player1;
 
   if ply.y > tmpPly.y then t0b := JOY_UP else t0b := JOY_DOWN;
-  if (ply.y = tmpPly.y) or ((availDir and t0b) = 0) then begin
+  if (ply.y = tmpPly.y) or ((availDir and t0b) = 0) then
     if ply.x > tmpPly.x then t0b := JOY_LEFT else t0b := JOY_RIGHT;
-  end;
 
   if (availDir and t0b) <> 0 then newDir := t0b
   else aiStraight;

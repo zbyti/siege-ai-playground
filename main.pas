@@ -125,6 +125,7 @@ begin
       if player3.score = ZERO + 9 then gameOver := true;
       if player4.score = ZERO + 9 then gameOver := true;
     until gameOver;
+
     showScore;
 
     pause(200);
