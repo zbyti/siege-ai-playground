@@ -44,9 +44,9 @@ begin
       case ply.brain of
         PLY_CTRL    : human;
         AI_STRAIGHT : aiStraight;
+        AI_BULLY    : aiBully;
         AI_MIRROR   : aiMirror;
         AI_RANDOM   : aiRandom;
-        AI_BULLY    : aiBully;
         AI_MAD      : aiMad;
       end;
 
