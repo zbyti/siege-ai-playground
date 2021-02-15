@@ -27,9 +27,11 @@ procedure aiBully; // brain = 2
 begin
   t0b := ply.dir;
 
-  if ply.y > player1.y then t0b := JOY_UP else t0b := JOY_DOWN;
-  if (ply.y = player1.y) or ((availDir and t0b) = 0) then begin
-    if ply.x > player1.x then t0b := JOY_LEFT else t0b := JOY_RIGHT;
+  if player1.isDead then tmpPly := @player2 else tmpPly := @player1;
+
+  if ply.y > tmpPly.y then t0b := JOY_UP else t0b := JOY_DOWN;
+  if (ply.y = tmpPly.y) or ((availDir and t0b) = 0) then begin
+    if ply.x > tmpPly.x then t0b := JOY_LEFT else t0b := JOY_RIGHT;
   end;
 
   if (availDir and t0b) <> 0 then newDir := t0b
@@ -49,30 +51,6 @@ begin
 
   if (availDir and t0b) <> 0 then newDir := t0b
   else aiStraight;
-end;
-
-//-----------------------------------------------------------------------------
-
-procedure aiRandom; // brain = 4
-begin
-  t0b := ply.dir;
-  if (Random(0) and 3) = 0 then t0b := direction[Random(4)];
-
-  if (availDir and t0b) <> 0 then newDir := t0b
-  else aiStraight;
-end;
-
-//-----------------------------------------------------------------------------
-
-procedure aiMad; // brain = 7
-begin
-  t0b := (Random(4) + 1);
-  case t0b of
-    AI_STRAIGHT : aiStraight;
-    AI_BULLY    : aiBully;
-    AI_MIRROR   : aiMirror;
-    AI_RANDOM   : aiRandom;
-  end;
 end;
 
 //-----------------------------------------------------------------------------

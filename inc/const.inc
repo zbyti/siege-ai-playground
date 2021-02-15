@@ -12,12 +12,11 @@ const
   PLY1_COLOUR = $5f; PLY2_COLOUR = $5d; PLY3_COLOUR = $71; PLY4_COLOUR = $55;
 
   PLY_CTRL = 0; AI_STRAIGHT = 1; AI_BULLY = 2; AI_MIRROR = 3;
-  AI_RANDOM = 4; AI_MAD = 7;
 
   JOY_UP = 1; JOY_DOWN = 2; JOY_LEFT = 4; JOY_RIGHT = 8; JOY_FIRE = 64;
   JOY_SELECT_1 = %00000010; JOY_SELECT_2 = %00000100;
 
-  LOOK_AHEAD = 12;
+  LOOK_AHEAD = 10;
 
 //-----------------------------------------------------------------------------
 

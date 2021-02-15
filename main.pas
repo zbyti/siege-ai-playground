@@ -46,8 +46,6 @@ begin
         AI_STRAIGHT : aiStraight;
         AI_BULLY    : aiBully;
         AI_MIRROR   : aiMirror;
-        AI_RANDOM   : aiRandom;
-        AI_MAD      : aiMad;
       end;
 
       if ply.dir = newDir then begin
