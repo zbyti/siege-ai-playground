@@ -49,7 +49,7 @@ end;
 
 //-----------------------------------------------------------------------------
 
-procedure aiMad; // brain = 4
+procedure aiMad; // brain = 7
 begin
   t0b := (Random(3) + 1);
   case t0b of

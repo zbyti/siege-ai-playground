@@ -12,7 +12,7 @@ end;
 procedure initPlayfield;
 begin
   initPlayers(@player1, 10, 12, JOY_RIGHT, PLY_CTRL,    PLY_HEAD, PLY1_COLOUR, false);
-  initPlayers(@player2, 30, 12, JOY_LEFT,  AI_MAD,      PLY_HEAD, PLY2_COLOUR, false);
+  initPlayers(@player2, 30, 12, JOY_LEFT,  AI_MIRROR,   PLY_HEAD, PLY2_COLOUR, false);
   initPlayers(@player3, 20,  6, JOY_DOWN,  AI_STRAIGHT, PLY_HEAD, PLY3_COLOUR, true);
   initPlayers(@player4, 20, 18, JOY_UP,    AI_RANDOM,   PLY_HEAD, PLY4_COLOUR, true);
 
@@ -35,6 +35,11 @@ begin
   putChar(player2.x, player2.y, player2.head, player2.colour);
   putChar(player3.x, player3.y, player3.head, player3.colour);
   putChar(player4.x, player4.y, player4.head, player4.colour);
+
+  putChar(10, 6, OBSTACLE, OBST_COLOUR);
+  putChar(30, 6, OBSTACLE, OBST_COLOUR);
+  putChar(10, 18, OBSTACLE, OBST_COLOUR);
+  putChar(30, 18, OBSTACLE, OBST_COLOUR);
 
   showScore;
 end;

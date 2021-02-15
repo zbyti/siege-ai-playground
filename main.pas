@@ -22,7 +22,7 @@ begin
   end;
 
   if (newDir and availDir) = 0 then begin
-    ply.isDead := true; ply.head := PLY_CRASH; Dec(alive);
+    ply.isDead := true; ply.head := PLY_CRASH_1; Dec(alive);
   end;
 end;
 
