@@ -11,10 +11,10 @@ end;
 
 procedure initPlayfield;
 begin
-  initPlayers(@player1, 10, 12, JOY_RIGHT, PLY_CTRL, PLY_HEAD, PLY1_COLOUR, false);
+  initPlayers(@player1, 10, 12, JOY_RIGHT, PLY_CTRL,  PLY_HEAD, PLY1_COLOUR, false);
   initPlayers(@player2, 30, 12, JOY_LEFT,  AI_MIRROR, PLY_HEAD, PLY2_COLOUR, false);
-  initPlayers(@player3, 20,  6, JOY_DOWN,  AI_BULLY, PLY_HEAD, PLY3_COLOUR, false);
-  initPlayers(@player4, 20, 18, JOY_UP,    AI_BULLY, PLY_HEAD, PLY4_COLOUR, false);
+  initPlayers(@player3, 20,  6, JOY_DOWN,  AI_BULLY,  PLY_HEAD, PLY3_COLOUR, false);
+  initPlayers(@player4, 20, 18, JOY_UP,    AI_BULLY,  PLY_HEAD, PLY4_COLOUR, false);
 
   BORDERCOLOR := $1f; BGCOLOR := 0;
   FillChar(pointer(SCREEN_ADDR), 24 * 40, EMPTY);
