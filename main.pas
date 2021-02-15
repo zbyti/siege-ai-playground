@@ -46,6 +46,7 @@ begin
         AI_STRAIGHT : aiStraight;
         AI_MIRROR   : aiMirror;
         AI_RANDOM   : aiRandom;
+        AI_BULLY    : aiBully;
         AI_MAD      : aiMad;
       end;
 

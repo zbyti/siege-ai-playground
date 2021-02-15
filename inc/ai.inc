@@ -49,6 +49,22 @@ end;
 
 //-----------------------------------------------------------------------------
 
+procedure aiBully; // brain = 4
+begin
+  t0b := ply.dir;
+
+  if ply.y > player1.y then t0b := JOY_UP else t0b := JOY_DOWN;
+  if (ply.y = player1.y) or ((availDir and t0b) = 0) then begin
+    if ply.x > player1.x then t0b := JOY_LEFT else t0b := JOY_RIGHT;
+  end;
+
+  if (availDir and t0b) <> 0 then newDir := t0b
+  else aiStraight;
+end;
+
+
+//-----------------------------------------------------------------------------
+
 procedure aiMad; // brain = 7
 begin
   t0b := (Random(3) + 1);
