@@ -67,11 +67,12 @@ end;
 
 procedure aiMad; // brain = 7
 begin
-  t0b := (Random(3) + 1);
+  t0b := (Random(4) + 1);
   case t0b of
     AI_STRAIGHT : aiStraight;
     AI_MIRROR   : aiMirror;
     AI_RANDOM   : aiRandom;
+    AI_BULLY    : aiBully;
   end;
 end;
 
