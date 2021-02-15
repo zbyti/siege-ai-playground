@@ -964,7 +964,7 @@ l_0226
 
 ; optimize OK (init.inc), line = 39
 
-	lda #$00
+	lda #$35
 	sta PUTCHAR.C
 	lda #$56
 	sta PUTCHAR.V
@@ -976,7 +976,7 @@ l_0226
 
 ; optimize OK (init.inc), line = 40
 
-	lda #$00
+	lda #$35
 	sta PUTCHAR.C
 	lda #$56
 	sta PUTCHAR.V
@@ -988,7 +988,7 @@ l_0226
 
 ; optimize OK (init.inc), line = 41
 
-	lda #$00
+	lda #$35
 	sta PUTCHAR.C
 	lda #$56
 	sta PUTCHAR.V
@@ -1000,7 +1000,7 @@ l_0226
 
 ; optimize OK (init.inc), line = 42
 
-	lda #$00
+	lda #$35
 	sta PUTCHAR.C
 	lda #$56
 	sta PUTCHAR.V
@@ -1843,13 +1843,41 @@ l_06F8
 
 ; optimize OK (main.pas), line = 94
 
-	lda #$01
+	lda #$FF
 	sta ALIVE
 
-; --- RepeatUntilProlog
-l_0722
+; optimize OK (main.pas), line = 95
+
+	lda PLAYER1.ISDEAD
+	jne l_0730
+	inc ALIVE
+l_0730
 
 ; optimize OK (main.pas), line = 96
+
+	lda PLAYER2.ISDEAD
+	jne l_0746
+	inc ALIVE
+l_0746
+
+; optimize OK (main.pas), line = 97
+
+	lda PLAYER3.ISDEAD
+	jne l_075C
+	inc ALIVE
+l_075C
+
+; optimize OK (main.pas), line = 98
+
+	lda PLAYER4.ISDEAD
+	jne l_0772
+	inc ALIVE
+l_0772
+
+; --- RepeatUntilProlog
+l_077A
+
+; optimize OK (main.pas), line = 101
 
 	lda #$03
 	sta SYSTEM.PAUSE_006B.N
@@ -1857,7 +1885,7 @@ l_0722
 	sta SYSTEM.PAUSE_006B.N+1
 	jsr SYSTEM.PAUSE_006B
 
-; optimize OK (main.pas), line = 97
+; optimize OK (main.pas), line = 102
 
 	lda PLAYER1
 	sta PLAYERMOVE.P
@@ -1870,7 +1898,7 @@ l_0722
 	sta PLAYERMOVE.P+1
 	jsr PLAYERMOVE
 
-; optimize OK (main.pas), line = 98
+; optimize OK (main.pas), line = 103
 
 	lda PLAYER3
 	sta PLAYERMOVE.P
@@ -1883,43 +1911,43 @@ l_0722
 	sta PLAYERMOVE.P+1
 	jsr PLAYERMOVE
 
-; optimize OK (main.pas), line = 99
-
-	lda ALIVE
-	jeq l_0722x
-	cmp #$FF
-	jne l_0722
-l_0722x
-
-; optimize OK (main.pas), line = 101
-
-	lda PLAYER1.ISDEAD
-	jne l_0758
-	inc PLAYER1.SCORE
-l_0758
-
-; optimize OK (main.pas), line = 102
-
-	lda PLAYER2.ISDEAD
-	jne l_076E
-	inc PLAYER2.SCORE
-l_076E
-
-; optimize OK (main.pas), line = 103
-
-	lda PLAYER3.ISDEAD
-	jne l_0784
-	inc PLAYER3.SCORE
-l_0784
-
 ; optimize OK (main.pas), line = 104
 
-	lda PLAYER4.ISDEAD
-	jne l_079A
-	inc PLAYER4.SCORE
-l_079A
+	lda ALIVE
+	jeq l_077Ax
+	cmp #$FF
+	jne l_077A
+l_077Ax
 
 ; optimize OK (main.pas), line = 106
+
+	lda PLAYER1.ISDEAD
+	jne l_07B0
+	inc PLAYER1.SCORE
+l_07B0
+
+; optimize OK (main.pas), line = 107
+
+	lda PLAYER2.ISDEAD
+	jne l_07C6
+	inc PLAYER2.SCORE
+l_07C6
+
+; optimize OK (main.pas), line = 108
+
+	lda PLAYER3.ISDEAD
+	jne l_07DC
+	inc PLAYER3.SCORE
+l_07DC
+
+; optimize OK (main.pas), line = 109
+
+	lda PLAYER4.ISDEAD
+	jne l_07F2
+	inc PLAYER4.SCORE
+l_07F2
+
+; optimize OK (main.pas), line = 111
 
 	lda #$64
 	sta SYSTEM.PAUSE_006B.N
@@ -1940,77 +1968,77 @@ l_079A
 l_0007
 
 ; --- RepeatUntilProlog
-l_07A5
+l_07FD
 
-; optimize OK (main.pas), line = 113
+; optimize OK (main.pas), line = 118
 
 	lda #$30
 	sta PLAYER1.SCORE
 	sta PLAYER2.SCORE
 
-; optimize OK (main.pas), line = 114
+; optimize OK (main.pas), line = 119
 
 	sta PLAYER3.SCORE
 	sta PLAYER4.SCORE
 
-; optimize OK (main.pas), line = 116
+; optimize OK (main.pas), line = 121
 
 	lda #$00
 	sta GAMEOVER
 
 ; --- RepeatUntilProlog
-l_07BA
+l_0812
 
-; optimize FAIL ('MAINLOOP', main.pas), line = 118
+; optimize FAIL ('MAINLOOP', main.pas), line = 123
 
 	jsr MAINLOOP
 
-; optimize OK (main.pas), line = 119
+; optimize OK (main.pas), line = 124
 
 	lda PLAYER1.SCORE
 	cmp #$39
-	jne l_07CD
+	jne l_0825
 	lda #$01
 	sta GAMEOVER
-l_07CD
+l_0825
 
-; optimize OK (main.pas), line = 120
+; optimize OK (main.pas), line = 125
 
 	lda PLAYER2.SCORE
 	cmp #$39
-	jne l_07E6
+	jne l_083E
 	lda #$01
 	sta GAMEOVER
-l_07E6
+l_083E
 
-; optimize OK (main.pas), line = 121
+; optimize OK (main.pas), line = 126
 
 	lda PLAYER3.SCORE
 	cmp #$39
-	jne l_07FF
+	jne l_0857
 	lda #$01
 	sta GAMEOVER
-l_07FF
+l_0857
 
-; optimize OK (main.pas), line = 122
+; optimize OK (main.pas), line = 127
 
 	lda PLAYER4.SCORE
 	cmp #$39
-	jne l_0818
+	jne l_0870
 	lda #$01
 	sta GAMEOVER
-l_0818
+l_0870
 
-; optimize OK (main.pas), line = 123
+; optimize OK (main.pas), line = 128
 
 	lda GAMEOVER
-	jeq l_07BA
+	jeq l_0812
 
-; optimize FAIL ('SHOWSCORE', main.pas), line = 124
+; optimize FAIL ('SHOWSCORE', main.pas), line = 129
 
 	jsr SHOWSCORE
 
-; optimize OK (main.pas), line = 126
+; optimize OK (main.pas), line = 131
 
 	lda #$C8
 	sta SYSTEM.PAUSE_006B.N
@@ -2018,9 +2046,9 @@ l_0818
 	sta SYSTEM.PAUSE_006B.N+1
 	jsr SYSTEM.PAUSE_006B
 
-; optimize OK (main.pas), line = 127
+; optimize OK (main.pas), line = 132
 
-	jmp l_07A5
+	jmp l_07FD
 
 ; ------------------------------------------------------------
 
@@ -2031,7 +2059,7 @@ WALL	= $A0
 WALL_COLOUR	= $41
 ZERO	= $30
 OBSTACLE	= $56
-OBST_COLOUR	= $00
+OBST_COLOUR	= $35
 PLY_HEAD	= $51
 PLY_CRASH	= $57
 PLY_CRASH_1	= $2A

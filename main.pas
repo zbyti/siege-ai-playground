@@ -91,7 +91,12 @@ begin
   initPlayfield;
   startScreen;
 
-  alive := 1;
+  alive := $ff; // temporary soluion
+  if not player1.isDead then Inc(alive);
+  if not player2.isDead then Inc(alive);
+  if not player3.isDead then Inc(alive);
+  if not player4.isDead then Inc(alive);
+
   repeat
     pause(3); // 1 for AI; 2 fast; 3 normal; 4 slow
     playerMove(@player1); playerMove(@player2);
