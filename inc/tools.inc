@@ -37,10 +37,14 @@ var
 begin
   Inc(counter);
   if (counter and 1) <> 0 then obst := OBSTACLE_1 else obst := OBSTACLE_2;
-  Poke(SCREEN_ADDR + 10 + (6 * 40), obst);
-  Poke(SCREEN_ADDR + 30 + (6 * 40), obst);
+  Poke(SCREEN_ADDR + 10 + ( 6 * 40), obst);
+  Poke(SCREEN_ADDR + 30 + ( 6 * 40), obst);
   Poke(SCREEN_ADDR + 10 + (18 * 40), obst);
   Poke(SCREEN_ADDR + 30 + (18 * 40), obst);
+  Poke(SCREEN_ADDR +  1 + (12 * 40), obst);
+  Poke(SCREEN_ADDR + 38 + (12 * 40), obst);
+  Poke(SCREEN_ADDR + 20 + ( 2 * 40), obst);
+  Poke(SCREEN_ADDR + 20 + (22 * 40), obst);
 end;
 
 //-----------------------------------------------------------------------------

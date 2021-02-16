@@ -53,3 +53,58 @@ begin
 end;
 
 //-----------------------------------------------------------------------------
+
+procedure aiSaper; // brain = 4
+var
+  i0b, l, r, u, d: byte;
+begin
+  l := 0; r := 0; u := 0; d := 0;
+  t0w := SCREEN_ADDR + mul40[ply.y] + ply.x;
+
+  if (availDir and JOY_UP) <> 0 then begin
+    for i0b := LOOK_AHEAD downto 1 do begin
+      if Peek(t0w - mul40[i0b]) = EMPTY then Inc(u);
+      if Peek(t0w - mul40[i0b] + 1) = EMPTY then Inc(u);
+      if Peek(t0w - mul40[i0b] - 1) = EMPTY then Inc(u);
+    end;
+  end;
+
+  if (availDir and JOY_DOWN) <> 0 then begin
+      for i0b := LOOK_AHEAD downto 1 do begin
+      if Peek(t0w + mul40[i0b]) = EMPTY then Inc(d);
+      if Peek(t0w + mul40[i0b] + 1) = EMPTY then Inc(d);
+      if Peek(t0w + mul40[i0b] - 1) = EMPTY then Inc(d);
+    end;
+  end;
+
+  if (availDir and JOY_LEFT) <> 0 then begin
+    for i0b := LOOK_AHEAD downto 1 do begin
+      if Peek(t0w - i0b) = EMPTY then Inc(l);
+      if Peek(t0w - i0b + 40) = EMPTY then Inc(l);
+      if Peek(t0w - i0b - 40) = EMPTY then Inc(l);
+    end;
+  end;
+
+  if (availDir and JOY_RIGHT) <> 0 then begin
+    for i0b := LOOK_AHEAD downto 1 do begin
+      if Peek(t0w + i0b) = EMPTY then Inc(r);
+      if Peek(t0w + i0b + 40) = EMPTY then Inc(r);
+      if Peek(t0w + i0b - 40) = EMPTY then Inc(r);
+    end;
+  end;
+
+  t0b := u;
+  if t0b < d then t0b := d;
+  if t0b < l then t0b := l;
+  if t0b < r then t0b := r;
+
+  if t0b = u then t0b := JOY_UP;
+  if t0b = d then t0b := JOY_DOWN;
+  if t0b = l then t0b := JOY_LEFT;
+  if t0b = r then t0b := JOY_RIGHT;
+
+  if (availDir and t0b) <> 0 then newDir := t0b
+  else aiStraight;
+end;
+
+//-----------------------------------------------------------------------------

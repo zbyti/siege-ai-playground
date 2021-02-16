@@ -43,6 +43,7 @@ begin
         AI_STRAIGHT : aiStraight;
         AI_BULLY    : aiBully;
         AI_MIRROR   : aiMirror;
+        AI_SAPER    : aiSaper;
       end;
 
       drawTail; ply.dir := newDir;
