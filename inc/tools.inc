@@ -37,9 +37,9 @@ var
 begin
   Inc(counter);
   if (counter and 1) <> 0 then obst := OBSTACLE_1 else obst := OBSTACLE_2;
-  putChar(10, 6, obst, OBST_COLOUR);
-  putChar(30, 6, obst, OBST_COLOUR);
-  putChar(10, 18, obst, OBST_COLOUR);
-  putChar(30, 18, obst, OBST_COLOUR);
+  Poke(SCREEN_ADDR + 10 + (6 * 40), obst);
+  Poke(SCREEN_ADDR + 30 + (6 * 40), obst);
+  Poke(SCREEN_ADDR + 10 + (18 * 40), obst);
+  Poke(SCREEN_ADDR + 30 + (18 * 40), obst);
 end;
 
