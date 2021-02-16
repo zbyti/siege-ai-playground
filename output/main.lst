@@ -937,7 +937,7 @@ Source: main.a65
   1026 1468 10 C0			jpl l_0373
   1027 146A			l_0381
   1028
-  1029 				; optimize OK (init.inc), line = 37
+  1029 				; optimize OK (init.inc), line = 32
   1030
   1031 146A A9 01			lda #$01
   1032 146C 8D 23 1D			sta INITPLAYERS.ISALIVE
@@ -959,7 +959,7 @@ Source: main.a65
   1048 1496 8D 1C 1D			sta INITPLAYERS.P+1
   1049 1499 20 87 13			jsr INITPLAYERS
   1050
-  1051 				; optimize OK (init.inc), line = 38
+  1051 				; optimize OK (init.inc), line = 33
   1052
   1053 149C A9 01			lda #$01
   1054 149E 8D 23 1D			sta INITPLAYERS.ISALIVE
@@ -967,30 +967,30 @@ Source: main.a65
   1056 14A3 8D 22 1D			sta INITPLAYERS.COLOUR
   1057 14A6 A9 51			lda #$51
   1058 14A8 8D 21 1D			sta INITPLAYERS.HEAD
-  1059 14AB A9 04			lda #$04
+  1059 14AB A9 03			lda #$03
   1060 14AD 8D 20 1D			sta INITPLAYERS.BRAIN
-  1061 14B0 8D 1F 1D			sta INITPLAYERS.DIR
-  1062 14B3 A9 0C			lda #$0C
-  1063 14B5 8D 1E 1D			sta INITPLAYERS.Y
-  1064 14B8 A9 1E			lda #$1E
-  1065 14BA 8D 1D 1D			sta INITPLAYERS.X
-  1066 14BD AD DC 1C			lda PLAYER2
-  1067 14C0 8D 1B 1D			sta INITPLAYERS.P
-  1068 14C3 AD DD 1C			lda PLAYER2+1
-  1069 14C6 8D 1C 1D			sta INITPLAYERS.P+1
-  1070 14C9 20 87 13			jsr INITPLAYERS
-  1071
-  1072 				; optimize OK (init.inc), line = 39
-  1073
-  1074 14CC A9 01			lda #$01
-  1075 14CE 8D 23 1D			sta INITPLAYERS.ISALIVE
-  1076 14D1 A9 71			lda #$71
-  1077 14D3 8D 22 1D			sta INITPLAYERS.COLOUR
-  1078 14D6 A9 51			lda #$51
-  1079 14D8 8D 21 1D			sta INITPLAYERS.HEAD
-  1080 14DB A9 04			lda #$04
-  1081 14DD 8D 20 1D			sta INITPLAYERS.BRAIN
-  1082 14E0 A9 02			lda #$02
+  1061 14B0 A9 04			lda #$04
+  1062 14B2 8D 1F 1D			sta INITPLAYERS.DIR
+  1063 14B5 A9 0C			lda #$0C
+  1064 14B7 8D 1E 1D			sta INITPLAYERS.Y
+  1065 14BA A9 1E			lda #$1E
+  1066 14BC 8D 1D 1D			sta INITPLAYERS.X
+  1067 14BF AD DC 1C			lda PLAYER2
+  1068 14C2 8D 1B 1D			sta INITPLAYERS.P
+  1069 14C5 AD DD 1C			lda PLAYER2+1
+  1070 14C8 8D 1C 1D			sta INITPLAYERS.P+1
+  1071 14CB 20 87 13			jsr INITPLAYERS
+  1072
+  1073 				; optimize OK (init.inc), line = 34
+  1074
+  1075 14CE A9 01			lda #$01
+  1076 14D0 8D 23 1D			sta INITPLAYERS.ISALIVE
+  1077 14D3 A9 71			lda #$71
+  1078 14D5 8D 22 1D			sta INITPLAYERS.COLOUR
+  1079 14D8 A9 51			lda #$51
+  1080 14DA 8D 21 1D			sta INITPLAYERS.HEAD
+  1081 14DD A9 02			lda #$02
+  1082 14DF 8D 20 1D			sta INITPLAYERS.BRAIN
   1083 14E2 8D 1F 1D			sta INITPLAYERS.DIR
   1084 14E5 A9 06			lda #$06
   1085 14E7 8D 1E 1D			sta INITPLAYERS.Y
@@ -1002,7 +1002,7 @@ Source: main.a65
   1091 14F8 8D 1C 1D			sta INITPLAYERS.P+1
   1092 14FB 20 87 13			jsr INITPLAYERS
   1093
-  1094 				; optimize OK (init.inc), line = 40
+  1094 				; optimize OK (init.inc), line = 35
   1095
   1096 14FE A9 01			lda #$01
   1097 1500 8D 23 1D			sta INITPLAYERS.ISALIVE
@@ -1024,7 +1024,7 @@ Source: main.a65
   1113 152A 8D 1C 1D			sta INITPLAYERS.P+1
   1114 152D 20 87 13			jsr INITPLAYERS
   1115
-  1116 				; optimize OK (init.inc), line = 42
+  1116 				; optimize OK (init.inc), line = 37
   1117
   1118 1530 A9 35			lda #$35
   1119 1532 8D 18 1D			sta PUTCHAR.C
@@ -1036,7 +1036,7 @@ Source: main.a65
   1125 1541 8D 15 1D			sta PUTCHAR.X
   1126 1544 20 71 11			jsr PUTCHAR
   1127
-  1128 				; optimize OK (init.inc), line = 43
+  1128 				; optimize OK (init.inc), line = 38
   1129
   1130 1547 A9 35			lda #$35
   1131 1549 8D 18 1D			sta PUTCHAR.C
@@ -1048,7 +1048,7 @@ Source: main.a65
   1137 1558 8D 15 1D			sta PUTCHAR.X
   1138 155B 20 71 11			jsr PUTCHAR
   1139
-  1140 				; optimize OK (init.inc), line = 44
+  1140 				; optimize OK (init.inc), line = 39
   1141
   1142 155E A9 35			lda #$35
   1143 1560 8D 18 1D			sta PUTCHAR.C
@@ -1060,7 +1060,7 @@ Source: main.a65
   1149 156F 8D 15 1D			sta PUTCHAR.X
   1150 1572 20 71 11			jsr PUTCHAR
   1151
-  1152 				; optimize OK (init.inc), line = 45
+  1152 				; optimize OK (init.inc), line = 40
   1153
   1154 1575 A9 35			lda #$35
   1155 1577 8D 18 1D			sta PUTCHAR.C
@@ -1072,7 +1072,7 @@ Source: main.a65
   1161 1586 8D 15 1D			sta PUTCHAR.X
   1162 1589 20 71 11			jsr PUTCHAR
   1163
-  1164 				; optimize OK (init.inc), line = 46
+  1164 				; optimize OK (init.inc), line = 41
   1165
   1166 158C A9 35			lda #$35
   1167 158E 8D 18 1D			sta PUTCHAR.C
@@ -1084,7 +1084,7 @@ Source: main.a65
   1173 159D 8D 15 1D			sta PUTCHAR.X
   1174 15A0 20 71 11			jsr PUTCHAR
   1175
-  1176 				; optimize OK (init.inc), line = 47
+  1176 				; optimize OK (init.inc), line = 42
   1177
   1178 15A3 A9 35			lda #$35
   1179 15A5 8D 18 1D			sta PUTCHAR.C
@@ -1096,7 +1096,7 @@ Source: main.a65
   1185 15B4 8D 15 1D			sta PUTCHAR.X
   1186 15B7 20 71 11			jsr PUTCHAR
   1187
-  1188 				; optimize OK (init.inc), line = 48
+  1188 				; optimize OK (init.inc), line = 43
   1189
   1190 15BA A9 35			lda #$35
   1191 15BC 8D 18 1D			sta PUTCHAR.C
@@ -1108,7 +1108,7 @@ Source: main.a65
   1197 15CB 8D 15 1D			sta PUTCHAR.X
   1198 15CE 20 71 11			jsr PUTCHAR
   1199
-  1200 				; optimize OK (init.inc), line = 49
+  1200 				; optimize OK (init.inc), line = 44
   1201
   1202 15D1 A9 35			lda #$35
   1203 15D3 8D 18 1D			sta PUTCHAR.C
@@ -1120,7 +1120,7 @@ Source: main.a65
   1209 15E2 8D 15 1D			sta PUTCHAR.X
   1210 15E5 20 71 11			jsr PUTCHAR
   1211
-  1212 				; optimize FAIL ('SHOWSCORE', init.inc), line = 51
+  1212 				; optimize FAIL ('SHOWSCORE', init.inc), line = 46
   1213
   1214 15E8 20 9C 11			jsr SHOWSCORE
   1215
@@ -2480,8 +2480,8 @@ Source: main.a65
   2569 = 005B			OBSTACLE_2	= $5B
   2570 = 0035			OBST_COLOUR	= $35
   2571 = 0051			PLY_HEAD	= $51
-  2572 = 0057			PLY_CRASH	= $57
-  2573 = 002A			PLY_CRASH_1	= $2A
+  2572 = 002A			PLY_CRASH	= $2A
+  2573 = 0057			PLY_BUSTED	= $57
   2574 = 0042			PLY_TAIL_UD	= $42
   2575 = 0040			PLY_TAIL_LR	= $40
   2576 = 007D			PLY_TAIL_RD	= $7D

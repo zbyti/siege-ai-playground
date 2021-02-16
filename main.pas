@@ -22,7 +22,7 @@ begin
   end;
 
   if (newDir and availDir) = 0 then begin
-    ply.isAlive := false; ply.head := PLY_CRASH_1; Dec(alive);
+    ply.isAlive := false; ply.head := PLY_CRASH; Dec(alive);
   end;
 end;
 
@@ -35,7 +35,7 @@ begin
 
     if availDir = 0 then begin
       ply.isAlive := false; Dec(alive);
-      putChar(ply.x, ply.y, PLY_CRASH, ply.colour + $80);
+      putChar(ply.x, ply.y, PLY_BUSTED, ply.colour + $80);
     end else begin
 
       case ply.brain of

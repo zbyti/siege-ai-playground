@@ -29,15 +29,10 @@ begin
     DPoke((ATTRIBUTE_ADDR - 1) + mul40[t0b], WALL_COLOUR * 256 + WALL_COLOUR);
   end;
 
-  //initPlayers(@player1, 10, 12, JOY_RIGHT, PLY_CTRL,    PLY_HEAD, PLY1_COLOUR, true);
-  //initPlayers(@player2, 30, 12, JOY_LEFT,  AI_MIRROR,   PLY_HEAD, PLY2_COLOUR, true);
-  //initPlayers(@player3, 20,  6, JOY_DOWN,  AI_BULLY,    PLY_HEAD, PLY3_COLOUR, true);
-  //initPlayers(@player4, 20, 18, JOY_UP,    AI_SAPER,    PLY_HEAD, PLY4_COLOUR, true);
-
-  initPlayers(@player1, 10, 12, JOY_RIGHT, PLY_CTRL, PLY_HEAD, PLY1_COLOUR, true);
-  initPlayers(@player2, 30, 12, JOY_LEFT,  AI_SAPER, PLY_HEAD, PLY2_COLOUR, true);
-  initPlayers(@player3, 20,  6, JOY_DOWN,  AI_SAPER, PLY_HEAD, PLY3_COLOUR, true);
-  initPlayers(@player4, 20, 18, JOY_UP,    AI_SAPER, PLY_HEAD, PLY4_COLOUR, true);
+  initPlayers(@player1, 10, 12, JOY_RIGHT, PLY_CTRL,    PLY_HEAD, PLY1_COLOUR, true);
+  initPlayers(@player2, 30, 12, JOY_LEFT,  AI_MIRROR,   PLY_HEAD, PLY2_COLOUR, true);
+  initPlayers(@player3, 20,  6, JOY_DOWN,  AI_BULLY,    PLY_HEAD, PLY3_COLOUR, true);
+  initPlayers(@player4, 20, 18, JOY_UP,    AI_SAPER,    PLY_HEAD, PLY4_COLOUR, true);
 
   putChar(10,  6, OBSTACLE_1, OBST_COLOUR);
   putChar(30,  6, OBSTACLE_1, OBST_COLOUR);

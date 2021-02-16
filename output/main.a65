@@ -1026,7 +1026,7 @@ l_0373
 	jpl l_0373
 l_0381
 
-; optimize OK (init.inc), line = 37
+; optimize OK (init.inc), line = 32
 
 	lda #$01
 	sta INITPLAYERS.ISALIVE
@@ -1048,7 +1048,7 @@ l_0381
 	sta INITPLAYERS.P+1
 	jsr INITPLAYERS
 
-; optimize OK (init.inc), line = 38
+; optimize OK (init.inc), line = 33
 
 	lda #$01
 	sta INITPLAYERS.ISALIVE
@@ -1056,8 +1056,9 @@ l_0381
 	sta INITPLAYERS.COLOUR
 	lda #$51
 	sta INITPLAYERS.HEAD
-	lda #$04
+	lda #$03
 	sta INITPLAYERS.BRAIN
+	lda #$04
 	sta INITPLAYERS.DIR
 	lda #$0C
 	sta INITPLAYERS.Y
@@ -1069,7 +1070,7 @@ l_0381
 	sta INITPLAYERS.P+1
 	jsr INITPLAYERS
 
-; optimize OK (init.inc), line = 39
+; optimize OK (init.inc), line = 34
 
 	lda #$01
 	sta INITPLAYERS.ISALIVE
@@ -1077,9 +1078,8 @@ l_0381
 	sta INITPLAYERS.COLOUR
 	lda #$51
 	sta INITPLAYERS.HEAD
-	lda #$04
-	sta INITPLAYERS.BRAIN
 	lda #$02
+	sta INITPLAYERS.BRAIN
 	sta INITPLAYERS.DIR
 	lda #$06
 	sta INITPLAYERS.Y
@@ -1091,7 +1091,7 @@ l_0381
 	sta INITPLAYERS.P+1
 	jsr INITPLAYERS
 
-; optimize OK (init.inc), line = 40
+; optimize OK (init.inc), line = 35
 
 	lda #$01
 	sta INITPLAYERS.ISALIVE
@@ -1113,7 +1113,7 @@ l_0381
 	sta INITPLAYERS.P+1
 	jsr INITPLAYERS
 
-; optimize OK (init.inc), line = 42
+; optimize OK (init.inc), line = 37
 
 	lda #$35
 	sta PUTCHAR.C
@@ -1125,7 +1125,7 @@ l_0381
 	sta PUTCHAR.X
 	jsr PUTCHAR
 
-; optimize OK (init.inc), line = 43
+; optimize OK (init.inc), line = 38
 
 	lda #$35
 	sta PUTCHAR.C
@@ -1137,7 +1137,7 @@ l_0381
 	sta PUTCHAR.X
 	jsr PUTCHAR
 
-; optimize OK (init.inc), line = 44
+; optimize OK (init.inc), line = 39
 
 	lda #$35
 	sta PUTCHAR.C
@@ -1149,7 +1149,7 @@ l_0381
 	sta PUTCHAR.X
 	jsr PUTCHAR
 
-; optimize OK (init.inc), line = 45
+; optimize OK (init.inc), line = 40
 
 	lda #$35
 	sta PUTCHAR.C
@@ -1161,7 +1161,7 @@ l_0381
 	sta PUTCHAR.X
 	jsr PUTCHAR
 
-; optimize OK (init.inc), line = 46
+; optimize OK (init.inc), line = 41
 
 	lda #$35
 	sta PUTCHAR.C
@@ -1173,7 +1173,7 @@ l_0381
 	sta PUTCHAR.X
 	jsr PUTCHAR
 
-; optimize OK (init.inc), line = 47
+; optimize OK (init.inc), line = 42
 
 	lda #$35
 	sta PUTCHAR.C
@@ -1185,7 +1185,7 @@ l_0381
 	sta PUTCHAR.X
 	jsr PUTCHAR
 
-; optimize OK (init.inc), line = 48
+; optimize OK (init.inc), line = 43
 
 	lda #$35
 	sta PUTCHAR.C
@@ -1197,7 +1197,7 @@ l_0381
 	sta PUTCHAR.X
 	jsr PUTCHAR
 
-; optimize OK (init.inc), line = 49
+; optimize OK (init.inc), line = 44
 
 	lda #$35
 	sta PUTCHAR.C
@@ -1209,7 +1209,7 @@ l_0381
 	sta PUTCHAR.X
 	jsr PUTCHAR
 
-; optimize FAIL ('SHOWSCORE', init.inc), line = 51
+; optimize FAIL ('SHOWSCORE', init.inc), line = 46
 
 	jsr SHOWSCORE
 
@@ -2569,8 +2569,8 @@ OBSTACLE_1	= $56
 OBSTACLE_2	= $5B
 OBST_COLOUR	= $35
 PLY_HEAD	= $51
-PLY_CRASH	= $57
-PLY_CRASH_1	= $2A
+PLY_CRASH	= $2A
+PLY_BUSTED	= $57
 PLY_TAIL_UD	= $42
 PLY_TAIL_LR	= $40
 PLY_TAIL_RD	= $7D
