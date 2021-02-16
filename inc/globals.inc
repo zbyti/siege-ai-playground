@@ -1,10 +1,10 @@
 //-----------------------------------------------------------------------------
 
 var
-  KEYSCAN                           : byte absolute $fd30;
+  KEYSCAN                            : byte absolute $fd30;
   JOY                                : byte absolute $ff08;
-  BORDERCOLOR                        : byte absolute $ff15;
-  BGCOLOR                            : byte absolute $ff19;
+  BACKGROUND                         : byte absolute $ff15;
+  BOREDER                            : byte absolute $ff19;
 
 //-----------------------------------------------------------------------------
 

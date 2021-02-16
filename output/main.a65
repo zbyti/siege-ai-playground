@@ -923,9 +923,9 @@ ISALIVE	= DATAORIGIN+$003F
 ; optimize OK (init.inc), line = 17
 
 	lda #$1F
-	sta BORDERCOLOR
+	sta BACKGROUND
 	lda #$00
-	sta BGCOLOR
+	sta BOREDER
 
 ; optimize OK (init.inc), line = 18
 
@@ -2595,8 +2595,8 @@ adr.DIRECTION	= CODEORIGIN+$0032
 .var DIRECTION	= adr.DIRECTION .word
 KEYSCAN	= $FD30
 JOY	= $FF08
-BORDERCOLOR	= $FF15
-BGCOLOR	= $FF19
+BACKGROUND	= $FF15
+BOREDER	= $FF19
 T0B	= $58
 ALIVE	= $59
 NEWDIR	= $5A

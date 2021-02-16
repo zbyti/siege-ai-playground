@@ -834,9 +834,9 @@ Source: main.a65
    923 				; optimize OK (init.inc), line = 17
    924
    925 13E8 A9 1F			lda #$1F
-   926 13EA 8D 15 FF			sta BORDERCOLOR
+   926 13EA 8D 15 FF			sta BACKGROUND
    927 13ED A9 00			lda #$00
-   928 13EF 8D 19 FF			sta BGCOLOR
+   928 13EF 8D 19 FF			sta BOREDER
    929
    930 				; optimize OK (init.inc), line = 18
    931
@@ -2506,8 +2506,8 @@ Source: main.a65
   2595 1CBF			.var DIRECTION	= adr.DIRECTION .word
   2596 = FD30			KEYSCAN	= $FD30
   2597 = FF08			JOY	= $FF08
-  2598 = FF15			BORDERCOLOR	= $FF15
-  2599 = FF19			BGCOLOR	= $FF19
+  2598 = FF15			BACKGROUND	= $FF15
+  2599 = FF19			BOREDER	= $FF19
   2600 = 0058			T0B	= $58
   2601 = 0059			ALIVE	= $59
   2602 = 005A			NEWDIR	= $5A

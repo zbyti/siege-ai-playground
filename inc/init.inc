@@ -14,7 +14,7 @@ end;
 
 procedure initPlayfield;
 begin
-  BORDERCOLOR := $1f; BGCOLOR := 0;
+  BACKGROUND := $1f; BOREDER := 0;
   FillChar(pointer(SCREEN_ADDR), 24 * 40, EMPTY);
 
   for t0b := 39 downto 0 do begin
