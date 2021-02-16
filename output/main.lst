@@ -978,7 +978,7 @@ Source: main.a65
   1067
   1068 				; optimize OK (init.inc), line = 39
   1069
-  1070 14C9 A9 00			lda #$00
+  1070 14C9 A9 01			lda #$01
   1071 14CB 8D 13 1D			sta INITPLAYERS.ISALIVE
   1072 14CE A9 71			lda #$71
   1073 14D0 8D 12 1D			sta INITPLAYERS.COLOUR
@@ -999,7 +999,7 @@ Source: main.a65
   1088
   1089 				; optimize OK (init.inc), line = 40
   1090
-  1091 14F9 A9 00			lda #$00
+  1091 14F9 A9 01			lda #$01
   1092 14FB 8D 13 1D			sta INITPLAYERS.ISALIVE
   1093 14FE A9 55			lda #$55
   1094 1500 8D 12 1D			sta INITPLAYERS.COLOUR

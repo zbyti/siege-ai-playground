@@ -1067,7 +1067,7 @@ l_037C
 
 ; optimize OK (init.inc), line = 39
 
-	lda #$00
+	lda #$01
 	sta INITPLAYERS.ISALIVE
 	lda #$71
 	sta INITPLAYERS.COLOUR
@@ -1088,7 +1088,7 @@ l_037C
 
 ; optimize OK (init.inc), line = 40
 
-	lda #$00
+	lda #$01
 	sta INITPLAYERS.ISALIVE
 	lda #$55
 	sta INITPLAYERS.COLOUR
