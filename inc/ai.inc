@@ -39,22 +39,8 @@ end;
 
 //-----------------------------------------------------------------------------
 
-procedure aiMirror; // brain = 3
-begin
-  case player1.dir of
-    JOY_UP    : t0b := JOY_DOWN;
-    JOY_DOWN  : t0b := JOY_UP;
-    JOY_LEFT  : t0b := JOY_RIGHT;
-    JOY_RIGHT : t0b := JOY_LEFT;
-  end;
 
-  if (availDir and t0b) <> 0 then newDir := t0b
-  else aiStraight;
-end;
-
-//-----------------------------------------------------------------------------
-
-procedure aiSaper; // brain = 4
+procedure aiSaper; // brain = 3
 var
   i0b, l, r, u, d: byte;
 begin
@@ -93,18 +79,35 @@ begin
     end;
   end;
 
-  t0b := u;
-  if t0b < d then t0b := d;
+  t0b := d;
+  if t0b < u then t0b := u;
   if t0b < l then t0b := l;
   if t0b < r then t0b := r;
 
-  if t0b = u then t0b := JOY_UP;
   if t0b = d then t0b := JOY_DOWN;
+  if t0b = u then t0b := JOY_UP;
   if t0b = l then t0b := JOY_LEFT;
   if t0b = r then t0b := JOY_RIGHT;
 
   if (availDir and t0b) <> 0 then newDir := t0b
   else aiStraight;
+end;
+
+//-----------------------------------------------------------------------------
+
+procedure aiMirror; // brain = 4
+begin
+  if player1.isAlive then begin
+    case player1.dir of
+      JOY_UP    : t0b := JOY_DOWN;
+      JOY_DOWN  : t0b := JOY_UP;
+      JOY_LEFT  : t0b := JOY_RIGHT;
+      JOY_RIGHT : t0b := JOY_LEFT;
+    end;
+
+    if (availDir and t0b) <> 0 then newDir := t0b
+    else aiSaper;
+  end else aiSaper;
 end;
 
 //-----------------------------------------------------------------------------
