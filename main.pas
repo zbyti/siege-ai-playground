@@ -103,10 +103,10 @@ begin
     gameOver := false;
     repeat
       mainLoop;
-      if player1.score = ZERO + 9 then gameOver := true;
-      if player2.score = ZERO + 9 then gameOver := true;
-      if player3.score = ZERO + 9 then gameOver := true;
-      if player4.score = ZERO + 9 then gameOver := true;
+      if player1.score = ZERO + VICTORIES then gameOver := true;
+      if player2.score = ZERO + VICTORIES then gameOver := true;
+      if player3.score = ZERO + VICTORIES then gameOver := true;
+      if player4.score = ZERO + VICTORIES then gameOver := true;
     until gameOver;
 
     showScore;
