@@ -1482,7 +1482,7 @@ l_0566
 
 ; optimize OK (ai.inc), line = 51
 
-	lda #$04
+	lda #$05
 	sta I0B
 
 l_05AD
@@ -1565,7 +1565,7 @@ l_05A3
 
 ; optimize OK (ai.inc), line = 59
 
-	lda #$04
+	lda #$05
 	sta I0B
 
 l_064D
@@ -1648,7 +1648,7 @@ l_0643
 
 ; optimize OK (ai.inc), line = 67
 
-	lda #$04
+	lda #$05
 	sta I0B
 
 l_06ED
@@ -1723,7 +1723,7 @@ l_06E3
 
 ; optimize OK (ai.inc), line = 75
 
-	lda #$04
+	lda #$05
 	sta I0B
 
 l_0787
@@ -2369,7 +2369,7 @@ l_0B43
 
 ; optimize OK (main.pas), line = 81
 
-	lda #$04
+	lda #$03
 	sta SYSTEM.PAUSE_006B.N
 	lda #$00
 	sta SYSTEM.PAUSE_006B.N+1
@@ -2555,7 +2555,7 @@ l_0C3A
 ATTRIBUTE_ADDR	= $0800
 SCREEN_ADDR	= $0C00
 VICTORIES	= $09
-LOOK_AHEAD	= $04
+LOOK_AHEAD	= $05
 EMPTY	= $20
 WALL	= $A0
 WALL_COLOUR	= $41

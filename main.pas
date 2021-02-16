@@ -78,7 +78,7 @@ begin
   alive := $ff; initPlayfield; startScreen;
 
   repeat
-    pause(4); // 1 for AI; 2 fast; 3 normal; 4 slow
+    pause(3); // 1 for AI; 2 fast; 3 normal; 4 slow
     ply := @player1; playerMove;
     ply := @player2; playerMove;
     ply := @player3; playerMove;

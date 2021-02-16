@@ -32,8 +32,8 @@ begin
   // H Vs.AI_STRAIGHT - very easy
   // H Vs. AI_BULLY   - easy
   // H Vs. AI_SAPER   - moderate
-  // h Vs. 3 bots     - hard (2x AI_BULLY, AI_BULLY & AI_SAPER)
-  // H Vs. AI_MIRROR  - very hard
+  // H Vs. AI_MIRROR  - hard
+  // h Vs. 3 bots     - hard hard (2x AI_BULLY, AI_BULLY & AI_SAPER)
   initPlayers(@player1, 10, 12, JOY_RIGHT, PLY_CTRL,    PLY_HEAD, PLY1_COLOUR, true);
   initPlayers(@player2, 30, 12, JOY_LEFT,  AI_MIRROR,   PLY_HEAD, PLY2_COLOUR, true);
   initPlayers(@player3, 20,  6, JOY_DOWN,  AI_BULLY,    PLY_HEAD, PLY3_COLOUR, true);

@@ -1393,7 +1393,7 @@ Source: main.a65
   1482
   1483 				; optimize OK (ai.inc), line = 51
   1484
-  1485 175A A9 04			lda #$04
+  1485 175A A9 05			lda #$05
   1486 175C 8D 16 1D			sta I0B
   1487
   1488 175F			l_05AD
@@ -1476,7 +1476,7 @@ Source: main.a65
   1565
   1566 				; optimize OK (ai.inc), line = 59
   1567
-  1568 17D8 A9 04			lda #$04
+  1568 17D8 A9 05			lda #$05
   1569 17DA 8D 16 1D			sta I0B
   1570
   1571 17DD			l_064D
@@ -1559,7 +1559,7 @@ Source: main.a65
   1648
   1649 				; optimize OK (ai.inc), line = 67
   1650
-  1651 1856 A9 04			lda #$04
+  1651 1856 A9 05			lda #$05
   1652 1858 8D 16 1D			sta I0B
   1653
   1654 185B			l_06ED
@@ -1634,7 +1634,7 @@ Source: main.a65
   1723
   1724 				; optimize OK (ai.inc), line = 75
   1725
-  1726 18C1 A9 04			lda #$04
+  1726 18C1 A9 05			lda #$05
   1727 18C3 8D 16 1D			sta I0B
   1728
   1729 18C6			l_0787
@@ -2280,7 +2280,7 @@ Source: main.a65
   2369
   2370 				; optimize OK (main.pas), line = 81
   2371
-  2372 1BDD A9 04			lda #$04
+  2372 1BDD A9 03			lda #$03
   2373 1BDF 8D E0 1C			sta SYSTEM.PAUSE_006B.N
   2374 1BE2 A9 00			lda #$00
   2375 1BE4 8D E1 1C			sta SYSTEM.PAUSE_006B.N+1
@@ -2466,7 +2466,7 @@ Source: main.a65
   2555 = 0800			ATTRIBUTE_ADDR	= $0800
   2556 = 0C00			SCREEN_ADDR	= $0C00
   2557 = 0009			VICTORIES	= $09
-  2558 = 0004			LOOK_AHEAD	= $04
+  2558 = 0005			LOOK_AHEAD	= $05
   2559 = 0020			EMPTY	= $20
   2560 = 00A0			WALL	= $A0
   2561 = 0041			WALL_COLOUR	= $41
