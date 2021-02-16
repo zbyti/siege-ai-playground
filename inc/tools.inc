@@ -18,10 +18,10 @@ end;
 
 //-----------------------------------------------------------------------------
 
-procedure checkAvailDir(x, y: byte);
+procedure checkAvailDir;
 begin
   availDir := 0;
-  t0w := SCREEN_ADDR + mul40[y] + x;
+  t0w := SCREEN_ADDR + mul40[ply.y] + ply.x;
 
   if Peek(t0w - 40) = EMPTY then availDir := availDir or JOY_UP;
   if Peek(t0w + 40) = EMPTY then availDir := availDir or JOY_DOWN;
@@ -42,4 +42,21 @@ begin
   Poke(SCREEN_ADDR + 10 + (18 * 40), obst);
   Poke(SCREEN_ADDR + 30 + (18 * 40), obst);
 end;
+
+//-----------------------------------------------------------------------------
+
+procedure drawTail;
+begin
+  if ply.dir = newDir then begin
+    if (newDir and %1100) <> 0 then t0b := PLY_TAIL_LR else t0b := PLY_TAIL_UD;
+  end else begin
+    if ((ply.dir and %1010) <> 0) and ((newDir and %0101) <> 0) then t0b := PLY_TAIL_RD;
+    if ((ply.dir and %1001) <> 0) and ((newDir and %0110) <> 0) then t0b := PLY_TAIL_RU;
+    if ((ply.dir and %0110) <> 0) and ((newDir and %1001) <> 0) then t0b := PLY_TAIL_LD;
+    if ((ply.dir and %0101) <> 0) and ((newDir and %1010) <> 0) then t0b := PLY_TAIL_LU;
+  end;
+  putChar(ply.x, ply.y, t0b, ply.colour);
+end;
+
+//-----------------------------------------------------------------------------
 

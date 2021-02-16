@@ -27,7 +27,7 @@ procedure aiBully; // brain = 2
 begin
   t0b := ply.dir;
 
-  if player1.isDead then tmpPly := @player2 else tmpPly := @player1;
+  if player1.isAlive then tmpPly := @player1 else tmpPly := @player2;
 
   if ply.y > tmpPly.y then t0b := JOY_UP else t0b := JOY_DOWN;
   if (ply.y = tmpPly.y) or ((availDir and t0b) = 0) then

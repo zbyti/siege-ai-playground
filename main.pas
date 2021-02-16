@@ -22,22 +22,19 @@ begin
   end;
 
   if (newDir and availDir) = 0 then begin
-    ply.isDead := true; ply.head := PLY_CRASH_1; Dec(alive);
+    ply.isAlive := false; ply.head := PLY_CRASH_1; Dec(alive);
   end;
 end;
 
 //-----------------------------------------------------------------------------
 
-procedure playerMove(p: pointer);
+procedure playerMove;
 begin
-  ply := p;
-
-  if not ply.isDead then begin
-
-    checkAvailDir(ply.x, ply.y);
+  if ply.isAlive then begin
+    checkAvailDir;
 
     if availDir = 0 then begin
-      ply.isDead := true; Dec(alive);
+      ply.isAlive := false; Dec(alive);
       putChar(ply.x, ply.y, PLY_CRASH, ply.colour + $80);
     end else begin
 
@@ -48,17 +45,7 @@ begin
         AI_MIRROR   : aiMirror;
       end;
 
-      if ply.dir = newDir then begin
-        if (newDir and %1100) <> 0 then t0b := PLY_TAIL_LR else t0b := PLY_TAIL_UD;
-      end else begin
-        if ((ply.dir and %1010) <> 0) and ((newDir and %0101) <> 0) then t0b := PLY_TAIL_RD;
-        if ((ply.dir and %1001) <> 0) and ((newDir and %0110) <> 0) then t0b := PLY_TAIL_RU;
-        if ((ply.dir and %0110) <> 0) and ((newDir and %1001) <> 0) then t0b := PLY_TAIL_LD;
-        if ((ply.dir and %0101) <> 0) and ((newDir and %1010) <> 0) then t0b := PLY_TAIL_LU;
-      end;
-      putChar(ply.x, ply.y, t0b, ply.colour);
-
-      ply.dir := newDir;
+      drawTail; ply.dir := newDir;
 
       case newDir of
         JOY_UP    : Dec(ply.y);
@@ -87,26 +74,21 @@ end;
 
 procedure mainLoop;
 begin
-  initPlayfield;
-  startScreen;
-
-  alive := $ff; // temporary soluion
-  if not player1.isDead then Inc(alive);
-  if not player2.isDead then Inc(alive);
-  if not player3.isDead then Inc(alive);
-  if not player4.isDead then Inc(alive);
+  alive := $ff; initPlayfield; startScreen;
 
   repeat
     pause(3); // 1 for AI; 2 fast; 3 normal; 4 slow
-    playerMove(@player1); playerMove(@player2);
-    playerMove(@player3); playerMove(@player4);
+    ply := @player1; playerMove;
+    ply := @player2; playerMove;
+    ply := @player3; playerMove;
+    ply := @player4; playerMove;
     animateObstacles;
   until (alive = 0) or (alive = $ff);
 
-  if not player1.isDead then Inc(player1.score);
-  if not player2.isDead then Inc(player2.score);
-  if not player3.isDead then Inc(player3.score);
-  if not player4.isDead then Inc(player4.score);
+  if player1.isAlive then Inc(player1.score);
+  if player2.isAlive then Inc(player2.score);
+  if player3.isAlive then Inc(player3.score);
+  if player4.isAlive then Inc(player4.score);
 
   pause(100);
 end;
