@@ -1,10 +1,13 @@
 //-----------------------------------------------------------------------------
 
 var
-  KEY_PIO                            : byte absolute $fd30;
+  KEYSCAN                           : byte absolute $fd30;
   JOY                                : byte absolute $ff08;
   BORDERCOLOR                        : byte absolute $ff15;
   BGCOLOR                            : byte absolute $ff19;
+
+//-----------------------------------------------------------------------------
+
   t0b                                : byte absolute $58;
   alive                              : byte absolute $59;
   newDir                             : byte absolute $5a;

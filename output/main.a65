@@ -1495,7 +1495,7 @@ l_05B3
 	lda #$02
 	sta JOY
 	lda #$FF
-	sta KEY_PIO
+	sta KEYSCAN
 	lda JOY
 	eor #$FF
 	sta T0B
@@ -1814,7 +1814,7 @@ l_074D
 	lda #$02
 	sta JOY
 	lda #$FF
-	sta KEY_PIO
+	sta KEYSCAN
 	lda JOY
 	eor #$FF
 	sta T0B
@@ -2069,7 +2069,7 @@ adr.MUL40	= CODEORIGIN+$0000
 .var MUL40	= adr.MUL40 .word
 adr.DIRECTION	= CODEORIGIN+$0032
 .var DIRECTION	= adr.DIRECTION .word
-KEY_PIO	= $FD30
+KEYSCAN	= $FD30
 JOY	= $FF08
 BORDERCOLOR	= $FF15
 BGCOLOR	= $FF19

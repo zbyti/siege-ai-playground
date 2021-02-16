@@ -12,7 +12,7 @@
 procedure human; // brain = 0
 begin
   newDir := ply.dir;
-  JOY := JOY_SELECT_1; KEY_PIO := $ff; t0b := JOY xor $ff;
+  JOY := JOY_SELECT_1; KEYSCAN := $ff; t0b := JOY xor $ff;
 
   case t0b of
     JOY_UP    : if ply.dir <> JOY_DOWN  then newDir := JOY_UP;
@@ -66,7 +66,7 @@ end;
 procedure startScreen;
 begin
   repeat
-    JOY := JOY_SELECT_1; KEY_PIO := $ff; t0b := JOY xor $ff;
+    JOY := JOY_SELECT_1; KEYSCAN := $ff; t0b := JOY xor $ff;
   until t0b = JOY_FIRE;
 end;
 
