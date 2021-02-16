@@ -1073,10 +1073,11 @@ l_037C
 	sta INITPLAYERS.COLOUR
 	lda #$51
 	sta INITPLAYERS.HEAD
-	lda #$02
+	lda #$03
 	sta INITPLAYERS.BRAIN
+	lda #$02
 	sta INITPLAYERS.DIR
-	lda #$06
+	lda #$04
 	sta INITPLAYERS.Y
 	lda #$14
 	sta INITPLAYERS.X
@@ -1094,7 +1095,7 @@ l_037C
 	sta INITPLAYERS.COLOUR
 	lda #$51
 	sta INITPLAYERS.HEAD
-	lda #$03
+	lda #$02
 	sta INITPLAYERS.BRAIN
 	lda #$01
 	sta INITPLAYERS.DIR
@@ -1337,115 +1338,9 @@ l_040F
 	eif
 .endl
 
-.local	AIBULLY						; PROCEDURE
-
-; optimize OK (ai.inc), line = 28
-
-	mwy PLY :bp2
-	ldy #PLY.DIR-DATAORIGIN
-	lda (:bp2),y
-	sta T0B
-
-; optimize OK (ai.inc), line = 30
-
-	lda PLAYER1.ISALIVE
-	jeq l_04B5
-	lda PLAYER1
-	sta TMPPLY
-	lda PLAYER1+1
-	sta TMPPLY+1
-	jmp l_04C4
-l_04B5
-	lda PLAYER2
-	sta TMPPLY
-	lda PLAYER2+1
-	sta TMPPLY+1
-l_04C4
-
-; optimize OK (ai.inc), line = 32
-
-	mwy PLY :bp2
-	ldy #PLY.Y-DATAORIGIN
-	lda (:bp2),y
-	sta :STACKORIGIN+9
-	mwy TMPPLY :bp2
-	ldy #TMPPLY.Y-DATAORIGIN
-	lda (:bp2),y
-	cmp :STACKORIGIN+9
-	jcs l_04DD
-	lda #$01
-	sta T0B
-	jmp l_04EB
-l_04DD
-	lda #$02
-	sta T0B
-l_04EB
-
-; optimize OK (ai.inc), line = 33
-
-	mwy PLY :bp2
-	ldy #PLY.Y-DATAORIGIN
-	lda (:bp2),y
-	sta :STACKORIGIN+9
-	mwy TMPPLY :bp2
-	ldy #TMPPLY.Y-DATAORIGIN
-	lda (:bp2),y
-	cmp :STACKORIGIN+9
-	jeq l_0515x
-	lda AVAILDIR
-	and T0B
-	jne l_0515
-l_0515x
-
-; optimize OK (ai.inc), line = 34
-
-	mwy PLY :bp2
-	ldy #PLY.X-DATAORIGIN
-	lda (:bp2),y
-	sta :STACKORIGIN+9
-	mwy TMPPLY :bp2
-	ldy #TMPPLY.X-DATAORIGIN
-	lda (:bp2),y
-	cmp :STACKORIGIN+9
-	jcs l_052A
-	lda #$04
-	sta T0B
-	jmp l_0538
-l_052A
-	lda #$08
-	sta T0B
-l_0538
-l_0515
-
-; optimize OK (ai.inc), line = 36
-
-	lda AVAILDIR
-	and T0B
-	jeq l_0556
-	lda T0B
-	sta NEWDIR
-	jmp l_0566
-l_0556
-
-; optimize FAIL ('AISTRAIGHT', ai.inc), line = 37
-
-	jsr AISTRAIGHT
-l_0566
-@exit
-	.ifdef @new
-	lda <@VarData
-	sta :ztmp
-	lda >@VarData
-	ldy #@VarDataSize-1
-	jmp @FreeMem
-	els
-	rts						; ret
-	eif
-.endl
-
 .local	AISAPER						; PROCEDURE
 
-; optimize OK (ai.inc), line = 47
+; optimize OK (ai.inc), line = 31
 
 	lda #$00
 	sta L
@@ -1453,7 +1348,7 @@ l_0566
 	sta U
 	sta D
 
-; optimize OK (ai.inc), line = 48
+; optimize OK (ai.inc), line = 32
 
 	mwy PLY :bp2
 	ldy #PLY.Y-DATAORIGIN
@@ -1474,275 +1369,275 @@ l_0566
 	adc #$00
 	sta T0W+1
 
-; optimize OK (ai.inc), line = 50
+; optimize OK (ai.inc), line = 34
 
 	lda AVAILDIR
 	and #$01
-	jeq l_05A3
+	jeq l_04DB
+
+; optimize OK (ai.inc), line = 35
+
+	lda #$05
+	sta I0B
+
+l_04E5
+; --- ForToDoCondition
+	lda I0B
+	cmp #$01
+	jcc l_04F3
+
+; optimize OK (ai.inc), line = 36
+
+	asl @
+	tay
+	lda T0W
+	sub adr.MUL40,y
+	sta :STACKORIGIN+9
+	lda T0W+1
+	sbc adr.MUL40+1,y
+	sta :bp+1
+	ldy :STACKORIGIN+9
+	lda (:bp),y
+	cmp #$20
+	jne l_050D
+	inc U
+l_050D
+
+; optimize OK (ai.inc), line = 37
+
+	lda I0B
+	asl @
+	tay
+	lda T0W
+	sub adr.MUL40,y
+	sta :STACKORIGIN+9
+	lda T0W+1
+	sbc adr.MUL40+1,y
+	sta :bp+1
+	lda :STACKORIGIN+9
+	add #$01
+	tay
+	scc
+	inc :bp+1
+	lda (:bp),y
+	cmp #$20
+	jne l_0532
+	inc U
+l_0532
+
+; optimize OK (ai.inc), line = 38
+
+	lda I0B
+	asl @
+	tay
+	lda T0W
+	sub adr.MUL40,y
+	sta :STACKORIGIN+9
+	lda T0W+1
+	sbc adr.MUL40+1,y
+	sta :bp+1
+	ldy :STACKORIGIN+9
+	dey
+	scs
+	dec :bp+1
+	lda (:bp),y
+	cmp #$20
+	jne l_0557
+	inc U
+l_0557
+
+; --- ForToDoEpilog
+	dec I0B
+	jpl l_04E5
+l_04F3
+l_04DB
+
+; optimize OK (ai.inc), line = 42
+
+	lda AVAILDIR
+	and #$02
+	jeq l_057B
+
+; optimize OK (ai.inc), line = 43
+
+	lda #$05
+	sta I0B
+
+l_0585
+; --- ForToDoCondition
+	lda I0B
+	cmp #$01
+	jcc l_0593
+
+; optimize OK (ai.inc), line = 44
+
+	asl @
+	tay
+	lda T0W
+	add adr.MUL40,y
+	sta :STACKORIGIN+9
+	lda T0W+1
+	adc adr.MUL40+1,y
+	sta :bp+1
+	ldy :STACKORIGIN+9
+	lda (:bp),y
+	cmp #$20
+	jne l_05AD
+	inc D
+l_05AD
+
+; optimize OK (ai.inc), line = 45
+
+	lda I0B
+	asl @
+	tay
+	lda T0W
+	add adr.MUL40,y
+	sta :STACKORIGIN+9
+	lda T0W+1
+	adc adr.MUL40+1,y
+	sta :bp+1
+	lda :STACKORIGIN+9
+	add #$01
+	tay
+	scc
+	inc :bp+1
+	lda (:bp),y
+	cmp #$20
+	jne l_05D2
+	inc D
+l_05D2
+
+; optimize OK (ai.inc), line = 46
+
+	lda I0B
+	asl @
+	tay
+	lda T0W
+	add adr.MUL40,y
+	sta :STACKORIGIN+9
+	lda T0W+1
+	adc adr.MUL40+1,y
+	sta :bp+1
+	ldy :STACKORIGIN+9
+	dey
+	scs
+	dec :bp+1
+	lda (:bp),y
+	cmp #$20
+	jne l_05F7
+	inc D
+l_05F7
+
+; --- ForToDoEpilog
+	dec I0B
+	jpl l_0585
+l_0593
+l_057B
+
+; optimize OK (ai.inc), line = 50
+
+	lda AVAILDIR
+	and #$04
+	jeq l_061B
 
 ; optimize OK (ai.inc), line = 51
 
 	lda #$05
 	sta I0B
 
-l_05AD
+l_0625
 ; --- ForToDoCondition
 	lda I0B
 	cmp #$01
-	jcc l_05BB
+	jcc l_0633
 
 ; optimize OK (ai.inc), line = 52
 
-	asl @
-	tay
 	lda T0W
-	sub adr.MUL40,y
-	sta :STACKORIGIN+9
+	sub I0B
+	tay
 	lda T0W+1
-	sbc adr.MUL40+1,y
+	sbc #$00
 	sta :bp+1
-	ldy :STACKORIGIN+9
 	lda (:bp),y
 	cmp #$20
-	jne l_05D5
-	inc U
-l_05D5
+	jne l_064B
+	inc L
+l_064B
 
 ; optimize OK (ai.inc), line = 53
 
-	lda I0B
-	asl @
-	tay
 	lda T0W
-	sub adr.MUL40,y
-	sta :STACKORIGIN+9
+	sub I0B
+	tay
 	lda T0W+1
-	sbc adr.MUL40+1,y
+	sbc #$00
 	sta :bp+1
-	lda :STACKORIGIN+9
-	add #$01
+	tya
+	add #$28
 	tay
 	scc
 	inc :bp+1
 	lda (:bp),y
 	cmp #$20
-	jne l_05FA
-	inc U
-l_05FA
+	jne l_066E
+	inc L
+l_066E
 
 ; optimize OK (ai.inc), line = 54
 
-	lda I0B
-	asl @
-	tay
 	lda T0W
-	sub adr.MUL40,y
-	sta :STACKORIGIN+9
+	sub I0B
+	tay
 	lda T0W+1
-	sbc adr.MUL40+1,y
+	sbc #$00
 	sta :bp+1
-	ldy :STACKORIGIN+9
-	dey
+	tya
+	sub #$28
+	tay
 	scs
 	dec :bp+1
 	lda (:bp),y
 	cmp #$20
-	jne l_061F
-	inc U
-l_061F
+	jne l_0691
+	inc L
+l_0691
 
 ; --- ForToDoEpilog
 	dec I0B
-	jpl l_05AD
-l_05BB
-l_05A3
+	jpl l_0625
+l_0633
+l_061B
 
 ; optimize OK (ai.inc), line = 58
 
 	lda AVAILDIR
-	and #$02
-	jeq l_0643
+	and #$08
+	jeq l_06B5
 
 ; optimize OK (ai.inc), line = 59
 
 	lda #$05
 	sta I0B
 
-l_064D
+l_06BF
 ; --- ForToDoCondition
 	lda I0B
 	cmp #$01
-	jcc l_065B
+	jcc l_06CD
 
 ; optimize OK (ai.inc), line = 60
-
-	asl @
-	tay
-	lda T0W
-	add adr.MUL40,y
-	sta :STACKORIGIN+9
-	lda T0W+1
-	adc adr.MUL40+1,y
-	sta :bp+1
-	ldy :STACKORIGIN+9
-	lda (:bp),y
-	cmp #$20
-	jne l_0675
-	inc D
-l_0675
-
-; optimize OK (ai.inc), line = 61
-
-	lda I0B
-	asl @
-	tay
-	lda T0W
-	add adr.MUL40,y
-	sta :STACKORIGIN+9
-	lda T0W+1
-	adc adr.MUL40+1,y
-	sta :bp+1
-	lda :STACKORIGIN+9
-	add #$01
-	tay
-	scc
-	inc :bp+1
-	lda (:bp),y
-	cmp #$20
-	jne l_069A
-	inc D
-l_069A
-
-; optimize OK (ai.inc), line = 62
-
-	lda I0B
-	asl @
-	tay
-	lda T0W
-	add adr.MUL40,y
-	sta :STACKORIGIN+9
-	lda T0W+1
-	adc adr.MUL40+1,y
-	sta :bp+1
-	ldy :STACKORIGIN+9
-	dey
-	scs
-	dec :bp+1
-	lda (:bp),y
-	cmp #$20
-	jne l_06BF
-	inc D
-l_06BF
-
-; --- ForToDoEpilog
-	dec I0B
-	jpl l_064D
-l_065B
-l_0643
-
-; optimize OK (ai.inc), line = 66
-
-	lda AVAILDIR
-	and #$04
-	jeq l_06E3
-
-; optimize OK (ai.inc), line = 67
-
-	lda #$05
-	sta I0B
-
-l_06ED
-; --- ForToDoCondition
-	lda I0B
-	cmp #$01
-	jcc l_06FB
-
-; optimize OK (ai.inc), line = 68
-
-	lda T0W
-	sub I0B
-	tay
-	lda T0W+1
-	sbc #$00
-	sta :bp+1
-	lda (:bp),y
-	cmp #$20
-	jne l_0713
-	inc L
-l_0713
-
-; optimize OK (ai.inc), line = 69
-
-	lda T0W
-	sub I0B
-	tay
-	lda T0W+1
-	sbc #$00
-	sta :bp+1
-	tya
-	add #$28
-	tay
-	scc
-	inc :bp+1
-	lda (:bp),y
-	cmp #$20
-	jne l_0736
-	inc L
-l_0736
-
-; optimize OK (ai.inc), line = 70
-
-	lda T0W
-	sub I0B
-	tay
-	lda T0W+1
-	sbc #$00
-	sta :bp+1
-	tya
-	sub #$28
-	tay
-	scs
-	dec :bp+1
-	lda (:bp),y
-	cmp #$20
-	jne l_0759
-	inc L
-l_0759
-
-; --- ForToDoEpilog
-	dec I0B
-	jpl l_06ED
-l_06FB
-l_06E3
-
-; optimize OK (ai.inc), line = 74
-
-	lda AVAILDIR
-	and #$08
-	jeq l_077D
-
-; optimize OK (ai.inc), line = 75
-
-	lda #$05
-	sta I0B
-
-l_0787
-; --- ForToDoCondition
-	lda I0B
-	cmp #$01
-	jcc l_0795
-
-; optimize OK (ai.inc), line = 76
 
 	mwy T0W :bp2
 	ldy I0B
 	lda (:bp2),y
 	cmp #$20
-	jne l_07AD
+	jne l_06E5
 	inc R
-l_07AD
+l_06E5
 
-; optimize OK (ai.inc), line = 77
+; optimize OK (ai.inc), line = 61
 
 	lda T0W
 	add I0B
@@ -1757,11 +1652,11 @@ l_07AD
 	inc :bp+1
 	lda (:bp),y
 	cmp #$20
-	jne l_07D0
+	jne l_0708
 	inc R
-l_07D0
+l_0708
 
-; optimize OK (ai.inc), line = 78
+; optimize OK (ai.inc), line = 62
 
 	lda T0W
 	add I0B
@@ -1776,82 +1671,204 @@ l_07D0
 	dec :bp+1
 	lda (:bp),y
 	cmp #$20
-	jne l_07F3
+	jne l_072B
 	inc R
-l_07F3
+l_072B
 
 ; --- ForToDoEpilog
 	dec I0B
-	jpl l_0787
-l_0795
-l_077D
+	jpl l_06BF
+l_06CD
+l_06B5
 
-; optimize OK (ai.inc), line = 82
+; optimize OK (ai.inc), line = 66
 
 	lda D
 	sta T0B
 
-; optimize OK (ai.inc), line = 83
+; optimize OK (ai.inc), line = 67
 
 	cmp U
-	jcs l_081B
+	jcs l_0753
 	lda U
 	sta T0B
-l_081B
+l_0753
 
-; optimize OK (ai.inc), line = 84
+; optimize OK (ai.inc), line = 68
 
 	lda T0B
 	cmp L
-	jcs l_0838
+	jcs l_0770
 	lda L
 	sta T0B
-l_0838
+l_0770
 
-; optimize OK (ai.inc), line = 85
+; optimize OK (ai.inc), line = 69
 
 	lda T0B
 	cmp R
-	jcs l_0855
+	jcs l_078D
 	lda R
 	sta T0B
-l_0855
+l_078D
 
-; optimize OK (ai.inc), line = 87
+; optimize OK (ai.inc), line = 71
 
 	lda T0B
 	cmp D
-	jne l_0872
+	jne l_07AA
 	lda #$02
 	sta T0B
-l_0872
+l_07AA
 
-; optimize OK (ai.inc), line = 88
+; optimize OK (ai.inc), line = 72
 
 	lda T0B
 	cmp U
-	jne l_088D
+	jne l_07C5
 	lda #$01
 	sta T0B
-l_088D
+l_07C5
 
-; optimize OK (ai.inc), line = 89
+; optimize OK (ai.inc), line = 73
 
 	lda T0B
 	cmp L
-	jne l_08A8
+	jne l_07E0
 	lda #$04
 	sta T0B
-l_08A8
+l_07E0
 
-; optimize OK (ai.inc), line = 90
+; optimize OK (ai.inc), line = 74
 
 	lda T0B
 	cmp R
-	jne l_08C3
+	jne l_07FB
 	lda #$08
 	sta T0B
-l_08C3
+l_07FB
+
+; optimize OK (ai.inc), line = 76
+
+	lda AVAILDIR
+	and T0B
+	jeq l_081A
+	lda T0B
+	sta NEWDIR
+	jmp l_082A
+l_081A
+
+; optimize FAIL ('AISTRAIGHT', ai.inc), line = 77
+
+	jsr AISTRAIGHT
+l_082A
+
+; ------------------------------------------------------------
+
+I0B	= DATAORIGIN+$0042
+L	= DATAORIGIN+$0043
+R	= DATAORIGIN+$0044
+U	= DATAORIGIN+$0045
+D	= DATAORIGIN+$0046
+@FORTMP_04E2	= $01
+@FORTMP_0582	= $01
+@FORTMP_0622	= $01
+@FORTMP_06BC	= $01
+
+@VarData	= I0B
+@VarDataSize	= 5
+
+@exit
+	.ifdef @new
+	lda <@VarData
+	sta :ztmp
+	lda >@VarData
+	ldy #@VarDataSize-1
+	jmp @FreeMem
+	els
+	rts						; ret
+	eif
+.endl
+
+.local	AIBULLY						; PROCEDURE
+
+; optimize OK (ai.inc), line = 84
+
+	mwy PLY :bp2
+	ldy #PLY.DIR-DATAORIGIN
+	lda (:bp2),y
+	sta T0B
+
+; optimize OK (ai.inc), line = 86
+
+	lda PLAYER1.ISALIVE
+	jeq l_0841
+	lda PLAYER1
+	sta TMPPLY
+	lda PLAYER1+1
+	sta TMPPLY+1
+	jmp l_0850
+l_0841
+	lda PLAYER2
+	sta TMPPLY
+	lda PLAYER2+1
+	sta TMPPLY+1
+l_0850
+
+; optimize OK (ai.inc), line = 88
+
+	mwy PLY :bp2
+	ldy #PLY.Y-DATAORIGIN
+	lda (:bp2),y
+	sta :STACKORIGIN+9
+	mwy TMPPLY :bp2
+	ldy #TMPPLY.Y-DATAORIGIN
+	lda (:bp2),y
+	cmp :STACKORIGIN+9
+	jcs l_0869
+	lda #$01
+	sta T0B
+	jmp l_0877
+l_0869
+	lda #$02
+	sta T0B
+l_0877
+
+; optimize OK (ai.inc), line = 89
+
+	mwy PLY :bp2
+	ldy #PLY.Y-DATAORIGIN
+	lda (:bp2),y
+	sta :STACKORIGIN+9
+	mwy TMPPLY :bp2
+	ldy #TMPPLY.Y-DATAORIGIN
+	lda (:bp2),y
+	cmp :STACKORIGIN+9
+	jeq l_08A1x
+	lda AVAILDIR
+	and T0B
+	jne l_08A1
+l_08A1x
+
+; optimize OK (ai.inc), line = 90
+
+	mwy PLY :bp2
+	ldy #PLY.X-DATAORIGIN
+	lda (:bp2),y
+	sta :STACKORIGIN+9
+	mwy TMPPLY :bp2
+	ldy #TMPPLY.X-DATAORIGIN
+	lda (:bp2),y
+	cmp :STACKORIGIN+9
+	jcs l_08B6
+	lda #$04
+	sta T0B
+	jmp l_08C4
+l_08B6
+	lda #$08
+	sta T0B
+l_08C4
+l_08A1
 
 ; optimize OK (ai.inc), line = 92
 
@@ -1867,22 +1884,6 @@ l_08E2
 
 	jsr AISTRAIGHT
 l_08F2
-
-; ------------------------------------------------------------
-
-I0B	= DATAORIGIN+$0042
-L	= DATAORIGIN+$0043
-R	= DATAORIGIN+$0044
-U	= DATAORIGIN+$0045
-D	= DATAORIGIN+$0046
-@FORTMP_05AA	= $01
-@FORTMP_064A	= $01
-@FORTMP_06EA	= $01
-@FORTMP_0784	= $01
-
-@VarData	= I0B
-@VarDataSize	= 5
-
 @exit
 	.ifdef @new
 	lda <@VarData
@@ -2192,18 +2193,18 @@ l_0AA4
 	jne l_0AAE
 @
 
-; optimize FAIL ('AIBULLY', main.pas), line = 44
+; optimize FAIL ('AISAPER', main.pas), line = 44
 
-	jsr AIBULLY
+	jsr AISAPER
 	jmp a_0007
 l_0AAE
 	cmp #$03
 	jne l_0AB8
 @
 
-; optimize FAIL ('AISAPER', main.pas), line = 45
+; optimize FAIL ('AIBULLY', main.pas), line = 45
 
-	jsr AISAPER
+	jsr AIBULLY
 	jmp a_0007
 l_0AB8
 	cmp #$04
@@ -2578,8 +2579,8 @@ PLY3_COLOUR	= $71
 PLY4_COLOUR	= $55
 PLY_CTRL	= $00
 AI_STRAIGHT	= $01
-AI_BULLY	= $02
-AI_SAPER	= $03
+AI_SAPER	= $02
+AI_BULLY	= $03
 AI_MIRROR	= $04
 JOY_UP	= $01
 JOY_DOWN	= $02

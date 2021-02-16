@@ -23,24 +23,8 @@ end;
 
 //-----------------------------------------------------------------------------
 
-procedure aiBully; // brain = 2
-begin
-  t0b := ply.dir;
 
-  if player1.isAlive then tmpPly := @player1 else tmpPly := @player2;
-
-  if ply.y > tmpPly.y then t0b := JOY_UP else t0b := JOY_DOWN;
-  if (ply.y = tmpPly.y) or ((availDir and t0b) = 0) then
-    if ply.x > tmpPly.x then t0b := JOY_LEFT else t0b := JOY_RIGHT;
-
-  if (availDir and t0b) <> 0 then newDir := t0b
-  else aiStraight;
-end;
-
-//-----------------------------------------------------------------------------
-
-
-procedure aiSaper; // brain = 3
+procedure aiSaper; // brain = 2
 var
   i0b, l, r, u, d: byte;
 begin
@@ -88,6 +72,22 @@ begin
   if t0b = u then t0b := JOY_UP;
   if t0b = l then t0b := JOY_LEFT;
   if t0b = r then t0b := JOY_RIGHT;
+
+  if (availDir and t0b) <> 0 then newDir := t0b
+  else aiStraight;
+end;
+
+//-----------------------------------------------------------------------------
+
+procedure aiBully; // brain = 3
+begin
+  t0b := ply.dir;
+
+  if player1.isAlive then tmpPly := @player1 else tmpPly := @player2;
+
+  if ply.y > tmpPly.y then t0b := JOY_UP else t0b := JOY_DOWN;
+  if (ply.y = tmpPly.y) or ((availDir and t0b) = 0) then
+    if ply.x > tmpPly.x then t0b := JOY_LEFT else t0b := JOY_RIGHT;
 
   if (availDir and t0b) <> 0 then newDir := t0b
   else aiStraight;
