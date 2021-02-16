@@ -29,11 +29,11 @@ begin
     DPoke((ATTRIBUTE_ADDR - 1) + mul40[t0b], WALL_COLOUR * 256 + WALL_COLOUR);
   end;
 
-  // H Vs.AI_STRAIGHT - very easy
-  // H Vs. AI_BULLY   - easy
+  // H Vs. AI_STRAIGHT - very easy
+  // H Vs. AI_BULLY    - easy
   // H Vs. AI_SAPPER   - moderate
-  // H Vs. AI_MIRROR  - hard
-  // h Vs. 3 bots     - hard hard (2x AI_BULLY, AI_BULLY & AI_SAPER)
+  // H Vs. AI_MIRROR   - hard
+  // h Vs. 3 bots      - hard hard (2x AI_BULLY, AI_BULLY & AI_SAPER)
   initPlayers(@player1, 10, 12, JOY_RIGHT, PLY_CTRL,    PLY_HEAD, PLY1_COLOUR, true);
   initPlayers(@player2, 30, 12, JOY_LEFT,  AI_MIRROR,   PLY_HEAD, PLY2_COLOUR, true);
   initPlayers(@player3, 20,  4, JOY_DOWN,  AI_BULLY,    PLY_HEAD, PLY3_COLOUR, true);
