@@ -1249,7 +1249,7 @@ Source: main.a65
   1338 					eif
   1339 				.endl
   1340
-  1341 1657			.local	AISAPER						; PROCEDURE
+  1341 1657			.local	AISAPPER					; PROCEDURE
   1342
   1343 				; optimize OK (ai.inc), line = 31
   1344
@@ -1873,16 +1873,16 @@ Source: main.a65
   1962 19C8 4C CE 19			jmp l_096A
   1963 19CB			l_095A
   1964
-  1965 				; optimize FAIL ('AISAPER', ai.inc), line = 109
+  1965 				; optimize FAIL ('AISAPPER', ai.inc), line = 109
   1966
-  1967 19CB 20 57 16			jsr AISAPER
+  1967 19CB 20 57 16			jsr AISAPPER
   1968 19CE			l_096A
   1969 19CE 4C D4 19			jmp l_0974
   1970 19D1			l_0903
   1971
-  1972 				; optimize FAIL ('AISAPER', ai.inc), line = 110
+  1972 				; optimize FAIL ('AISAPPER', ai.inc), line = 110
   1973
-  1974 19D1 20 57 16			jsr AISAPER
+  1974 19D1 20 57 16			jsr AISAPPER
   1975 19D4			l_0974
   1976
   1977 				; ------------------------------------------------------------
@@ -2104,9 +2104,9 @@ Source: main.a65
   2193 1AFF D0 06			jne l_0AAE
   2194 1B01			@
   2195
-  2196 				; optimize FAIL ('AISAPER', main.pas), line = 44
+  2196 				; optimize FAIL ('AISAPPER', main.pas), line = 44
   2197
-  2198 1B01 20 57 16			jsr AISAPER
+  2198 1B01 20 57 16			jsr AISAPPER
   2199 1B04 4C 18 1B			jmp a_0007
   2200 1B07			l_0AAE
   2201 1B07 C9 03			cmp #$03
@@ -2490,7 +2490,7 @@ Source: main.a65
   2579 = 0055			PLY4_COLOUR	= $55
   2580 = 0000			PLY_CTRL	= $00
   2581 = 0001			AI_STRAIGHT	= $01
-  2582 = 0002			AI_SAPER	= $02
+  2582 = 0002			AI_SAPPER	= $02
   2583 = 0003			AI_BULLY	= $03
   2584 = 0004			AI_MIRROR	= $04
   2585 = 0001			JOY_UP	= $01

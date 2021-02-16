@@ -1338,7 +1338,7 @@ l_040F
 	eif
 .endl
 
-.local	AISAPER						; PROCEDURE
+.local	AISAPPER					; PROCEDURE
 
 ; optimize OK (ai.inc), line = 31
 
@@ -1962,16 +1962,16 @@ a_0005
 	jmp l_096A
 l_095A
 
-; optimize FAIL ('AISAPER', ai.inc), line = 109
+; optimize FAIL ('AISAPPER', ai.inc), line = 109
 
-	jsr AISAPER
+	jsr AISAPPER
 l_096A
 	jmp l_0974
 l_0903
 
-; optimize FAIL ('AISAPER', ai.inc), line = 110
+; optimize FAIL ('AISAPPER', ai.inc), line = 110
 
-	jsr AISAPER
+	jsr AISAPPER
 l_0974
 
 ; ------------------------------------------------------------
@@ -2193,9 +2193,9 @@ l_0AA4
 	jne l_0AAE
 @
 
-; optimize FAIL ('AISAPER', main.pas), line = 44
+; optimize FAIL ('AISAPPER', main.pas), line = 44
 
-	jsr AISAPER
+	jsr AISAPPER
 	jmp a_0007
 l_0AAE
 	cmp #$03
@@ -2579,7 +2579,7 @@ PLY3_COLOUR	= $71
 PLY4_COLOUR	= $55
 PLY_CTRL	= $00
 AI_STRAIGHT	= $01
-AI_SAPER	= $02
+AI_SAPPER	= $02
 AI_BULLY	= $03
 AI_MIRROR	= $04
 JOY_UP	= $01

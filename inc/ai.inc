@@ -24,7 +24,7 @@ end;
 //-----------------------------------------------------------------------------
 
 
-procedure aiSaper; // brain = 2
+procedure aiSapper; // brain = 2
 var
   i0b, l, r, u, d: byte;
 begin
@@ -106,8 +106,8 @@ begin
     end;
 
     if (availDir and t0b) <> 0 then newDir := t0b
-    else aiSaper;
-  end else aiSaper;
+    else aiSapPer;
+  end else aiSapPer;
 end;
 
 //-----------------------------------------------------------------------------
