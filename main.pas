@@ -83,7 +83,7 @@ begin
 
   initPlayfield;
 
-  case 7 of
+  case level of
     0 : setLevel01;
     1 : setLevel02;
     2 : setLevel03;
