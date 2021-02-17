@@ -42,9 +42,9 @@ begin
   Poke(SCREEN_ADDR + 10 + (18 * 40), obst);
   Poke(SCREEN_ADDR + 30 + (18 * 40), obst);
   Poke(SCREEN_ADDR +  1 + (12 * 40), obst);
-  //Poke(SCREEN_ADDR + 38 + (12 * 40), obst);
   Poke(SCREEN_ADDR + 20 + ( 2 * 40), obst);
   Poke(SCREEN_ADDR + 20 + (22 * 40), obst);
+  Poke(SCREEN_ADDR + 20 + (12 * 40), obst); // center
 end;
 
 //-----------------------------------------------------------------------------

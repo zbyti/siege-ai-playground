@@ -9,12 +9,13 @@ var
 //-----------------------------------------------------------------------------
 
   t0b                                : byte absolute $58;
-  alive                              : byte absolute $59;
-  newDir                             : byte absolute $5a;
-  availDir                           : byte absolute $5b;
-  t0w                                : word absolute $5c;
-  ply                                : ^Player absolute $5e;
-  tmpPly                             : ^Player absolute $60;
+  i0b                                : byte absolute $59;
+  alive                              : byte absolute $5a;
+  newDir                             : byte absolute $5b;
+  availDir                           : byte absolute $5c;
+  t0w                                : word absolute $5d;
+  ply                                : ^Player absolute $5f;
+  tmpPly                             : ^Player absolute $61;
 
 //-----------------------------------------------------------------------------
 
