@@ -56,6 +56,9 @@ begin
       end;
 
       putChar(ply.x, ply.y, ply.head, ply.colour);
+
+      //dirty workaround
+      if not player1.isAlive then putChar(player1.x, player1.y, PLY_CRASH, player1.colour);
     end;
 
   end;
@@ -78,11 +81,22 @@ begin
   alive := $ff;
 
   initPlayfield;
-  if Random(2) = 0 then setLevel01 else setLevel02;
+
+  case level of
+    0 : setLevel01;
+    1 : setLevel02;
+    2 : setLevel03;
+    3 : setLevel04;
+    4 : setLevel05;
+    5 : setLevel06;
+    6 : setLevel07;
+    7 : setLevel08;
+  end;
+
   animateObstacles; showScore; startScreen;
 
   repeat
-    pause(3); // 1 for AI; 2 fast; 3 normal; 4 slow
+    pause(4); // 1 for AI; 2 fast; 3 normal; 4 slow
     ply := @player1; playerMove;
     ply := @player2; playerMove;
     ply := @player3; playerMove;
@@ -104,10 +118,12 @@ begin
   repeat
     player1.score := ZERO; player2.score := ZERO;
     player3.score := ZERO; player4.score := ZERO;
+    level := 0;
 
     gameOver := false;
     repeat
       mainLoop;
+      Inc(level); if level = 8 then level := 4;
       if player1.score = ZERO + VICTORIES then gameOver := true;
       if player2.score = ZERO + VICTORIES then gameOver := true;
       if player3.score = ZERO + VICTORIES then gameOver := true;
