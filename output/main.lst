@@ -2490,24 +2490,24 @@ Source: main.a65
   2579 				; optimize FAIL ('INITPLAYFIELD', main.pas), line = 80
   2580
   2581 1CE9 20 31 14			jsr INITPLAYFIELD
-  2582 1CEC 20 96 12			jsr ANIMATEOBSTACLES
-  2583
-  2584 				; optimize OK (main.pas), line = 81
-  2585
-  2586 1CEF A9 02			lda #$02
-  2587 1CF1 20 40 11			jsr SYSTEM.RANDOM_006C
-  2588 1CF4 CA				dex
-  2589 1CF5 B5 19			lda :STACKORIGIN+1,x
-  2590 1CF7 D0 06			jne l_0C0F
-  2591 1CF9			@
-  2592 1CF9 20 B1 14			jsr SETLEVEL01
-  2593 1CFC 4C 02 1D			jmp l_0C1A
-  2594 1CFF			l_0C0F
-  2595 1CFF 20 CB 15			jsr SETLEVEL02
-  2596 1D02			l_0C1A
-  2597
-  2598 				; optimize FAIL ('SHOWSCORE', main.pas), line = 82
-  2599
+  2582
+  2583 				; optimize OK (main.pas), line = 81
+  2584
+  2585 1CEC A9 02			lda #$02
+  2586 1CEE 20 40 11			jsr SYSTEM.RANDOM_006C
+  2587 1CF1 CA				dex
+  2588 1CF2 B5 19			lda :STACKORIGIN+1,x
+  2589 1CF4 D0 06			jne l_0C0E
+  2590 1CF6			@
+  2591 1CF6 20 B1 14			jsr SETLEVEL01
+  2592 1CF9 4C FF 1C			jmp l_0C19
+  2593 1CFC			l_0C0E
+  2594 1CFC 20 CB 15			jsr SETLEVEL02
+  2595 1CFF			l_0C19
+  2596
+  2597 				; optimize FAIL ('ANIMATEOBSTACLES', main.pas), line = 82
+  2598
+  2599 1CFF 20 96 12			jsr ANIMATEOBSTACLES
   2600 1D02 20 9C 11			jsr SHOWSCORE
   2601 1D05 20 CF 1C			jsr STARTSCREEN
   2602

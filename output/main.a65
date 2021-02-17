@@ -2579,7 +2579,6 @@ l_0BD5
 ; optimize FAIL ('INITPLAYFIELD', main.pas), line = 80
 
 	jsr INITPLAYFIELD
-	jsr ANIMATEOBSTACLES
 
 ; optimize OK (main.pas), line = 81
 
@@ -2587,16 +2586,17 @@ l_0BD5
 	jsr SYSTEM.RANDOM_006C
 	dex
 	lda :STACKORIGIN+1,x
-	jne l_0C0F
+	jne l_0C0E
 @
 	jsr SETLEVEL01
-	jmp l_0C1A
-l_0C0F
+	jmp l_0C19
+l_0C0E
 	jsr SETLEVEL02
-l_0C1A
+l_0C19
 
-; optimize FAIL ('SHOWSCORE', main.pas), line = 82
+; optimize FAIL ('ANIMATEOBSTACLES', main.pas), line = 82
 
+	jsr ANIMATEOBSTACLES
 	jsr SHOWSCORE
 	jsr STARTSCREEN
 
