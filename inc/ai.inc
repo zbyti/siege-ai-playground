@@ -94,7 +94,7 @@ begin
   end;
 
   if (availDir and t0b) <> 0 then newDir := t0b
-  else aiStraight;
+  else aiSapper;
 
 end;
 

@@ -41,7 +41,7 @@ begin
 
   initPlayers(@player1, 19, 12, JOY_LEFT,  PLY_CTRL,    PLY_HEAD, PLY1_COLOUR, true);
   initPlayers(@player2, 21, 12, JOY_RIGHT, AI_MIRROR,   PLY_HEAD, PLY2_COLOUR, true);
-  initPlayers(@player3, 20, 11, JOY_UP,    AI_BULLY,    PLY_HEAD, PLY3_COLOUR, true);
+  initPlayers(@player3,  1,  1, JOY_DOWN,  AI_BULLY,    PLY_HEAD, PLY3_COLOUR, true);
   initPlayers(@player4, 20, 13, JOY_DOWN,  AI_SAPPER,   PLY_HEAD, PLY4_COLOUR, true);
 
   putChar(10,  6, OBSTACLE_1, OBST_COLOUR);
