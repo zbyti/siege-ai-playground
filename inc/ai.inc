@@ -86,8 +86,8 @@ begin
   if player1.isAlive or player2.isAlive then begin
 
     if player1.isAlive then tmpPly := @player1 else tmpPly := @player2;
-    if ply.y > tmpPly.y then t0b := JOY_UP else t0b := JOY_DOWN;
 
+    if ply.y > tmpPly.y then t0b := JOY_UP else t0b := JOY_DOWN;
     if (ply.y = tmpPly.y) or ((availDir and t0b) = 0) then
       if ply.x > tmpPly.x then t0b := JOY_LEFT else t0b := JOY_RIGHT;
 
