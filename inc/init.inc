@@ -29,33 +29,54 @@ begin
     DPoke((ATTRIBUTE_ADDR - 1) + mul40[t0b], WALL_COLOUR * 256 + WALL_COLOUR);
   end;
 
-  // H Vs. AI_STRAIGHT - very easy
-  // H Vs. AI_BULLY    - easy
-  // H Vs. AI_SAPPER   - moderate
-  // H Vs. AI_MIRROR   - hard
-  // h Vs. 3 bots      - hard hard (2x AI_BULLY, AI_BULLY & AI_SAPER)
-  //initPlayers(@player1, 10, 12, JOY_RIGHT, PLY_CTRL,    PLY_HEAD, PLY1_COLOUR, true);
-  //initPlayers(@player2, 30, 12, JOY_LEFT,  AI_MIRROR,   PLY_HEAD, PLY2_COLOUR, true);
-  //initPlayers(@player3, 20,  4, JOY_DOWN,  AI_BULLY,    PLY_HEAD, PLY3_COLOUR, true);
-  //initPlayers(@player4, 20, 18, JOY_UP,    AI_SAPPER,   PLY_HEAD, PLY4_COLOUR, true);
+end;
 
+//-----------------------------------------------------------------------------
+
+// H Vs. AI_STRAIGHT - very easy
+// H Vs. AI_BULLY    - easy
+// H Vs. AI_SAPPER   - moderate
+// H Vs. AI_MIRROR   - hard
+// h Vs. 3 bots      - hard hard (2x AI_BULLY, AI_BULLY & AI_SAPER)
+
+procedure setLevel01;
+begin
+  initPlayers(@player1, 10, 12, JOY_RIGHT, PLY_CTRL,    PLY_HEAD, PLY1_COLOUR, true);
+  initPlayers(@player2, 30, 12, JOY_LEFT,  AI_MIRROR,   PLY_HEAD, PLY2_COLOUR, true);
+  initPlayers(@player3, 20,  4, JOY_DOWN,  AI_BULLY,    PLY_HEAD, PLY3_COLOUR, true);
+  initPlayers(@player4, 20, 18, JOY_UP,    AI_SAPPER,   PLY_HEAD, PLY4_COLOUR, true);
+
+  obstacles[0] := SCREEN_ADDR + 10 + ( 6 * 40);
+  obstacles[1] := SCREEN_ADDR + 30 + ( 6 * 40);
+  obstacles[2] := SCREEN_ADDR + 10 + (18 * 40);
+  obstacles[3] := SCREEN_ADDR + 30 + (18 * 40);
+  obstacles[4] := SCREEN_ADDR +  1 + (12 * 40);
+  obstacles[5] := SCREEN_ADDR + 20 + ( 2 * 40);
+  obstacles[6] := SCREEN_ADDR + 20 + (22 * 40);
+  obstacles[7] := TRASH;
+
+  saveObstacles;
+end;
+
+//-----------------------------------------------------------------------------
+
+procedure setLevel02;
+begin
   initPlayers(@player1, 19, 12, JOY_LEFT,  PLY_CTRL,    PLY_HEAD, PLY1_COLOUR, true);
   initPlayers(@player2, 21, 12, JOY_RIGHT, AI_MIRROR,   PLY_HEAD, PLY2_COLOUR, true);
   initPlayers(@player3,  1,  1, JOY_DOWN,  AI_BULLY,    PLY_HEAD, PLY3_COLOUR, true);
   initPlayers(@player4, 20, 13, JOY_DOWN,  AI_SAPPER,   PLY_HEAD, PLY4_COLOUR, true);
 
-  putChar(10,  6, OBSTACLE_1, OBST_COLOUR);
-  putChar(30,  6, OBSTACLE_1, OBST_COLOUR);
-  putChar(10, 18, OBSTACLE_1, OBST_COLOUR);
-  putChar(30, 18, OBSTACLE_1, OBST_COLOUR);
-  putChar( 1, 12, OBSTACLE_1, OBST_COLOUR);
-  //putChar(38, 12, OBSTACLE_1, OBST_COLOUR);
-  putChar(20,  2, OBSTACLE_1, OBST_COLOUR);
-  putChar(20, 22, OBSTACLE_1, OBST_COLOUR);
+  obstacles[0] := SCREEN_ADDR + 10 + ( 6 * 40);
+  obstacles[1] := SCREEN_ADDR + 30 + ( 6 * 40);
+  obstacles[2] := SCREEN_ADDR + 10 + (18 * 40);
+  obstacles[3] := SCREEN_ADDR + 30 + (18 * 40);
+  obstacles[4] := SCREEN_ADDR +  1 + (12 * 40);
+  obstacles[5] := SCREEN_ADDR + 20 + ( 2 * 40);
+  obstacles[6] := SCREEN_ADDR + 20 + (22 * 40);
+  obstacles[7] := SCREEN_ADDR + 20 + (12 * 40); // center
 
-  putChar(20, 12, OBSTACLE_1, OBST_COLOUR); //center
-
-  showScore;
+  saveObstacles;
 end;
 
 //-----------------------------------------------------------------------------

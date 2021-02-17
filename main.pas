@@ -75,7 +75,11 @@ end;
 
 procedure mainLoop;
 begin
-  alive := $ff; initPlayfield; startScreen;
+  alive := $ff;
+
+  initPlayfield; animateObstacles;
+  if Random(2) = 0 then setLevel01 else setLevel02;
+  showScore; startScreen;
 
   repeat
     pause(3); // 1 for AI; 2 fast; 3 normal; 4 slow

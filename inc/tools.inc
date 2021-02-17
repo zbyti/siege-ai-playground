@@ -37,14 +37,19 @@ var
 begin
   Inc(counter);
   if (counter and 1) <> 0 then obst := OBSTACLE_1 else obst := OBSTACLE_2;
-  Poke(SCREEN_ADDR + 10 + ( 6 * 40), obst);
-  Poke(SCREEN_ADDR + 30 + ( 6 * 40), obst);
-  Poke(SCREEN_ADDR + 10 + (18 * 40), obst);
-  Poke(SCREEN_ADDR + 30 + (18 * 40), obst);
-  Poke(SCREEN_ADDR +  1 + (12 * 40), obst);
-  Poke(SCREEN_ADDR + 20 + ( 2 * 40), obst);
-  Poke(SCREEN_ADDR + 20 + (22 * 40), obst);
-  Poke(SCREEN_ADDR + 20 + (12 * 40), obst); // center
+  for i0b := 7 downto 0 do Poke(obstacles[i0b], obst);
+end;
+
+//-----------------------------------------------------------------------------
+
+procedure saveObstacles;
+begin
+  for i0b := 7 downto 0 do begin
+    if obstacles[i0b] <> TRASH then begin
+      Poke(obstacles[i0b], OBSTACLE_1);
+      Poke(obstacles[i0b] - $400, OBST_COLOUR);
+    end;
+  end;
 end;
 
 //-----------------------------------------------------------------------------
