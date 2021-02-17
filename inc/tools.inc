@@ -69,3 +69,8 @@ end;
 
 //-----------------------------------------------------------------------------
 
+procedure checkJoyStatus;
+begin
+  JOY := JOY_SELECT_1; KEYSCAN := $ff;
+  joyStatus := JOY xor $ff;
+end;

@@ -5,6 +5,7 @@ var
   JOY                                : byte absolute $ff08;
   BACKGROUND                         : byte absolute $ff15;
   BOREDER                            : byte absolute $ff19;
+  VCOUNT                             : byte absolute $ff1d;
 
 //-----------------------------------------------------------------------------
 
@@ -16,6 +17,7 @@ var
   t0w                                : word absolute $5d;
   ply                                : ^Player absolute $5f;
   tmpPly                             : ^Player absolute $61;
+  joyStatus                          : byte absolute $63;
 
 //-----------------------------------------------------------------------------
 

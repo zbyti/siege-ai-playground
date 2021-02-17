@@ -13,9 +13,7 @@
 procedure human; // brain = 0
 begin
   newDir := ply.dir;
-  JOY := JOY_SELECT_1; KEYSCAN := $ff; t0b := JOY xor $ff;
-
-  case t0b of
+  case joyStatus of
     JOY_UP    : if ply.dir <> JOY_DOWN  then newDir := JOY_UP;
     JOY_DOWN  : if ply.dir <> JOY_UP    then newDir := JOY_DOWN;
     JOY_LEFT  : if ply.dir <> JOY_RIGHT then newDir := JOY_LEFT;
@@ -70,9 +68,7 @@ end;
 
 procedure startScreen;
 begin
-  repeat
-    JOY := JOY_SELECT_1; KEYSCAN := $ff; t0b := JOY xor $ff;
-  until t0b = JOY_FIRE;
+  repeat checkJoyStatus until joyStatus = JOY_FIRE;
 end;
 
 //-----------------------------------------------------------------------------
@@ -97,8 +93,10 @@ begin
   animateObstacles; showScore; startScreen;
 
   repeat
-    pause(3); // 1 for AI; 2 fast; 3 normal; 4 slow
+    pause; checkJoyStatus;
     ply := @player1; playerMove;
+
+    pause(2); // 1 fast; 2 normal; 3 slow
     ply := @player2; playerMove;
     ply := @player3; playerMove;
     ply := @player4; playerMove;
