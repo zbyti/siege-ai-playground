@@ -4,7 +4,9 @@ const
   ATTRIBUTE_ADDR = $0800; SCREEN_ADDR = $0c00;
 
   VICTORIES = 9; // possible values: 1-9
-  LOOK_AHEAD = 5; TRASH = $fe;
+  LOOK_AHEAD = 5;
+
+  TRASH = $fe; // dirty hack
 
   EMPTY = $20; WALL = $a0; WALL_COLOUR = $41; ZERO = $30;
   OBSTACLE_1 = $56; OBSTACLE_2 = $5b; OBST_COLOUR = $35;
