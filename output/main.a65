@@ -2007,9 +2007,9 @@ l_0986
 
 ; optimize OK (levels.inc), line = 22
 
-	lda #$E1
+	lda #$7E
 	sta adr.OBSTACLES+$08
-	lda #$0D
+	lda #$00
 	sta adr.OBSTACLES+1+$08
 
 ; optimize OK (levels.inc), line = 23
@@ -2168,9 +2168,9 @@ l_0986
 
 ; optimize OK (levels.inc), line = 43
 
-	lda #$E1
+	lda #$7E
 	sta adr.OBSTACLES+$08
-	lda #$0D
+	lda #$00
 	sta adr.OBSTACLES+1+$08
 
 ; optimize OK (levels.inc), line = 44
@@ -2543,11 +2543,11 @@ l_0986
 	sta INITPLAYERS.HEAD
 	lda #$00
 	sta INITPLAYERS.BRAIN
-	lda #$04
+	lda #$08
 	sta INITPLAYERS.DIR
 	lda #$0C
 	sta INITPLAYERS.Y
-	lda #$12
+	lda #$0A
 	sta INITPLAYERS.X
 	lda PLAYER1
 	sta INITPLAYERS.P
@@ -2565,11 +2565,10 @@ l_0986
 	sta INITPLAYERS.HEAD
 	lda #$04
 	sta INITPLAYERS.BRAIN
-	lda #$08
 	sta INITPLAYERS.DIR
 	lda #$0C
 	sta INITPLAYERS.Y
-	lda #$16
+	lda #$1E
 	sta INITPLAYERS.X
 	lda PLAYER2
 	sta INITPLAYERS.P
@@ -2607,7 +2606,7 @@ l_0986
 	sta INITPLAYERS.COLOUR
 	lda #$51
 	sta INITPLAYERS.HEAD
-	lda #$03
+	lda #$02
 	sta INITPLAYERS.BRAIN
 	lda #$01
 	sta INITPLAYERS.DIR
@@ -2672,9 +2671,9 @@ l_0986
 
 ; optimize OK (levels.inc), line = 109
 
-	lda #$F4
+	lda #$7E
 	sta adr.OBSTACLES+$0E
-	lda #$0D
+	lda #$00
 	sta adr.OBSTACLES+1+$0E
 
 ; optimize FAIL ('SAVEOBSTACLES', levels.inc), line = 111
@@ -2704,11 +2703,11 @@ l_0986
 	sta INITPLAYERS.HEAD
 	lda #$00
 	sta INITPLAYERS.BRAIN
-	lda #$08
+	lda #$04
 	sta INITPLAYERS.DIR
 	lda #$0C
 	sta INITPLAYERS.Y
-	lda #$0A
+	lda #$12
 	sta INITPLAYERS.X
 	lda PLAYER1
 	sta INITPLAYERS.P
@@ -2724,12 +2723,13 @@ l_0986
 	sta INITPLAYERS.COLOUR
 	lda #$51
 	sta INITPLAYERS.HEAD
-	lda #$04
+	lda #$02
 	sta INITPLAYERS.BRAIN
+	lda #$08
 	sta INITPLAYERS.DIR
 	lda #$0C
 	sta INITPLAYERS.Y
-	lda #$1E
+	lda #$16
 	sta INITPLAYERS.X
 	lda PLAYER2
 	sta INITPLAYERS.P
@@ -2745,13 +2745,11 @@ l_0986
 	sta INITPLAYERS.COLOUR
 	lda #$51
 	sta INITPLAYERS.HEAD
-	lda #$03
-	sta INITPLAYERS.BRAIN
 	lda #$02
+	sta INITPLAYERS.BRAIN
 	sta INITPLAYERS.DIR
-	lda #$04
+	lda #$06
 	sta INITPLAYERS.Y
-	lda #$14
 	sta INITPLAYERS.X
 	lda PLAYER3
 	sta INITPLAYERS.P
@@ -2767,13 +2765,13 @@ l_0986
 	sta INITPLAYERS.COLOUR
 	lda #$51
 	sta INITPLAYERS.HEAD
-	lda #$02
+	lda #$03
 	sta INITPLAYERS.BRAIN
-	lda #$01
+	lda #$08
 	sta INITPLAYERS.DIR
 	lda #$12
 	sta INITPLAYERS.Y
-	lda #$14
+	lda #$24
 	sta INITPLAYERS.X
 	lda PLAYER4
 	sta INITPLAYERS.P
@@ -2832,9 +2830,9 @@ l_0986
 
 ; optimize OK (levels.inc), line = 130
 
-	lda #$7E
+	lda #$F4
 	sta adr.OBSTACLES+$0E
-	lda #$00
+	lda #$0D
 	sta adr.OBSTACLES+1+$0E
 
 ; optimize FAIL ('SAVEOBSTACLES', levels.inc), line = 132
@@ -2884,13 +2882,13 @@ l_0986
 	sta INITPLAYERS.COLOUR
 	lda #$51
 	sta INITPLAYERS.HEAD
-	lda #$04
+	lda #$03
 	sta INITPLAYERS.BRAIN
 	lda #$08
 	sta INITPLAYERS.DIR
-	lda #$0C
+	lda #$17
 	sta INITPLAYERS.Y
-	lda #$16
+	lda #$01
 	sta INITPLAYERS.X
 	lda PLAYER2
 	sta INITPLAYERS.P
@@ -2910,8 +2908,9 @@ l_0986
 	sta INITPLAYERS.BRAIN
 	lda #$02
 	sta INITPLAYERS.DIR
-	lda #$01
+	lda #$04
 	sta INITPLAYERS.Y
+	lda #$1E
 	sta INITPLAYERS.X
 	lda PLAYER3
 	sta INITPLAYERS.P
@@ -2929,10 +2928,11 @@ l_0986
 	sta INITPLAYERS.HEAD
 	lda #$02
 	sta INITPLAYERS.BRAIN
+	lda #$01
 	sta INITPLAYERS.DIR
-	lda #$0E
+	lda #$15
 	sta INITPLAYERS.Y
-	lda #$14
+	lda #$24
 	sta INITPLAYERS.X
 	lda PLAYER4
 	sta INITPLAYERS.P
@@ -3563,7 +3563,7 @@ l_0DF0
 
 	lda LEVEL
 	sta @CASETMP_0009
-	cmp #$00
+	cmp #$01
 	jne l_0E23
 @
 
@@ -3572,7 +3572,7 @@ l_0DF0
 	jsr SETLEVEL01
 	jmp a_0009
 l_0E23
-	cmp #$01
+	cmp #$02
 	jne l_0E2D
 @
 
@@ -3581,7 +3581,7 @@ l_0E23
 	jsr SETLEVEL02
 	jmp a_0009
 l_0E2D
-	cmp #$02
+	cmp #$03
 	jne l_0E37
 @
 
@@ -3590,7 +3590,7 @@ l_0E2D
 	jsr SETLEVEL03
 	jmp a_0009
 l_0E37
-	cmp #$03
+	cmp #$04
 	jne l_0E41
 @
 
@@ -3599,7 +3599,7 @@ l_0E37
 	jsr SETLEVEL04
 	jmp a_0009
 l_0E41
-	cmp #$04
+	cmp #$05
 	jne l_0E4B
 @
 
@@ -3608,7 +3608,7 @@ l_0E41
 	jsr SETLEVEL05
 	jmp a_0009
 l_0E4B
-	cmp #$05
+	cmp #$06
 	jne l_0E55
 @
 
@@ -3617,7 +3617,7 @@ l_0E4B
 	jsr SETLEVEL06
 	jmp a_0009
 l_0E55
-	cmp #$06
+	cmp #$07
 	jne l_0E5F
 @
 
@@ -3626,7 +3626,7 @@ l_0E55
 	jsr SETLEVEL07
 	jmp a_0009
 l_0E5F
-	cmp #$07
+	cmp #$08
 	jne l_0E69
 @
 
@@ -3769,11 +3769,12 @@ l_0EFE
 
 ; optimize OK (main.pas), line = 122
 
-	lda #$00
+	lda #$01
 	sta LEVEL
 
 ; optimize OK (main.pas), line = 124
 
+	lda #$00
 	sta GAMEOVER
 
 ; --- RepeatUntilProlog
@@ -3789,7 +3790,7 @@ l_0F17
 	lda LEVEL
 	cmp #$08
 	jne l_0F2E
-	lda #$04
+	lda #$05
 	sta LEVEL
 l_0F2E
 

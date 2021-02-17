@@ -84,14 +84,14 @@ begin
   initPlayfield;
 
   case level of
-    0 : setLevel01;
-    1 : setLevel02;
-    2 : setLevel03;
-    3 : setLevel04;
-    4 : setLevel05;
-    5 : setLevel06;
-    6 : setLevel07;
-    7 : setLevel08;
+    1 : setLevel01; // easy
+    2 : setLevel02; // easy
+    3 : setLevel03; // easy
+    4 : setLevel04; // moderate
+    5 : setLevel05; // moderate
+    6 : setLevel06; // hard
+    7 : setLevel07; // very hard
+    8 : setLevel08; // very hard
   end;
 
   animateObstacles; showScore; startScreen;
@@ -119,12 +119,12 @@ begin
   repeat
     player1.score := ZERO; player2.score := ZERO;
     player3.score := ZERO; player4.score := ZERO;
-    level := 0;
+    level := 1;
 
     gameOver := false;
     repeat
       mainLoop;
-      Inc(level); if level = 8 then level := 4;
+      Inc(level); if level = 8 then level := 5;
       if player1.score = ZERO + VICTORIES then gameOver := true;
       if player2.score = ZERO + VICTORIES then gameOver := true;
       if player3.score = ZERO + VICTORIES then gameOver := true;
