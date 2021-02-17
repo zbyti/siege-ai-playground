@@ -106,8 +106,8 @@ begin
     end;
 
     if (availDir and t0b) <> 0 then newDir := t0b
-    else aiSapPer;
-  end else aiSapPer;
+    else aiSapper;
+  end else aiSapper;
 end;
 
 //-----------------------------------------------------------------------------
