@@ -6,6 +6,7 @@
 {$i 'inc/tools.inc'}
 {$i 'inc/init.inc'}
 {$i 'inc/ai.inc'}
+{$i 'inc/levels.inc'}
 
 //-----------------------------------------------------------------------------
 
@@ -82,7 +83,7 @@ begin
 
   initPlayfield;
 
-  case level of
+  case 7 of
     0 : setLevel01;
     1 : setLevel02;
     2 : setLevel03;
@@ -96,7 +97,7 @@ begin
   animateObstacles; showScore; startScreen;
 
   repeat
-    pause(4); // 1 for AI; 2 fast; 3 normal; 4 slow
+    pause(3); // 1 for AI; 2 fast; 3 normal; 4 slow
     ply := @player1; playerMove;
     ply := @player2; playerMove;
     ply := @player3; playerMove;
