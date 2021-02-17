@@ -1,13 +1,5 @@
 //-----------------------------------------------------------------------------
 
-// H Vs. AI_STRAIGHT - very easy
-// H Vs. AI_BULLY    - easy
-// H Vs. AI_SAPPER   - moderate
-// H Vs. AI_MIRROR   - hard
-// h Vs. 3 bots      - hard hard (2x AI_BULLY, AI_BULLY & AI_SAPER)
-
-//-----------------------------------------------------------------------------
-
 procedure setLevel01;
 begin
   initPlayers(@player1, 10, 12, JOY_RIGHT, PLY_CTRL,    PLY_HEAD, PLY1_COLOUR, true);
