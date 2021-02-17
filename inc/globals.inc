@@ -5,7 +5,6 @@ var
   JOY                                : byte absolute $ff08;
   BACKGROUND                         : byte absolute $ff15;
   BOREDER                            : byte absolute $ff19;
-  VCOUNT                             : byte absolute $ff1d;
 
 //-----------------------------------------------------------------------------
 

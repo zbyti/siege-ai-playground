@@ -68,7 +68,9 @@ end;
 
 procedure startScreen;
 begin
+  putChar(player1.x, player1.y, player1.head, player1.colour + $80);
   repeat checkJoyStatus until joyStatus = JOY_FIRE;
+  putChar(player1.x, player1.y, player1.head, player1.colour);
 end;
 
 //-----------------------------------------------------------------------------
