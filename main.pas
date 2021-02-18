@@ -4,9 +4,9 @@
 {$i 'inc/types.inc'}
 {$i 'inc/globals.inc'}
 {$i 'inc/tools.inc'}
-{$i 'inc/init.inc'}
 {$i 'inc/ai.inc'}
 {$i 'inc/levels.inc'}
+{$i 'inc/init.inc'}
 
 //-----------------------------------------------------------------------------
 
@@ -79,21 +79,7 @@ procedure mainLoop;
 begin
   alive := $ff;
 
-  initPlayfield;
-
-  case level of
-    0 : setLevel00; // test
-    1 : setLevel01; // easy
-    2 : setLevel02; // easy
-    3 : setLevel03; // easy
-    4 : setLevel04; // moderate
-    5 : setLevel05; // moderate
-    6 : setLevel06; // hard
-    7 : setLevel07; // very hard
-    8 : setLevel08; // very hard
-  end;
-
-  saveObstacles; animateObstacles; showScore; startScreen;
+  initPlayfield; startScreen;
 
   repeat
     pause;
