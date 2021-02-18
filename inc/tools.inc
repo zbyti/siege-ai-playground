@@ -25,10 +25,10 @@ end;
 
 procedure showScore;
 begin
-  putChar(30, 0, player1.score, player1.colour);
-  putChar(32, 0, player2.score, player2.colour);
-  putChar(34, 0, player3.score, player3.colour);
-  putChar(36, 0, player4.score, player4.colour);
+  if player1.isAlive then putChar(30, 0, player1.score, player1.colour);
+  if player2.isAlive then putChar(32, 0, player2.score, player2.colour);
+  if player3.isAlive then putChar(34, 0, player3.score, player3.colour);
+  if player4.isAlive then putChar(36, 0, player4.score, player4.colour);
 end;
 
 //-----------------------------------------------------------------------------
