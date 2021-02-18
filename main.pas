@@ -101,7 +101,7 @@ end;
 
 begin
   repeat
-    initPlayers; level := 1;
+    initScore; level := 1;
 
     gameOver := false;
     repeat

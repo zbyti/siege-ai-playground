@@ -1,5 +1,13 @@
 //-----------------------------------------------------------------------------
 
+procedure initPlayers;
+begin
+  player1.isAlive := false; player2.isAlive := false;
+  player3.isAlive := false; player4.isAlive := false;
+end;
+
+//-----------------------------------------------------------------------------
+
 procedure initPlayfield;
 begin
   BACKGROUND := BACKGROUND_COLOUR; BOREDER := BOREDER_COLOUR;
@@ -19,6 +27,8 @@ begin
 
   for i0b := OBST_QUANTITY downto 0 do obstacles[i0b] := TRASH;
 
+  initPlayers;
+
   case level of
     0 : setLevel00; // test
     1 : setLevel01; // easy
@@ -36,13 +46,10 @@ end;
 
 //-----------------------------------------------------------------------------
 
-procedure initPlayers;
+procedure initScore;
 begin
   player1.score := ZERO; player2.score := ZERO;
   player3.score := ZERO; player4.score := ZERO;
-
-  player1.isAlive := false; player2.isAlive := false;
-  player3.isAlive := false; player4.isAlive := false;
 end;
 
 //-----------------------------------------------------------------------------
