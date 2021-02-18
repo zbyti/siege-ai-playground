@@ -3830,7 +3830,7 @@ Source: main.a65
   3919
   3920 				; optimize OK (main.pas), line = 102
   3921
-  3922 2597 A9 03			lda #$03
+  3922 2597 A9 02			lda #$02
   3923 2599 8D A0 26			sta SYSTEM.PAUSE_006C.N
   3924 259C A9 00			lda #$00
   3925 259E 8D A1 26			sta SYSTEM.PAUSE_006C.N+1

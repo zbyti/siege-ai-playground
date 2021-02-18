@@ -3919,7 +3919,7 @@ l_0F05
 
 ; optimize OK (main.pas), line = 102
 
-	lda #$03
+	lda #$02
 	sta SYSTEM.PAUSE_006C.N
 	lda #$00
 	sta SYSTEM.PAUSE_006C.N+1

@@ -99,7 +99,7 @@ begin
     pause; checkJoyStatus;
     ply := @player1; playerMove;
 
-    pause(3); // 1 fast; 2 normal; 3 slow
+    pause(2); // 1 fast; 2 normal; 3 slow
     ply := @player2; playerMove;
     ply := @player3; playerMove;
     ply := @player4; playerMove;
