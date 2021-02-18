@@ -11,10 +11,8 @@ begin
   obstacles[1] := calcObstacleAddr(30,  6);
   obstacles[2] := calcObstacleAddr(10, 18);
   obstacles[3] := calcObstacleAddr(30, 18);
-  obstacles[4] := TRASH;
-  obstacles[5] := calcObstacleAddr(20,  2);
-  obstacles[6] := calcObstacleAddr(20, 22);
-  obstacles[7] := TRASH;
+  obstacles[4] := calcObstacleAddr(20,  2);
+  obstacles[5] := calcObstacleAddr(20, 22);
 
   saveObstacles;
 end;
@@ -32,10 +30,8 @@ begin
   obstacles[1] := calcObstacleAddr(30,  6);
   obstacles[2] := calcObstacleAddr(10, 18);
   obstacles[3] := calcObstacleAddr(30, 18);
-  obstacles[4] := TRASH;
-  obstacles[5] := calcObstacleAddr(20,  2);
-  obstacles[6] := calcObstacleAddr(20, 22);
-  obstacles[7] := TRASH;
+  obstacles[4] := calcObstacleAddr(20,  2);
+  obstacles[5] := calcObstacleAddr(20, 22);
 
   saveObstacles;
 end;
@@ -53,10 +49,8 @@ begin
   obstacles[1] := calcObstacleAddr(30,  6);
   obstacles[2] := calcObstacleAddr(10, 18);
   obstacles[3] := calcObstacleAddr(30, 18);
-  obstacles[4] := TRASH;
-  obstacles[5] := calcObstacleAddr(20,  2);
-  obstacles[6] := calcObstacleAddr(20, 22);
-  obstacles[7] := TRASH;
+  obstacles[4] := calcObstacleAddr(20,  2);
+  obstacles[5] := calcObstacleAddr(20, 22);
 
   saveObstacles;
 end;
@@ -77,7 +71,6 @@ begin
   obstacles[4] := calcObstacleAddr( 1, 12);
   obstacles[5] := calcObstacleAddr(20,  2);
   obstacles[6] := calcObstacleAddr(20, 22);
-  obstacles[7] := TRASH;
 
   saveObstacles;
 end;
@@ -119,7 +112,6 @@ begin
   obstacles[4] := calcObstacleAddr( 1, 12);
   obstacles[5] := calcObstacleAddr(20,  2);
   obstacles[6] := calcObstacleAddr(20, 22);
-  obstacles[7] := TRASH;
 
   saveObstacles;
 end;
