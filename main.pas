@@ -93,7 +93,7 @@ begin
     8 : setLevel08; // very hard
   end;
 
-  animateObstacles; showScore; startScreen;
+  saveObstacles; animateObstacles; showScore; startScreen;
 
   repeat
     pause;

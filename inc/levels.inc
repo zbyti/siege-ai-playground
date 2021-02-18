@@ -11,8 +11,6 @@ begin
   obstacles[3] := calcObstacleAddr(30, 18);
   obstacles[4] := calcObstacleAddr(20,  2);
   obstacles[5] := calcObstacleAddr(20, 22);
-
-  saveObstacles;
 end;
 
 //-----------------------------------------------------------------------------
@@ -28,8 +26,6 @@ begin
   obstacles[3] := calcObstacleAddr(30, 18);
   obstacles[4] := calcObstacleAddr(20,  2);
   obstacles[5] := calcObstacleAddr(20, 22);
-
-  saveObstacles;
 end;
 
 //-----------------------------------------------------------------------------
@@ -45,8 +41,6 @@ begin
   obstacles[3] := calcObstacleAddr(30, 18);
   obstacles[4] := calcObstacleAddr(20,  2);
   obstacles[5] := calcObstacleAddr(20, 22);
-
-  saveObstacles;
 end;
 
 //-----------------------------------------------------------------------------
@@ -63,8 +57,6 @@ begin
   obstacles[4] := calcObstacleAddr( 1, 12);
   obstacles[5] := calcObstacleAddr(20,  2);
   obstacles[6] := calcObstacleAddr(20, 22);
-
-  saveObstacles;
 end;
 
 //-----------------------------------------------------------------------------
@@ -82,8 +74,6 @@ begin
   obstacles[5] := calcObstacleAddr(20,  2);
   obstacles[6] := calcObstacleAddr(20, 22);
   obstacles[7] := calcObstacleAddr(20, 12); // center
-
-  saveObstacles;
 end;
 
 //-----------------------------------------------------------------------------
@@ -102,8 +92,6 @@ begin
   obstacles[4] := calcObstacleAddr( 1, 12);
   obstacles[5] := calcObstacleAddr(20,  2);
   obstacles[6] := calcObstacleAddr(20, 22);
-
-  saveObstacles;
 end;
 
 //-----------------------------------------------------------------------------
@@ -123,8 +111,6 @@ begin
   obstacles[5] := calcObstacleAddr(20,  2);
   obstacles[6] := calcObstacleAddr(20, 22);
   obstacles[7] := calcObstacleAddr(20, 12); // center
-
-  saveObstacles;
 end;
 
 //-----------------------------------------------------------------------------
@@ -144,8 +130,6 @@ begin
   obstacles[5] := calcObstacleAddr(20,  2);
   obstacles[6] := calcObstacleAddr(20, 22);
   obstacles[7] := calcObstacleAddr(20, 12); // center
-
-  saveObstacles;
 end;
 
 //-----------------------------------------------------------------------------
@@ -165,8 +149,6 @@ begin
   obstacles[5] := calcObstacleAddr(20,  2);
   obstacles[6] := calcObstacleAddr(20, 22);
   obstacles[7] := calcObstacleAddr(20, 12); // center
-
-  saveObstacles;
 end;
 
 //-----------------------------------------------------------------------------
