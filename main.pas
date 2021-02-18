@@ -12,7 +12,7 @@
 
 procedure human; // brain = 0
 begin
-  newDir := ply.dir;
+  checkJoyStatus; newDir := ply.dir;
   case joyStatus of
     JOY_UP    : if ply.dir <> JOY_DOWN  then newDir := JOY_UP;
     JOY_DOWN  : if ply.dir <> JOY_UP    then newDir := JOY_DOWN;
@@ -96,7 +96,7 @@ begin
   animateObstacles; showScore; startScreen;
 
   repeat
-    pause; checkJoyStatus;
+    pause;
     ply := @player1; playerMove;
 
     pause(2); // 1 fast; 2 normal; 3 slow
