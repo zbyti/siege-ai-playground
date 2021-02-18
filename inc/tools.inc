@@ -133,7 +133,7 @@ end;
 
 //-----------------------------------------------------------------------------
 
-function isAnybodyAlive: boolean;
+function isOneLeft: boolean;
 begin
   Result := (alive = 0) or (alive = $ff);
 end;

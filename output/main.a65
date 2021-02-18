@@ -1292,7 +1292,7 @@ RESULT	= DATAORIGIN+$005B
 	rts						; ret
 .endl
 
-.local	ISANYBODYALIVE					; FUNCTION
+.local	ISONELEFT					; FUNCTION
 
 ; optimize OK (tools.inc), line = 138
 
@@ -4456,20 +4456,17 @@ l_1092
 ; optimize FAIL ('SYSTEM.PAUSE_006B', main.pas), line = 80
 
 	jsr SYSTEM.PAUSE_006B
-
-; optimize OK (main.pas), line = 81
-
 	lda PLAYER1
 	sta PLY
 	lda PLAYER1+1
 	sta PLY+1
 	jsr PLAYERMOVE
 
-; optimize FAIL ('ANIMATEOBSTACLES', main.pas), line = 83
+; optimize FAIL ('ANIMATEOBSTACLES', main.pas), line = 82
 
 	jsr ANIMATEOBSTACLES
 
-; optimize OK (main.pas), line = 85
+; optimize OK (main.pas), line = 84
 
 	lda #$02
 	sta SYSTEM.PAUSE_006C.N
@@ -4477,7 +4474,7 @@ l_1092
 	sta SYSTEM.PAUSE_006C.N+1
 	jsr SYSTEM.PAUSE_006C
 
-; optimize OK (main.pas), line = 86
+; optimize OK (main.pas), line = 85
 
 	lda PLAYER2
 	sta PLY
@@ -4485,7 +4482,7 @@ l_1092
 	sta PLY+1
 	jsr PLAYERMOVE
 
-; optimize OK (main.pas), line = 87
+; optimize OK (main.pas), line = 86
 
 	lda PLAYER3
 	sta PLY
@@ -4493,7 +4490,7 @@ l_1092
 	sta PLY+1
 	jsr PLAYERMOVE
 
-; optimize OK (main.pas), line = 88
+; optimize OK (main.pas), line = 87
 
 	lda PLAYER4
 	sta PLY
@@ -4501,18 +4498,18 @@ l_1092
 	sta PLY+1
 	jsr PLAYERMOVE
 
-; optimize FAIL ('ISANYBODYALIVE', main.pas), line = 89
+; optimize FAIL ('ISONELEFT', main.pas), line = 88
 
-	jsr ISANYBODYALIVE
+	jsr ISONELEFT
 	dex
 	lda :STACKORIGIN+1,x
 	jeq l_1092
 
-; optimize FAIL ('UPDATESCORE', main.pas), line = 91
+; optimize FAIL ('UPDATESCORE', main.pas), line = 90
 
 	jsr UPDATESCORE
 
-; optimize OK (main.pas), line = 93
+; optimize OK (main.pas), line = 92
 
 	lda #$64
 	sta SYSTEM.PAUSE_006C.N
@@ -4520,7 +4517,7 @@ l_1092
 	sta SYSTEM.PAUSE_006C.N+1
 	jsr SYSTEM.PAUSE_006C
 
-; optimize FAIL (0, main.pas), line = 95
+; optimize FAIL (0, main.pas), line = 94
 
 	inc LEVEL
 	lda LEVEL
@@ -4545,7 +4542,7 @@ l_0007
 ; --- RepeatUntilProlog
 l_10D5
 
-; optimize FAIL ('INITSCORE', main.pas), line = 102
+; optimize FAIL ('INITSCORE', main.pas), line = 101
 
 	jsr INITSCORE
 	lda #$00
@@ -4556,7 +4553,7 @@ l_10D5
 ; --- RepeatUntilProlog
 l_10DF
 
-; optimize FAIL ('MAINLOOP', main.pas), line = 104
+; optimize FAIL ('MAINLOOP', main.pas), line = 103
 
 	jsr MAINLOOP
 	jsr ISGAMEOVER
@@ -4564,11 +4561,11 @@ l_10DF
 	lda :STACKORIGIN+1,x
 	jeq l_10DF
 
-; optimize FAIL ('SHOWSCORE', main.pas), line = 105
+; optimize FAIL ('SHOWSCORE', main.pas), line = 104
 
 	jsr SHOWSCORE
 
-; optimize OK (main.pas), line = 107
+; optimize OK (main.pas), line = 106
 
 	lda #$C8
 	sta SYSTEM.PAUSE_006C.N
@@ -4576,7 +4573,7 @@ l_10DF
 	sta SYSTEM.PAUSE_006C.N+1
 	jsr SYSTEM.PAUSE_006C
 
-; optimize OK (main.pas), line = 108
+; optimize OK (main.pas), line = 107
 
 	jmp l_10D5
 

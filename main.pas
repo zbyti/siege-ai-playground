@@ -77,8 +77,7 @@ begin
   initArena; startScreen;
 
   repeat
-    pause;
-    ply := @player1; playerMove;
+    pause; ply := @player1; playerMove;
 
     animateObstacles;
 
@@ -86,7 +85,7 @@ begin
     ply := @player2; playerMove;
     ply := @player3; playerMove;
     ply := @player4; playerMove;
-  until isAnybodyAlive;
+  until isOneLeft;
 
   updateScore;
 
