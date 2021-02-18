@@ -93,24 +93,17 @@ begin
   updateScore;
 
   pause(100);
+
+  Inc(level); if level = 8 then level := 5;
 end;
 
 //-----------------------------------------------------------------------------
 
 begin
   repeat
-    initScore; level := 1;
+    initScore; gameOver := false; level := 1;
 
-    gameOver := false;
-    repeat
-      mainLoop;
-      Inc(level); if level = 8 then level := 5;
-      if player1.score = ZERO + VICTORIES then gameOver := true;
-      if player2.score = ZERO + VICTORIES then gameOver := true;
-      if player3.score = ZERO + VICTORIES then gameOver := true;
-      if player4.score = ZERO + VICTORIES then gameOver := true;
-    until gameOver;
-
+    repeat mainLoop until isGameOver;
     showScore;
 
     pause(200);

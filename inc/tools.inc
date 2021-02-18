@@ -121,3 +121,12 @@ begin
 end;
 
 //-----------------------------------------------------------------------------
+
+function isGameOver: boolean;
+begin
+  if player1.score = ZERO + VICTORIES then gameOver := true;
+  if player2.score = ZERO + VICTORIES then gameOver := true;
+  if player3.score = ZERO + VICTORIES then gameOver := true;
+  if player4.score = ZERO + VICTORIES then gameOver := true;
+  Result := gameOver;
+end;
