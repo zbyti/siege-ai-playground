@@ -1,5 +1,5 @@
 ; ------------------------------------------------------------
-; Mad Pascal Compiler version 1.6.5 [2021/02/14] for 6502
+; Mad Pascal Compiler version 1.6.5 [2021/02/18] for 6502
 ; ------------------------------------------------------------
 
 STACKWIDTH	= 16
@@ -417,6 +417,7 @@ MVBXE	= $80
 VBXE_XDLADR	= $00
 VBXE_BCBADR	= $0100
 VBXE_MAPADR	= $1000
+VBXE_CHBASE	= $1000
 VBXE_OVRADR	= $5000
 VBXE_WINDOW	= $B000
 IDLI	= $00
@@ -458,7 +459,6 @@ FMOPENREADWRITE	= $0C
 SCREENWIDTH	= DATAORIGIN+$0000
 SCREENHEIGHT	= DATAORIGIN+$0002
 DATESEPARATOR	= DATAORIGIN+$0004
-TVSYSTEM	= $D014
 RND	= $D20A
 adr.PALETTE	= $02C0
 .var PALETTE	= adr.PALETTE .word

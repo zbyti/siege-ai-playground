@@ -115,7 +115,7 @@ end;
 procedure drawBustedPlayer;
 begin
   ply.isAlive := false; Dec(alive);
-  putChar(ply.x, ply.y, PLY_BUSTED, ply.colour + $80);
+  putChar(ply.x, ply.y, PLY_BUSTED, byte(ply.colour + $80));
 end;
 
 //-----------------------------------------------------------------------------
@@ -149,7 +149,7 @@ end;
 
 procedure startScreen;
 begin
-  putChar(player1.x, player1.y, player1.head, player1.colour + $80);
+  putChar(player1.x, player1.y, player1.head, byte(player1.colour + $80));
   repeat checkJoyStatus until joyStatus = JOY_FIRE;
   putChar(player1.x, player1.y, player1.head, player1.colour);
 end;
