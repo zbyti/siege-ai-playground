@@ -2,7 +2,7 @@
 
 procedure initPlayfield;
 begin
-  BACKGROUND := $1f; BOREDER := 0;
+  BACKGROUND := BACKGROUND_COLOUR; BOREDER := BOREDER_COLOUR;
   FillChar(pointer(SCREEN_ADDR), 24 * 40, EMPTY);
 
   for t0b := 39 downto 0 do begin

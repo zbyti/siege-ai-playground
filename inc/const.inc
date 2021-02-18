@@ -2,6 +2,7 @@
 
 const
   ATTRIBUTE_ADDR = $0800; SCREEN_ADDR = $0c00;
+  BACKGROUND_COLOUR = $1f; BOREDER_COLOUR = 0;
 
   VICTORIES = 9; // possible values: 1-9
   LOOK_AHEAD = 5;

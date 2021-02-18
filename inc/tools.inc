@@ -59,7 +59,7 @@ begin
   for i0b := OBST_QUANTITY downto 0 do begin
     if obstacles[i0b] <> TRASH then begin
       Poke(obstacles[i0b], OBSTACLE_1);
-      Poke(obstacles[i0b] - $400, OBST_COLOUR);
+      Poke(obstacles[i0b] - (SCREEN_ADDR - ATTRIBUTE_ADDR), OBST_COLOUR);
     end;
   end;
 end;
