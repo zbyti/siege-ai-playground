@@ -11,6 +11,12 @@ begin
   t0w := SCREEN_ADDR + mul40[y] + x; Poke(t0w, v);
 end;
 
+function getChar(x, y: byte): byte;
+begin
+  t0w := SCREEN_ADDR + mul40[y] + x;
+  Result := Peek(t0w);
+end;
+
 //-----------------------------------------------------------------------------
 
 procedure showScore;
@@ -76,7 +82,8 @@ begin
     if ((ply.dir and %0110) <> 0) and ((newDir and %1001) <> 0) then t0b := PLY_TAIL_LD;
     if ((ply.dir and %0101) <> 0) and ((newDir and %1010) <> 0) then t0b := PLY_TAIL_LU;
   end;
-  putChar(ply.x, ply.y, t0b);
+
+  if getChar(ply.x, ply.y) <> PLY_CRASH then putChar(ply.x, ply.y, t0b);
 end;
 
 //-----------------------------------------------------------------------------

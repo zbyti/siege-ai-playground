@@ -55,9 +55,6 @@ begin
       end;
 
       putChar(ply.x, ply.y, ply.head, ply.colour);
-
-      //dirty workaround
-      if not player1.isAlive then putChar(player1.x, player1.y, PLY_CRASH, player1.colour);
     end;
 
   end;
