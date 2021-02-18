@@ -76,7 +76,7 @@ procedure mainLoop;
 begin
   alive := $ff;
 
-  initPlayfield; startScreen;
+  initArena; startScreen;
 
   repeat
     pause;
