@@ -15,7 +15,7 @@ begin
   if ply.isAlive then begin
 
     checkAvailDir;
-    if availDir = 0 then drawBustedPlayer
+    if availDir = 0 then playerBusted
     else begin
 
       case ply.brain of

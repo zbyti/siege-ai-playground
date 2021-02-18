@@ -1208,7 +1208,7 @@ a_0003
 	eif
 .endl
 
-.local	DRAWBUSTEDPLAYER				; PROCEDURE
+.local	PLAYERBUSTED					; PROCEDURE
 
 ; optimize OK (tools.inc), line = 117
 
@@ -4407,9 +4407,9 @@ a_0008
 	lda AVAILDIR
 	jne l_1066
 
-; optimize FAIL ('DRAWBUSTEDPLAYER', main.pas), line = 19
+; optimize FAIL ('PLAYERBUSTED', main.pas), line = 19
 
-	jsr DRAWBUSTEDPLAYER
+	jsr PLAYERBUSTED
 	jmp l_1071
 l_1066
 

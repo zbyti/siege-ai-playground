@@ -1119,7 +1119,7 @@ Source: main.a65
   1208 					eif
   1209 				.endl
   1210
-  1211 1519			.local	DRAWBUSTEDPLAYER				; PROCEDURE
+  1211 1519			.local	PLAYERBUSTED					; PROCEDURE
   1212
   1213 				; optimize OK (tools.inc), line = 117
   1214
@@ -4318,9 +4318,9 @@ Source: main.a65
   4407 29DE A5 5C			lda AVAILDIR
   4408 29E0 D0 06			jne l_1066
   4409
-  4410 				; optimize FAIL ('DRAWBUSTEDPLAYER', main.pas), line = 19
+  4410 				; optimize FAIL ('PLAYERBUSTED', main.pas), line = 19
   4411
-  4412 29E2 20 19 15			jsr DRAWBUSTEDPLAYER
+  4412 29E2 20 19 15			jsr PLAYERBUSTED
   4413 29E5 4C 2B 2A			jmp l_1071
   4414 29E8			l_1066
   4415

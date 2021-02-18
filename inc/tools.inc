@@ -112,7 +112,7 @@ end;
 
 //-----------------------------------------------------------------------------
 
-procedure drawBustedPlayer;
+procedure playerBusted;
 begin
   ply.isAlive := false; Dec(alive);
   putChar(ply.x, ply.y, PLY_BUSTED, byte(ply.colour + $80));
