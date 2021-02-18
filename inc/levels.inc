@@ -7,13 +7,13 @@ begin
   setPlayer(@player3, 20,  4, JOY_DOWN,  AI_BULLY,    PLY_HEAD, PLY3_COLOUR, false);
   setPlayer(@player4, 20, 18, JOY_UP,    AI_SAPPER,   PLY_HEAD, PLY4_COLOUR, false);
 
-  obstacles[0] := SCREEN_ADDR + 10 + ( 6 * 40);
-  obstacles[1] := SCREEN_ADDR + 30 + ( 6 * 40);
-  obstacles[2] := SCREEN_ADDR + 10 + (18 * 40);
-  obstacles[3] := SCREEN_ADDR + 30 + (18 * 40);
+  obstacles[0] := calcObstacleAddr(10,  6);
+  obstacles[1] := calcObstacleAddr(30,  6);
+  obstacles[2] := calcObstacleAddr(10, 18);
+  obstacles[3] := calcObstacleAddr(30, 18);
   obstacles[4] := TRASH;
-  obstacles[5] := SCREEN_ADDR + 20 + ( 2 * 40);
-  obstacles[6] := SCREEN_ADDR + 20 + (22 * 40);
+  obstacles[5] := calcObstacleAddr(20,  2);
+  obstacles[6] := calcObstacleAddr(20, 22);
   obstacles[7] := TRASH;
 
   saveObstacles;
@@ -28,13 +28,13 @@ begin
   setPlayer(@player3, 20,  4, JOY_DOWN,  AI_BULLY,    PLY_HEAD, PLY3_COLOUR, false);
   setPlayer(@player4, 20, 18, JOY_UP,    AI_SAPPER,   PLY_HEAD, PLY4_COLOUR, false);
 
-  obstacles[0] := SCREEN_ADDR + 10 + ( 6 * 40);
-  obstacles[1] := SCREEN_ADDR + 30 + ( 6 * 40);
-  obstacles[2] := SCREEN_ADDR + 10 + (18 * 40);
-  obstacles[3] := SCREEN_ADDR + 30 + (18 * 40);
+  obstacles[0] := calcObstacleAddr(10,  6);
+  obstacles[1] := calcObstacleAddr(30,  6);
+  obstacles[2] := calcObstacleAddr(10, 18);
+  obstacles[3] := calcObstacleAddr(30, 18);
   obstacles[4] := TRASH;
-  obstacles[5] := SCREEN_ADDR + 20 + ( 2 * 40);
-  obstacles[6] := SCREEN_ADDR + 20 + (22 * 40);
+  obstacles[5] := calcObstacleAddr(20,  2);
+  obstacles[6] := calcObstacleAddr(20, 22);
   obstacles[7] := TRASH;
 
   saveObstacles;
@@ -49,13 +49,13 @@ begin
   setPlayer(@player3, 20,  4, JOY_DOWN,  AI_BULLY,  PLY_HEAD, PLY3_COLOUR, false);
   setPlayer(@player4, 20, 18, JOY_UP,    AI_SAPPER, PLY_HEAD, PLY4_COLOUR, false);
 
-  obstacles[0] := SCREEN_ADDR + 10 + ( 6 * 40);
-  obstacles[1] := SCREEN_ADDR + 30 + ( 6 * 40);
-  obstacles[2] := SCREEN_ADDR + 10 + (18 * 40);
-  obstacles[3] := SCREEN_ADDR + 30 + (18 * 40);
+  obstacles[0] := calcObstacleAddr(10,  6);
+  obstacles[1] := calcObstacleAddr(30,  6);
+  obstacles[2] := calcObstacleAddr(10, 18);
+  obstacles[3] := calcObstacleAddr(30, 18);
   obstacles[4] := TRASH;
-  obstacles[5] := SCREEN_ADDR + 20 + ( 2 * 40);
-  obstacles[6] := SCREEN_ADDR + 20 + (22 * 40);
+  obstacles[5] := calcObstacleAddr(20,  2);
+  obstacles[6] := calcObstacleAddr(20, 22);
   obstacles[7] := TRASH;
 
   saveObstacles;
@@ -70,13 +70,13 @@ begin
   setPlayer(@player3, 20,  4, JOY_DOWN,  AI_BULLY,  PLY_HEAD, PLY3_COLOUR, false);
   setPlayer(@player4, 20, 18, JOY_UP,    AI_BULLY,  PLY_HEAD, PLY4_COLOUR, false);
 
-  obstacles[0] := SCREEN_ADDR + 10 + ( 6 * 40);
-  obstacles[1] := SCREEN_ADDR + 30 + ( 6 * 40);
-  obstacles[2] := SCREEN_ADDR + 10 + (18 * 40);
-  obstacles[3] := SCREEN_ADDR + 30 + (18 * 40);
-  obstacles[4] := SCREEN_ADDR +  1 + (12 * 40);
-  obstacles[5] := SCREEN_ADDR + 20 + ( 2 * 40);
-  obstacles[6] := SCREEN_ADDR + 20 + (22 * 40);
+  obstacles[0] := calcObstacleAddr(10,  6);
+  obstacles[1] := calcObstacleAddr(30,  6);
+  obstacles[2] := calcObstacleAddr(10, 18);
+  obstacles[3] := calcObstacleAddr(30, 18);
+  obstacles[4] := calcObstacleAddr( 1, 12);
+  obstacles[5] := calcObstacleAddr(20,  2);
+  obstacles[6] := calcObstacleAddr(20, 22);
   obstacles[7] := TRASH;
 
   saveObstacles;
@@ -91,14 +91,14 @@ begin
   setPlayer(@player3, 20,  4, JOY_DOWN,  AI_BULLY,  PLY_HEAD, PLY3_COLOUR, false);
   setPlayer(@player4, 20, 18, JOY_UP,    AI_BULLY,  PLY_HEAD, PLY4_COLOUR, false);
 
-  obstacles[0] := SCREEN_ADDR + 10 + ( 6 * 40);
-  obstacles[1] := SCREEN_ADDR + 30 + ( 6 * 40);
-  obstacles[2] := SCREEN_ADDR + 10 + (18 * 40);
-  obstacles[3] := SCREEN_ADDR + 30 + (18 * 40);
-  obstacles[4] := SCREEN_ADDR +  1 + (12 * 40);
-  obstacles[5] := SCREEN_ADDR + 20 + ( 2 * 40);
-  obstacles[6] := SCREEN_ADDR + 20 + (22 * 40);
-  obstacles[7] := SCREEN_ADDR + 20 + (12 * 40); // center
+  obstacles[0] := calcObstacleAddr(10,  6);
+  obstacles[1] := calcObstacleAddr(30,  6);
+  obstacles[2] := calcObstacleAddr(10, 18);
+  obstacles[3] := calcObstacleAddr(30, 18);
+  obstacles[4] := calcObstacleAddr( 1, 12);
+  obstacles[5] := calcObstacleAddr(20,  2);
+  obstacles[6] := calcObstacleAddr(20, 22);
+  obstacles[7] := calcObstacleAddr(20, 12); // center
 
   saveObstacles;
 end;
@@ -112,13 +112,13 @@ begin
   setPlayer(@player3, 20,  4, JOY_DOWN,  AI_BULLY,  PLY_HEAD, PLY3_COLOUR, true);
   setPlayer(@player4, 20, 18, JOY_UP,    AI_SAPPER, PLY_HEAD, PLY4_COLOUR, true);
 
-  obstacles[0] := SCREEN_ADDR + 10 + ( 6 * 40);
-  obstacles[1] := SCREEN_ADDR + 30 + ( 6 * 40);
-  obstacles[2] := SCREEN_ADDR + 10 + (18 * 40);
-  obstacles[3] := SCREEN_ADDR + 30 + (18 * 40);
-  obstacles[4] := SCREEN_ADDR +  1 + (12 * 40);
-  obstacles[5] := SCREEN_ADDR + 20 + ( 2 * 40);
-  obstacles[6] := SCREEN_ADDR + 20 + (22 * 40);
+  obstacles[0] := calcObstacleAddr(10,  6);
+  obstacles[1] := calcObstacleAddr(30,  6);
+  obstacles[2] := calcObstacleAddr(10, 18);
+  obstacles[3] := calcObstacleAddr(30, 18);
+  obstacles[4] := calcObstacleAddr( 1, 12);
+  obstacles[5] := calcObstacleAddr(20,  2);
+  obstacles[6] := calcObstacleAddr(20, 22);
   obstacles[7] := TRASH;
 
   saveObstacles;
@@ -133,14 +133,14 @@ begin
   setPlayer(@player3,  6,  6, JOY_DOWN,  AI_SAPPER, PLY_HEAD, PLY3_COLOUR, true);
   setPlayer(@player4, 36, 18, JOY_RIGHT, AI_BULLY,  PLY_HEAD, PLY4_COLOUR, true);
 
-  obstacles[0] := SCREEN_ADDR + 10 + ( 6 * 40);
-  obstacles[1] := SCREEN_ADDR + 30 + ( 6 * 40);
-  obstacles[2] := SCREEN_ADDR + 10 + (18 * 40);
-  obstacles[3] := SCREEN_ADDR + 30 + (18 * 40);
-  obstacles[4] := SCREEN_ADDR +  1 + (12 * 40);
-  obstacles[5] := SCREEN_ADDR + 20 + ( 2 * 40);
-  obstacles[6] := SCREEN_ADDR + 20 + (22 * 40);
-  obstacles[7] := SCREEN_ADDR + 20 + (12 * 40); // center
+  obstacles[0] := calcObstacleAddr(10,  6);
+  obstacles[1] := calcObstacleAddr(30,  6);
+  obstacles[2] := calcObstacleAddr(10, 18);
+  obstacles[3] := calcObstacleAddr(30, 18);
+  obstacles[4] := calcObstacleAddr( 1, 12);
+  obstacles[5] := calcObstacleAddr(20,  2);
+  obstacles[6] := calcObstacleAddr(20, 22);
+  obstacles[7] := calcObstacleAddr(20, 12); // center
 
   saveObstacles;
 end;
@@ -154,14 +154,14 @@ begin
   setPlayer(@player3, 30,  4, JOY_DOWN,  AI_BULLY,  PLY_HEAD, PLY3_COLOUR, true);
   setPlayer(@player4, 36, 21, JOY_UP,    AI_SAPPER, PLY_HEAD, PLY4_COLOUR, true);
 
-  obstacles[0] := SCREEN_ADDR + 10 + ( 6 * 40);
-  obstacles[1] := SCREEN_ADDR + 30 + ( 6 * 40);
-  obstacles[2] := SCREEN_ADDR + 10 + (18 * 40);
-  obstacles[3] := SCREEN_ADDR + 30 + (18 * 40);
-  obstacles[4] := SCREEN_ADDR +  1 + (12 * 40);
-  obstacles[5] := SCREEN_ADDR + 20 + ( 2 * 40);
-  obstacles[6] := SCREEN_ADDR + 20 + (22 * 40);
-  obstacles[7] := SCREEN_ADDR + 20 + (12 * 40); // center
+  obstacles[0] := calcObstacleAddr(10,  6);
+  obstacles[1] := calcObstacleAddr(30,  6);
+  obstacles[2] := calcObstacleAddr(10, 18);
+  obstacles[3] := calcObstacleAddr(30, 18);
+  obstacles[4] := calcObstacleAddr( 1, 12);
+  obstacles[5] := calcObstacleAddr(20,  2);
+  obstacles[6] := calcObstacleAddr(20, 22);
+  obstacles[7] := calcObstacleAddr(20, 12); // center
 
   saveObstacles;
 end;
@@ -175,14 +175,14 @@ begin
   setPlayer(@player3, 10,  1, JOY_DOWN,  AI_SAPPER, PLY_HEAD, PLY3_COLOUR, true);
   setPlayer(@player4, 38,  1, JOY_LEFT,  AI_MIRROR, PLY_HEAD, PLY4_COLOUR, true);
 
-  obstacles[0] := SCREEN_ADDR + 10 + ( 6 * 40);
-  obstacles[1] := SCREEN_ADDR + 30 + ( 6 * 40);
-  obstacles[2] := SCREEN_ADDR + 10 + (18 * 40);
-  obstacles[3] := SCREEN_ADDR + 30 + (18 * 40);
-  obstacles[4] := SCREEN_ADDR +  1 + (12 * 40);
-  obstacles[5] := SCREEN_ADDR + 20 + ( 2 * 40);
-  obstacles[6] := SCREEN_ADDR + 20 + (22 * 40);
-  obstacles[7] := SCREEN_ADDR + 20 + (12 * 40); // center
+  obstacles[0] := calcObstacleAddr(10,  6);
+  obstacles[1] := calcObstacleAddr(30,  6);
+  obstacles[2] := calcObstacleAddr(10, 18);
+  obstacles[3] := calcObstacleAddr(30, 18);
+  obstacles[4] := calcObstacleAddr( 1, 12);
+  obstacles[5] := calcObstacleAddr(20,  2);
+  obstacles[6] := calcObstacleAddr(20, 22);
+  obstacles[7] := calcObstacleAddr(20, 12); // center
 
   saveObstacles;
 end;

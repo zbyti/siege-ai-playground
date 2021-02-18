@@ -779,17 +779,61 @@ OBST	= DATAORIGIN+$004A
 	eif
 .endl
 
-.local	SAVEOBSTACLES					; PROCEDURE
+.local	CALCOBSTACLEADDR				; FUNCTION
 
 ; optimize OK (tools.inc), line = 52
+
+	lda Y
+	asl @
+	tay
+	lda X
+	add adr.MUL40,y
+	sta RESULT
+	lda #$0C
+	adc adr.MUL40+1,y
+	sta RESULT+1
+@exit
+
+; ------------------------------------------------------------
+
+; Push WORD / SMALLINT / SHORTREAL / POINTER
+; as Pointer
+
+	inx
+	mva RESULT :STACKORIGIN,x
+	mva RESULT+1 :STACKORIGIN+STACKWIDTH,x
+
+	.ifdef @new
+	lda <@VarData
+	sta :ztmp
+	lda >@VarData
+	ldy #@VarDataSize-1
+	jmp @FreeMem
+	eif
+
+; ------------------------------------------------------------
+
+X	= DATAORIGIN+$004B
+Y	= DATAORIGIN+$004C
+RESULT	= DATAORIGIN+$004D
+
+@VarData	= X
+@VarDataSize	= 4
+
+	rts						; ret
+.endl
+
+.local	SAVEOBSTACLES					; PROCEDURE
+
+; optimize OK (tools.inc), line = 59
 
 	lda #$07
 	sta I0B
 
-l_01E3
+l_01FB
 ; --- ForToDoCondition
 
-; optimize OK (tools.inc), line = 53
+; optimize OK (tools.inc), line = 60
 
 	lda I0B
 	asl @
@@ -800,9 +844,9 @@ l_01E3
 	lda adr.OBSTACLES,y
 	cmp #$7E
 @
-	jeq l_0205
+	jeq l_021D
 
-; optimize OK (tools.inc), line = 54
+; optimize OK (tools.inc), line = 61
 
 	lda adr.OBSTACLES,y
 	sta :STACKORIGIN+9
@@ -812,7 +856,7 @@ l_01E3
 	lda #$56
 	sta (:bp),y
 
-; optimize OK (tools.inc), line = 55
+; optimize OK (tools.inc), line = 62
 
 	lda I0B
 	asl @
@@ -826,16 +870,16 @@ l_01E3
 	ldy :STACKORIGIN+9
 	lda #$35
 	sta (:bp),y
-l_0205
+l_021D
 
 ; --- ForToDoEpilog
 	dec I0B
-	jpl l_01E3
-l_01F1
+	jpl l_01FB
+l_0209
 
 ; ------------------------------------------------------------
 
-@FORTMP_01E0	= $00
+@FORTMP_01F8	= $00
 @exit
 	.ifdef @new
 	lda <@VarData
@@ -850,87 +894,87 @@ l_01F1
 
 .local	DRAWTAIL					; PROCEDURE
 
-; optimize OK (tools.inc), line = 64
+; optimize OK (tools.inc), line = 71
 
 	mwy PLY :bp2
 	ldy #PLY.DIR-DATAORIGIN
 	lda (:bp2),y
 	cmp NEWDIR
-	jne l_0237
+	jne l_024F
 
-; optimize OK (tools.inc), line = 65
+; optimize OK (tools.inc), line = 72
 
 	lda NEWDIR
 	and #$0C
-	jeq l_024E
+	jeq l_0266
 	lda #$40
 	sta T0B
-	jmp l_025C
-l_024E
+	jmp l_0274
+l_0266
 	lda #$42
 	sta T0B
-l_025C
-	jmp l_0269
-l_0237
+l_0274
+	jmp l_0281
+l_024F
 
-; optimize OK (tools.inc), line = 67
+; optimize OK (tools.inc), line = 74
 
 	mwy PLY :bp2
 	ldy #PLY.DIR-DATAORIGIN
 	lda (:bp2),y
 	and #$0A
-	jeq l_028F
+	jeq l_02A7
 	lda NEWDIR
 	and #$05
-	jeq l_028F
+	jeq l_02A7
 	lda #$7D
 	sta T0B
-l_028F
+l_02A7
 
-; optimize OK (tools.inc), line = 68
+; optimize OK (tools.inc), line = 75
 
 	mwy PLY :bp2
 	ldy #PLY.DIR-DATAORIGIN
 	lda (:bp2),y
 	and #$09
-	jeq l_02BC
+	jeq l_02D4
 	lda NEWDIR
 	and #$06
-	jeq l_02BC
+	jeq l_02D4
 	lda #$6E
 	sta T0B
-l_02BC
+l_02D4
 
-; optimize OK (tools.inc), line = 69
+; optimize OK (tools.inc), line = 76
 
 	mwy PLY :bp2
 	ldy #PLY.DIR-DATAORIGIN
 	lda (:bp2),y
 	and #$06
-	jeq l_02E9
+	jeq l_0301
 	lda NEWDIR
 	and #$09
-	jeq l_02E9
+	jeq l_0301
 	lda #$6D
 	sta T0B
-l_02E9
+l_0301
 
-; optimize OK (tools.inc), line = 70
+; optimize OK (tools.inc), line = 77
 
 	mwy PLY :bp2
 	ldy #PLY.DIR-DATAORIGIN
 	lda (:bp2),y
 	and #$05
-	jeq l_0316
+	jeq l_032E
 	lda NEWDIR
 	and #$0A
-	jeq l_0316
+	jeq l_032E
 	lda #$70
 	sta T0B
-l_0316
-l_0269
+l_032E
+l_0281
 
-; optimize OK (tools.inc), line = 72
+; optimize OK (tools.inc), line = 79
 
 	mwy PLY :bp2
 	ldy #PLY.X-DATAORIGIN
@@ -956,14 +1000,14 @@ l_0269
 
 .local	CHECKJOYSTATUS					; PROCEDURE
 
-; optimize OK (tools.inc), line = 79
+; optimize OK (tools.inc), line = 86
 
 	lda #$02
 	sta JOY
 	lda #$FF
 	sta KEYSCAN
 
-; optimize OK (tools.inc), line = 80
+; optimize OK (tools.inc), line = 87
 
 	lda JOY
 	eor #$FF
@@ -982,7 +1026,7 @@ l_0269
 
 .local	SETPLAYER					; PROCEDURE
 
-; optimize OK (tools.inc), line = 87
+; optimize OK (tools.inc), line = 94
 
 	lda P
 	sta PLY
@@ -990,7 +1034,7 @@ l_0269
 	lda P+1
 	sta PLY+1
 	sta :bp2+1
-; optimize OK (tools.inc), line = 88
+; optimize OK (tools.inc), line = 95
 	ldy #PLY.BRAIN-DATAORIGIN
 	lda BRAIN
 	sta (:bp2),y
@@ -1004,7 +1048,7 @@ l_0269
 	lda DIR
 	sta (:bp2),y
 
-; optimize OK (tools.inc), line = 89
+; optimize OK (tools.inc), line = 96
 
 	ldy #PLY.HEAD-DATAORIGIN
 	lda HEAD
@@ -1016,12 +1060,12 @@ l_0269
 	lda ISALIVE
 	sta (:bp2),y
 
-; optimize OK (tools.inc), line = 90
+; optimize OK (tools.inc), line = 97
 
 	lda ISALIVE
-	jeq l_037C
+	jeq l_0394
 
-; optimize FAIL (0, tools.inc), line = 91
+; optimize FAIL (0, tools.inc), line = 98
 
 	inc ALIVE
 	lda COLOUR
@@ -1033,18 +1077,18 @@ l_0269
 	lda X
 	sta PUTCHAR_0072.X
 	jsr PUTCHAR_0072
-l_037C
+l_0394
 
 ; ------------------------------------------------------------
 
-P	= DATAORIGIN+$004B
-X	= DATAORIGIN+$004D
-Y	= DATAORIGIN+$004E
-DIR	= DATAORIGIN+$004F
-BRAIN	= DATAORIGIN+$0050
-HEAD	= DATAORIGIN+$0051
-COLOUR	= DATAORIGIN+$0052
-ISALIVE	= DATAORIGIN+$0053
+P	= DATAORIGIN+$004F
+X	= DATAORIGIN+$0051
+Y	= DATAORIGIN+$0052
+DIR	= DATAORIGIN+$0053
+BRAIN	= DATAORIGIN+$0054
+HEAD	= DATAORIGIN+$0055
+COLOUR	= DATAORIGIN+$0056
+ISALIVE	= DATAORIGIN+$0057
 
 @VarData	= P
 @VarDataSize	= 9
@@ -1089,7 +1133,7 @@ ISALIVE	= DATAORIGIN+$0053
 	lda #$27
 	sta T0B
 
-l_03A9
+l_03C1
 ; --- ForToDoCondition
 
 ; optimize OK (init.inc), line = 9
@@ -1113,19 +1157,19 @@ l_03A9
 
 ; --- ForToDoEpilog
 	dec T0B
-	jpl l_03A9
-l_03B7
+	jpl l_03C1
+l_03CF
 
 ; optimize OK (init.inc), line = 15
 
 	lda #$18
 	sta T0B
 
-l_03E9
+l_0401
 ; --- ForToDoCondition
 	lda T0B
 	cmp #$01
-	jcc l_03F7
+	jcc l_040F
 
 ; optimize OK (init.inc), line = 16
 
@@ -1162,13 +1206,13 @@ l_03E9
 
 ; --- ForToDoEpilog
 	dec T0B
-	jpl l_03E9
-l_03F7
+	jpl l_0401
+l_040F
 
 ; ------------------------------------------------------------
 
-@FORTMP_03A6	= $00
-@FORTMP_03E6	= $01
+@FORTMP_03BE	= $00
+@FORTMP_03FE	= $01
 @exit
 	.ifdef @new
 	lda <@VarData
@@ -1189,32 +1233,32 @@ l_03F7
 	ldy #PLY.DIR-DATAORIGIN
 	lda (:bp2),y
 	and AVAILDIR
-	jeq l_042E
+	jeq l_0446
 	lda (:bp2),y
 	sta NEWDIR
-	jmp l_043E
-l_042E
+	jmp l_0456
+l_0446
 
 ; optimize OK (ai.inc), line = 7
 
 	lda AVAILDIR
 	cmp #$03
-	jne l_0450
+	jne l_0468
 	lda #$02
 	jsr SYSTEM.RANDOM_006D
 	ldy :STACKORIGIN,x
 	lda adr.DIRECTION,y
 	sta NEWDIR
 	dex
-	jmp l_0462
-l_0450
+	jmp l_047A
+l_0468
 
 ; optimize OK (ai.inc), line = 9
 
 	lda AVAILDIR
 	sta @CASETMP_0003
 	cmp #$01
-	jne l_046D
+	jne l_0485
 @
 
 ; optimize OK (ai.inc), line = 10
@@ -1223,9 +1267,9 @@ l_0450
 	sta NEWDIR
 
 	jmp a_0003
-l_046D
+l_0485
 	cmp #$02
-	jne l_047A
+	jne l_0492
 @
 
 ; optimize OK (ai.inc), line = 11
@@ -1233,15 +1277,15 @@ l_046D
 	lda #$02
 	sta NEWDIR
 
-l_047A
+l_0492
 a_0003
-l_0462
+l_047A
 
 ; optimize OK (ai.inc), line = 14
 
 	lda AVAILDIR
 	cmp #$0C
-	jne l_0496
+	jne l_04AE
 	lda #$02
 	jsr SYSTEM.RANDOM_006D
 	inx
@@ -1254,15 +1298,15 @@ l_0462
 	lda adr.DIRECTION,y
 	sta NEWDIR
 	dex
-	jmp l_04AC
-l_0496
+	jmp l_04C4
+l_04AE
 
 ; optimize OK (ai.inc), line = 16
 
 	lda AVAILDIR
 	sta @CASETMP_0004
 	cmp #$04
-	jne l_04B7
+	jne l_04CF
 @
 
 ; optimize OK (ai.inc), line = 17
@@ -1271,9 +1315,9 @@ l_0496
 	sta NEWDIR
 
 	jmp a_0004
-l_04B7
+l_04CF
 	cmp #$08
-	jne l_04C4
+	jne l_04DC
 @
 
 ; optimize OK (ai.inc), line = 18
@@ -1281,15 +1325,15 @@ l_04B7
 	lda #$08
 	sta NEWDIR
 
-l_04C4
+l_04DC
 a_0004
-l_04AC
-l_043E
+l_04C4
+l_0456
 
 ; ------------------------------------------------------------
 
-@CASETMP_0003	= DATAORIGIN+$0054
-@CASETMP_0004	= DATAORIGIN+$0055
+@CASETMP_0003	= DATAORIGIN+$0058
+@CASETMP_0004	= DATAORIGIN+$0059
 
 @VarData	= @CASETMP_0003
 @VarDataSize	= 2
@@ -1341,18 +1385,18 @@ l_043E
 
 	lda AVAILDIR
 	and #$01
-	jeq l_050A
+	jeq l_0522
 
 ; optimize OK (ai.inc), line = 35
 
 	lda #$05
 	sta I0B
 
-l_0514
+l_052C
 ; --- ForToDoCondition
 	lda I0B
 	cmp #$01
-	jcc l_0522
+	jcc l_053A
 
 ; optimize OK (ai.inc), line = 36
 
@@ -1367,9 +1411,9 @@ l_0514
 	ldy :STACKORIGIN+9
 	lda (:bp),y
 	cmp #$20
-	jne l_053C
+	jne l_0554
 	inc U
-l_053C
+l_0554
 
 ; optimize OK (ai.inc), line = 37
 
@@ -1389,9 +1433,9 @@ l_053C
 	inc :bp+1
 	lda (:bp),y
 	cmp #$20
-	jne l_0561
+	jne l_0579
 	inc U
-l_0561
+l_0579
 
 ; optimize OK (ai.inc), line = 38
 
@@ -1410,32 +1454,32 @@ l_0561
 	dec :bp+1
 	lda (:bp),y
 	cmp #$20
-	jne l_0586
+	jne l_059E
 	inc U
-l_0586
+l_059E
 
 ; --- ForToDoEpilog
 	dec I0B
-	jpl l_0514
+	jpl l_052C
+l_053A
 l_0522
-l_050A
 
 ; optimize OK (ai.inc), line = 42
 
 	lda AVAILDIR
 	and #$02
-	jeq l_05AA
+	jeq l_05C2
 
 ; optimize OK (ai.inc), line = 43
 
 	lda #$05
 	sta I0B
 
-l_05B4
+l_05CC
 ; --- ForToDoCondition
 	lda I0B
 	cmp #$01
-	jcc l_05C2
+	jcc l_05DA
 
 ; optimize OK (ai.inc), line = 44
 
@@ -1450,9 +1494,9 @@ l_05B4
 	ldy :STACKORIGIN+9
 	lda (:bp),y
 	cmp #$20
-	jne l_05DC
+	jne l_05F4
 	inc D
-l_05DC
+l_05F4
 
 ; optimize OK (ai.inc), line = 45
 
@@ -1472,9 +1516,9 @@ l_05DC
 	inc :bp+1
 	lda (:bp),y
 	cmp #$20
-	jne l_0601
+	jne l_0619
 	inc D
-l_0601
+l_0619
 
 ; optimize OK (ai.inc), line = 46
 
@@ -1493,32 +1537,32 @@ l_0601
 	dec :bp+1
 	lda (:bp),y
 	cmp #$20
-	jne l_0626
+	jne l_063E
 	inc D
-l_0626
+l_063E
 
 ; --- ForToDoEpilog
 	dec I0B
-	jpl l_05B4
+	jpl l_05CC
+l_05DA
 l_05C2
-l_05AA
 
 ; optimize OK (ai.inc), line = 50
 
 	lda AVAILDIR
 	and #$04
-	jeq l_064A
+	jeq l_0662
 
 ; optimize OK (ai.inc), line = 51
 
 	lda #$05
 	sta I0B
 
-l_0654
+l_066C
 ; --- ForToDoCondition
 	lda I0B
 	cmp #$01
-	jcc l_0662
+	jcc l_067A
 
 ; optimize OK (ai.inc), line = 52
 
@@ -1530,9 +1574,9 @@ l_0654
 	sta :bp+1
 	lda (:bp),y
 	cmp #$20
-	jne l_067A
+	jne l_0692
 	inc L
-l_067A
+l_0692
 
 ; optimize OK (ai.inc), line = 53
 
@@ -1549,9 +1593,9 @@ l_067A
 	inc :bp+1
 	lda (:bp),y
 	cmp #$20
-	jne l_069D
+	jne l_06B5
 	inc L
-l_069D
+l_06B5
 
 ; optimize OK (ai.inc), line = 54
 
@@ -1568,32 +1612,32 @@ l_069D
 	dec :bp+1
 	lda (:bp),y
 	cmp #$20
-	jne l_06C0
+	jne l_06D8
 	inc L
-l_06C0
+l_06D8
 
 ; --- ForToDoEpilog
 	dec I0B
-	jpl l_0654
+	jpl l_066C
+l_067A
 l_0662
-l_064A
 
 ; optimize OK (ai.inc), line = 58
 
 	lda AVAILDIR
 	and #$08
-	jeq l_06E4
+	jeq l_06FC
 
 ; optimize OK (ai.inc), line = 59
 
 	lda #$05
 	sta I0B
 
-l_06EE
+l_0706
 ; --- ForToDoCondition
 	lda I0B
 	cmp #$01
-	jcc l_06FC
+	jcc l_0714
 
 ; optimize OK (ai.inc), line = 60
 
@@ -1601,9 +1645,9 @@ l_06EE
 	ldy I0B
 	lda (:bp2),y
 	cmp #$20
-	jne l_0714
+	jne l_072C
 	inc R
-l_0714
+l_072C
 
 ; optimize OK (ai.inc), line = 61
 
@@ -1620,9 +1664,9 @@ l_0714
 	inc :bp+1
 	lda (:bp),y
 	cmp #$20
-	jne l_0737
+	jne l_074F
 	inc R
-l_0737
+l_074F
 
 ; optimize OK (ai.inc), line = 62
 
@@ -1639,15 +1683,15 @@ l_0737
 	dec :bp+1
 	lda (:bp),y
 	cmp #$20
-	jne l_075A
+	jne l_0772
 	inc R
-l_075A
+l_0772
 
 ; --- ForToDoEpilog
 	dec I0B
-	jpl l_06EE
+	jpl l_0706
+l_0714
 l_06FC
-l_06E4
 
 ; optimize OK (ai.inc), line = 66
 
@@ -1657,90 +1701,90 @@ l_06E4
 ; optimize OK (ai.inc), line = 67
 
 	cmp U
-	jcs l_0782
+	jcs l_079A
 	lda U
 	sta T0B
-l_0782
+l_079A
 
 ; optimize OK (ai.inc), line = 68
 
 	lda T0B
 	cmp L
-	jcs l_079F
+	jcs l_07B7
 	lda L
 	sta T0B
-l_079F
+l_07B7
 
 ; optimize OK (ai.inc), line = 69
 
 	lda T0B
 	cmp R
-	jcs l_07BC
+	jcs l_07D4
 	lda R
 	sta T0B
-l_07BC
+l_07D4
 
 ; optimize OK (ai.inc), line = 71
 
 	lda T0B
 	cmp D
-	jne l_07D9
+	jne l_07F1
 	lda #$02
 	sta T0B
-l_07D9
+l_07F1
 
 ; optimize OK (ai.inc), line = 72
 
 	lda T0B
 	cmp U
-	jne l_07F4
+	jne l_080C
 	lda #$01
 	sta T0B
-l_07F4
+l_080C
 
 ; optimize OK (ai.inc), line = 73
 
 	lda T0B
 	cmp L
-	jne l_080F
+	jne l_0827
 	lda #$04
 	sta T0B
-l_080F
+l_0827
 
 ; optimize OK (ai.inc), line = 74
 
 	lda T0B
 	cmp R
-	jne l_082A
+	jne l_0842
 	lda #$08
 	sta T0B
-l_082A
+l_0842
 
 ; optimize OK (ai.inc), line = 76
 
 	lda AVAILDIR
 	and T0B
-	jeq l_0849
+	jeq l_0861
 	lda T0B
 	sta NEWDIR
-	jmp l_0859
-l_0849
+	jmp l_0871
+l_0861
 
 ; optimize FAIL ('AISTRAIGHT', ai.inc), line = 77
 
 	jsr AISTRAIGHT
-l_0859
+l_0871
 
 ; ------------------------------------------------------------
 
-L	= DATAORIGIN+$0056
-R	= DATAORIGIN+$0057
-U	= DATAORIGIN+$0058
-D	= DATAORIGIN+$0059
-@FORTMP_0511	= $01
-@FORTMP_05B1	= $01
-@FORTMP_0651	= $01
-@FORTMP_06EB	= $01
+L	= DATAORIGIN+$005A
+R	= DATAORIGIN+$005B
+U	= DATAORIGIN+$005C
+D	= DATAORIGIN+$005D
+@FORTMP_0529	= $01
+@FORTMP_05C9	= $01
+@FORTMP_0669	= $01
+@FORTMP_0703	= $01
 
 @VarData	= L
 @VarDataSize	= 4
@@ -1770,23 +1814,23 @@ D	= DATAORIGIN+$0059
 
 	lda PLAYER1.ISALIVE
 	ora PLAYER2.ISALIVE
-	jeq l_0876
+	jeq l_088E
 
 ; optimize OK (ai.inc), line = 88
 
 	lda PLAYER1.ISALIVE
-	jeq l_0883
+	jeq l_089B
 	lda PLAYER1
 	sta TMPPLY
 	lda PLAYER1+1
 	sta TMPPLY+1
-	jmp l_0892
-l_0883
+	jmp l_08AA
+l_089B
 	lda PLAYER2
 	sta TMPPLY
 	lda PLAYER2+1
 	sta TMPPLY+1
-l_0892
+l_08AA
 
 ; optimize OK (ai.inc), line = 90
 
@@ -1798,14 +1842,14 @@ l_0892
 	ldy #TMPPLY.Y-DATAORIGIN
 	lda (:bp2),y
 	cmp :STACKORIGIN+9
-	jcs l_08AB
+	jcs l_08C3
 	lda #$01
 	sta T0B
-	jmp l_08B9
-l_08AB
+	jmp l_08D1
+l_08C3
 	lda #$02
 	sta T0B
-l_08B9
+l_08D1
 
 ; optimize OK (ai.inc), line = 91
 
@@ -1817,11 +1861,11 @@ l_08B9
 	ldy #TMPPLY.Y-DATAORIGIN
 	lda (:bp2),y
 	cmp :STACKORIGIN+9
-	jeq l_08E3x
+	jeq l_08FBx
 	lda AVAILDIR
 	and T0B
-	jne l_08E3
-l_08E3x
+	jne l_08FB
+l_08FBx
 
 ; optimize OK (ai.inc), line = 92
 
@@ -1833,31 +1877,31 @@ l_08E3x
 	ldy #TMPPLY.X-DATAORIGIN
 	lda (:bp2),y
 	cmp :STACKORIGIN+9
-	jcs l_08F8
+	jcs l_0910
 	lda #$04
 	sta T0B
-	jmp l_0906
-l_08F8
+	jmp l_091E
+l_0910
 	lda #$08
 	sta T0B
-l_0906
-l_08E3
-l_0876
+l_091E
+l_08FB
+l_088E
 
 ; optimize OK (ai.inc), line = 96
 
 	lda AVAILDIR
 	and T0B
-	jeq l_0926
+	jeq l_093E
 	lda T0B
 	sta NEWDIR
-	jmp l_0936
-l_0926
+	jmp l_094E
+l_093E
 
 ; optimize FAIL ('AISAPPER', ai.inc), line = 97
 
 	jsr AISAPPER
-l_0936
+l_094E
 @exit
 	.ifdef @new
 	lda <@VarData
@@ -1882,14 +1926,14 @@ l_0936
 ; optimize OK (ai.inc), line = 107
 
 	lda PLAYER1.ISALIVE
-	jeq l_094D
+	jeq l_0965
 
 ; optimize OK (ai.inc), line = 108
 
 	lda PLAYER1.DIR
 	sta @CASETMP_0005
 	cmp #$01
-	jne l_0959
+	jne l_0971
 @
 
 ; optimize OK (ai.inc), line = 109
@@ -1898,9 +1942,9 @@ l_0936
 	sta T0B
 
 	jmp a_0005
-l_0959
+l_0971
 	cmp #$02
-	jne l_0966
+	jne l_097E
 @
 
 ; optimize OK (ai.inc), line = 110
@@ -1909,9 +1953,9 @@ l_0959
 	sta T0B
 
 	jmp a_0005
-l_0966
+l_097E
 	cmp #$04
-	jne l_0973
+	jne l_098B
 @
 
 ; optimize OK (ai.inc), line = 111
@@ -1920,9 +1964,9 @@ l_0966
 	sta T0B
 
 	jmp a_0005
-l_0973
+l_098B
 	cmp #$08
-	jne l_0980
+	jne l_0998
 @
 
 ; optimize OK (ai.inc), line = 112
@@ -1930,28 +1974,28 @@ l_0973
 	lda #$04
 	sta T0B
 
-l_0980
+l_0998
 a_0005
-l_094D
+l_0965
 
 ; optimize OK (ai.inc), line = 116
 
 	lda AVAILDIR
 	and T0B
-	jeq l_09A6
+	jeq l_09BE
 	lda T0B
 	sta NEWDIR
-	jmp l_09B6
-l_09A6
+	jmp l_09CE
+l_09BE
 
 ; optimize FAIL ('AISAPPER', ai.inc), line = 117
 
 	jsr AISAPPER
-l_09B6
+l_09CE
 
 ; ------------------------------------------------------------
 
-@CASETMP_0005	= DATAORIGIN+$005A
+@CASETMP_0005	= DATAORIGIN+$005E
 
 @VarData	= @CASETMP_0005
 @VarDataSize	= 1
@@ -2058,33 +2102,71 @@ l_09B6
 	sta SETPLAYER.P+1
 	jsr SETPLAYER
 
-; optimize OK (levels.inc), line = 10
+; optimize FAIL (1, levels.inc), line = 10
 
-	lda #$FA
-	sta adr.OBSTACLES+$00
-	lda #$0C
-	sta adr.OBSTACLES+1+$00
+	inx
+	mva #$00 :STACKORIGIN,x
+	sta :STACKORIGIN+STACKWIDTH,x
+	lda #$06
+	sta CALCOBSTACLEADDR.Y
+	lda #$0A
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
 
-; optimize OK (levels.inc), line = 11
+; optimize FAIL (1, levels.inc), line = 11
 
-	lda #$0E
-	sta adr.OBSTACLES+$02
-	lda #$0D
-	sta adr.OBSTACLES+1+$02
+	mva #$02 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$06
+	sta CALCOBSTACLEADDR.Y
+	lda #$1E
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
 
-; optimize OK (levels.inc), line = 12
+; optimize FAIL (1, levels.inc), line = 12
 
-	lda #$DA
-	sta adr.OBSTACLES+$04
-	lda #$0E
-	sta adr.OBSTACLES+1+$04
+	mva #$04 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$12
+	sta CALCOBSTACLEADDR.Y
+	lda #$0A
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
 
-; optimize OK (levels.inc), line = 13
+; optimize FAIL (1, levels.inc), line = 13
 
-	lda #$EE
-	sta adr.OBSTACLES+$06
-	lda #$0E
-	sta adr.OBSTACLES+1+$06
+	mva #$06 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$12
+	sta CALCOBSTACLEADDR.Y
+	lda #$1E
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+	dex
 
 ; optimize OK (levels.inc), line = 14
 
@@ -2093,19 +2175,39 @@ l_09B6
 	lda #$00
 	sta adr.OBSTACLES+1+$08
 
-; optimize OK (levels.inc), line = 15
+; optimize FAIL (1, levels.inc), line = 15
 
-	lda #$64
-	sta adr.OBSTACLES+$0A
-	lda #$0C
-	sta adr.OBSTACLES+1+$0A
+	inx
+	mva #$0A :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$02
+	sta CALCOBSTACLEADDR.Y
+	lda #$14
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
 
-; optimize OK (levels.inc), line = 16
+; optimize FAIL (1, levels.inc), line = 16
 
-	lda #$84
-	sta adr.OBSTACLES+$0C
-	lda #$0F
-	sta adr.OBSTACLES+1+$0C
+	mva #$0C :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$16
+	sta CALCOBSTACLEADDR.Y
+	lda #$14
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+	dex
 
 ; optimize OK (levels.inc), line = 17
 
@@ -2219,33 +2321,71 @@ l_09B6
 	sta SETPLAYER.P+1
 	jsr SETPLAYER
 
-; optimize OK (levels.inc), line = 31
+; optimize FAIL (1, levels.inc), line = 31
 
-	lda #$FA
-	sta adr.OBSTACLES+$00
-	lda #$0C
-	sta adr.OBSTACLES+1+$00
+	inx
+	mva #$00 :STACKORIGIN,x
+	sta :STACKORIGIN+STACKWIDTH,x
+	lda #$06
+	sta CALCOBSTACLEADDR.Y
+	lda #$0A
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
 
-; optimize OK (levels.inc), line = 32
+; optimize FAIL (1, levels.inc), line = 32
 
-	lda #$0E
-	sta adr.OBSTACLES+$02
-	lda #$0D
-	sta adr.OBSTACLES+1+$02
+	mva #$02 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$06
+	sta CALCOBSTACLEADDR.Y
+	lda #$1E
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
 
-; optimize OK (levels.inc), line = 33
+; optimize FAIL (1, levels.inc), line = 33
 
-	lda #$DA
-	sta adr.OBSTACLES+$04
-	lda #$0E
-	sta adr.OBSTACLES+1+$04
+	mva #$04 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$12
+	sta CALCOBSTACLEADDR.Y
+	lda #$0A
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
 
-; optimize OK (levels.inc), line = 34
+; optimize FAIL (1, levels.inc), line = 34
 
-	lda #$EE
-	sta adr.OBSTACLES+$06
-	lda #$0E
-	sta adr.OBSTACLES+1+$06
+	mva #$06 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$12
+	sta CALCOBSTACLEADDR.Y
+	lda #$1E
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+	dex
 
 ; optimize OK (levels.inc), line = 35
 
@@ -2254,19 +2394,39 @@ l_09B6
 	lda #$00
 	sta adr.OBSTACLES+1+$08
 
-; optimize OK (levels.inc), line = 36
+; optimize FAIL (1, levels.inc), line = 36
 
-	lda #$64
-	sta adr.OBSTACLES+$0A
-	lda #$0C
-	sta adr.OBSTACLES+1+$0A
+	inx
+	mva #$0A :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$02
+	sta CALCOBSTACLEADDR.Y
+	lda #$14
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
 
-; optimize OK (levels.inc), line = 37
+; optimize FAIL (1, levels.inc), line = 37
 
-	lda #$84
-	sta adr.OBSTACLES+$0C
-	lda #$0F
-	sta adr.OBSTACLES+1+$0C
+	mva #$0C :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$16
+	sta CALCOBSTACLEADDR.Y
+	lda #$14
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+	dex
 
 ; optimize OK (levels.inc), line = 38
 
@@ -2380,33 +2540,71 @@ l_09B6
 	sta SETPLAYER.P+1
 	jsr SETPLAYER
 
-; optimize OK (levels.inc), line = 52
+; optimize FAIL (1, levels.inc), line = 52
 
-	lda #$FA
-	sta adr.OBSTACLES+$00
-	lda #$0C
-	sta adr.OBSTACLES+1+$00
+	inx
+	mva #$00 :STACKORIGIN,x
+	sta :STACKORIGIN+STACKWIDTH,x
+	lda #$06
+	sta CALCOBSTACLEADDR.Y
+	lda #$0A
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
 
-; optimize OK (levels.inc), line = 53
+; optimize FAIL (1, levels.inc), line = 53
 
-	lda #$0E
-	sta adr.OBSTACLES+$02
-	lda #$0D
-	sta adr.OBSTACLES+1+$02
+	mva #$02 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$06
+	sta CALCOBSTACLEADDR.Y
+	lda #$1E
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
 
-; optimize OK (levels.inc), line = 54
+; optimize FAIL (1, levels.inc), line = 54
 
-	lda #$DA
-	sta adr.OBSTACLES+$04
-	lda #$0E
-	sta adr.OBSTACLES+1+$04
+	mva #$04 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$12
+	sta CALCOBSTACLEADDR.Y
+	lda #$0A
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
 
-; optimize OK (levels.inc), line = 55
+; optimize FAIL (1, levels.inc), line = 55
 
-	lda #$EE
-	sta adr.OBSTACLES+$06
-	lda #$0E
-	sta adr.OBSTACLES+1+$06
+	mva #$06 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$12
+	sta CALCOBSTACLEADDR.Y
+	lda #$1E
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+	dex
 
 ; optimize OK (levels.inc), line = 56
 
@@ -2415,19 +2613,39 @@ l_09B6
 	lda #$00
 	sta adr.OBSTACLES+1+$08
 
-; optimize OK (levels.inc), line = 57
+; optimize FAIL (1, levels.inc), line = 57
 
-	lda #$64
-	sta adr.OBSTACLES+$0A
-	lda #$0C
-	sta adr.OBSTACLES+1+$0A
+	inx
+	mva #$0A :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$02
+	sta CALCOBSTACLEADDR.Y
+	lda #$14
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
 
-; optimize OK (levels.inc), line = 58
+; optimize FAIL (1, levels.inc), line = 58
 
-	lda #$84
-	sta adr.OBSTACLES+$0C
-	lda #$0F
-	sta adr.OBSTACLES+1+$0C
+	mva #$0C :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$16
+	sta CALCOBSTACLEADDR.Y
+	lda #$14
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+	dex
 
 ; optimize OK (levels.inc), line = 59
 
@@ -2541,54 +2759,119 @@ l_09B6
 	sta SETPLAYER.P+1
 	jsr SETPLAYER
 
-; optimize OK (levels.inc), line = 73
+; optimize FAIL (1, levels.inc), line = 73
 
-	lda #$FA
-	sta adr.OBSTACLES+$00
+	inx
+	mva #$00 :STACKORIGIN,x
+	sta :STACKORIGIN+STACKWIDTH,x
+	lda #$06
+	sta CALCOBSTACLEADDR.Y
+	lda #$0A
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+
+; optimize FAIL (1, levels.inc), line = 74
+
+	mva #$02 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$06
+	sta CALCOBSTACLEADDR.Y
+	lda #$1E
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+
+; optimize FAIL (1, levels.inc), line = 75
+
+	mva #$04 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$12
+	sta CALCOBSTACLEADDR.Y
+	lda #$0A
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+
+; optimize FAIL (1, levels.inc), line = 76
+
+	mva #$06 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$12
+	sta CALCOBSTACLEADDR.Y
+	lda #$1E
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+
+; optimize FAIL (1, levels.inc), line = 77
+
+	mva #$08 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
 	lda #$0C
-	sta adr.OBSTACLES+1+$00
+	sta CALCOBSTACLEADDR.Y
+	lda #$01
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
 
-; optimize OK (levels.inc), line = 74
+; optimize FAIL (1, levels.inc), line = 78
 
-	lda #$0E
-	sta adr.OBSTACLES+$02
-	lda #$0D
-	sta adr.OBSTACLES+1+$02
+	mva #$0A :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$02
+	sta CALCOBSTACLEADDR.Y
+	lda #$14
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
 
-; optimize OK (levels.inc), line = 75
+; optimize FAIL (1, levels.inc), line = 79
 
-	lda #$DA
-	sta adr.OBSTACLES+$04
-	lda #$0E
-	sta adr.OBSTACLES+1+$04
-
-; optimize OK (levels.inc), line = 76
-
-	lda #$EE
-	sta adr.OBSTACLES+$06
-	lda #$0E
-	sta adr.OBSTACLES+1+$06
-
-; optimize OK (levels.inc), line = 77
-
-	lda #$E1
-	sta adr.OBSTACLES+$08
-	lda #$0D
-	sta adr.OBSTACLES+1+$08
-
-; optimize OK (levels.inc), line = 78
-
-	lda #$64
-	sta adr.OBSTACLES+$0A
-	lda #$0C
-	sta adr.OBSTACLES+1+$0A
-
-; optimize OK (levels.inc), line = 79
-
-	lda #$84
-	sta adr.OBSTACLES+$0C
-	lda #$0F
-	sta adr.OBSTACLES+1+$0C
+	mva #$0C :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$16
+	sta CALCOBSTACLEADDR.Y
+	lda #$14
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+	dex
 
 ; optimize OK (levels.inc), line = 80
 
@@ -2702,61 +2985,135 @@ l_09B6
 	sta SETPLAYER.P+1
 	jsr SETPLAYER
 
-; optimize OK (levels.inc), line = 94
+; optimize FAIL (1, levels.inc), line = 94
 
-	lda #$FA
-	sta adr.OBSTACLES+$00
+	inx
+	mva #$00 :STACKORIGIN,x
+	sta :STACKORIGIN+STACKWIDTH,x
+	lda #$06
+	sta CALCOBSTACLEADDR.Y
+	lda #$0A
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+
+; optimize FAIL (1, levels.inc), line = 95
+
+	mva #$02 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$06
+	sta CALCOBSTACLEADDR.Y
+	lda #$1E
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+
+; optimize FAIL (1, levels.inc), line = 96
+
+	mva #$04 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$12
+	sta CALCOBSTACLEADDR.Y
+	lda #$0A
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+
+; optimize FAIL (1, levels.inc), line = 97
+
+	mva #$06 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$12
+	sta CALCOBSTACLEADDR.Y
+	lda #$1E
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+
+; optimize FAIL (1, levels.inc), line = 98
+
+	mva #$08 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
 	lda #$0C
-	sta adr.OBSTACLES+1+$00
+	sta CALCOBSTACLEADDR.Y
+	lda #$01
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
 
-; optimize OK (levels.inc), line = 95
+; optimize FAIL (1, levels.inc), line = 99
 
-	lda #$0E
-	sta adr.OBSTACLES+$02
-	lda #$0D
-	sta adr.OBSTACLES+1+$02
+	mva #$0A :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$02
+	sta CALCOBSTACLEADDR.Y
+	lda #$14
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
 
-; optimize OK (levels.inc), line = 96
+; optimize FAIL (1, levels.inc), line = 100
 
-	lda #$DA
-	sta adr.OBSTACLES+$04
-	lda #$0E
-	sta adr.OBSTACLES+1+$04
+	mva #$0C :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$16
+	sta CALCOBSTACLEADDR.Y
+	lda #$14
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
 
-; optimize OK (levels.inc), line = 97
+; optimize FAIL (1, levels.inc), line = 101
 
-	lda #$EE
-	sta adr.OBSTACLES+$06
-	lda #$0E
-	sta adr.OBSTACLES+1+$06
-
-; optimize OK (levels.inc), line = 98
-
-	lda #$E1
-	sta adr.OBSTACLES+$08
-	lda #$0D
-	sta adr.OBSTACLES+1+$08
-
-; optimize OK (levels.inc), line = 99
-
-	lda #$64
-	sta adr.OBSTACLES+$0A
+	mva #$0E :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
 	lda #$0C
-	sta adr.OBSTACLES+1+$0A
-
-; optimize OK (levels.inc), line = 100
-
-	lda #$84
-	sta adr.OBSTACLES+$0C
-	lda #$0F
-	sta adr.OBSTACLES+1+$0C
-
-; optimize OK (levels.inc), line = 101
-
-	lda #$F4
-	sta adr.OBSTACLES+$0E
-	lda #$0D
-	sta adr.OBSTACLES+1+$0E
+	sta CALCOBSTACLEADDR.Y
+	lda #$14
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+	dex
 
 ; optimize FAIL ('SAVEOBSTACLES', levels.inc), line = 103
 
@@ -2862,54 +3219,119 @@ l_09B6
 	sta SETPLAYER.P+1
 	jsr SETPLAYER
 
-; optimize OK (levels.inc), line = 115
+; optimize FAIL (1, levels.inc), line = 115
 
-	lda #$FA
-	sta adr.OBSTACLES+$00
+	inx
+	mva #$00 :STACKORIGIN,x
+	sta :STACKORIGIN+STACKWIDTH,x
+	lda #$06
+	sta CALCOBSTACLEADDR.Y
+	lda #$0A
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+
+; optimize FAIL (1, levels.inc), line = 116
+
+	mva #$02 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$06
+	sta CALCOBSTACLEADDR.Y
+	lda #$1E
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+
+; optimize FAIL (1, levels.inc), line = 117
+
+	mva #$04 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$12
+	sta CALCOBSTACLEADDR.Y
+	lda #$0A
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+
+; optimize FAIL (1, levels.inc), line = 118
+
+	mva #$06 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$12
+	sta CALCOBSTACLEADDR.Y
+	lda #$1E
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+
+; optimize FAIL (1, levels.inc), line = 119
+
+	mva #$08 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
 	lda #$0C
-	sta adr.OBSTACLES+1+$00
+	sta CALCOBSTACLEADDR.Y
+	lda #$01
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
 
-; optimize OK (levels.inc), line = 116
+; optimize FAIL (1, levels.inc), line = 120
 
-	lda #$0E
-	sta adr.OBSTACLES+$02
-	lda #$0D
-	sta adr.OBSTACLES+1+$02
+	mva #$0A :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$02
+	sta CALCOBSTACLEADDR.Y
+	lda #$14
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
 
-; optimize OK (levels.inc), line = 117
+; optimize FAIL (1, levels.inc), line = 121
 
-	lda #$DA
-	sta adr.OBSTACLES+$04
-	lda #$0E
-	sta adr.OBSTACLES+1+$04
-
-; optimize OK (levels.inc), line = 118
-
-	lda #$EE
-	sta adr.OBSTACLES+$06
-	lda #$0E
-	sta adr.OBSTACLES+1+$06
-
-; optimize OK (levels.inc), line = 119
-
-	lda #$E1
-	sta adr.OBSTACLES+$08
-	lda #$0D
-	sta adr.OBSTACLES+1+$08
-
-; optimize OK (levels.inc), line = 120
-
-	lda #$64
-	sta adr.OBSTACLES+$0A
-	lda #$0C
-	sta adr.OBSTACLES+1+$0A
-
-; optimize OK (levels.inc), line = 121
-
-	lda #$84
-	sta adr.OBSTACLES+$0C
-	lda #$0F
-	sta adr.OBSTACLES+1+$0C
+	mva #$0C :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$16
+	sta CALCOBSTACLEADDR.Y
+	lda #$14
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+	dex
 
 ; optimize OK (levels.inc), line = 122
 
@@ -3021,61 +3443,135 @@ l_09B6
 	sta SETPLAYER.P+1
 	jsr SETPLAYER
 
-; optimize OK (levels.inc), line = 136
+; optimize FAIL (1, levels.inc), line = 136
 
-	lda #$FA
-	sta adr.OBSTACLES+$00
+	inx
+	mva #$00 :STACKORIGIN,x
+	sta :STACKORIGIN+STACKWIDTH,x
+	lda #$06
+	sta CALCOBSTACLEADDR.Y
+	lda #$0A
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+
+; optimize FAIL (1, levels.inc), line = 137
+
+	mva #$02 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$06
+	sta CALCOBSTACLEADDR.Y
+	lda #$1E
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+
+; optimize FAIL (1, levels.inc), line = 138
+
+	mva #$04 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$12
+	sta CALCOBSTACLEADDR.Y
+	lda #$0A
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+
+; optimize FAIL (1, levels.inc), line = 139
+
+	mva #$06 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$12
+	sta CALCOBSTACLEADDR.Y
+	lda #$1E
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+
+; optimize FAIL (1, levels.inc), line = 140
+
+	mva #$08 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
 	lda #$0C
-	sta adr.OBSTACLES+1+$00
+	sta CALCOBSTACLEADDR.Y
+	lda #$01
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
 
-; optimize OK (levels.inc), line = 137
+; optimize FAIL (1, levels.inc), line = 141
 
-	lda #$0E
-	sta adr.OBSTACLES+$02
-	lda #$0D
-	sta adr.OBSTACLES+1+$02
+	mva #$0A :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$02
+	sta CALCOBSTACLEADDR.Y
+	lda #$14
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
 
-; optimize OK (levels.inc), line = 138
+; optimize FAIL (1, levels.inc), line = 142
 
-	lda #$DA
-	sta adr.OBSTACLES+$04
-	lda #$0E
-	sta adr.OBSTACLES+1+$04
+	mva #$0C :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$16
+	sta CALCOBSTACLEADDR.Y
+	lda #$14
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
 
-; optimize OK (levels.inc), line = 139
+; optimize FAIL (1, levels.inc), line = 143
 
-	lda #$EE
-	sta adr.OBSTACLES+$06
-	lda #$0E
-	sta adr.OBSTACLES+1+$06
-
-; optimize OK (levels.inc), line = 140
-
-	lda #$E1
-	sta adr.OBSTACLES+$08
-	lda #$0D
-	sta adr.OBSTACLES+1+$08
-
-; optimize OK (levels.inc), line = 141
-
-	lda #$64
-	sta adr.OBSTACLES+$0A
+	mva #$0E :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
 	lda #$0C
-	sta adr.OBSTACLES+1+$0A
-
-; optimize OK (levels.inc), line = 142
-
-	lda #$84
-	sta adr.OBSTACLES+$0C
-	lda #$0F
-	sta adr.OBSTACLES+1+$0C
-
-; optimize OK (levels.inc), line = 143
-
-	lda #$F4
-	sta adr.OBSTACLES+$0E
-	lda #$0D
-	sta adr.OBSTACLES+1+$0E
+	sta CALCOBSTACLEADDR.Y
+	lda #$14
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+	dex
 
 ; optimize FAIL ('SAVEOBSTACLES', levels.inc), line = 145
 
@@ -3182,61 +3678,135 @@ l_09B6
 	sta SETPLAYER.P+1
 	jsr SETPLAYER
 
-; optimize OK (levels.inc), line = 157
+; optimize FAIL (1, levels.inc), line = 157
 
-	lda #$FA
-	sta adr.OBSTACLES+$00
+	inx
+	mva #$00 :STACKORIGIN,x
+	sta :STACKORIGIN+STACKWIDTH,x
+	lda #$06
+	sta CALCOBSTACLEADDR.Y
+	lda #$0A
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+
+; optimize FAIL (1, levels.inc), line = 158
+
+	mva #$02 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$06
+	sta CALCOBSTACLEADDR.Y
+	lda #$1E
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+
+; optimize FAIL (1, levels.inc), line = 159
+
+	mva #$04 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$12
+	sta CALCOBSTACLEADDR.Y
+	lda #$0A
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+
+; optimize FAIL (1, levels.inc), line = 160
+
+	mva #$06 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$12
+	sta CALCOBSTACLEADDR.Y
+	lda #$1E
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+
+; optimize FAIL (1, levels.inc), line = 161
+
+	mva #$08 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
 	lda #$0C
-	sta adr.OBSTACLES+1+$00
+	sta CALCOBSTACLEADDR.Y
+	lda #$01
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
 
-; optimize OK (levels.inc), line = 158
+; optimize FAIL (1, levels.inc), line = 162
 
-	lda #$0E
-	sta adr.OBSTACLES+$02
-	lda #$0D
-	sta adr.OBSTACLES+1+$02
+	mva #$0A :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$02
+	sta CALCOBSTACLEADDR.Y
+	lda #$14
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
 
-; optimize OK (levels.inc), line = 159
+; optimize FAIL (1, levels.inc), line = 163
 
-	lda #$DA
-	sta adr.OBSTACLES+$04
-	lda #$0E
-	sta adr.OBSTACLES+1+$04
+	mva #$0C :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$16
+	sta CALCOBSTACLEADDR.Y
+	lda #$14
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
 
-; optimize OK (levels.inc), line = 160
+; optimize FAIL (1, levels.inc), line = 164
 
-	lda #$EE
-	sta adr.OBSTACLES+$06
-	lda #$0E
-	sta adr.OBSTACLES+1+$06
-
-; optimize OK (levels.inc), line = 161
-
-	lda #$E1
-	sta adr.OBSTACLES+$08
-	lda #$0D
-	sta adr.OBSTACLES+1+$08
-
-; optimize OK (levels.inc), line = 162
-
-	lda #$64
-	sta adr.OBSTACLES+$0A
+	mva #$0E :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
 	lda #$0C
-	sta adr.OBSTACLES+1+$0A
-
-; optimize OK (levels.inc), line = 163
-
-	lda #$84
-	sta adr.OBSTACLES+$0C
-	lda #$0F
-	sta adr.OBSTACLES+1+$0C
-
-; optimize OK (levels.inc), line = 164
-
-	lda #$F4
-	sta adr.OBSTACLES+$0E
-	lda #$0D
-	sta adr.OBSTACLES+1+$0E
+	sta CALCOBSTACLEADDR.Y
+	lda #$14
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+	dex
 
 ; optimize FAIL ('SAVEOBSTACLES', levels.inc), line = 166
 
@@ -3341,61 +3911,135 @@ l_09B6
 	sta SETPLAYER.P+1
 	jsr SETPLAYER
 
-; optimize OK (levels.inc), line = 178
+; optimize FAIL (1, levels.inc), line = 178
 
-	lda #$FA
-	sta adr.OBSTACLES+$00
+	inx
+	mva #$00 :STACKORIGIN,x
+	sta :STACKORIGIN+STACKWIDTH,x
+	lda #$06
+	sta CALCOBSTACLEADDR.Y
+	lda #$0A
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+
+; optimize FAIL (1, levels.inc), line = 179
+
+	mva #$02 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$06
+	sta CALCOBSTACLEADDR.Y
+	lda #$1E
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+
+; optimize FAIL (1, levels.inc), line = 180
+
+	mva #$04 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$12
+	sta CALCOBSTACLEADDR.Y
+	lda #$0A
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+
+; optimize FAIL (1, levels.inc), line = 181
+
+	mva #$06 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$12
+	sta CALCOBSTACLEADDR.Y
+	lda #$1E
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+
+; optimize FAIL (1, levels.inc), line = 182
+
+	mva #$08 :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
 	lda #$0C
-	sta adr.OBSTACLES+1+$00
+	sta CALCOBSTACLEADDR.Y
+	lda #$01
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
 
-; optimize OK (levels.inc), line = 179
+; optimize FAIL (1, levels.inc), line = 183
 
-	lda #$0E
-	sta adr.OBSTACLES+$02
-	lda #$0D
-	sta adr.OBSTACLES+1+$02
+	mva #$0A :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$02
+	sta CALCOBSTACLEADDR.Y
+	lda #$14
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
 
-; optimize OK (levels.inc), line = 180
+; optimize FAIL (1, levels.inc), line = 184
 
-	lda #$DA
-	sta adr.OBSTACLES+$04
-	lda #$0E
-	sta adr.OBSTACLES+1+$04
+	mva #$0C :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
+	lda #$16
+	sta CALCOBSTACLEADDR.Y
+	lda #$14
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
 
-; optimize OK (levels.inc), line = 181
+; optimize FAIL (1, levels.inc), line = 185
 
-	lda #$EE
-	sta adr.OBSTACLES+$06
-	lda #$0E
-	sta adr.OBSTACLES+1+$06
-
-; optimize OK (levels.inc), line = 182
-
-	lda #$E1
-	sta adr.OBSTACLES+$08
-	lda #$0D
-	sta adr.OBSTACLES+1+$08
-
-; optimize OK (levels.inc), line = 183
-
-	lda #$64
-	sta adr.OBSTACLES+$0A
+	mva #$0E :STACKORIGIN,x
+	mva #$00 :STACKORIGIN+STACKWIDTH,x
 	lda #$0C
-	sta adr.OBSTACLES+1+$0A
-
-; optimize OK (levels.inc), line = 184
-
-	lda #$84
-	sta adr.OBSTACLES+$0C
-	lda #$0F
-	sta adr.OBSTACLES+1+$0C
-
-; optimize OK (levels.inc), line = 185
-
-	lda #$F4
-	sta adr.OBSTACLES+$0E
-	lda #$0D
-	sta adr.OBSTACLES+1+$0E
+	sta CALCOBSTACLEADDR.Y
+	lda #$14
+	sta CALCOBSTACLEADDR.X
+	jsr CALCOBSTACLEADDR
+	ldy :STACKORIGIN-1,x
+	lda :STACKORIGIN,x
+	sta adr.OBSTACLES,y
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta adr.OBSTACLES+1,y
+	dex
+	dex
 
 ; optimize FAIL ('SAVEOBSTACLES', levels.inc), line = 187
 
@@ -3427,7 +4071,7 @@ l_09B6
 	lda JOYSTATUS
 	sta @CASETMP_0006
 	cmp #$01
-	jne l_0CCA
+	jne l_0D62
 @
 
 ; optimize OK (main.pas), line = 17
@@ -3436,15 +4080,15 @@ l_09B6
 	ldy #PLY.DIR-DATAORIGIN
 	lda (:bp2),y
 	cmp #$02
-	jeq l_0CDC
+	jeq l_0D74
 	lda #$01
 	sta NEWDIR
-l_0CDC
+l_0D74
 
 	jmp a_0006
-l_0CCA
+l_0D62
 	cmp #$02
-	jne l_0CEC
+	jne l_0D84
 @
 
 ; optimize OK (main.pas), line = 18
@@ -3453,15 +4097,15 @@ l_0CCA
 	ldy #PLY.DIR-DATAORIGIN
 	lda (:bp2),y
 	cmp #$01
-	jeq l_0CFE
+	jeq l_0D96
 	lda #$02
 	sta NEWDIR
-l_0CFE
+l_0D96
 
 	jmp a_0006
-l_0CEC
+l_0D84
 	cmp #$04
-	jne l_0D0E
+	jne l_0DA6
 @
 
 ; optimize OK (main.pas), line = 19
@@ -3470,15 +4114,15 @@ l_0CEC
 	ldy #PLY.DIR-DATAORIGIN
 	lda (:bp2),y
 	cmp #$08
-	jeq l_0D20
+	jeq l_0DB8
 	lda #$04
 	sta NEWDIR
-l_0D20
+l_0DB8
 
 	jmp a_0006
-l_0D0E
+l_0DA6
 	cmp #$08
-	jne l_0D30
+	jne l_0DC8
 @
 
 ; optimize OK (main.pas), line = 20
@@ -3487,19 +4131,19 @@ l_0D0E
 	ldy #PLY.DIR-DATAORIGIN
 	lda (:bp2),y
 	cmp #$04
-	jeq l_0D42
+	jeq l_0DDA
 	lda #$08
 	sta NEWDIR
-l_0D42
+l_0DDA
 
-l_0D30
+l_0DC8
 a_0006
 
 ; optimize OK (main.pas), line = 23
 
 	lda NEWDIR
 	and AVAILDIR
-	jne l_0D69
+	jne l_0E01
 
 ; optimize OK (main.pas), line = 24
 
@@ -3511,11 +4155,11 @@ a_0006
 	lda #$2A
 	sta (:bp2),y
 	dec ALIVE
-l_0D69
+l_0E01
 
 ; ------------------------------------------------------------
 
-@CASETMP_0006	= DATAORIGIN+$005B
+@CASETMP_0006	= DATAORIGIN+$005F
 
 @VarData	= @CASETMP_0006
 @VarDataSize	= 1
@@ -3539,7 +4183,7 @@ l_0D69
 	mwy PLY :bp2
 	ldy #PLY.ISALIVE-DATAORIGIN
 	lda (:bp2),y
-	jeq l_0D88
+	jeq l_0E20
 
 ; optimize FAIL ('CHECKAVAILDIR', main.pas), line = 33
 
@@ -3548,7 +4192,7 @@ l_0D69
 ; optimize OK (main.pas), line = 35
 
 	lda AVAILDIR
-	jne l_0D9C
+	jne l_0E34
 
 ; optimize OK (main.pas), line = 36
 
@@ -3573,8 +4217,8 @@ l_0D69
 	lda #$57
 	sta PUTCHAR_0072.V
 	jsr PUTCHAR_0072
-	jmp l_0DBD
-l_0D9C
+	jmp l_0E55
+l_0E34
 
 ; optimize OK (main.pas), line = 40
 
@@ -3583,49 +4227,49 @@ l_0D9C
 	lda (:bp2),y
 	sta @CASETMP_0007
 	cmp #$00
-	jne l_0DC8
+	jne l_0E60
 @
 
 ; optimize FAIL ('HUMAN', main.pas), line = 41
 
 	jsr HUMAN
 	jmp a_0007
-l_0DC8
+l_0E60
 	cmp #$01
-	jne l_0DD2
+	jne l_0E6A
 @
 
 ; optimize FAIL ('AISTRAIGHT', main.pas), line = 42
 
 	jsr AISTRAIGHT
 	jmp a_0007
-l_0DD2
+l_0E6A
 	cmp #$02
-	jne l_0DDC
+	jne l_0E74
 @
 
 ; optimize FAIL ('AISAPPER', main.pas), line = 43
 
 	jsr AISAPPER
 	jmp a_0007
-l_0DDC
+l_0E74
 	cmp #$03
-	jne l_0DE6
+	jne l_0E7E
 @
 
 ; optimize FAIL ('AIBULLY', main.pas), line = 44
 
 	jsr AIBULLY
 	jmp a_0007
-l_0DE6
+l_0E7E
 	cmp #$04
-	jne l_0DF0
+	jne l_0E88
 @
 
 ; optimize FAIL ('AIMIRROR', main.pas), line = 45
 
 	jsr AIMIRROR
-l_0DF0
+l_0E88
 a_0007
 
 ; optimize FAIL ('DRAWTAIL', main.pas), line = 48
@@ -3641,7 +4285,7 @@ a_0007
 	lda NEWDIR
 	sta @CASETMP_0008
 	cmp #$01
-	jne l_0E0C
+	jne l_0EA4
 @
 
 ; optimize OK (main.pas), line = 51
@@ -3653,9 +4297,9 @@ a_0007
 	sta (:bp2),y
 
 	jmp a_0008
-l_0E0C
+l_0EA4
 	cmp #$02
-	jne l_0E16
+	jne l_0EAE
 @
 
 ; optimize OK (main.pas), line = 52
@@ -3667,9 +4311,9 @@ l_0E0C
 	sta (:bp2),y
 
 	jmp a_0008
-l_0E16
+l_0EAE
 	cmp #$04
-	jne l_0E20
+	jne l_0EB8
 @
 
 ; optimize OK (main.pas), line = 53
@@ -3681,9 +4325,9 @@ l_0E16
 	sta (:bp2),y
 
 	jmp a_0008
-l_0E20
+l_0EB8
 	cmp #$08
-	jne l_0E2A
+	jne l_0EC2
 @
 
 ; optimize OK (main.pas), line = 54
@@ -3694,7 +4338,7 @@ l_0E20
 	add #$01
 	sta (:bp2),y
 
-l_0E2A
+l_0EC2
 a_0008
 
 ; optimize OK (main.pas), line = 57
@@ -3717,7 +4361,7 @@ a_0008
 ; optimize OK (main.pas), line = 60
 
 	lda PLAYER1.ISALIVE
-	jne l_0E4F
+	jne l_0EE7
 	lda PLAYER1.COLOUR
 	sta PUTCHAR_0072.C
 	lda #$2A
@@ -3727,14 +4371,14 @@ a_0008
 	lda PLAYER1.X
 	sta PUTCHAR_0072.X
 	jsr PUTCHAR_0072
-l_0E4F
-l_0DBD
-l_0D88
+l_0EE7
+l_0E55
+l_0E20
 
 ; ------------------------------------------------------------
 
-@CASETMP_0007	= DATAORIGIN+$005C
-@CASETMP_0008	= DATAORIGIN+$005D
+@CASETMP_0007	= DATAORIGIN+$0060
+@CASETMP_0008	= DATAORIGIN+$0061
 
 @VarData	= @CASETMP_0007
 @VarDataSize	= 2
@@ -3767,14 +4411,14 @@ l_0D88
 	jsr PUTCHAR_0072
 
 ; --- RepeatUntilProlog
-l_0E75
+l_0F0D
 
 ; optimize FAIL ('CHECKJOYSTATUS', main.pas), line = 72
 
 	jsr CHECKJOYSTATUS
 	lda JOYSTATUS
 	cmp #$40
-	jne l_0E75
+	jne l_0F0D
 
 ; optimize OK (main.pas), line = 73
 
@@ -3815,85 +4459,85 @@ l_0E75
 	lda LEVEL
 	sta @CASETMP_0009
 	cmp #$00
-	jne l_0EA4
+	jne l_0F3C
 @
 
 ; optimize FAIL ('SETLEVEL00', main.pas), line = 85
 
 	jsr SETLEVEL00
 	jmp a_0009
-l_0EA4
+l_0F3C
 	cmp #$01
-	jne l_0EAE
+	jne l_0F46
 @
 
 ; optimize FAIL ('SETLEVEL01', main.pas), line = 86
 
 	jsr SETLEVEL01
 	jmp a_0009
-l_0EAE
+l_0F46
 	cmp #$02
-	jne l_0EB8
+	jne l_0F50
 @
 
 ; optimize FAIL ('SETLEVEL02', main.pas), line = 87
 
 	jsr SETLEVEL02
 	jmp a_0009
-l_0EB8
+l_0F50
 	cmp #$03
-	jne l_0EC2
+	jne l_0F5A
 @
 
 ; optimize FAIL ('SETLEVEL03', main.pas), line = 88
 
 	jsr SETLEVEL03
 	jmp a_0009
-l_0EC2
+l_0F5A
 	cmp #$04
-	jne l_0ECC
+	jne l_0F64
 @
 
 ; optimize FAIL ('SETLEVEL04', main.pas), line = 89
 
 	jsr SETLEVEL04
 	jmp a_0009
-l_0ECC
+l_0F64
 	cmp #$05
-	jne l_0ED6
+	jne l_0F6E
 @
 
 ; optimize FAIL ('SETLEVEL05', main.pas), line = 90
 
 	jsr SETLEVEL05
 	jmp a_0009
-l_0ED6
+l_0F6E
 	cmp #$06
-	jne l_0EE0
+	jne l_0F78
 @
 
 ; optimize FAIL ('SETLEVEL06', main.pas), line = 91
 
 	jsr SETLEVEL06
 	jmp a_0009
-l_0EE0
+l_0F78
 	cmp #$07
-	jne l_0EEA
+	jne l_0F82
 @
 
 ; optimize FAIL ('SETLEVEL07', main.pas), line = 92
 
 	jsr SETLEVEL07
 	jmp a_0009
-l_0EEA
+l_0F82
 	cmp #$08
-	jne l_0EF4
+	jne l_0F8C
 @
 
 ; optimize FAIL ('SETLEVEL08', main.pas), line = 93
 
 	jsr SETLEVEL08
-l_0EF4
+l_0F8C
 a_0009
 
 ; optimize FAIL ('ANIMATEOBSTACLES', main.pas), line = 96
@@ -3903,7 +4547,7 @@ a_0009
 	jsr STARTSCREEN
 
 ; --- RepeatUntilProlog
-l_0F06
+l_0F9E
 
 ; optimize FAIL ('SYSTEM.PAUSE_006B', main.pas), line = 99
 
@@ -3956,38 +4600,38 @@ l_0F06
 ; optimize OK (main.pas), line = 107
 
 	lda ALIVE
-	jeq l_0F06x
+	jeq l_0F9Ex
 	cmp #$FF
-	jne l_0F06
-l_0F06x
+	jne l_0F9E
+l_0F9Ex
 
 ; optimize OK (main.pas), line = 109
 
 	lda PLAYER1.ISALIVE
-	jeq l_0F47
+	jeq l_0FDF
 	inc PLAYER1.SCORE
-l_0F47
+l_0FDF
 
 ; optimize OK (main.pas), line = 110
 
 	lda PLAYER2.ISALIVE
-	jeq l_0F5A
+	jeq l_0FF2
 	inc PLAYER2.SCORE
-l_0F5A
+l_0FF2
 
 ; optimize OK (main.pas), line = 111
 
 	lda PLAYER3.ISALIVE
-	jeq l_0F6D
+	jeq l_1005
 	inc PLAYER3.SCORE
-l_0F6D
+l_1005
 
 ; optimize OK (main.pas), line = 112
 
 	lda PLAYER4.ISALIVE
-	jeq l_0F80
+	jeq l_1018
 	inc PLAYER4.SCORE
-l_0F80
+l_1018
 
 ; optimize OK (main.pas), line = 114
 
@@ -3999,7 +4643,7 @@ l_0F80
 
 ; ------------------------------------------------------------
 
-@CASETMP_0009	= DATAORIGIN+$005E
+@CASETMP_0009	= DATAORIGIN+$0062
 
 @VarData	= @CASETMP_0009
 @VarDataSize	= 1
@@ -4018,7 +4662,7 @@ l_0F80
 l_0007
 
 ; --- RepeatUntilProlog
-l_0F8B
+l_1023
 
 ; optimize OK (main.pas), line = 121
 
@@ -4042,7 +4686,7 @@ l_0F8B
 	sta GAMEOVER
 
 ; --- RepeatUntilProlog
-l_0FA4
+l_103C
 
 ; optimize FAIL ('MAINLOOP', main.pas), line = 127
 
@@ -4053,51 +4697,51 @@ l_0FA4
 	inc LEVEL
 	lda LEVEL
 	cmp #$08
-	jne l_0FBB
+	jne l_1053
 	lda #$05
 	sta LEVEL
-l_0FBB
+l_1053
 
 ; optimize OK (main.pas), line = 129
 
 	lda PLAYER1.SCORE
 	cmp #$39
-	jne l_0FD4
+	jne l_106C
 	lda #$01
 	sta GAMEOVER
-l_0FD4
+l_106C
 
 ; optimize OK (main.pas), line = 130
 
 	lda PLAYER2.SCORE
 	cmp #$39
-	jne l_0FED
+	jne l_1085
 	lda #$01
 	sta GAMEOVER
-l_0FED
+l_1085
 
 ; optimize OK (main.pas), line = 131
 
 	lda PLAYER3.SCORE
 	cmp #$39
-	jne l_1006
+	jne l_109E
 	lda #$01
 	sta GAMEOVER
-l_1006
+l_109E
 
 ; optimize OK (main.pas), line = 132
 
 	lda PLAYER4.SCORE
 	cmp #$39
-	jne l_101F
+	jne l_10B7
 	lda #$01
 	sta GAMEOVER
-l_101F
+l_10B7
 
 ; optimize OK (main.pas), line = 133
 
 	lda GAMEOVER
-	jeq l_0FA4
+	jeq l_103C
 
 ; optimize FAIL ('SHOWSCORE', main.pas), line = 135
 
@@ -4113,7 +4757,7 @@ l_101F
 
 ; optimize OK (main.pas), line = 138
 
-	jmp l_0F8B
+	jmp l_1023
 
 ; ------------------------------------------------------------
 
@@ -4279,7 +4923,7 @@ DATAORIGIN
 .by  $28 $00 $18 $00 $2D $0C
 
 VARINITSIZE	= *-DATAORIGIN
-VARDATASIZE	= 95
+VARDATASIZE	= 99
 
 PROGRAMSTACK	= DATAORIGIN+VARDATASIZE
 

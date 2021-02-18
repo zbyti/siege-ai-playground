@@ -47,6 +47,13 @@ end;
 
 //-----------------------------------------------------------------------------
 
+function calcObstacleAddr(x, y: byte): word;
+begin
+  Result := SCREEN_ADDR + x + mul40[y];
+end;
+
+//-----------------------------------------------------------------------------
+
 procedure saveObstacles;
 begin
   for i0b := 7 downto 0 do begin
