@@ -130,3 +130,12 @@ begin
   if player4.score = ZERO + VICTORIES then gameOver := true;
   Result := gameOver;
 end;
+
+//-----------------------------------------------------------------------------
+
+function isAnybodyAlive: boolean;
+begin
+  Result := (alive = 0) or (alive = $ff);
+end;
+
+//-----------------------------------------------------------------------------

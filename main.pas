@@ -74,8 +74,6 @@ end;
 
 procedure mainLoop;
 begin
-  alive := $ff;
-
   initArena; startScreen;
 
   repeat
@@ -88,7 +86,7 @@ begin
     ply := @player2; playerMove;
     ply := @player3; playerMove;
     ply := @player4; playerMove;
-  until (alive = 0) or (alive = $ff);
+  until isAnybodyAlive;
 
   updateScore;
 

@@ -24,6 +24,7 @@ end;
 
 procedure initPlayers;
 begin
+  alive := $ff;
   player1.isAlive := false; player2.isAlive := false;
   player3.isAlive := false; player4.isAlive := false;
 end;
