@@ -893,7 +893,7 @@ Source: main.a65
    982
    983 1400			.local	SETPLAYER					; PROCEDURE
    984
-   985 				; optimize OK (init.inc), line = 5
+   985 				; optimize OK (tools.inc), line = 87
    986
    987 1400 AD DF 26			lda P
    988 1403 8D 84 26			sta PLY
@@ -901,7 +901,7 @@ Source: main.a65
    990 1408 AD E0 26			lda P+1
    991 140B 8D 85 26			sta PLY+1
    992 140E 85 13			sta :bp2+1
-   993 				; optimize OK (init.inc), line = 6
+   993 				; optimize OK (tools.inc), line = 88
    994 1410 A0 05			ldy #PLY.BRAIN-DATAORIGIN
    995 1412 AD E4 26			lda BRAIN
    996 1415 91 12			sta (:bp2),y
@@ -915,7 +915,7 @@ Source: main.a65
   1004 1427 AD E3 26			lda DIR
   1005 142A 91 12			sta (:bp2),y
   1006
-  1007 				; optimize OK (init.inc), line = 7
+  1007 				; optimize OK (tools.inc), line = 89
   1008
   1009 142C A0 02			ldy #PLY.HEAD-DATAORIGIN
   1010 142E AD E5 26			lda HEAD
@@ -927,12 +927,12 @@ Source: main.a65
   1016 143C AD E7 26			lda ISALIVE
   1017 143F 91 12			sta (:bp2),y
   1018
-  1019 				; optimize OK (init.inc), line = 8
+  1019 				; optimize OK (tools.inc), line = 90
   1020
   1021 1441 AD E7 26			lda ISALIVE
   1022 1444 F0 1D			jeq l_037C
   1023
-  1024 				; optimize FAIL (0, init.inc), line = 9
+  1024 				; optimize FAIL (0, tools.inc), line = 91
   1025
   1026 1446 E6 5A			inc ALIVE
   1027 1448 AD E6 26			lda COLOUR
@@ -974,14 +974,14 @@ Source: main.a65
   1063
   1064 1464			.local	INITPLAYFIELD					; PROCEDURE
   1065
-  1066 				; optimize OK (init.inc), line = 17
+  1066 				; optimize OK (init.inc), line = 5
   1067
   1068 1464 A9 1F			lda #$1F
   1069 1466 8D 15 FF			sta BACKGROUND
   1070 1469 A9 00			lda #$00
   1071 146B 8D 19 FF			sta BOREDER
   1072
-  1073 				; optimize OK (init.inc), line = 18
+  1073 				; optimize OK (init.inc), line = 6
   1074
   1075 146E A9 20			lda #$20
   1076 1470 85 04			sta SYSTEM.FILLCHAR_0056.VALUE
@@ -995,7 +995,7 @@ Source: main.a65
   1084 1480 85 09			sta SYSTEM.FILLCHAR_0056.A+1
   1085 1482 20 1F 11			jsr SYSTEM.FILLCHAR_0056
   1086
-  1087 				; optimize OK (init.inc), line = 20
+  1087 				; optimize OK (init.inc), line = 8
   1088
   1089 1485 A9 27			lda #$27
   1090 1487 85 58			sta T0B
@@ -1003,22 +1003,22 @@ Source: main.a65
   1092 1489			l_03A9
   1093 				; --- ForToDoCondition
   1094
-  1095 				; optimize OK (init.inc), line = 21
+  1095 				; optimize OK (init.inc), line = 9
   1096
   1097 1489 A4 58			ldy T0B
   1098 148B A9 A0			lda #$A0
   1099 148D 99 00 0C			sta $0C00,y
   1100
-  1101 				; optimize OK (init.inc), line = 22
+  1101 				; optimize OK (init.inc), line = 10
   1102
   1103 1490 99 C0 0F			sta $0FC0,y
   1104
-  1105 				; optimize OK (init.inc), line = 23
+  1105 				; optimize OK (init.inc), line = 11
   1106
   1107 1493 A9 41			lda #$41
   1108 1495 99 00 08			sta $0800,y
   1109
-  1110 				; optimize OK (init.inc), line = 24
+  1110 				; optimize OK (init.inc), line = 12
   1111
   1112 1498 99 C0 0B			sta $0BC0,y
   1113
@@ -1027,7 +1027,7 @@ Source: main.a65
   1116 149D 10 EA			jpl l_03A9
   1117 149F			l_03B7
   1118
-  1119 				; optimize OK (init.inc), line = 27
+  1119 				; optimize OK (init.inc), line = 15
   1120
   1121 149F A9 18			lda #$18
   1122 14A1 85 58			sta T0B
@@ -1038,7 +1038,7 @@ Source: main.a65
   1127 14A5 C9 01			cmp #$01
   1128 14A7 90 3A			jcc l_03F7
   1129
-  1130 				; optimize OK (init.inc), line = 28
+  1130 				; optimize OK (init.inc), line = 16
   1131
   1132 14A9 0A				asl @
   1133 14AA A8				tay
@@ -1054,7 +1054,7 @@ Source: main.a65
   1143 14C0 C8				iny
   1144 14C1 91 12			sta (:bp2),y
   1145
-  1146 				; optimize OK (init.inc), line = 29
+  1146 				; optimize OK (init.inc), line = 17
   1147
   1148 14C3 A5 58			lda T0B
   1149 14C5 0A				asl @

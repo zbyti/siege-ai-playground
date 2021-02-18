@@ -1,17 +1,5 @@
 //-----------------------------------------------------------------------------
 
-procedure setPlayer(p: pointer; x, y, dir, brain, head, colour: byte; isAlive: boolean);
-begin
-  ply := p;
-  ply.brain := brain; ply.x := x; ply.y := y; ply.dir := dir;
-  ply.head := head; ply.colour := colour; ply.isAlive := isAlive;
-  if isAlive then begin
-    Inc(alive); putChar(x, y, head, colour);
-  end;
-end;
-
-//-----------------------------------------------------------------------------
-
 procedure initPlayfield;
 begin
   BACKGROUND := $1f; BOREDER := 0;

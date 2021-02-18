@@ -982,7 +982,7 @@ l_0269
 
 .local	SETPLAYER					; PROCEDURE
 
-; optimize OK (init.inc), line = 5
+; optimize OK (tools.inc), line = 87
 
 	lda P
 	sta PLY
@@ -990,7 +990,7 @@ l_0269
 	lda P+1
 	sta PLY+1
 	sta :bp2+1
-; optimize OK (init.inc), line = 6
+; optimize OK (tools.inc), line = 88
 	ldy #PLY.BRAIN-DATAORIGIN
 	lda BRAIN
 	sta (:bp2),y
@@ -1004,7 +1004,7 @@ l_0269
 	lda DIR
 	sta (:bp2),y
 
-; optimize OK (init.inc), line = 7
+; optimize OK (tools.inc), line = 89
 
 	ldy #PLY.HEAD-DATAORIGIN
 	lda HEAD
@@ -1016,12 +1016,12 @@ l_0269
 	lda ISALIVE
 	sta (:bp2),y
 
-; optimize OK (init.inc), line = 8
+; optimize OK (tools.inc), line = 90
 
 	lda ISALIVE
 	jeq l_037C
 
-; optimize FAIL (0, init.inc), line = 9
+; optimize FAIL (0, tools.inc), line = 91
 
 	inc ALIVE
 	lda COLOUR
@@ -1063,14 +1063,14 @@ ISALIVE	= DATAORIGIN+$0053
 
 .local	INITPLAYFIELD					; PROCEDURE
 
-; optimize OK (init.inc), line = 17
+; optimize OK (init.inc), line = 5
 
 	lda #$1F
 	sta BACKGROUND
 	lda #$00
 	sta BOREDER
 
-; optimize OK (init.inc), line = 18
+; optimize OK (init.inc), line = 6
 
 	lda #$20
 	sta SYSTEM.FILLCHAR_0056.VALUE
@@ -1084,7 +1084,7 @@ ISALIVE	= DATAORIGIN+$0053
 	sta SYSTEM.FILLCHAR_0056.A+1
 	jsr SYSTEM.FILLCHAR_0056
 
-; optimize OK (init.inc), line = 20
+; optimize OK (init.inc), line = 8
 
 	lda #$27
 	sta T0B
@@ -1092,22 +1092,22 @@ ISALIVE	= DATAORIGIN+$0053
 l_03A9
 ; --- ForToDoCondition
 
-; optimize OK (init.inc), line = 21
+; optimize OK (init.inc), line = 9
 
 	ldy T0B
 	lda #$A0
 	sta $0C00,y
 
-; optimize OK (init.inc), line = 22
+; optimize OK (init.inc), line = 10
 
 	sta $0FC0,y
 
-; optimize OK (init.inc), line = 23
+; optimize OK (init.inc), line = 11
 
 	lda #$41
 	sta $0800,y
 
-; optimize OK (init.inc), line = 24
+; optimize OK (init.inc), line = 12
 
 	sta $0BC0,y
 
@@ -1116,7 +1116,7 @@ l_03A9
 	jpl l_03A9
 l_03B7
 
-; optimize OK (init.inc), line = 27
+; optimize OK (init.inc), line = 15
 
 	lda #$18
 	sta T0B
@@ -1127,7 +1127,7 @@ l_03E9
 	cmp #$01
 	jcc l_03F7
 
-; optimize OK (init.inc), line = 28
+; optimize OK (init.inc), line = 16
 
 	asl @
 	tay
@@ -1143,7 +1143,7 @@ l_03E9
 	iny
 	sta (:bp2),y
 
-; optimize OK (init.inc), line = 29
+; optimize OK (init.inc), line = 17
 
 	lda T0B
 	asl @

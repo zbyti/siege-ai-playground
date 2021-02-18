@@ -79,3 +79,17 @@ begin
   JOY := JOY_SELECT_1; KEYSCAN := $ff;
   joyStatus := JOY xor $ff;
 end;
+
+//-----------------------------------------------------------------------------
+
+procedure setPlayer(p: pointer; x, y, dir, brain, head, colour: byte; isAlive: boolean);
+begin
+  ply := p;
+  ply.brain := brain; ply.x := x; ply.y := y; ply.dir := dir;
+  ply.head := head; ply.colour := colour; ply.isAlive := isAlive;
+  if isAlive then begin
+    Inc(alive); putChar(x, y, head, colour);
+  end;
+end;
+
+//-----------------------------------------------------------------------------
