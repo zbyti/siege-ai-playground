@@ -4,14 +4,13 @@ const
   ATTRIBUTE_ADDR = $0800; SCREEN_ADDR = $0c00;
   BACKGROUND_COLOUR = $1f; BOREDER_COLOUR = 0;
 
-  VICTORIES = 9; // possible values: 1-9
+  OBST_QUANTITY = 7; // means 8 (fixed value)
+  VICTORIES = 9;     // possible values: 1-9
+  TRASH = $5e;       // t0w -> this dirty trick make me sick ;)
   LOOK_AHEAD = 5;
-
-  TRASH = $5e; // t0w -> this dirty trick make me sick ;)
 
   EMPTY = $20; WALL = $a0; WALL_COLOUR = $41; ZERO = $30;
   OBSTACLE_1 = $56; OBSTACLE_2 = $5b; OBST_COLOUR = $35;
-  OBST_QUANTITY = 7; // means 8 (fixed value)
 
   PLY_HEAD = $51; PLY_CRASH = $2a; PLY_BUSTED = $57;
   PLY_TAIL_UD = $42; PLY_TAIL_LR = $40;
