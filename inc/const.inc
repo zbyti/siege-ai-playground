@@ -10,6 +10,7 @@ const
 
   EMPTY = $20; WALL = $a0; WALL_COLOUR = $41; ZERO = $30;
   OBSTACLE_1 = $56; OBSTACLE_2 = $5b; OBST_COLOUR = $35;
+  OBST_QUANTITY = 7; // means 8
 
   PLY_HEAD = $51; PLY_CRASH = $2a; PLY_BUSTED = $57;
   PLY_TAIL_UD = $42; PLY_TAIL_LR = $40;

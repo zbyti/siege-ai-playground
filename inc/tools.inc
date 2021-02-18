@@ -42,7 +42,7 @@ var
 begin
   Inc(counter);
   if (counter and 1) <> 0 then obst := OBSTACLE_1 else obst := OBSTACLE_2;
-  for i0b := 7 downto 0 do Poke(obstacles[i0b], obst);
+  for i0b := OBST_QUANTITY downto 0 do Poke(obstacles[i0b], obst);
 end;
 
 //-----------------------------------------------------------------------------
@@ -56,7 +56,7 @@ end;
 
 procedure saveObstacles;
 begin
-  for i0b := 7 downto 0 do begin
+  for i0b := OBST_QUANTITY downto 0 do begin
     if obstacles[i0b] <> TRASH then begin
       Poke(obstacles[i0b], OBSTACLE_1);
       Poke(obstacles[i0b] - $400, OBST_COLOUR);
