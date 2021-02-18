@@ -1,5 +1,22 @@
 //-----------------------------------------------------------------------------
 
+procedure human; // brain = 0
+begin
+  checkJoyStatus; newDir := ply.dir;
+  case joyStatus of
+    JOY_UP    : if ply.dir <> JOY_DOWN  then newDir := JOY_UP;
+    JOY_DOWN  : if ply.dir <> JOY_UP    then newDir := JOY_DOWN;
+    JOY_LEFT  : if ply.dir <> JOY_RIGHT then newDir := JOY_LEFT;
+    JOY_RIGHT : if ply.dir <> JOY_LEFT  then newDir := JOY_RIGHT;
+  end;
+
+  if (newDir and availDir) = 0 then begin
+    ply.isAlive := false; ply.head := PLY_CRASH; Dec(alive);
+  end;
+end;
+
+//-----------------------------------------------------------------------------
+
 procedure aiStraight; // brain = 1
 begin
   if (availDir and ply.dir) <> 0 then newDir := ply.dir

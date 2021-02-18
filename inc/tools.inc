@@ -86,7 +86,7 @@ end;
 
 //-----------------------------------------------------------------------------
 
-procedure drawTail;
+procedure drawPlayer;
 begin
   if ply.dir = newDir then begin
     if (newDir and %1100) <> 0 then t0b := PLY_TAIL_LR else t0b := PLY_TAIL_UD;
@@ -96,8 +96,26 @@ begin
     if ((ply.dir and %0110) <> 0) and ((newDir and %1001) <> 0) then t0b := PLY_TAIL_LD;
     if ((ply.dir and %0101) <> 0) and ((newDir and %1010) <> 0) then t0b := PLY_TAIL_LU;
   end;
-
   if getChar(ply.x, ply.y) <> PLY_CRASH then putChar(ply.x, ply.y, t0b);
+
+  ply.dir := newDir;
+
+  case newDir of
+    JOY_UP    : Dec(ply.y);
+    JOY_DOWN  : Inc(ply.y);
+    JOY_LEFT  : Dec(ply.x);
+    JOY_RIGHT : Inc(ply.x);
+  end;
+
+  putChar(ply.x, ply.y, ply.head, ply.colour);
+end;
+
+//-----------------------------------------------------------------------------
+
+procedure drawBustedPlayer;
+begin
+  ply.isAlive := false; Dec(alive);
+  putChar(ply.x, ply.y, PLY_BUSTED, ply.colour + $80);
 end;
 
 //-----------------------------------------------------------------------------
@@ -125,6 +143,15 @@ end;
 procedure nextLevel;
 begin
   Inc(level); if level = 8 then level := 5;
+end;
+
+//-----------------------------------------------------------------------------
+
+procedure startScreen;
+begin
+  putChar(player1.x, player1.y, player1.head, player1.colour + $80);
+  repeat checkJoyStatus until joyStatus = JOY_FIRE;
+  putChar(player1.x, player1.y, player1.head, player1.colour);
 end;
 
 //-----------------------------------------------------------------------------
