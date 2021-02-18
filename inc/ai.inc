@@ -28,7 +28,7 @@ begin
         JOY_DOWN  : newDir := JOY_DOWN;
       end;
     end;
-    if availDir = (JOY_LEFT or JOY_RIGHT) then newDir := direction[Random(2) + 2]
+    if availDir = (JOY_LEFT or JOY_RIGHT) then newDir := direction[byte(Random(2) + 2)]
     else begin
       case availDir of
         JOY_LEFT   : newDir := JOY_LEFT;

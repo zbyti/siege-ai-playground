@@ -1723,12 +1723,9 @@ l_06C2
 	jne l_06F6
 	lda #$02
 	jsr SYSTEM.RANDOM_006D
-	inx
-	mva #$02 :STACKORIGIN,x
-	mva #$00 :STACKORIGIN+STACKWIDTH,x
-	sta :STACKORIGIN-1+STACKWIDTH,x
-	jsr addAX_CX
-	dex
+	lda :STACKORIGIN,x
+	add #$02
+	sta :STACKORIGIN,x
 	ldy :STACKORIGIN,x
 	lda adr.DIRECTION,y
 	sta NEWDIR
