@@ -4,8 +4,6 @@ procedure setLevel00; // test
 begin
   setPlayer(@player1, 10, 12, JOY_RIGHT, PLY_CTRL,    PLY_HEAD, PLY1_COLOUR, true);
   setPlayer(@player2, 30, 12, JOY_LEFT,  AI_STRAIGHT, PLY_HEAD, PLY2_COLOUR, true);
-  setPlayer(@player3, 20,  4, JOY_DOWN,  AI_BULLY,    PLY_HEAD, PLY3_COLOUR, false);
-  setPlayer(@player4, 20, 18, JOY_UP,    AI_SAPPER,   PLY_HEAD, PLY4_COLOUR, false);
 
   obstacles[0] := calcObstacleAddr(10,  6);
   obstacles[1] := calcObstacleAddr(30,  6);
@@ -23,8 +21,6 @@ procedure setLevel01;
 begin
   setPlayer(@player1, 10, 12, JOY_RIGHT, PLY_CTRL,    PLY_HEAD, PLY1_COLOUR, true);
   setPlayer(@player2, 30, 12, JOY_LEFT,  AI_STRAIGHT, PLY_HEAD, PLY2_COLOUR, true);
-  setPlayer(@player3, 20,  4, JOY_DOWN,  AI_BULLY,    PLY_HEAD, PLY3_COLOUR, false);
-  setPlayer(@player4, 20, 18, JOY_UP,    AI_SAPPER,   PLY_HEAD, PLY4_COLOUR, false);
 
   obstacles[0] := calcObstacleAddr(10,  6);
   obstacles[1] := calcObstacleAddr(30,  6);
@@ -42,8 +38,6 @@ procedure setLevel02;
 begin
   setPlayer(@player1, 10, 12, JOY_RIGHT, PLY_CTRL,  PLY_HEAD, PLY1_COLOUR, true);
   setPlayer(@player2, 30, 12, JOY_LEFT,  AI_BULLY,  PLY_HEAD, PLY2_COLOUR, true);
-  setPlayer(@player3, 20,  4, JOY_DOWN,  AI_BULLY,  PLY_HEAD, PLY3_COLOUR, false);
-  setPlayer(@player4, 20, 18, JOY_UP,    AI_SAPPER, PLY_HEAD, PLY4_COLOUR, false);
 
   obstacles[0] := calcObstacleAddr(10,  6);
   obstacles[1] := calcObstacleAddr(30,  6);
@@ -61,8 +55,6 @@ procedure setLevel03;
 begin
   setPlayer(@player1, 10, 12, JOY_RIGHT, PLY_CTRL,  PLY_HEAD, PLY1_COLOUR, true);
   setPlayer(@player2, 30, 12, JOY_LEFT,  AI_SAPPER, PLY_HEAD, PLY2_COLOUR, true);
-  setPlayer(@player3, 20,  4, JOY_DOWN,  AI_BULLY,  PLY_HEAD, PLY3_COLOUR, false);
-  setPlayer(@player4, 20, 18, JOY_UP,    AI_BULLY,  PLY_HEAD, PLY4_COLOUR, false);
 
   obstacles[0] := calcObstacleAddr(10,  6);
   obstacles[1] := calcObstacleAddr(30,  6);
@@ -81,8 +73,6 @@ procedure setLevel04;
 begin
   setPlayer(@player1, 18, 12, JOY_LEFT,  PLY_CTRL,  PLY_HEAD, PLY1_COLOUR, true);
   setPlayer(@player2, 22, 12, JOY_RIGHT, AI_MIRROR, PLY_HEAD, PLY2_COLOUR, true);
-  setPlayer(@player3, 20,  4, JOY_DOWN,  AI_BULLY,  PLY_HEAD, PLY3_COLOUR, false);
-  setPlayer(@player4, 20, 18, JOY_UP,    AI_BULLY,  PLY_HEAD, PLY4_COLOUR, false);
 
   obstacles[0] := calcObstacleAddr(10,  6);
   obstacles[1] := calcObstacleAddr(30,  6);

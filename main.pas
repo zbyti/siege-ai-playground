@@ -118,9 +118,7 @@ end;
 
 begin
   repeat
-    player1.score := ZERO; player2.score := ZERO;
-    player3.score := ZERO; player4.score := ZERO;
-    level := 1;
+    level := 1; initPlayers;
 
     gameOver := false;
     repeat

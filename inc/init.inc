@@ -21,3 +21,14 @@ begin
 end;
 
 //-----------------------------------------------------------------------------
+
+procedure initPlayers;
+begin
+  player1.score := ZERO; player2.score := ZERO;
+  player3.score := ZERO; player4.score := ZERO;
+
+  player1.isAlive := false; player2.isAlive := false;
+  player3.isAlive := false; player4.isAlive := false;
+end;
+
+//-----------------------------------------------------------------------------
