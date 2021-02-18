@@ -82,6 +82,7 @@ begin
   initPlayfield;
 
   case level of
+    0 : setLevel00; // test
     1 : setLevel01; // easy
     2 : setLevel02; // easy
     3 : setLevel03; // easy
@@ -98,7 +99,7 @@ begin
     pause; checkJoyStatus;
     ply := @player1; playerMove;
 
-    pause(2); // 1 fast; 2 normal; 3 slow
+    pause(3); // 1 fast; 2 normal; 3 slow
     ply := @player2; playerMove;
     ply := @player3; playerMove;
     ply := @player4; playerMove;
