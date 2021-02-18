@@ -87,11 +87,7 @@ begin
     ply := @player4; playerMove;
   until isOneLeft;
 
-  updateScore;
-
-  pause(100);
-
-  Inc(level); if level = 8 then level := 5;
+  updateScore; pause(100); nextLevel;
 end;
 
 //-----------------------------------------------------------------------------

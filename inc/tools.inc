@@ -122,6 +122,13 @@ end;
 
 //-----------------------------------------------------------------------------
 
+procedure nextLevel;
+begin
+  Inc(level); if level = 8 then level := 5;
+end;
+
+//-----------------------------------------------------------------------------
+
 function isGameOver: boolean;
 begin
   if player1.score = ZERO + VICTORIES then gameOver := true;
