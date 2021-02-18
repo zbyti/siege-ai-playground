@@ -82,17 +82,15 @@ begin
     pause;
     ply := @player1; playerMove;
 
+    animateObstacles;
+
     pause(2); // 1 fast; 2 normal; 3 slow
     ply := @player2; playerMove;
     ply := @player3; playerMove;
     ply := @player4; playerMove;
-    animateObstacles;
   until (alive = 0) or (alive = $ff);
 
-  if player1.isAlive then Inc(player1.score);
-  if player2.isAlive then Inc(player2.score);
-  if player3.isAlive then Inc(player3.score);
-  if player4.isAlive then Inc(player4.score);
+  updateScore;
 
   pause(100);
 end;

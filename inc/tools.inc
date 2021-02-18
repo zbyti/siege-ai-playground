@@ -33,6 +33,16 @@ end;
 
 //-----------------------------------------------------------------------------
 
+procedure updateScore;
+begin
+  if player1.isAlive then Inc(player1.score);
+  if player2.isAlive then Inc(player2.score);
+  if player3.isAlive then Inc(player3.score);
+  if player4.isAlive then Inc(player4.score);
+end;
+
+//-----------------------------------------------------------------------------
+
 procedure checkAvailDir;
 begin
   availDir := 0;
