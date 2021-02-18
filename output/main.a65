@@ -980,7 +980,7 @@ l_0269
 	eif
 .endl
 
-.local	INITPLAYERS					; PROCEDURE
+.local	SETPLAYER					; PROCEDURE
 
 ; optimize OK (init.inc), line = 5
 
@@ -1973,90 +1973,90 @@ l_09B6
 ; optimize OK (levels.inc), line = 5
 
 	lda #$01
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$62
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$00
-	sta INITPLAYERS.BRAIN
+	sta SETPLAYER.BRAIN
 	lda #$08
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.DIR
 	lda #$0C
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$0A
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER1
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER1+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 6
 
 	lda #$01
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$5D
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$01
-	sta INITPLAYERS.BRAIN
+	sta SETPLAYER.BRAIN
 	lda #$04
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.DIR
 	lda #$0C
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$1E
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER2
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER2+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 7
 
 	lda #$00
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$71
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$03
-	sta INITPLAYERS.BRAIN
+	sta SETPLAYER.BRAIN
 	lda #$02
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.DIR
 	lda #$04
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$14
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER3
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER3+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 8
 
 	lda #$00
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$55
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$02
-	sta INITPLAYERS.BRAIN
+	sta SETPLAYER.BRAIN
 	lda #$01
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.DIR
 	lda #$12
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$14
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER4
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER4+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 10
 
@@ -2134,90 +2134,90 @@ l_09B6
 ; optimize OK (levels.inc), line = 26
 
 	lda #$01
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$62
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$00
-	sta INITPLAYERS.BRAIN
+	sta SETPLAYER.BRAIN
 	lda #$08
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.DIR
 	lda #$0C
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$0A
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER1
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER1+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 27
 
 	lda #$01
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$5D
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$01
-	sta INITPLAYERS.BRAIN
+	sta SETPLAYER.BRAIN
 	lda #$04
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.DIR
 	lda #$0C
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$1E
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER2
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER2+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 28
 
 	lda #$00
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$71
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$03
-	sta INITPLAYERS.BRAIN
+	sta SETPLAYER.BRAIN
 	lda #$02
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.DIR
 	lda #$04
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$14
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER3
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER3+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 29
 
 	lda #$00
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$55
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$02
-	sta INITPLAYERS.BRAIN
+	sta SETPLAYER.BRAIN
 	lda #$01
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.DIR
 	lda #$12
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$14
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER4
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER4+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 31
 
@@ -2295,90 +2295,90 @@ l_09B6
 ; optimize OK (levels.inc), line = 47
 
 	lda #$01
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$62
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$00
-	sta INITPLAYERS.BRAIN
+	sta SETPLAYER.BRAIN
 	lda #$08
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.DIR
 	lda #$0C
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$0A
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER1
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER1+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 48
 
 	lda #$01
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$5D
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$03
-	sta INITPLAYERS.BRAIN
+	sta SETPLAYER.BRAIN
 	lda #$04
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.DIR
 	lda #$0C
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$1E
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER2
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER2+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 49
 
 	lda #$00
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$71
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$03
-	sta INITPLAYERS.BRAIN
+	sta SETPLAYER.BRAIN
 	lda #$02
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.DIR
 	lda #$04
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$14
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER3
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER3+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 50
 
 	lda #$00
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$55
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$02
-	sta INITPLAYERS.BRAIN
+	sta SETPLAYER.BRAIN
 	lda #$01
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.DIR
 	lda #$12
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$14
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER4
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER4+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 52
 
@@ -2456,90 +2456,90 @@ l_09B6
 ; optimize OK (levels.inc), line = 68
 
 	lda #$01
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$62
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$00
-	sta INITPLAYERS.BRAIN
+	sta SETPLAYER.BRAIN
 	lda #$08
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.DIR
 	lda #$0C
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$0A
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER1
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER1+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 69
 
 	lda #$01
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$5D
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$02
-	sta INITPLAYERS.BRAIN
+	sta SETPLAYER.BRAIN
 	lda #$04
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.DIR
 	lda #$0C
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$1E
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER2
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER2+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 70
 
 	lda #$00
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$71
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$03
-	sta INITPLAYERS.BRAIN
+	sta SETPLAYER.BRAIN
 	lda #$02
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.DIR
 	lda #$04
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$14
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER3
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER3+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 71
 
 	lda #$00
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$55
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$03
-	sta INITPLAYERS.BRAIN
+	sta SETPLAYER.BRAIN
 	lda #$01
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.DIR
 	lda #$12
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$14
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER4
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER4+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 73
 
@@ -2617,90 +2617,90 @@ l_09B6
 ; optimize OK (levels.inc), line = 89
 
 	lda #$01
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$62
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$00
-	sta INITPLAYERS.BRAIN
+	sta SETPLAYER.BRAIN
 	lda #$04
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.DIR
 	lda #$0C
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$12
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER1
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER1+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 90
 
 	lda #$01
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$5D
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$04
-	sta INITPLAYERS.BRAIN
+	sta SETPLAYER.BRAIN
 	lda #$08
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.DIR
 	lda #$0C
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$16
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER2
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER2+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 91
 
 	lda #$00
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$71
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$03
-	sta INITPLAYERS.BRAIN
+	sta SETPLAYER.BRAIN
 	lda #$02
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.DIR
 	lda #$04
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$14
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER3
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER3+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 92
 
 	lda #$00
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$55
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$03
-	sta INITPLAYERS.BRAIN
+	sta SETPLAYER.BRAIN
 	lda #$01
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.DIR
 	lda #$12
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$14
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER4
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER4+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 94
 
@@ -2778,89 +2778,89 @@ l_09B6
 ; optimize OK (levels.inc), line = 110
 
 	lda #$01
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$62
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$00
-	sta INITPLAYERS.BRAIN
+	sta SETPLAYER.BRAIN
 	lda #$08
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.DIR
 	lda #$0C
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$0A
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER1
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER1+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 111
 
 	lda #$01
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$5D
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$04
-	sta INITPLAYERS.BRAIN
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.BRAIN
+	sta SETPLAYER.DIR
 	lda #$0C
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$1E
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER2
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER2+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 112
 
 	lda #$01
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$71
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$03
-	sta INITPLAYERS.BRAIN
+	sta SETPLAYER.BRAIN
 	lda #$02
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.DIR
 	lda #$04
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$14
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER3
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER3+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 113
 
 	lda #$01
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$55
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$02
-	sta INITPLAYERS.BRAIN
+	sta SETPLAYER.BRAIN
 	lda #$01
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.DIR
 	lda #$12
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$14
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER4
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER4+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 115
 
@@ -2938,88 +2938,88 @@ l_09B6
 ; optimize OK (levels.inc), line = 131
 
 	lda #$01
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$62
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$00
-	sta INITPLAYERS.BRAIN
+	sta SETPLAYER.BRAIN
 	lda #$04
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.DIR
 	lda #$0C
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$12
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER1
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER1+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 132
 
 	lda #$01
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$5D
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$02
-	sta INITPLAYERS.BRAIN
+	sta SETPLAYER.BRAIN
 	lda #$08
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.DIR
 	lda #$0C
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$16
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER2
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER2+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 133
 
 	lda #$01
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$71
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$02
-	sta INITPLAYERS.BRAIN
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.BRAIN
+	sta SETPLAYER.DIR
 	lda #$06
-	sta INITPLAYERS.Y
-	sta INITPLAYERS.X
+	sta SETPLAYER.Y
+	sta SETPLAYER.X
 	lda PLAYER3
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER3+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 134
 
 	lda #$01
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$55
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$03
-	sta INITPLAYERS.BRAIN
+	sta SETPLAYER.BRAIN
 	lda #$08
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.DIR
 	lda #$12
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$24
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER4
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER4+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 136
 
@@ -3097,90 +3097,90 @@ l_09B6
 ; optimize OK (levels.inc), line = 152
 
 	lda #$01
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$62
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$00
-	sta INITPLAYERS.BRAIN
+	sta SETPLAYER.BRAIN
 	lda #$04
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.DIR
 	lda #$0C
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$12
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER1
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER1+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 153
 
 	lda #$01
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$5D
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$03
-	sta INITPLAYERS.BRAIN
+	sta SETPLAYER.BRAIN
 	lda #$08
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.DIR
 	lda #$17
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$01
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER2
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER2+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 154
 
 	lda #$01
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$71
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$03
-	sta INITPLAYERS.BRAIN
+	sta SETPLAYER.BRAIN
 	lda #$02
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.DIR
 	lda #$04
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$1E
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER3
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER3+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 155
 
 	lda #$01
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$55
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$02
-	sta INITPLAYERS.BRAIN
+	sta SETPLAYER.BRAIN
 	lda #$01
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.DIR
 	lda #$15
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$24
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER4
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER4+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 157
 
@@ -3258,88 +3258,88 @@ l_09B6
 ; optimize OK (levels.inc), line = 173
 
 	lda #$01
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$62
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$00
-	sta INITPLAYERS.BRAIN
+	sta SETPLAYER.BRAIN
 	lda #$08
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.DIR
 	lda #$17
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$01
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER1
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER1+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 174
 
 	lda #$01
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$5D
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$03
-	sta INITPLAYERS.BRAIN
+	sta SETPLAYER.BRAIN
 	lda #$04
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.DIR
 	lda #$17
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$26
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER2
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER2+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 175
 
 	lda #$01
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$71
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$02
-	sta INITPLAYERS.BRAIN
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.BRAIN
+	sta SETPLAYER.DIR
 	lda #$01
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$0A
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER3
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER3+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 176
 
 	lda #$01
-	sta INITPLAYERS.ISALIVE
+	sta SETPLAYER.ISALIVE
 	lda #$55
-	sta INITPLAYERS.COLOUR
+	sta SETPLAYER.COLOUR
 	lda #$51
-	sta INITPLAYERS.HEAD
+	sta SETPLAYER.HEAD
 	lda #$04
-	sta INITPLAYERS.BRAIN
-	sta INITPLAYERS.DIR
+	sta SETPLAYER.BRAIN
+	sta SETPLAYER.DIR
 	lda #$01
-	sta INITPLAYERS.Y
+	sta SETPLAYER.Y
 	lda #$26
-	sta INITPLAYERS.X
+	sta SETPLAYER.X
 	lda PLAYER4
-	sta INITPLAYERS.P
+	sta SETPLAYER.P
 	lda PLAYER4+1
-	sta INITPLAYERS.P+1
-	jsr INITPLAYERS
+	sta SETPLAYER.P+1
+	jsr SETPLAYER
 
 ; optimize OK (levels.inc), line = 178
 
@@ -3414,8 +3414,9 @@ l_09B6
 
 .local	HUMAN						; PROCEDURE
 
-; optimize OK (main.pas), line = 15
+; optimize FAIL ('CHECKJOYSTATUS', main.pas), line = 15
 
+	jsr CHECKJOYSTATUS
 	mwy PLY :bp2
 	ldy #PLY.DIR-DATAORIGIN
 	lda (:bp2),y
@@ -3426,7 +3427,7 @@ l_09B6
 	lda JOYSTATUS
 	sta @CASETMP_0006
 	cmp #$01
-	jne l_0CC9
+	jne l_0CCA
 @
 
 ; optimize OK (main.pas), line = 17
@@ -3435,15 +3436,15 @@ l_09B6
 	ldy #PLY.DIR-DATAORIGIN
 	lda (:bp2),y
 	cmp #$02
-	jeq l_0CDB
+	jeq l_0CDC
 	lda #$01
 	sta NEWDIR
-l_0CDB
+l_0CDC
 
 	jmp a_0006
-l_0CC9
+l_0CCA
 	cmp #$02
-	jne l_0CEB
+	jne l_0CEC
 @
 
 ; optimize OK (main.pas), line = 18
@@ -3452,15 +3453,15 @@ l_0CC9
 	ldy #PLY.DIR-DATAORIGIN
 	lda (:bp2),y
 	cmp #$01
-	jeq l_0CFD
+	jeq l_0CFE
 	lda #$02
 	sta NEWDIR
-l_0CFD
+l_0CFE
 
 	jmp a_0006
-l_0CEB
+l_0CEC
 	cmp #$04
-	jne l_0D0D
+	jne l_0D0E
 @
 
 ; optimize OK (main.pas), line = 19
@@ -3469,15 +3470,15 @@ l_0CEB
 	ldy #PLY.DIR-DATAORIGIN
 	lda (:bp2),y
 	cmp #$08
-	jeq l_0D1F
+	jeq l_0D20
 	lda #$04
 	sta NEWDIR
-l_0D1F
+l_0D20
 
 	jmp a_0006
-l_0D0D
+l_0D0E
 	cmp #$08
-	jne l_0D2F
+	jne l_0D30
 @
 
 ; optimize OK (main.pas), line = 20
@@ -3486,19 +3487,19 @@ l_0D0D
 	ldy #PLY.DIR-DATAORIGIN
 	lda (:bp2),y
 	cmp #$04
-	jeq l_0D41
+	jeq l_0D42
 	lda #$08
 	sta NEWDIR
-l_0D41
+l_0D42
 
-l_0D2F
+l_0D30
 a_0006
 
 ; optimize OK (main.pas), line = 23
 
 	lda NEWDIR
 	and AVAILDIR
-	jne l_0D68
+	jne l_0D69
 
 ; optimize OK (main.pas), line = 24
 
@@ -3510,7 +3511,7 @@ a_0006
 	lda #$2A
 	sta (:bp2),y
 	dec ALIVE
-l_0D68
+l_0D69
 
 ; ------------------------------------------------------------
 
@@ -3538,7 +3539,7 @@ l_0D68
 	mwy PLY :bp2
 	ldy #PLY.ISALIVE-DATAORIGIN
 	lda (:bp2),y
-	jeq l_0D87
+	jeq l_0D88
 
 ; optimize FAIL ('CHECKAVAILDIR', main.pas), line = 33
 
@@ -3547,7 +3548,7 @@ l_0D68
 ; optimize OK (main.pas), line = 35
 
 	lda AVAILDIR
-	jne l_0D9B
+	jne l_0D9C
 
 ; optimize OK (main.pas), line = 36
 
@@ -3572,8 +3573,8 @@ l_0D68
 	lda #$57
 	sta PUTCHAR_0072.V
 	jsr PUTCHAR_0072
-	jmp l_0DBC
-l_0D9B
+	jmp l_0DBD
+l_0D9C
 
 ; optimize OK (main.pas), line = 40
 
@@ -3582,49 +3583,49 @@ l_0D9B
 	lda (:bp2),y
 	sta @CASETMP_0007
 	cmp #$00
-	jne l_0DC7
+	jne l_0DC8
 @
 
 ; optimize FAIL ('HUMAN', main.pas), line = 41
 
 	jsr HUMAN
 	jmp a_0007
-l_0DC7
+l_0DC8
 	cmp #$01
-	jne l_0DD1
+	jne l_0DD2
 @
 
 ; optimize FAIL ('AISTRAIGHT', main.pas), line = 42
 
 	jsr AISTRAIGHT
 	jmp a_0007
-l_0DD1
+l_0DD2
 	cmp #$02
-	jne l_0DDB
+	jne l_0DDC
 @
 
 ; optimize FAIL ('AISAPPER', main.pas), line = 43
 
 	jsr AISAPPER
 	jmp a_0007
-l_0DDB
+l_0DDC
 	cmp #$03
-	jne l_0DE5
+	jne l_0DE6
 @
 
 ; optimize FAIL ('AIBULLY', main.pas), line = 44
 
 	jsr AIBULLY
 	jmp a_0007
-l_0DE5
+l_0DE6
 	cmp #$04
-	jne l_0DEF
+	jne l_0DF0
 @
 
 ; optimize FAIL ('AIMIRROR', main.pas), line = 45
 
 	jsr AIMIRROR
-l_0DEF
+l_0DF0
 a_0007
 
 ; optimize FAIL ('DRAWTAIL', main.pas), line = 48
@@ -3640,7 +3641,7 @@ a_0007
 	lda NEWDIR
 	sta @CASETMP_0008
 	cmp #$01
-	jne l_0E0B
+	jne l_0E0C
 @
 
 ; optimize OK (main.pas), line = 51
@@ -3652,9 +3653,9 @@ a_0007
 	sta (:bp2),y
 
 	jmp a_0008
-l_0E0B
+l_0E0C
 	cmp #$02
-	jne l_0E15
+	jne l_0E16
 @
 
 ; optimize OK (main.pas), line = 52
@@ -3666,9 +3667,9 @@ l_0E0B
 	sta (:bp2),y
 
 	jmp a_0008
-l_0E15
+l_0E16
 	cmp #$04
-	jne l_0E1F
+	jne l_0E20
 @
 
 ; optimize OK (main.pas), line = 53
@@ -3680,9 +3681,9 @@ l_0E15
 	sta (:bp2),y
 
 	jmp a_0008
-l_0E1F
+l_0E20
 	cmp #$08
-	jne l_0E29
+	jne l_0E2A
 @
 
 ; optimize OK (main.pas), line = 54
@@ -3693,7 +3694,7 @@ l_0E1F
 	add #$01
 	sta (:bp2),y
 
-l_0E29
+l_0E2A
 a_0008
 
 ; optimize OK (main.pas), line = 57
@@ -3716,7 +3717,7 @@ a_0008
 ; optimize OK (main.pas), line = 60
 
 	lda PLAYER1.ISALIVE
-	jne l_0E4E
+	jne l_0E4F
 	lda PLAYER1.COLOUR
 	sta PUTCHAR_0072.C
 	lda #$2A
@@ -3726,9 +3727,9 @@ a_0008
 	lda PLAYER1.X
 	sta PUTCHAR_0072.X
 	jsr PUTCHAR_0072
-l_0E4E
-l_0DBC
-l_0D87
+l_0E4F
+l_0DBD
+l_0D88
 
 ; ------------------------------------------------------------
 
@@ -3766,14 +3767,14 @@ l_0D87
 	jsr PUTCHAR_0072
 
 ; --- RepeatUntilProlog
-l_0E74
+l_0E75
 
 ; optimize FAIL ('CHECKJOYSTATUS', main.pas), line = 72
 
 	jsr CHECKJOYSTATUS
 	lda JOYSTATUS
 	cmp #$40
-	jne l_0E74
+	jne l_0E75
 
 ; optimize OK (main.pas), line = 73
 
@@ -3814,85 +3815,85 @@ l_0E74
 	lda LEVEL
 	sta @CASETMP_0009
 	cmp #$00
-	jne l_0EA3
+	jne l_0EA4
 @
 
 ; optimize FAIL ('SETLEVEL00', main.pas), line = 85
 
 	jsr SETLEVEL00
 	jmp a_0009
-l_0EA3
+l_0EA4
 	cmp #$01
-	jne l_0EAD
+	jne l_0EAE
 @
 
 ; optimize FAIL ('SETLEVEL01', main.pas), line = 86
 
 	jsr SETLEVEL01
 	jmp a_0009
-l_0EAD
+l_0EAE
 	cmp #$02
-	jne l_0EB7
+	jne l_0EB8
 @
 
 ; optimize FAIL ('SETLEVEL02', main.pas), line = 87
 
 	jsr SETLEVEL02
 	jmp a_0009
-l_0EB7
+l_0EB8
 	cmp #$03
-	jne l_0EC1
+	jne l_0EC2
 @
 
 ; optimize FAIL ('SETLEVEL03', main.pas), line = 88
 
 	jsr SETLEVEL03
 	jmp a_0009
-l_0EC1
+l_0EC2
 	cmp #$04
-	jne l_0ECB
+	jne l_0ECC
 @
 
 ; optimize FAIL ('SETLEVEL04', main.pas), line = 89
 
 	jsr SETLEVEL04
 	jmp a_0009
-l_0ECB
+l_0ECC
 	cmp #$05
-	jne l_0ED5
+	jne l_0ED6
 @
 
 ; optimize FAIL ('SETLEVEL05', main.pas), line = 90
 
 	jsr SETLEVEL05
 	jmp a_0009
-l_0ED5
+l_0ED6
 	cmp #$06
-	jne l_0EDF
+	jne l_0EE0
 @
 
 ; optimize FAIL ('SETLEVEL06', main.pas), line = 91
 
 	jsr SETLEVEL06
 	jmp a_0009
-l_0EDF
+l_0EE0
 	cmp #$07
-	jne l_0EE9
+	jne l_0EEA
 @
 
 ; optimize FAIL ('SETLEVEL07', main.pas), line = 92
 
 	jsr SETLEVEL07
 	jmp a_0009
-l_0EE9
+l_0EEA
 	cmp #$08
-	jne l_0EF3
+	jne l_0EF4
 @
 
 ; optimize FAIL ('SETLEVEL08', main.pas), line = 93
 
 	jsr SETLEVEL08
-l_0EF3
+l_0EF4
 a_0009
 
 ; optimize FAIL ('ANIMATEOBSTACLES', main.pas), line = 96
@@ -3902,12 +3903,11 @@ a_0009
 	jsr STARTSCREEN
 
 ; --- RepeatUntilProlog
-l_0F05
+l_0F06
 
 ; optimize FAIL ('SYSTEM.PAUSE_006B', main.pas), line = 99
 
 	jsr SYSTEM.PAUSE_006B
-	jsr CHECKJOYSTATUS
 
 ; optimize OK (main.pas), line = 100
 
@@ -3956,10 +3956,10 @@ l_0F05
 ; optimize OK (main.pas), line = 107
 
 	lda ALIVE
-	jeq l_0F05x
+	jeq l_0F06x
 	cmp #$FF
-	jne l_0F05
-l_0F05x
+	jne l_0F06
+l_0F06x
 
 ; optimize OK (main.pas), line = 109
 

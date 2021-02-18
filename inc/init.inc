@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------------------
 
-procedure initPlayers(p: pointer; x, y, dir, brain, head, colour: byte; isAlive: boolean);
+procedure setPlayer(p: pointer; x, y, dir, brain, head, colour: byte; isAlive: boolean);
 begin
   ply := p;
   ply.brain := brain; ply.x := x; ply.y := y; ply.dir := dir;
