@@ -483,54 +483,6 @@ RNDSEED	= DATAORIGIN+$0009
 	add X
 	sta T0W
 	lda adr.MUL40+1,y
-	adc #$08
-	sta T0W+1
-
-; optimize OK (tools.inc), line = 6
-
-	sta :bp+1
-	ldy T0W
-	lda C
-	sta (:bp),y
-	lda T0W+1
-	add #$04
-	sta :bp+1
-	lda V
-	sta (:bp),y
-
-; ------------------------------------------------------------
-
-X	= DATAORIGIN+$0042
-Y	= DATAORIGIN+$0043
-V	= DATAORIGIN+$0044
-C	= DATAORIGIN+$0045
-
-@VarData	= X
-@VarDataSize	= 4
-
-@exit
-	.ifdef @new
-	lda <@VarData
-	sta :ztmp
-	lda >@VarData
-	ldy #@VarDataSize-1
-	jmp @FreeMem
-	els
-	rts						; ret
-	eif
-.endl
-
-.local	PUTCHAR_0098					; PROCEDURE | OVERLOAD
-
-; optimize OK (tools.inc), line = 11
-
-	lda Y
-	asl @
-	tay
-	lda adr.MUL40,y
-	add X
-	sta T0W
-	lda adr.MUL40+1,y
 	adc #$0C
 	sta T0W+1
 	ldy T0W+1
@@ -541,9 +493,9 @@ C	= DATAORIGIN+$0045
 
 ; ------------------------------------------------------------
 
-X	= DATAORIGIN+$0046
-Y	= DATAORIGIN+$0047
-V	= DATAORIGIN+$0048
+X	= DATAORIGIN+$0042
+Y	= DATAORIGIN+$0043
+V	= DATAORIGIN+$0044
 
 @VarData	= X
 @VarDataSize	= 3
@@ -560,9 +512,57 @@ V	= DATAORIGIN+$0048
 	eif
 .endl
 
+.local	PUTCHAR_008E					; PROCEDURE | OVERLOAD
+
+; optimize OK (tools.inc), line = 12
+
+	lda Y
+	asl @
+	tay
+	lda adr.MUL40,y
+	add X
+	sta T0W
+	lda adr.MUL40+1,y
+	adc #$08
+	sta T0W+1
+
+; optimize OK (tools.inc), line = 13
+
+	sta :bp+1
+	ldy T0W
+	lda C
+	sta (:bp),y
+	lda T0W+1
+	add #$04
+	sta :bp+1
+	lda V
+	sta (:bp),y
+
+; ------------------------------------------------------------
+
+X	= DATAORIGIN+$0045
+Y	= DATAORIGIN+$0046
+V	= DATAORIGIN+$0047
+C	= DATAORIGIN+$0048
+
+@VarData	= X
+@VarDataSize	= 4
+
+@exit
+	.ifdef @new
+	lda <@VarData
+	sta :ztmp
+	lda >@VarData
+	ldy #@VarDataSize-1
+	jmp @FreeMem
+	els
+	rts						; ret
+	eif
+.endl
+
 .local	GETCHAR						; FUNCTION
 
-; optimize OK (tools.inc), line = 16
+; optimize OK (tools.inc), line = 20
 
 	lda Y
 	asl @
@@ -574,7 +574,7 @@ V	= DATAORIGIN+$0048
 	adc #$0C
 	sta T0W+1
 
-; optimize OK (tools.inc), line = 17
+; optimize OK (tools.inc), line = 21
 
 	sta :bp+1
 	ldy T0W
@@ -612,53 +612,53 @@ RESULT	= DATAORIGIN+$004B
 
 .local	SHOWSCORE					; PROCEDURE
 
-; optimize OK (tools.inc), line = 24
+; optimize OK (tools.inc), line = 28
 
 	lda PLAYER1.COLOUR
-	sta PUTCHAR_0072.C
+	sta PUTCHAR_008E.C
 	lda PLAYER1.SCORE
-	sta PUTCHAR_0072.V
+	sta PUTCHAR_008E.V
 	lda #$00
-	sta PUTCHAR_0072.Y
+	sta PUTCHAR_008E.Y
 	lda #$1E
-	sta PUTCHAR_0072.X
-	jsr PUTCHAR_0072
+	sta PUTCHAR_008E.X
+	jsr PUTCHAR_008E
 
-; optimize OK (tools.inc), line = 25
+; optimize OK (tools.inc), line = 29
 
 	lda PLAYER2.COLOUR
-	sta PUTCHAR_0072.C
+	sta PUTCHAR_008E.C
 	lda PLAYER2.SCORE
-	sta PUTCHAR_0072.V
+	sta PUTCHAR_008E.V
 	lda #$00
-	sta PUTCHAR_0072.Y
+	sta PUTCHAR_008E.Y
 	lda #$20
-	sta PUTCHAR_0072.X
-	jsr PUTCHAR_0072
+	sta PUTCHAR_008E.X
+	jsr PUTCHAR_008E
 
-; optimize OK (tools.inc), line = 26
+; optimize OK (tools.inc), line = 30
 
 	lda PLAYER3.COLOUR
-	sta PUTCHAR_0072.C
+	sta PUTCHAR_008E.C
 	lda PLAYER3.SCORE
-	sta PUTCHAR_0072.V
+	sta PUTCHAR_008E.V
 	lda #$00
-	sta PUTCHAR_0072.Y
+	sta PUTCHAR_008E.Y
 	lda #$22
-	sta PUTCHAR_0072.X
-	jsr PUTCHAR_0072
+	sta PUTCHAR_008E.X
+	jsr PUTCHAR_008E
 
-; optimize OK (tools.inc), line = 27
+; optimize OK (tools.inc), line = 31
 
 	lda PLAYER4.COLOUR
-	sta PUTCHAR_0072.C
+	sta PUTCHAR_008E.C
 	lda PLAYER4.SCORE
-	sta PUTCHAR_0072.V
+	sta PUTCHAR_008E.V
 	lda #$00
-	sta PUTCHAR_0072.Y
+	sta PUTCHAR_008E.Y
 	lda #$24
-	sta PUTCHAR_0072.X
-	jsr PUTCHAR_0072
+	sta PUTCHAR_008E.X
+	jsr PUTCHAR_008E
 @exit
 	.ifdef @new
 	lda <@VarData
@@ -673,12 +673,12 @@ RESULT	= DATAORIGIN+$004B
 
 .local	CHECKAVAILDIR					; PROCEDURE
 
-; optimize OK (tools.inc), line = 34
+; optimize OK (tools.inc), line = 38
 
 	lda #$00
 	sta AVAILDIR
 
-; optimize OK (tools.inc), line = 35
+; optimize OK (tools.inc), line = 39
 
 	mwy PLY :bp2
 	ldy #PLY.Y-DATAORIGIN
@@ -699,7 +699,7 @@ RESULT	= DATAORIGIN+$004B
 	adc #$00
 	sta T0W+1
 
-; optimize OK (tools.inc), line = 37
+; optimize OK (tools.inc), line = 41
 
 	lda T0W
 	sub #$28
@@ -716,7 +716,7 @@ RESULT	= DATAORIGIN+$004B
 	sta AVAILDIR
 l_012A
 
-; optimize OK (tools.inc), line = 38
+; optimize OK (tools.inc), line = 42
 
 	mwy T0W :bp2
 	ldy #$28
@@ -728,7 +728,7 @@ l_012A
 	sta AVAILDIR
 l_014D
 
-; optimize OK (tools.inc), line = 39
+; optimize OK (tools.inc), line = 43
 
 	lda T0W
 	sub #$01
@@ -745,7 +745,7 @@ l_014D
 	sta AVAILDIR
 l_0170
 
-; optimize OK (tools.inc), line = 40
+; optimize OK (tools.inc), line = 44
 
 	mwy T0W :bp2
 	ldy #$01
@@ -770,11 +770,11 @@ l_0193
 
 .local	ANIMATEOBSTACLES				; PROCEDURE
 
-; optimize FAIL (0, tools.inc), line = 49
+; optimize FAIL (0, tools.inc), line = 53
 
 	inc COUNTER
 
-; optimize OK (tools.inc), line = 50
+; optimize OK (tools.inc), line = 54
 
 	lda COUNTER
 	and #$01
@@ -787,7 +787,7 @@ l_01BE
 	sta OBST
 l_01CC
 
-; optimize OK (tools.inc), line = 51
+; optimize OK (tools.inc), line = 55
 
 	lda #$07
 	sta I0B
@@ -831,7 +831,7 @@ OBST	= DATAORIGIN+$004D
 
 .local	CALCOBSTACLEADDR				; FUNCTION
 
-; optimize OK (tools.inc), line = 58
+; optimize OK (tools.inc), line = 62
 
 	lda Y
 	asl @
@@ -875,7 +875,7 @@ RESULT	= DATAORIGIN+$0050
 
 .local	SAVEOBSTACLES					; PROCEDURE
 
-; optimize OK (tools.inc), line = 65
+; optimize OK (tools.inc), line = 69
 
 	lda #$07
 	sta I0B
@@ -883,7 +883,7 @@ RESULT	= DATAORIGIN+$0050
 l_021A
 ; --- ForToDoCondition
 
-; optimize OK (tools.inc), line = 66
+; optimize OK (tools.inc), line = 70
 
 	lda I0B
 	asl @
@@ -896,7 +896,7 @@ l_021A
 @
 	jeq l_023C
 
-; optimize OK (tools.inc), line = 67
+; optimize OK (tools.inc), line = 71
 
 	lda adr.OBSTACLES,y
 	sta :STACKORIGIN+9
@@ -906,7 +906,7 @@ l_021A
 	lda #$56
 	sta (:bp),y
 
-; optimize OK (tools.inc), line = 68
+; optimize OK (tools.inc), line = 72
 
 	lda I0B
 	asl @
@@ -944,7 +944,7 @@ l_0228
 
 .local	DRAWTAIL					; PROCEDURE
 
-; optimize OK (tools.inc), line = 77
+; optimize OK (tools.inc), line = 81
 
 	mwy PLY :bp2
 	ldy #PLY.DIR-DATAORIGIN
@@ -952,7 +952,7 @@ l_0228
 	cmp NEWDIR
 	jne l_026E
 
-; optimize OK (tools.inc), line = 78
+; optimize OK (tools.inc), line = 82
 
 	lda NEWDIR
 	and #$0C
@@ -967,7 +967,7 @@ l_0293
 	jmp l_02A0
 l_026E
 
-; optimize OK (tools.inc), line = 80
+; optimize OK (tools.inc), line = 84
 
 	mwy PLY :bp2
 	ldy #PLY.DIR-DATAORIGIN
@@ -981,7 +981,7 @@ l_026E
 	sta T0B
 l_02C6
 
-; optimize OK (tools.inc), line = 81
+; optimize OK (tools.inc), line = 85
 
 	mwy PLY :bp2
 	ldy #PLY.DIR-DATAORIGIN
@@ -995,7 +995,7 @@ l_02C6
 	sta T0B
 l_02F3
 
-; optimize OK (tools.inc), line = 82
+; optimize OK (tools.inc), line = 86
 
 	mwy PLY :bp2
 	ldy #PLY.DIR-DATAORIGIN
@@ -1009,7 +1009,7 @@ l_02F3
 	sta T0B
 l_0320
 
-; optimize OK (tools.inc), line = 83
+; optimize OK (tools.inc), line = 87
 
 	mwy PLY :bp2
 	ldy #PLY.DIR-DATAORIGIN
@@ -1024,7 +1024,7 @@ l_0320
 l_034D
 l_02A0
 
-; optimize OK (tools.inc), line = 86
+; optimize OK (tools.inc), line = 90
 
 	mwy PLY :bp2
 	ldy #PLY.X-DATAORIGIN
@@ -1042,13 +1042,13 @@ l_02A0
 	mwy PLY :bp2
 	ldy #PLY.X-DATAORIGIN
 	lda (:bp2),y
-	sta PUTCHAR_0098.X
+	sta PUTCHAR_0072.X
 	ldy #PLY.Y-DATAORIGIN
 	lda (:bp2),y
-	sta PUTCHAR_0098.Y
+	sta PUTCHAR_0072.Y
 	lda T0B
-	sta PUTCHAR_0098.V
-	jsr PUTCHAR_0098
+	sta PUTCHAR_0072.V
+	jsr PUTCHAR_0072
 l_036A
 @exit
 	.ifdef @new
@@ -1064,14 +1064,14 @@ l_036A
 
 .local	CHECKJOYSTATUS					; PROCEDURE
 
-; optimize OK (tools.inc), line = 93
+; optimize OK (tools.inc), line = 97
 
 	lda #$02
 	sta JOY
 	lda #$FF
 	sta KEYSCAN
 
-; optimize OK (tools.inc), line = 94
+; optimize OK (tools.inc), line = 98
 
 	lda JOY
 	eor #$FF
@@ -1090,7 +1090,7 @@ l_036A
 
 .local	SETPLAYER					; PROCEDURE
 
-; optimize OK (tools.inc), line = 101
+; optimize OK (tools.inc), line = 105
 
 	lda P
 	sta PLY
@@ -1098,7 +1098,7 @@ l_036A
 	lda P+1
 	sta PLY+1
 	sta :bp2+1
-; optimize OK (tools.inc), line = 102
+; optimize OK (tools.inc), line = 106
 	ldy #PLY.BRAIN-DATAORIGIN
 	lda BRAIN
 	sta (:bp2),y
@@ -1112,7 +1112,7 @@ l_036A
 	lda DIR
 	sta (:bp2),y
 
-; optimize OK (tools.inc), line = 103
+; optimize OK (tools.inc), line = 107
 
 	ldy #PLY.HEAD-DATAORIGIN
 	lda HEAD
@@ -1124,23 +1124,23 @@ l_036A
 	lda ISALIVE
 	sta (:bp2),y
 
-; optimize OK (tools.inc), line = 104
+; optimize OK (tools.inc), line = 108
 
 	lda ISALIVE
 	jeq l_03CC
 
-; optimize FAIL (0, tools.inc), line = 105
+; optimize FAIL (0, tools.inc), line = 109
 
 	inc ALIVE
 	lda COLOUR
-	sta PUTCHAR_0072.C
+	sta PUTCHAR_008E.C
 	lda HEAD
-	sta PUTCHAR_0072.V
+	sta PUTCHAR_008E.V
 	lda Y
-	sta PUTCHAR_0072.Y
+	sta PUTCHAR_008E.Y
 	lda X
-	sta PUTCHAR_0072.X
-	jsr PUTCHAR_0072
+	sta PUTCHAR_008E.X
+	jsr PUTCHAR_008E
 l_03CC
 
 ; ------------------------------------------------------------
@@ -4105,17 +4105,17 @@ l_0E57
 
 	ldy #PLY.X-DATAORIGIN
 	lda (:bp2),y
-	sta PUTCHAR_0072.X
+	sta PUTCHAR_008E.X
 	ldy #PLY.Y-DATAORIGIN
 	lda (:bp2),y
-	sta PUTCHAR_0072.Y
+	sta PUTCHAR_008E.Y
 	ldy #PLY.COLOUR-DATAORIGIN
 	lda (:bp2),y
 	add #$80
-	sta PUTCHAR_0072.C
+	sta PUTCHAR_008E.C
 	lda #$57
-	sta PUTCHAR_0072.V
-	jsr PUTCHAR_0072
+	sta PUTCHAR_008E.V
+	jsr PUTCHAR_008E
 	jmp l_0EAB
 l_0E8A
 
@@ -4245,17 +4245,17 @@ a_0009
 	mwy PLY :bp2
 	ldy #PLY.X-DATAORIGIN
 	lda (:bp2),y
-	sta PUTCHAR_0072.X
+	sta PUTCHAR_008E.X
 	ldy #PLY.Y-DATAORIGIN
 	lda (:bp2),y
-	sta PUTCHAR_0072.Y
+	sta PUTCHAR_008E.Y
 	ldy #PLY.HEAD-DATAORIGIN
 	lda (:bp2),y
-	sta PUTCHAR_0072.V
+	sta PUTCHAR_008E.V
 	ldy #PLY.COLOUR-DATAORIGIN
 	lda (:bp2),y
-	sta PUTCHAR_0072.C
-	jsr PUTCHAR_0072
+	sta PUTCHAR_008E.C
+	jsr PUTCHAR_008E
 l_0EAB
 l_0E76
 
@@ -4285,14 +4285,14 @@ l_0E76
 
 	lda PLAYER1.COLOUR
 	add #$80
-	sta PUTCHAR_0072.C
+	sta PUTCHAR_008E.C
 	lda PLAYER1.HEAD
-	sta PUTCHAR_0072.V
+	sta PUTCHAR_008E.V
 	lda PLAYER1.Y
-	sta PUTCHAR_0072.Y
+	sta PUTCHAR_008E.Y
 	lda PLAYER1.X
-	sta PUTCHAR_0072.X
-	jsr PUTCHAR_0072
+	sta PUTCHAR_008E.X
+	jsr PUTCHAR_008E
 
 ; --- RepeatUntilProlog
 l_0F46
@@ -4307,14 +4307,14 @@ l_0F46
 ; optimize OK (main.pas), line = 70
 
 	lda PLAYER1.COLOUR
-	sta PUTCHAR_0072.C
+	sta PUTCHAR_008E.C
 	lda PLAYER1.HEAD
-	sta PUTCHAR_0072.V
+	sta PUTCHAR_008E.V
 	lda PLAYER1.Y
-	sta PUTCHAR_0072.Y
+	sta PUTCHAR_008E.Y
 	lda PLAYER1.X
-	sta PUTCHAR_0072.X
-	jsr PUTCHAR_0072
+	sta PUTCHAR_008E.X
+	jsr PUTCHAR_008E
 @exit
 	.ifdef @new
 	lda <@VarData

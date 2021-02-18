@@ -394,70 +394,70 @@ Source: main.a65
    483 1180 18 6D EE 2A			add X
    484 1184 85 5D			sta T0W
    485 1186 B9 0F 10			lda adr.MUL40+1,y
-   486 1189 69 08			adc #$08
+   486 1189 69 0C			adc #$0C
    487 118B 85 5E			sta T0W+1
-   488
-   489 				; optimize OK (tools.inc), line = 6
-   490
-   491 118D 85 11			sta :bp+1
-   492 118F A4 5D			ldy T0W
-   493 1191 AD F1 2A			lda C
-   494 1194 91 10			sta (:bp),y
-   495 1196 A5 5E			lda T0W+1
-   496 1198 18 69 04			add #$04
-   497 119B 85 11			sta :bp+1
-   498 119D AD F0 2A			lda V
-   499 11A0 91 10			sta (:bp),y
-   500
-   501 				; ------------------------------------------------------------
+   488 118D A4 5E			ldy T0W+1
+   489 118F 84 11			sty :bp+1
+   490 1191 A4 5D			ldy T0W
+   491 1193 AD F0 2A			lda V
+   492 1196 91 10			sta (:bp),y
+   493
+   494 				; ------------------------------------------------------------
+   495
+   496 = 2AEE			X	= DATAORIGIN+$0042
+   497 = 2AEF			Y	= DATAORIGIN+$0043
+   498 = 2AF0			V	= DATAORIGIN+$0044
+   499
+   500 = 2AEE			@VarData	= X
+   501 = 0003			@VarDataSize	= 3
    502
-   503 = 2AEE			X	= DATAORIGIN+$0042
-   504 = 2AEF			Y	= DATAORIGIN+$0043
-   505 = 2AF0			V	= DATAORIGIN+$0044
-   506 = 2AF1			C	= DATAORIGIN+$0045
-   507
-   508 = 2AEE			@VarData	= X
-   509 = 0004			@VarDataSize	= 4
-   510
-   511 11A2			@exit
-   512 					.ifdef @new
-   513 					lda <@VarData
-   514 					sta :ztmp
-   515 					lda >@VarData
-   516 					ldy #@VarDataSize-1
-   517 					jmp @FreeMem
-   518 					els
-   519 11A2 60				rts						; ret
-   520 					eif
-   521 				.endl
-   522
-   523 11A3			.local	PUTCHAR_0098					; PROCEDURE | OVERLOAD
-   524
-   525 				; optimize OK (tools.inc), line = 11
-   526
-   527 11A3 AD F3 2A			lda Y
-   528 11A6 0A				asl @
-   529 11A7 A8				tay
-   530 11A8 B9 0E 10			lda adr.MUL40,y
-   531 11AB 18 6D F2 2A			add X
-   532 11AF 85 5D			sta T0W
-   533 11B1 B9 0F 10			lda adr.MUL40+1,y
-   534 11B4 69 0C			adc #$0C
-   535 11B6 85 5E			sta T0W+1
-   536 11B8 A4 5E			ldy T0W+1
-   537 11BA 84 11			sty :bp+1
-   538 11BC A4 5D			ldy T0W
-   539 11BE AD F4 2A			lda V
-   540 11C1 91 10			sta (:bp),y
-   541
-   542 				; ------------------------------------------------------------
-   543
-   544 = 2AF2			X	= DATAORIGIN+$0046
-   545 = 2AF3			Y	= DATAORIGIN+$0047
-   546 = 2AF4			V	= DATAORIGIN+$0048
+   503 1198			@exit
+   504 					.ifdef @new
+   505 					lda <@VarData
+   506 					sta :ztmp
+   507 					lda >@VarData
+   508 					ldy #@VarDataSize-1
+   509 					jmp @FreeMem
+   510 					els
+   511 1198 60				rts						; ret
+   512 					eif
+   513 				.endl
+   514
+   515 1199			.local	PUTCHAR_008E					; PROCEDURE | OVERLOAD
+   516
+   517 				; optimize OK (tools.inc), line = 12
+   518
+   519 1199 AD F2 2A			lda Y
+   520 119C 0A				asl @
+   521 119D A8				tay
+   522 119E B9 0E 10			lda adr.MUL40,y
+   523 11A1 18 6D F1 2A			add X
+   524 11A5 85 5D			sta T0W
+   525 11A7 B9 0F 10			lda adr.MUL40+1,y
+   526 11AA 69 08			adc #$08
+   527 11AC 85 5E			sta T0W+1
+   528
+   529 				; optimize OK (tools.inc), line = 13
+   530
+   531 11AE 85 11			sta :bp+1
+   532 11B0 A4 5D			ldy T0W
+   533 11B2 AD F4 2A			lda C
+   534 11B5 91 10			sta (:bp),y
+   535 11B7 A5 5E			lda T0W+1
+   536 11B9 18 69 04			add #$04
+   537 11BC 85 11			sta :bp+1
+   538 11BE AD F3 2A			lda V
+   539 11C1 91 10			sta (:bp),y
+   540
+   541 				; ------------------------------------------------------------
+   542
+   543 = 2AF1			X	= DATAORIGIN+$0045
+   544 = 2AF2			Y	= DATAORIGIN+$0046
+   545 = 2AF3			V	= DATAORIGIN+$0047
+   546 = 2AF4			C	= DATAORIGIN+$0048
    547
-   548 = 2AF2			@VarData	= X
-   549 = 0003			@VarDataSize	= 3
+   548 = 2AF1			@VarData	= X
+   549 = 0004			@VarDataSize	= 4
    550
    551 11C3			@exit
    552 					.ifdef @new
@@ -473,7 +473,7 @@ Source: main.a65
    562
    563 11C4			.local	GETCHAR						; FUNCTION
    564
-   565 				; optimize OK (tools.inc), line = 16
+   565 				; optimize OK (tools.inc), line = 20
    566
    567 11C4 AD F6 2A			lda Y
    568 11C7 0A				asl @
@@ -485,7 +485,7 @@ Source: main.a65
    574 11D5 69 0C			adc #$0C
    575 11D7 85 5E			sta T0W+1
    576
-   577 				; optimize OK (tools.inc), line = 17
+   577 				; optimize OK (tools.inc), line = 21
    578
    579 11D9 85 11			sta :bp+1
    580 11DB A4 5D			ldy T0W
@@ -523,53 +523,53 @@ Source: main.a65
    612
    613 11E9			.local	SHOWSCORE					; PROCEDURE
    614
-   615 				; optimize OK (tools.inc), line = 24
+   615 				; optimize OK (tools.inc), line = 28
    616
    617 11E9 AD C1 2A			lda PLAYER1.COLOUR
-   618 11EC 8D F1 2A			sta PUTCHAR_0072.C
+   618 11EC 8D F4 2A			sta PUTCHAR_008E.C
    619 11EF AD C4 2A			lda PLAYER1.SCORE
-   620 11F2 8D F0 2A			sta PUTCHAR_0072.V
+   620 11F2 8D F3 2A			sta PUTCHAR_008E.V
    621 11F5 A9 00			lda #$00
-   622 11F7 8D EF 2A			sta PUTCHAR_0072.Y
+   622 11F7 8D F2 2A			sta PUTCHAR_008E.Y
    623 11FA A9 1E			lda #$1E
-   624 11FC 8D EE 2A			sta PUTCHAR_0072.X
-   625 11FF 20 78 11			jsr PUTCHAR_0072
+   624 11FC 8D F1 2A			sta PUTCHAR_008E.X
+   625 11FF 20 99 11			jsr PUTCHAR_008E
    626
-   627 				; optimize OK (tools.inc), line = 25
+   627 				; optimize OK (tools.inc), line = 29
    628
    629 1202 AD C9 2A			lda PLAYER2.COLOUR
-   630 1205 8D F1 2A			sta PUTCHAR_0072.C
+   630 1205 8D F4 2A			sta PUTCHAR_008E.C
    631 1208 AD CC 2A			lda PLAYER2.SCORE
-   632 120B 8D F0 2A			sta PUTCHAR_0072.V
+   632 120B 8D F3 2A			sta PUTCHAR_008E.V
    633 120E A9 00			lda #$00
-   634 1210 8D EF 2A			sta PUTCHAR_0072.Y
+   634 1210 8D F2 2A			sta PUTCHAR_008E.Y
    635 1213 A9 20			lda #$20
-   636 1215 8D EE 2A			sta PUTCHAR_0072.X
-   637 1218 20 78 11			jsr PUTCHAR_0072
+   636 1215 8D F1 2A			sta PUTCHAR_008E.X
+   637 1218 20 99 11			jsr PUTCHAR_008E
    638
-   639 				; optimize OK (tools.inc), line = 26
+   639 				; optimize OK (tools.inc), line = 30
    640
    641 121B AD D1 2A			lda PLAYER3.COLOUR
-   642 121E 8D F1 2A			sta PUTCHAR_0072.C
+   642 121E 8D F4 2A			sta PUTCHAR_008E.C
    643 1221 AD D4 2A			lda PLAYER3.SCORE
-   644 1224 8D F0 2A			sta PUTCHAR_0072.V
+   644 1224 8D F3 2A			sta PUTCHAR_008E.V
    645 1227 A9 00			lda #$00
-   646 1229 8D EF 2A			sta PUTCHAR_0072.Y
+   646 1229 8D F2 2A			sta PUTCHAR_008E.Y
    647 122C A9 22			lda #$22
-   648 122E 8D EE 2A			sta PUTCHAR_0072.X
-   649 1231 20 78 11			jsr PUTCHAR_0072
+   648 122E 8D F1 2A			sta PUTCHAR_008E.X
+   649 1231 20 99 11			jsr PUTCHAR_008E
    650
-   651 				; optimize OK (tools.inc), line = 27
+   651 				; optimize OK (tools.inc), line = 31
    652
    653 1234 AD D9 2A			lda PLAYER4.COLOUR
-   654 1237 8D F1 2A			sta PUTCHAR_0072.C
+   654 1237 8D F4 2A			sta PUTCHAR_008E.C
    655 123A AD DC 2A			lda PLAYER4.SCORE
-   656 123D 8D F0 2A			sta PUTCHAR_0072.V
+   656 123D 8D F3 2A			sta PUTCHAR_008E.V
    657 1240 A9 00			lda #$00
-   658 1242 8D EF 2A			sta PUTCHAR_0072.Y
+   658 1242 8D F2 2A			sta PUTCHAR_008E.Y
    659 1245 A9 24			lda #$24
-   660 1247 8D EE 2A			sta PUTCHAR_0072.X
-   661 124A 20 78 11			jsr PUTCHAR_0072
+   660 1247 8D F1 2A			sta PUTCHAR_008E.X
+   661 124A 20 99 11			jsr PUTCHAR_008E
    662 124D			@exit
    663 					.ifdef @new
    664 					lda <@VarData
@@ -584,12 +584,12 @@ Source: main.a65
    673
    674 124E			.local	CHECKAVAILDIR					; PROCEDURE
    675
-   676 				; optimize OK (tools.inc), line = 34
+   676 				; optimize OK (tools.inc), line = 38
    677
    678 124E A9 00			lda #$00
    679 1250 85 5C			sta AVAILDIR
    680
-   681 				; optimize OK (tools.inc), line = 35
+   681 				; optimize OK (tools.inc), line = 39
    682
    683 1252 AC 9B 2A 84 12 AC + 	mwy PLY :bp2
    684 125C A0 01			ldy #PLY.Y-DATAORIGIN
@@ -610,7 +610,7 @@ Source: main.a65
    699 127C 69 00			adc #$00
    700 127E 85 5E			sta T0W+1
    701
-   702 				; optimize OK (tools.inc), line = 37
+   702 				; optimize OK (tools.inc), line = 41
    703
    704 1280 A5 5D			lda T0W
    705 1282 38 E9 28			sub #$28
@@ -627,7 +627,7 @@ Source: main.a65
    716 1299 85 5C			sta AVAILDIR
    717 129B			l_012A
    718
-   719 				; optimize OK (tools.inc), line = 38
+   719 				; optimize OK (tools.inc), line = 42
    720
    721 129B A4 5D 84 12 A4 5E + 	mwy T0W :bp2
    722 12A3 A0 28			ldy #$28
@@ -639,7 +639,7 @@ Source: main.a65
    728 12AF 85 5C			sta AVAILDIR
    729 12B1			l_014D
    730
-   731 				; optimize OK (tools.inc), line = 39
+   731 				; optimize OK (tools.inc), line = 43
    732
    733 12B1 A5 5D			lda T0W
    734 12B3 38 E9 01			sub #$01
@@ -656,7 +656,7 @@ Source: main.a65
    745 12CA 85 5C			sta AVAILDIR
    746 12CC			l_0170
    747
-   748 				; optimize OK (tools.inc), line = 40
+   748 				; optimize OK (tools.inc), line = 44
    749
    750 12CC A4 5D 84 12 A4 5E + 	mwy T0W :bp2
    751 12D4 A0 01			ldy #$01
@@ -681,11 +681,11 @@ Source: main.a65
    770
    771 12E3			.local	ANIMATEOBSTACLES				; PROCEDURE
    772
-   773 				; optimize FAIL (0, tools.inc), line = 49
+   773 				; optimize FAIL (0, tools.inc), line = 53
    774
    775 12E3 EE F8 2A			inc COUNTER
    776
-   777 				; optimize OK (tools.inc), line = 50
+   777 				; optimize OK (tools.inc), line = 54
    778
    779 12E6 AD F8 2A			lda COUNTER
    780 12E9 29 01			and #$01
@@ -698,7 +698,7 @@ Source: main.a65
    787 12F7 8D F9 2A			sta OBST
    788 12FA			l_01CC
    789
-   790 				; optimize OK (tools.inc), line = 51
+   790 				; optimize OK (tools.inc), line = 55
    791
    792 12FA A9 07			lda #$07
    793 12FC 85 59			sta I0B
@@ -742,7 +742,7 @@ Source: main.a65
    831
    832 1318			.local	CALCOBSTACLEADDR				; FUNCTION
    833
-   834 				; optimize OK (tools.inc), line = 58
+   834 				; optimize OK (tools.inc), line = 62
    835
    836 1318 AD FB 2A			lda Y
    837 131B 0A				asl @
@@ -786,7 +786,7 @@ Source: main.a65
    875
    876 133B			.local	SAVEOBSTACLES					; PROCEDURE
    877
-   878 				; optimize OK (tools.inc), line = 65
+   878 				; optimize OK (tools.inc), line = 69
    879
    880 133B A9 07			lda #$07
    881 133D 85 59			sta I0B
@@ -794,7 +794,7 @@ Source: main.a65
    883 133F			l_021A
    884 				; --- ForToDoCondition
    885
-   886 				; optimize OK (tools.inc), line = 66
+   886 				; optimize OK (tools.inc), line = 70
    887
    888 133F A5 59			lda I0B
    889 1341 0A				asl @
@@ -807,7 +807,7 @@ Source: main.a65
    896 134F			@
    897 134F F0 29			jeq l_023C
    898
-   899 				; optimize OK (tools.inc), line = 67
+   899 				; optimize OK (tools.inc), line = 71
    900
    901 1351 B9 DE 2A			lda adr.OBSTACLES,y
    902 1354 85 21			sta :STACKORIGIN+9
@@ -817,7 +817,7 @@ Source: main.a65
    906 135D A9 56			lda #$56
    907 135F 91 10			sta (:bp),y
    908
-   909 				; optimize OK (tools.inc), line = 68
+   909 				; optimize OK (tools.inc), line = 72
    910
    911 1361 A5 59			lda I0B
    912 1363 0A				asl @
@@ -855,7 +855,7 @@ Source: main.a65
    944
    945 137F			.local	DRAWTAIL					; PROCEDURE
    946
-   947 				; optimize OK (tools.inc), line = 77
+   947 				; optimize OK (tools.inc), line = 81
    948
    949 137F AC 9B 2A 84 12 AC + 	mwy PLY :bp2
    950 1389 A0 04			ldy #PLY.DIR-DATAORIGIN
@@ -863,7 +863,7 @@ Source: main.a65
    952 138D C5 5B			cmp NEWDIR
    953 138F D0 14			jne l_026E
    954
-   955 				; optimize OK (tools.inc), line = 78
+   955 				; optimize OK (tools.inc), line = 82
    956
    957 1391 A5 5B			lda NEWDIR
    958 1393 29 0C			and #$0C
@@ -878,7 +878,7 @@ Source: main.a65
    967 13A2 4C 15 14			jmp l_02A0
    968 13A5			l_026E
    969
-   970 				; optimize OK (tools.inc), line = 80
+   970 				; optimize OK (tools.inc), line = 84
    971
    972 13A5 AC 9B 2A 84 12 AC + 	mwy PLY :bp2
    973 13AF A0 04			ldy #PLY.DIR-DATAORIGIN
@@ -892,7 +892,7 @@ Source: main.a65
    981 13BF 85 58			sta T0B
    982 13C1			l_02C6
    983
-   984 				; optimize OK (tools.inc), line = 81
+   984 				; optimize OK (tools.inc), line = 85
    985
    986 13C1 AC 9B 2A 84 12 AC + 	mwy PLY :bp2
    987 13CB A0 04			ldy #PLY.DIR-DATAORIGIN
@@ -906,7 +906,7 @@ Source: main.a65
    995 13DB 85 58			sta T0B
    996 13DD			l_02F3
    997
-   998 				; optimize OK (tools.inc), line = 82
+   998 				; optimize OK (tools.inc), line = 86
    999
   1000 13DD AC 9B 2A 84 12 AC + 	mwy PLY :bp2
   1001 13E7 A0 04			ldy #PLY.DIR-DATAORIGIN
@@ -920,7 +920,7 @@ Source: main.a65
   1009 13F7 85 58			sta T0B
   1010 13F9			l_0320
   1011
-  1012 				; optimize OK (tools.inc), line = 83
+  1012 				; optimize OK (tools.inc), line = 87
   1013
   1014 13F9 AC 9B 2A 84 12 AC + 	mwy PLY :bp2
   1015 1403 A0 04			ldy #PLY.DIR-DATAORIGIN
@@ -935,7 +935,7 @@ Source: main.a65
   1024 1415			l_034D
   1025 1415			l_02A0
   1026
-  1027 				; optimize OK (tools.inc), line = 86
+  1027 				; optimize OK (tools.inc), line = 90
   1028
   1029 1415 AC 9B 2A 84 12 AC + 	mwy PLY :bp2
   1030 141F A0 00			ldy #PLY.X-DATAORIGIN
@@ -953,13 +953,13 @@ Source: main.a65
   1042 1437 AC 9B 2A 84 12 AC + 	mwy PLY :bp2
   1043 1441 A0 00			ldy #PLY.X-DATAORIGIN
   1044 1443 B1 12			lda (:bp2),y
-  1045 1445 8D F2 2A			sta PUTCHAR_0098.X
+  1045 1445 8D EE 2A			sta PUTCHAR_0072.X
   1046 1448 A0 01			ldy #PLY.Y-DATAORIGIN
   1047 144A B1 12			lda (:bp2),y
-  1048 144C 8D F3 2A			sta PUTCHAR_0098.Y
+  1048 144C 8D EF 2A			sta PUTCHAR_0072.Y
   1049 144F A5 58			lda T0B
-  1050 1451 8D F4 2A			sta PUTCHAR_0098.V
-  1051 1454 20 A3 11			jsr PUTCHAR_0098
+  1050 1451 8D F0 2A			sta PUTCHAR_0072.V
+  1051 1454 20 78 11			jsr PUTCHAR_0072
   1052 1457			l_036A
   1053 1457			@exit
   1054 					.ifdef @new
@@ -975,14 +975,14 @@ Source: main.a65
   1064
   1065 1458			.local	CHECKJOYSTATUS					; PROCEDURE
   1066
-  1067 				; optimize OK (tools.inc), line = 93
+  1067 				; optimize OK (tools.inc), line = 97
   1068
   1069 1458 A9 02			lda #$02
   1070 145A 8D 08 FF			sta JOY
   1071 145D A9 FF			lda #$FF
   1072 145F 8D 30 FD			sta KEYSCAN
   1073
-  1074 				; optimize OK (tools.inc), line = 94
+  1074 				; optimize OK (tools.inc), line = 98
   1075
   1076 1462 AD 08 FF			lda JOY
   1077 1465 49 FF			eor #$FF
@@ -1001,7 +1001,7 @@ Source: main.a65
   1090
   1091 146A			.local	SETPLAYER					; PROCEDURE
   1092
-  1093 				; optimize OK (tools.inc), line = 101
+  1093 				; optimize OK (tools.inc), line = 105
   1094
   1095 146A AD FE 2A			lda P
   1096 146D 8D 9B 2A			sta PLY
@@ -1009,7 +1009,7 @@ Source: main.a65
   1098 1472 AD FF 2A			lda P+1
   1099 1475 8D 9C 2A			sta PLY+1
   1100 1478 85 13			sta :bp2+1
-  1101 				; optimize OK (tools.inc), line = 102
+  1101 				; optimize OK (tools.inc), line = 106
   1102 147A A0 05			ldy #PLY.BRAIN-DATAORIGIN
   1103 147C AD 03 2B			lda BRAIN
   1104 147F 91 12			sta (:bp2),y
@@ -1023,7 +1023,7 @@ Source: main.a65
   1112 1491 AD 02 2B			lda DIR
   1113 1494 91 12			sta (:bp2),y
   1114
-  1115 				; optimize OK (tools.inc), line = 103
+  1115 				; optimize OK (tools.inc), line = 107
   1116
   1117 1496 A0 02			ldy #PLY.HEAD-DATAORIGIN
   1118 1498 AD 04 2B			lda HEAD
@@ -1035,23 +1035,23 @@ Source: main.a65
   1124 14A6 AD 06 2B			lda ISALIVE
   1125 14A9 91 12			sta (:bp2),y
   1126
-  1127 				; optimize OK (tools.inc), line = 104
+  1127 				; optimize OK (tools.inc), line = 108
   1128
   1129 14AB AD 06 2B			lda ISALIVE
   1130 14AE F0 1D			jeq l_03CC
   1131
-  1132 				; optimize FAIL (0, tools.inc), line = 105
+  1132 				; optimize FAIL (0, tools.inc), line = 109
   1133
   1134 14B0 E6 5A			inc ALIVE
   1135 14B2 AD 05 2B			lda COLOUR
-  1136 14B5 8D F1 2A			sta PUTCHAR_0072.C
+  1136 14B5 8D F4 2A			sta PUTCHAR_008E.C
   1137 14B8 AD 04 2B			lda HEAD
-  1138 14BB 8D F0 2A			sta PUTCHAR_0072.V
+  1138 14BB 8D F3 2A			sta PUTCHAR_008E.V
   1139 14BE AD 01 2B			lda Y
-  1140 14C1 8D EF 2A			sta PUTCHAR_0072.Y
+  1140 14C1 8D F2 2A			sta PUTCHAR_008E.Y
   1141 14C4 AD 00 2B			lda X
-  1142 14C7 8D EE 2A			sta PUTCHAR_0072.X
-  1143 14CA 20 78 11			jsr PUTCHAR_0072
+  1142 14C7 8D F1 2A			sta PUTCHAR_008E.X
+  1143 14CA 20 99 11			jsr PUTCHAR_008E
   1144 14CD			l_03CC
   1145
   1146 				; ------------------------------------------------------------
@@ -4016,17 +4016,17 @@ Source: main.a65
   4105
   4106 2850 A0 00			ldy #PLY.X-DATAORIGIN
   4107 2852 B1 12			lda (:bp2),y
-  4108 2854 8D EE 2A			sta PUTCHAR_0072.X
+  4108 2854 8D F1 2A			sta PUTCHAR_008E.X
   4109 2857 A0 01			ldy #PLY.Y-DATAORIGIN
   4110 2859 B1 12			lda (:bp2),y
-  4111 285B 8D EF 2A			sta PUTCHAR_0072.Y
+  4111 285B 8D F2 2A			sta PUTCHAR_008E.Y
   4112 285E A0 03			ldy #PLY.COLOUR-DATAORIGIN
   4113 2860 B1 12			lda (:bp2),y
   4114 2862 18 69 80			add #$80
-  4115 2865 8D F1 2A			sta PUTCHAR_0072.C
+  4115 2865 8D F4 2A			sta PUTCHAR_008E.C
   4116 2868 A9 57			lda #$57
-  4117 286A 8D F0 2A			sta PUTCHAR_0072.V
-  4118 286D 20 78 11			jsr PUTCHAR_0072
+  4117 286A 8D F3 2A			sta PUTCHAR_008E.V
+  4118 286D 20 99 11			jsr PUTCHAR_008E
   4119 2870 4C 59 29			jmp l_0EAB
   4120 2873			l_0E8A
   4121
@@ -4156,17 +4156,17 @@ Source: main.a65
   4245 2930 AC 9B 2A 84 12 AC + 	mwy PLY :bp2
   4246 293A A0 00			ldy #PLY.X-DATAORIGIN
   4247 293C B1 12			lda (:bp2),y
-  4248 293E 8D EE 2A			sta PUTCHAR_0072.X
+  4248 293E 8D F1 2A			sta PUTCHAR_008E.X
   4249 2941 A0 01			ldy #PLY.Y-DATAORIGIN
   4250 2943 B1 12			lda (:bp2),y
-  4251 2945 8D EF 2A			sta PUTCHAR_0072.Y
+  4251 2945 8D F2 2A			sta PUTCHAR_008E.Y
   4252 2948 A0 02			ldy #PLY.HEAD-DATAORIGIN
   4253 294A B1 12			lda (:bp2),y
-  4254 294C 8D F0 2A			sta PUTCHAR_0072.V
+  4254 294C 8D F3 2A			sta PUTCHAR_008E.V
   4255 294F A0 03			ldy #PLY.COLOUR-DATAORIGIN
   4256 2951 B1 12			lda (:bp2),y
-  4257 2953 8D F1 2A			sta PUTCHAR_0072.C
-  4258 2956 20 78 11			jsr PUTCHAR_0072
+  4257 2953 8D F4 2A			sta PUTCHAR_008E.C
+  4258 2956 20 99 11			jsr PUTCHAR_008E
   4259 2959			l_0EAB
   4260 2959			l_0E76
   4261
@@ -4196,14 +4196,14 @@ Source: main.a65
   4285
   4286 295A AD C1 2A			lda PLAYER1.COLOUR
   4287 295D 18 69 80			add #$80
-  4288 2960 8D F1 2A			sta PUTCHAR_0072.C
+  4288 2960 8D F4 2A			sta PUTCHAR_008E.C
   4289 2963 AD C0 2A			lda PLAYER1.HEAD
-  4290 2966 8D F0 2A			sta PUTCHAR_0072.V
+  4290 2966 8D F3 2A			sta PUTCHAR_008E.V
   4291 2969 AD BF 2A			lda PLAYER1.Y
-  4292 296C 8D EF 2A			sta PUTCHAR_0072.Y
+  4292 296C 8D F2 2A			sta PUTCHAR_008E.Y
   4293 296F AD BE 2A			lda PLAYER1.X
-  4294 2972 8D EE 2A			sta PUTCHAR_0072.X
-  4295 2975 20 78 11			jsr PUTCHAR_0072
+  4294 2972 8D F1 2A			sta PUTCHAR_008E.X
+  4295 2975 20 99 11			jsr PUTCHAR_008E
   4296
   4297 				; --- RepeatUntilProlog
   4298 2978			l_0F46
@@ -4218,14 +4218,14 @@ Source: main.a65
   4307 				; optimize OK (main.pas), line = 70
   4308
   4309 2981 AD C1 2A			lda PLAYER1.COLOUR
-  4310 2984 8D F1 2A			sta PUTCHAR_0072.C
+  4310 2984 8D F4 2A			sta PUTCHAR_008E.C
   4311 2987 AD C0 2A			lda PLAYER1.HEAD
-  4312 298A 8D F0 2A			sta PUTCHAR_0072.V
+  4312 298A 8D F3 2A			sta PUTCHAR_008E.V
   4313 298D AD BF 2A			lda PLAYER1.Y
-  4314 2990 8D EF 2A			sta PUTCHAR_0072.Y
+  4314 2990 8D F2 2A			sta PUTCHAR_008E.Y
   4315 2993 AD BE 2A			lda PLAYER1.X
-  4316 2996 8D EE 2A			sta PUTCHAR_0072.X
-  4317 2999 20 78 11			jsr PUTCHAR_0072
+  4316 2996 8D F1 2A			sta PUTCHAR_008E.X
+  4317 2999 20 99 11			jsr PUTCHAR_008E
   4318 299C			@exit
   4319 					.ifdef @new
   4320 					lda <@VarData
