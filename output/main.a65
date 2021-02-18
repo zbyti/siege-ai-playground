@@ -493,9 +493,9 @@ RNDSEED	= DATAORIGIN+$0009
 
 ; ------------------------------------------------------------
 
-X	= DATAORIGIN+$0042
-Y	= DATAORIGIN+$0043
-V	= DATAORIGIN+$0044
+X	= DATAORIGIN+$0032
+Y	= DATAORIGIN+$0033
+V	= DATAORIGIN+$0034
 
 @VarData	= X
 @VarDataSize	= 3
@@ -540,10 +540,10 @@ V	= DATAORIGIN+$0044
 
 ; ------------------------------------------------------------
 
-X	= DATAORIGIN+$0045
-Y	= DATAORIGIN+$0046
-V	= DATAORIGIN+$0047
-C	= DATAORIGIN+$0048
+X	= DATAORIGIN+$0035
+Y	= DATAORIGIN+$0036
+V	= DATAORIGIN+$0037
+C	= DATAORIGIN+$0038
 
 @VarData	= X
 @VarDataSize	= 4
@@ -600,9 +600,9 @@ C	= DATAORIGIN+$0048
 
 ; ------------------------------------------------------------
 
-X	= DATAORIGIN+$0049
-Y	= DATAORIGIN+$004A
-RESULT	= DATAORIGIN+$004B
+X	= DATAORIGIN+$0039
+Y	= DATAORIGIN+$003A
+RESULT	= DATAORIGIN+$003B
 
 @VarData	= X
 @VarDataSize	= 3
@@ -863,8 +863,8 @@ l_0273
 
 ; ------------------------------------------------------------
 
-COUNTER	= DATAORIGIN+$004C
-OBST	= DATAORIGIN+$004D
+COUNTER	= DATAORIGIN+$003C
+OBST	= DATAORIGIN+$003D
 @FORTMP_0262	= $00
 
 @VarData	= COUNTER
@@ -916,9 +916,9 @@ OBST	= DATAORIGIN+$004D
 
 ; ------------------------------------------------------------
 
-X	= DATAORIGIN+$004E
-Y	= DATAORIGIN+$004F
-RESULT	= DATAORIGIN+$0050
+X	= DATAORIGIN+$003E
+Y	= DATAORIGIN+$003F
+RESULT	= DATAORIGIN+$0040
 
 @VarData	= X
 @VarDataSize	= 4
@@ -945,7 +945,7 @@ l_02A6
 	cmp #$00
 	bne @+
 	lda adr.OBSTACLES,y
-	cmp #$7E
+	cmp #$5E
 @
 	jeq l_02C8
 
@@ -1191,7 +1191,7 @@ a_0003
 
 ; ------------------------------------------------------------
 
-@CASETMP_0003	= DATAORIGIN+$0052
+@CASETMP_0003	= DATAORIGIN+$0042
 
 @VarData	= @CASETMP_0003
 @VarDataSize	= 1
@@ -1328,14 +1328,14 @@ l_04B8
 
 ; ------------------------------------------------------------
 
-P	= DATAORIGIN+$0053
-X	= DATAORIGIN+$0055
-Y	= DATAORIGIN+$0056
-DIR	= DATAORIGIN+$0057
-BRAIN	= DATAORIGIN+$0058
-HEAD	= DATAORIGIN+$0059
-COLOUR	= DATAORIGIN+$005A
-ISALIVE	= DATAORIGIN+$005B
+P	= DATAORIGIN+$0043
+X	= DATAORIGIN+$0045
+Y	= DATAORIGIN+$0046
+DIR	= DATAORIGIN+$0047
+BRAIN	= DATAORIGIN+$0048
+HEAD	= DATAORIGIN+$0049
+COLOUR	= DATAORIGIN+$004A
+ISALIVE	= DATAORIGIN+$004B
 
 @VarData	= P
 @VarDataSize	= 9
@@ -1485,7 +1485,7 @@ l_057F
 
 ; ------------------------------------------------------------
 
-RESULT	= DATAORIGIN+$005C
+RESULT	= DATAORIGIN+$004C
 
 @VarData	= RESULT
 @VarDataSize	= 1
@@ -1532,7 +1532,7 @@ RESULT	= DATAORIGIN+$005C
 
 ; ------------------------------------------------------------
 
-RESULT	= DATAORIGIN+$005D
+RESULT	= DATAORIGIN+$004D
 
 @VarData	= RESULT
 @VarDataSize	= 1
@@ -1643,7 +1643,7 @@ l_0663
 
 ; ------------------------------------------------------------
 
-@CASETMP_0004	= DATAORIGIN+$005E
+@CASETMP_0004	= DATAORIGIN+$004E
 
 @VarData	= @CASETMP_0004
 @VarDataSize	= 1
@@ -1764,8 +1764,8 @@ l_069E
 
 ; ------------------------------------------------------------
 
-@CASETMP_0005	= DATAORIGIN+$005F
-@CASETMP_0006	= DATAORIGIN+$0060
+@CASETMP_0005	= DATAORIGIN+$004F
+@CASETMP_0006	= DATAORIGIN+$0050
 
 @VarData	= @CASETMP_0005
 @VarDataSize	= 2
@@ -2209,10 +2209,10 @@ l_0AB9
 
 ; ------------------------------------------------------------
 
-L	= DATAORIGIN+$0061
-R	= DATAORIGIN+$0062
-U	= DATAORIGIN+$0063
-D	= DATAORIGIN+$0064
+L	= DATAORIGIN+$0051
+R	= DATAORIGIN+$0052
+U	= DATAORIGIN+$0053
+D	= DATAORIGIN+$0054
 @FORTMP_0771	= $01
 @FORTMP_0811	= $01
 @FORTMP_08B1	= $01
@@ -2427,7 +2427,7 @@ l_0C16
 
 ; ------------------------------------------------------------
 
-@CASETMP_0007	= DATAORIGIN+$0065
+@CASETMP_0007	= DATAORIGIN+$0055
 
 @VarData	= @CASETMP_0007
 @VarDataSize	= 1
@@ -4191,7 +4191,7 @@ l_0F8A
 	lda I0B
 	asl @
 	tay
-	lda #$7E
+	lda #$5E
 	sta adr.OBSTACLES,y
 	lda #$00
 	sta adr.OBSTACLES+1,y
@@ -4372,7 +4372,7 @@ a_0008
 
 ; ------------------------------------------------------------
 
-@CASETMP_0008	= DATAORIGIN+$0066
+@CASETMP_0008	= DATAORIGIN+$0056
 
 @VarData	= @CASETMP_0008
 @VarDataSize	= 1
@@ -4473,7 +4473,7 @@ l_1052
 
 ; ------------------------------------------------------------
 
-@CASETMP_0009	= DATAORIGIN+$0067
+@CASETMP_0009	= DATAORIGIN+$0057
 
 @VarData	= @CASETMP_0009
 @VarDataSize	= 1
@@ -4617,7 +4617,7 @@ BACKGROUND_COLOUR	= $1F
 BOREDER_COLOUR	= $00
 VICTORIES	= $09
 LOOK_AHEAD	= $05
-TRASH	= $7E
+TRASH	= $5E
 EMPTY	= $20
 WALL	= $A0
 WALL_COLOUR	= $41
@@ -4664,8 +4664,9 @@ I0B	= $59
 ALIVE	= $5A
 NEWDIR	= $5B
 AVAILDIR	= $5C
-T0W	= $5D
-adr.PLY	= $5F
+JOYSTATUS	= $5D
+T0W	= $5E
+adr.PLY	= $70
 .var PLY	= adr.PLY .word
 PLY.X	= DATAORIGIN+$0000
 PLY.Y	= DATAORIGIN+$0001
@@ -4675,7 +4676,7 @@ PLY.DIR	= DATAORIGIN+$0004
 PLY.BRAIN	= DATAORIGIN+$0005
 PLY.SCORE	= DATAORIGIN+$0006
 PLY.ISALIVE	= DATAORIGIN+$0007
-adr.TMPPLY	= $61
+adr.TMPPLY	= $72
 .var TMPPLY	= adr.TMPPLY .word
 TMPPLY.X	= DATAORIGIN+$0000
 TMPPLY.Y	= DATAORIGIN+$0001
@@ -4685,7 +4686,6 @@ TMPPLY.DIR	= DATAORIGIN+$0004
 TMPPLY.BRAIN	= DATAORIGIN+$0005
 TMPPLY.SCORE	= DATAORIGIN+$0006
 TMPPLY.ISALIVE	= DATAORIGIN+$0007
-JOYSTATUS	= $63
 LEVEL	= DATAORIGIN+$0010
 GAMEOVER	= DATAORIGIN+$0011
 adr.PLAYER1	= [DATAORIGIN+$0012] .array [6]
@@ -4728,7 +4728,7 @@ PLAYER4.DIR	= DATAORIGIN+$002E
 PLAYER4.BRAIN	= DATAORIGIN+$002F
 PLAYER4.SCORE	= DATAORIGIN+$0030
 PLAYER4.ISALIVE	= DATAORIGIN+$0031
-adr.OBSTACLES	= [DATAORIGIN+$0032] .array [8] .word
+adr.OBSTACLES	= $60
 .var OBSTACLES	= adr.OBSTACLES .word
 @exit
 
@@ -4776,7 +4776,7 @@ DATAORIGIN
 .by  $28 $00 $18 $00 $2D $0C
 
 VARINITSIZE	= *-DATAORIGIN
-VARDATASIZE	= 104
+VARDATASIZE	= 88
 
 PROGRAMSTACK	= DATAORIGIN+VARDATASIZE
 

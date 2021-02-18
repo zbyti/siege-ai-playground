@@ -13,10 +13,10 @@ var
   alive                              : byte absolute $5a;
   newDir                             : byte absolute $5b;
   availDir                           : byte absolute $5c;
-  t0w                                : word absolute $5d;
-  ply                                : ^Player absolute $5f;
-  tmpPly                             : ^Player absolute $61;
-  joyStatus                          : byte absolute $63;
+  joyStatus                          : byte absolute $5d;
+  t0w                                : word absolute $5e;
+  ply                                : ^Player absolute $70;
+  tmpPly                             : ^Player absolute $72;
 
 //-----------------------------------------------------------------------------
 
@@ -29,6 +29,6 @@ var
 
 //-----------------------------------------------------------------------------
 
-  obstacles                          : array [0..7] of word;
+  obstacles                          : array [0..7] of word absolute $60;
 
 //-----------------------------------------------------------------------------

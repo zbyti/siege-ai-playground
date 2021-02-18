@@ -17,20 +17,20 @@ mads 2.1.1
    110 					fmulinit
    111 					eif
    112
-   113 = 0062			VLEN	= VARDATASIZE-VARINITSIZE
+   113 = 0052			VLEN	= VARDATASIZE-VARINITSIZE
    114 = 2AE6			VADR	= DATAORIGIN+VARINITSIZE
    115
    116 					ift VADR > $BFFF
    117 					ert 'Invalid memory address range ',VADR
    118 					eli (VLEN>0) && (VLEN<=256)
-   119 10A4 A2 9E			ldx #256-VLEN
+   119 10A4 A2 AE			ldx #256-VLEN
    120 10A6 A9 00			lda #$00
-   121 10A8 9D 48 2A E8 D0 FA		sta:rne VADR+VLEN-256,x+
+   121 10A8 9D 38 2A E8 D0 FA		sta:rne VADR+VLEN-256,x+
    122 					eli VLEN>0
    123 					@fill #VADR #VLEN #$00
    124 					eif
    125
-   126 10AE A9 48 85 02 A9 2B + 	mwa #PROGRAMSTACK psptr
+   126 10AE A9 38 85 02 A9 2B + 	mwa #PROGRAMSTACK psptr
    127
    128 10B6 A2 00			ldx #$00
    129 10B8 86 10			stx bp						; BP = 0
@@ -387,28 +387,28 @@ Source: main.a65
    476
    477 				; optimize OK (tools.inc), line = 5
    478
-   479 1161 AD 23 2B			lda Y
+   479 1161 AD 13 2B			lda Y
    480 1164 0A				asl @
    481 1165 A8				tay
    482 1166 B9 0E 10			lda adr.MUL40,y
-   483 1169 18 6D 22 2B			add X
-   484 116D 85 5D			sta T0W
+   483 1169 18 6D 12 2B			add X
+   484 116D 85 5E			sta T0W
    485 116F B9 0F 10			lda adr.MUL40+1,y
    486 1172 69 0C			adc #$0C
-   487 1174 85 5E			sta T0W+1
-   488 1176 A4 5E			ldy T0W+1
+   487 1174 85 5F			sta T0W+1
+   488 1176 A4 5F			ldy T0W+1
    489 1178 84 11			sty :bp+1
-   490 117A A4 5D			ldy T0W
-   491 117C AD 24 2B			lda V
+   490 117A A4 5E			ldy T0W
+   491 117C AD 14 2B			lda V
    492 117F 91 10			sta (:bp),y
    493
    494 				; ------------------------------------------------------------
    495
-   496 = 2B22			X	= DATAORIGIN+$0042
-   497 = 2B23			Y	= DATAORIGIN+$0043
-   498 = 2B24			V	= DATAORIGIN+$0044
+   496 = 2B12			X	= DATAORIGIN+$0032
+   497 = 2B13			Y	= DATAORIGIN+$0033
+   498 = 2B14			V	= DATAORIGIN+$0034
    499
-   500 = 2B22			@VarData	= X
+   500 = 2B12			@VarData	= X
    501 = 0003			@VarDataSize	= 3
    502
    503 1181			@exit
@@ -427,36 +427,36 @@ Source: main.a65
    516
    517 				; optimize OK (tools.inc), line = 12
    518
-   519 1182 AD 26 2B			lda Y
+   519 1182 AD 16 2B			lda Y
    520 1185 0A				asl @
    521 1186 A8				tay
    522 1187 B9 0E 10			lda adr.MUL40,y
-   523 118A 18 6D 25 2B			add X
-   524 118E 85 5D			sta T0W
+   523 118A 18 6D 15 2B			add X
+   524 118E 85 5E			sta T0W
    525 1190 B9 0F 10			lda adr.MUL40+1,y
    526 1193 69 08			adc #$08
-   527 1195 85 5E			sta T0W+1
+   527 1195 85 5F			sta T0W+1
    528
    529 				; optimize OK (tools.inc), line = 13
    530
    531 1197 85 11			sta :bp+1
-   532 1199 A4 5D			ldy T0W
-   533 119B AD 28 2B			lda C
+   532 1199 A4 5E			ldy T0W
+   533 119B AD 18 2B			lda C
    534 119E 91 10			sta (:bp),y
-   535 11A0 A5 5E			lda T0W+1
+   535 11A0 A5 5F			lda T0W+1
    536 11A2 18 69 04			add #$04
    537 11A5 85 11			sta :bp+1
-   538 11A7 AD 27 2B			lda V
+   538 11A7 AD 17 2B			lda V
    539 11AA 91 10			sta (:bp),y
    540
    541 				; ------------------------------------------------------------
    542
-   543 = 2B25			X	= DATAORIGIN+$0045
-   544 = 2B26			Y	= DATAORIGIN+$0046
-   545 = 2B27			V	= DATAORIGIN+$0047
-   546 = 2B28			C	= DATAORIGIN+$0048
+   543 = 2B15			X	= DATAORIGIN+$0035
+   544 = 2B16			Y	= DATAORIGIN+$0036
+   545 = 2B17			V	= DATAORIGIN+$0037
+   546 = 2B18			C	= DATAORIGIN+$0038
    547
-   548 = 2B25			@VarData	= X
+   548 = 2B15			@VarData	= X
    549 = 0004			@VarDataSize	= 4
    550
    551 11AC			@exit
@@ -475,22 +475,22 @@ Source: main.a65
    564
    565 				; optimize OK (tools.inc), line = 20
    566
-   567 11AD AD 2A 2B			lda Y
+   567 11AD AD 1A 2B			lda Y
    568 11B0 0A				asl @
    569 11B1 A8				tay
    570 11B2 B9 0E 10			lda adr.MUL40,y
-   571 11B5 18 6D 29 2B			add X
-   572 11B9 85 5D			sta T0W
+   571 11B5 18 6D 19 2B			add X
+   572 11B9 85 5E			sta T0W
    573 11BB B9 0F 10			lda adr.MUL40+1,y
    574 11BE 69 0C			adc #$0C
-   575 11C0 85 5E			sta T0W+1
+   575 11C0 85 5F			sta T0W+1
    576
    577 				; optimize OK (tools.inc), line = 21
    578
    579 11C2 85 11			sta :bp+1
-   580 11C4 A4 5D			ldy T0W
+   580 11C4 A4 5E			ldy T0W
    581 11C6 B1 10			lda (:bp),y
-   582 11C8 8D 2B 2B			sta RESULT
+   582 11C8 8D 1B 2B			sta RESULT
    583 11CB			@exit
    584
    585 				; ------------------------------------------------------------
@@ -499,7 +499,7 @@ Source: main.a65
    588 				; as Pointer
    589
    590 11CB E8				inx
-   591 11CC AD 2B 2B 95 18		mva RESULT :STACKORIGIN,x
+   591 11CC AD 1B 2B 95 18		mva RESULT :STACKORIGIN,x
    592
    593 					.ifdef @new
    594 					lda <@VarData
@@ -511,11 +511,11 @@ Source: main.a65
    600
    601 				; ------------------------------------------------------------
    602
-   603 = 2B29			X	= DATAORIGIN+$0049
-   604 = 2B2A			Y	= DATAORIGIN+$004A
-   605 = 2B2B			RESULT	= DATAORIGIN+$004B
+   603 = 2B19			X	= DATAORIGIN+$0039
+   604 = 2B1A			Y	= DATAORIGIN+$003A
+   605 = 2B1B			RESULT	= DATAORIGIN+$003B
    606
-   607 = 2B29			@VarData	= X
+   607 = 2B19			@VarData	= X
    608 = 0003			@VarDataSize	= 3
    609
    610 11D1 60				rts						; ret
@@ -528,13 +528,13 @@ Source: main.a65
    617 11D2 AD F9 2A			lda PLAYER1.ISALIVE
    618 11D5 F0 19			jeq l_00E2
    619 11D7 AD F5 2A			lda PLAYER1.COLOUR
-   620 11DA 8D 28 2B			sta PUTCHAR_008E.C
+   620 11DA 8D 18 2B			sta PUTCHAR_008E.C
    621 11DD AD F8 2A			lda PLAYER1.SCORE
-   622 11E0 8D 27 2B			sta PUTCHAR_008E.V
+   622 11E0 8D 17 2B			sta PUTCHAR_008E.V
    623 11E3 A9 00			lda #$00
-   624 11E5 8D 26 2B			sta PUTCHAR_008E.Y
+   624 11E5 8D 16 2B			sta PUTCHAR_008E.Y
    625 11E8 A9 1E			lda #$1E
-   626 11EA 8D 25 2B			sta PUTCHAR_008E.X
+   626 11EA 8D 15 2B			sta PUTCHAR_008E.X
    627 11ED 20 82 11			jsr PUTCHAR_008E
    628 11F0			l_00E2
    629
@@ -543,13 +543,13 @@ Source: main.a65
    632 11F0 AD 01 2B			lda PLAYER2.ISALIVE
    633 11F3 F0 19			jeq l_00FA
    634 11F5 AD FD 2A			lda PLAYER2.COLOUR
-   635 11F8 8D 28 2B			sta PUTCHAR_008E.C
+   635 11F8 8D 18 2B			sta PUTCHAR_008E.C
    636 11FB AD 00 2B			lda PLAYER2.SCORE
-   637 11FE 8D 27 2B			sta PUTCHAR_008E.V
+   637 11FE 8D 17 2B			sta PUTCHAR_008E.V
    638 1201 A9 00			lda #$00
-   639 1203 8D 26 2B			sta PUTCHAR_008E.Y
+   639 1203 8D 16 2B			sta PUTCHAR_008E.Y
    640 1206 A9 20			lda #$20
-   641 1208 8D 25 2B			sta PUTCHAR_008E.X
+   641 1208 8D 15 2B			sta PUTCHAR_008E.X
    642 120B 20 82 11			jsr PUTCHAR_008E
    643 120E			l_00FA
    644
@@ -558,13 +558,13 @@ Source: main.a65
    647 120E AD 09 2B			lda PLAYER3.ISALIVE
    648 1211 F0 19			jeq l_0112
    649 1213 AD 05 2B			lda PLAYER3.COLOUR
-   650 1216 8D 28 2B			sta PUTCHAR_008E.C
+   650 1216 8D 18 2B			sta PUTCHAR_008E.C
    651 1219 AD 08 2B			lda PLAYER3.SCORE
-   652 121C 8D 27 2B			sta PUTCHAR_008E.V
+   652 121C 8D 17 2B			sta PUTCHAR_008E.V
    653 121F A9 00			lda #$00
-   654 1221 8D 26 2B			sta PUTCHAR_008E.Y
+   654 1221 8D 16 2B			sta PUTCHAR_008E.Y
    655 1224 A9 22			lda #$22
-   656 1226 8D 25 2B			sta PUTCHAR_008E.X
+   656 1226 8D 15 2B			sta PUTCHAR_008E.X
    657 1229 20 82 11			jsr PUTCHAR_008E
    658 122C			l_0112
    659
@@ -573,13 +573,13 @@ Source: main.a65
    662 122C AD 11 2B			lda PLAYER4.ISALIVE
    663 122F F0 19			jeq l_012A
    664 1231 AD 0D 2B			lda PLAYER4.COLOUR
-   665 1234 8D 28 2B			sta PUTCHAR_008E.C
+   665 1234 8D 18 2B			sta PUTCHAR_008E.C
    666 1237 AD 10 2B			lda PLAYER4.SCORE
-   667 123A 8D 27 2B			sta PUTCHAR_008E.V
+   667 123A 8D 17 2B			sta PUTCHAR_008E.V
    668 123D A9 00			lda #$00
-   669 123F 8D 26 2B			sta PUTCHAR_008E.Y
+   669 123F 8D 16 2B			sta PUTCHAR_008E.Y
    670 1242 A9 24			lda #$24
-   671 1244 8D 25 2B			sta PUTCHAR_008E.X
+   671 1244 8D 15 2B			sta PUTCHAR_008E.X
    672 1247 20 82 11			jsr PUTCHAR_008E
    673 124A			l_012A
    674 124A			@exit
@@ -658,17 +658,17 @@ Source: main.a65
    747 128F A0 00			ldy #PLY.X-DATAORIGIN
    748 1291 A5 21			lda :STACKORIGIN+9
    749 1293 18 71 12			add (:bp2),y
-   750 1296 85 5D			sta T0W
+   750 1296 85 5E			sta T0W
    751 1298 A5 31			lda :STACKORIGIN+STACKWIDTH+9
    752 129A 69 00			adc #$00
-   753 129C 85 5E			sta T0W+1
+   753 129C 85 5F			sta T0W+1
    754
    755 				; optimize OK (tools.inc), line = 51
    756
-   757 129E A5 5D			lda T0W
+   757 129E A5 5E			lda T0W
    758 12A0 38 E9 28			sub #$28
    759 12A3 85 21			sta :STACKORIGIN+9
-   760 12A5 A5 5E			lda T0W+1
+   760 12A5 A5 5F			lda T0W+1
    761 12A7 E9 00			sbc #$00
    762 12A9 85 11			sta :bp+1
    763 12AB A4 21			ldy :STACKORIGIN+9
@@ -682,7 +682,7 @@ Source: main.a65
    771
    772 				; optimize OK (tools.inc), line = 52
    773
-   774 12B9 A4 5D 84 12 A4 5E + 	mwy T0W :bp2
+   774 12B9 A4 5E 84 12 A4 5F + 	mwy T0W :bp2
    775 12C1 A0 28			ldy #$28
    776 12C3 B1 12			lda (:bp2),y
    777 12C5 C9 20			cmp #$20
@@ -694,10 +694,10 @@ Source: main.a65
    783
    784 				; optimize OK (tools.inc), line = 53
    785
-   786 12CF A5 5D			lda T0W
+   786 12CF A5 5E			lda T0W
    787 12D1 38 E9 01			sub #$01
    788 12D4 85 21			sta :STACKORIGIN+9
-   789 12D6 A5 5E			lda T0W+1
+   789 12D6 A5 5F			lda T0W+1
    790 12D8 E9 00			sbc #$00
    791 12DA 85 11			sta :bp+1
    792 12DC A4 21			ldy :STACKORIGIN+9
@@ -711,7 +711,7 @@ Source: main.a65
    800
    801 				; optimize OK (tools.inc), line = 54
    802
-   803 12EA A4 5D 84 12 A4 5E + 	mwy T0W :bp2
+   803 12EA A4 5E 84 12 A4 5F + 	mwy T0W :bp2
    804 12F2 A0 01			ldy #$01
    805 12F4 B1 12			lda (:bp2),y
    806 12F6 C9 20			cmp #$20
@@ -736,19 +736,19 @@ Source: main.a65
    825
    826 				; optimize FAIL (0, tools.inc), line = 63
    827
-   828 1301 EE 2C 2B			inc COUNTER
+   828 1301 EE 1C 2B			inc COUNTER
    829
    830 				; optimize OK (tools.inc), line = 64
    831
-   832 1304 AD 2C 2B			lda COUNTER
+   832 1304 AD 1C 2B			lda COUNTER
    833 1307 29 01			and #$01
    834 1309 F0 08			jeq l_024A
    835 130B A9 56			lda #$56
-   836 130D 8D 2D 2B			sta OBST
+   836 130D 8D 1D 2B			sta OBST
    837 1310 4C 18 13			jmp l_0258
    838 1313			l_024A
    839 1313 A9 5B			lda #$5B
-   840 1315 8D 2D 2B			sta OBST
+   840 1315 8D 1D 2B			sta OBST
    841 1318			l_0258
    842
    843 				; optimize OK (tools.inc), line = 65
@@ -761,12 +761,12 @@ Source: main.a65
    850 131C A5 59			lda I0B
    851 131E 0A				asl @
    852 131F A8				tay
-   853 1320 B9 12 2B			lda adr.OBSTACLES,y
+   853 1320 B9 60 00			lda adr.OBSTACLES,y
    854 1323 85 21			sta :STACKORIGIN+9
-   855 1325 B9 13 2B			lda adr.OBSTACLES+1,y
+   855 1325 B9 61 00			lda adr.OBSTACLES+1,y
    856 1328 85 11			sta :bp+1
    857 132A A4 21			ldy :STACKORIGIN+9
-   858 132C AD 2D 2B			lda OBST
+   858 132C AD 1D 2B			lda OBST
    859 132F 91 10			sta (:bp),y
    860 1331 C6 59			dec I0B
    861 1333 10 E7			jpl l_0265
@@ -774,11 +774,11 @@ Source: main.a65
    863
    864 				; ------------------------------------------------------------
    865
-   866 = 2B2C			COUNTER	= DATAORIGIN+$004C
-   867 = 2B2D			OBST	= DATAORIGIN+$004D
+   866 = 2B1C			COUNTER	= DATAORIGIN+$003C
+   867 = 2B1D			OBST	= DATAORIGIN+$003D
    868 = 0000			@FORTMP_0262	= $00
    869
-   870 = 2B2C			@VarData	= COUNTER
+   870 = 2B1C			@VarData	= COUNTER
    871 = 0002			@VarDataSize	= 2
    872
    873 1335			@exit
@@ -797,15 +797,15 @@ Source: main.a65
    886
    887 				; optimize OK (tools.inc), line = 72
    888
-   889 1336 AD 2F 2B			lda Y
+   889 1336 AD 1F 2B			lda Y
    890 1339 0A				asl @
    891 133A A8				tay
-   892 133B AD 2E 2B			lda X
+   892 133B AD 1E 2B			lda X
    893 133E 18 79 0E 10			add adr.MUL40,y
-   894 1342 8D 30 2B			sta RESULT
+   894 1342 8D 20 2B			sta RESULT
    895 1345 A9 0C			lda #$0C
    896 1347 79 0F 10			adc adr.MUL40+1,y
-   897 134A 8D 31 2B			sta RESULT+1
+   897 134A 8D 21 2B			sta RESULT+1
    898 134D			@exit
    899
    900 				; ------------------------------------------------------------
@@ -814,8 +814,8 @@ Source: main.a65
    903 				; as Pointer
    904
    905 134D E8				inx
-   906 134E AD 30 2B 95 18		mva RESULT :STACKORIGIN,x
-   907 1353 AD 31 2B 95 28		mva RESULT+1 :STACKORIGIN+STACKWIDTH,x
+   906 134E AD 20 2B 95 18		mva RESULT :STACKORIGIN,x
+   907 1353 AD 21 2B 95 28		mva RESULT+1 :STACKORIGIN+STACKWIDTH,x
    908
    909 					.ifdef @new
    910 					lda <@VarData
@@ -827,11 +827,11 @@ Source: main.a65
    916
    917 				; ------------------------------------------------------------
    918
-   919 = 2B2E			X	= DATAORIGIN+$004E
-   920 = 2B2F			Y	= DATAORIGIN+$004F
-   921 = 2B30			RESULT	= DATAORIGIN+$0050
+   919 = 2B1E			X	= DATAORIGIN+$003E
+   920 = 2B1F			Y	= DATAORIGIN+$003F
+   921 = 2B20			RESULT	= DATAORIGIN+$0040
    922
-   923 = 2B2E			@VarData	= X
+   923 = 2B1E			@VarData	= X
    924 = 0004			@VarDataSize	= 4
    925
    926 1358 60				rts						; ret
@@ -852,19 +852,19 @@ Source: main.a65
    941 135D A5 59			lda I0B
    942 135F 0A				asl @
    943 1360 A8				tay
-   944 1361 B9 13 2B			lda adr.OBSTACLES+1,y
+   944 1361 B9 61 00			lda adr.OBSTACLES+1,y
    945 1364 C9 00			cmp #$00
    946 1366 D0 05			bne @+
-   947 1368 B9 12 2B			lda adr.OBSTACLES,y
-   948 136B C9 7E			cmp #$7E
+   947 1368 B9 60 00			lda adr.OBSTACLES,y
+   948 136B C9 5E			cmp #$5E
    949 136D			@
    950 136D F0 29			jeq l_02C8
    951
    952 				; optimize OK (tools.inc), line = 81
    953
-   954 136F B9 12 2B			lda adr.OBSTACLES,y
+   954 136F B9 60 00			lda adr.OBSTACLES,y
    955 1372 85 21			sta :STACKORIGIN+9
-   956 1374 B9 13 2B			lda adr.OBSTACLES+1,y
+   956 1374 B9 61 00			lda adr.OBSTACLES+1,y
    957 1377 85 11			sta :bp+1
    958 1379 A4 21			ldy :STACKORIGIN+9
    959 137B A9 56			lda #$56
@@ -875,10 +875,10 @@ Source: main.a65
    964 137F A5 59			lda I0B
    965 1381 0A				asl @
    966 1382 A8				tay
-   967 1383 B9 12 2B			lda adr.OBSTACLES,y
+   967 1383 B9 60 00			lda adr.OBSTACLES,y
    968 1386 38 E9 00			sub #$00
    969 1389 85 21			sta :STACKORIGIN+9
-   970 138B B9 13 2B			lda adr.OBSTACLES+1,y
+   970 138B B9 61 00			lda adr.OBSTACLES+1,y
    971 138E E9 04			sbc #$04
    972 1390 85 11			sta :bp+1
    973 1392 A4 21			ldy :STACKORIGIN+9
@@ -993,10 +993,10 @@ Source: main.a65
   1082 1433 AC D0 2A 84 12 AC + 	mwy PLY :bp2
   1083 143D A0 00			ldy #PLY.X-DATAORIGIN
   1084 143F B1 12			lda (:bp2),y
-  1085 1441 8D 29 2B			sta GETCHAR.X
+  1085 1441 8D 19 2B			sta GETCHAR.X
   1086 1444 A0 01			ldy #PLY.Y-DATAORIGIN
   1087 1446 B1 12			lda (:bp2),y
-  1088 1448 8D 2A 2B			sta GETCHAR.Y
+  1088 1448 8D 1A 2B			sta GETCHAR.Y
   1089 144B 20 AD 11			jsr GETCHAR
   1090 144E CA				dex
   1091 144F B5 19			lda :STACKORIGIN+1,x
@@ -1006,12 +1006,12 @@ Source: main.a65
   1095 1455 AC D0 2A 84 12 AC + 	mwy PLY :bp2
   1096 145F A0 00			ldy #PLY.X-DATAORIGIN
   1097 1461 B1 12			lda (:bp2),y
-  1098 1463 8D 22 2B			sta PUTCHAR_0072.X
+  1098 1463 8D 12 2B			sta PUTCHAR_0072.X
   1099 1466 A0 01			ldy #PLY.Y-DATAORIGIN
   1100 1468 B1 12			lda (:bp2),y
-  1101 146A 8D 23 2B			sta PUTCHAR_0072.Y
+  1101 146A 8D 13 2B			sta PUTCHAR_0072.Y
   1102 146D A5 58			lda T0B
-  1103 146F 8D 24 2B			sta PUTCHAR_0072.V
+  1103 146F 8D 14 2B			sta PUTCHAR_0072.V
   1104 1472 20 61 11			jsr PUTCHAR_0072
   1105 1475			l_03F6
   1106
@@ -1025,7 +1025,7 @@ Source: main.a65
   1114 				; optimize OK (tools.inc), line = 103
   1115
   1116 1485 A5 5B			lda NEWDIR
-  1117 1487 8D 32 2B			sta @CASETMP_0003
+  1117 1487 8D 22 2B			sta @CASETMP_0003
   1118 148A C9 01			cmp #$01
   1119 148C D0 16			jne l_0414
   1120 148E			@
@@ -1088,23 +1088,23 @@ Source: main.a65
   1177 14EF AC D0 2A 84 12 AC + 	mwy PLY :bp2
   1178 14F9 A0 00			ldy #PLY.X-DATAORIGIN
   1179 14FB B1 12			lda (:bp2),y
-  1180 14FD 8D 25 2B			sta PUTCHAR_008E.X
+  1180 14FD 8D 15 2B			sta PUTCHAR_008E.X
   1181 1500 A0 01			ldy #PLY.Y-DATAORIGIN
   1182 1502 B1 12			lda (:bp2),y
-  1183 1504 8D 26 2B			sta PUTCHAR_008E.Y
+  1183 1504 8D 16 2B			sta PUTCHAR_008E.Y
   1184 1507 A0 02			ldy #PLY.HEAD-DATAORIGIN
   1185 1509 B1 12			lda (:bp2),y
-  1186 150B 8D 27 2B			sta PUTCHAR_008E.V
+  1186 150B 8D 17 2B			sta PUTCHAR_008E.V
   1187 150E A0 03			ldy #PLY.COLOUR-DATAORIGIN
   1188 1510 B1 12			lda (:bp2),y
-  1189 1512 8D 28 2B			sta PUTCHAR_008E.C
+  1189 1512 8D 18 2B			sta PUTCHAR_008E.C
   1190 1515 20 82 11			jsr PUTCHAR_008E
   1191
   1192 				; ------------------------------------------------------------
   1193
-  1194 = 2B32			@CASETMP_0003	= DATAORIGIN+$0052
+  1194 = 2B22			@CASETMP_0003	= DATAORIGIN+$0042
   1195
-  1196 = 2B32			@VarData	= @CASETMP_0003
+  1196 = 2B22			@VarData	= @CASETMP_0003
   1197 = 0001			@VarDataSize	= 1
   1198
   1199 1518			@exit
@@ -1133,16 +1133,16 @@ Source: main.a65
   1222
   1223 152B A0 00			ldy #PLY.X-DATAORIGIN
   1224 152D B1 12			lda (:bp2),y
-  1225 152F 8D 25 2B			sta PUTCHAR_008E.X
+  1225 152F 8D 15 2B			sta PUTCHAR_008E.X
   1226 1532 A0 01			ldy #PLY.Y-DATAORIGIN
   1227 1534 B1 12			lda (:bp2),y
-  1228 1536 8D 26 2B			sta PUTCHAR_008E.Y
+  1228 1536 8D 16 2B			sta PUTCHAR_008E.Y
   1229 1539 A0 03			ldy #PLY.COLOUR-DATAORIGIN
   1230 153B B1 12			lda (:bp2),y
   1231 153D 18 69 80			add #$80
-  1232 1540 8D 28 2B			sta PUTCHAR_008E.C
+  1232 1540 8D 18 2B			sta PUTCHAR_008E.C
   1233 1543 A9 57			lda #$57
-  1234 1545 8D 27 2B			sta PUTCHAR_008E.V
+  1234 1545 8D 17 2B			sta PUTCHAR_008E.V
   1235 1548 20 82 11			jsr PUTCHAR_008E
   1236 154B			@exit
   1237 					.ifdef @new
@@ -1169,7 +1169,7 @@ Source: main.a65
   1258
   1259 1556 AD 08 FF			lda JOY
   1260 1559 49 FF			eor #$FF
-  1261 155B 85 63			sta JOYSTATUS
+  1261 155B 85 5D			sta JOYSTATUS
   1262 155D			@exit
   1263 					.ifdef @new
   1264 					lda <@VarData
@@ -1186,69 +1186,69 @@ Source: main.a65
   1275
   1276 				; optimize OK (tools.inc), line = 133
   1277
-  1278 155E AD 33 2B			lda P
+  1278 155E AD 23 2B			lda P
   1279 1561 8D D0 2A			sta PLY
   1280 1564 85 12			sta :bp2
-  1281 1566 AD 34 2B			lda P+1
+  1281 1566 AD 24 2B			lda P+1
   1282 1569 8D D1 2A			sta PLY+1
   1283 156C 85 13			sta :bp2+1
   1284 				; optimize OK (tools.inc), line = 134
   1285 156E A0 05			ldy #PLY.BRAIN-DATAORIGIN
-  1286 1570 AD 38 2B			lda BRAIN
+  1286 1570 AD 28 2B			lda BRAIN
   1287 1573 91 12			sta (:bp2),y
   1288 1575 A0 00			ldy #PLY.X-DATAORIGIN
-  1289 1577 AD 35 2B			lda X
+  1289 1577 AD 25 2B			lda X
   1290 157A 91 12			sta (:bp2),y
   1291 157C A0 01			ldy #PLY.Y-DATAORIGIN
-  1292 157E AD 36 2B			lda Y
+  1292 157E AD 26 2B			lda Y
   1293 1581 91 12			sta (:bp2),y
   1294 1583 A0 04			ldy #PLY.DIR-DATAORIGIN
-  1295 1585 AD 37 2B			lda DIR
+  1295 1585 AD 27 2B			lda DIR
   1296 1588 91 12			sta (:bp2),y
   1297
   1298 				; optimize OK (tools.inc), line = 135
   1299
   1300 158A A0 02			ldy #PLY.HEAD-DATAORIGIN
-  1301 158C AD 39 2B			lda HEAD
+  1301 158C AD 29 2B			lda HEAD
   1302 158F 91 12			sta (:bp2),y
   1303 1591 A0 03			ldy #PLY.COLOUR-DATAORIGIN
-  1304 1593 AD 3A 2B			lda COLOUR
+  1304 1593 AD 2A 2B			lda COLOUR
   1305 1596 91 12			sta (:bp2),y
   1306 1598 A0 07			ldy #PLY.ISALIVE-DATAORIGIN
-  1307 159A AD 3B 2B			lda ISALIVE
+  1307 159A AD 2B 2B			lda ISALIVE
   1308 159D 91 12			sta (:bp2),y
   1309
   1310 				; optimize OK (tools.inc), line = 136
   1311
-  1312 159F AD 3B 2B			lda ISALIVE
+  1312 159F AD 2B 2B			lda ISALIVE
   1313 15A2 F0 1D			jeq l_04B8
   1314
   1315 				; optimize FAIL (0, tools.inc), line = 137
   1316
   1317 15A4 E6 5A			inc ALIVE
-  1318 15A6 AD 3A 2B			lda COLOUR
-  1319 15A9 8D 28 2B			sta PUTCHAR_008E.C
-  1320 15AC AD 39 2B			lda HEAD
-  1321 15AF 8D 27 2B			sta PUTCHAR_008E.V
-  1322 15B2 AD 36 2B			lda Y
-  1323 15B5 8D 26 2B			sta PUTCHAR_008E.Y
-  1324 15B8 AD 35 2B			lda X
-  1325 15BB 8D 25 2B			sta PUTCHAR_008E.X
+  1318 15A6 AD 2A 2B			lda COLOUR
+  1319 15A9 8D 18 2B			sta PUTCHAR_008E.C
+  1320 15AC AD 29 2B			lda HEAD
+  1321 15AF 8D 17 2B			sta PUTCHAR_008E.V
+  1322 15B2 AD 26 2B			lda Y
+  1323 15B5 8D 16 2B			sta PUTCHAR_008E.Y
+  1324 15B8 AD 25 2B			lda X
+  1325 15BB 8D 15 2B			sta PUTCHAR_008E.X
   1326 15BE 20 82 11			jsr PUTCHAR_008E
   1327 15C1			l_04B8
   1328
   1329 				; ------------------------------------------------------------
   1330
-  1331 = 2B33			P	= DATAORIGIN+$0053
-  1332 = 2B35			X	= DATAORIGIN+$0055
-  1333 = 2B36			Y	= DATAORIGIN+$0056
-  1334 = 2B37			DIR	= DATAORIGIN+$0057
-  1335 = 2B38			BRAIN	= DATAORIGIN+$0058
-  1336 = 2B39			HEAD	= DATAORIGIN+$0059
-  1337 = 2B3A			COLOUR	= DATAORIGIN+$005A
-  1338 = 2B3B			ISALIVE	= DATAORIGIN+$005B
+  1331 = 2B23			P	= DATAORIGIN+$0043
+  1332 = 2B25			X	= DATAORIGIN+$0045
+  1333 = 2B26			Y	= DATAORIGIN+$0046
+  1334 = 2B27			DIR	= DATAORIGIN+$0047
+  1335 = 2B28			BRAIN	= DATAORIGIN+$0048
+  1336 = 2B29			HEAD	= DATAORIGIN+$0049
+  1337 = 2B2A			COLOUR	= DATAORIGIN+$004A
+  1338 = 2B2B			ISALIVE	= DATAORIGIN+$004B
   1339
-  1340 = 2B33			@VarData	= P
+  1340 = 2B23			@VarData	= P
   1341 = 0009			@VarDataSize	= 9
   1342
   1343 15C1			@exit
@@ -1292,13 +1292,13 @@ Source: main.a65
   1381
   1382 15D2 AD F5 2A			lda PLAYER1.COLOUR
   1383 15D5 18 69 80			add #$80
-  1384 15D8 8D 28 2B			sta PUTCHAR_008E.C
+  1384 15D8 8D 18 2B			sta PUTCHAR_008E.C
   1385 15DB AD F4 2A			lda PLAYER1.HEAD
-  1386 15DE 8D 27 2B			sta PUTCHAR_008E.V
+  1386 15DE 8D 17 2B			sta PUTCHAR_008E.V
   1387 15E1 AD F3 2A			lda PLAYER1.Y
-  1388 15E4 8D 26 2B			sta PUTCHAR_008E.Y
+  1388 15E4 8D 16 2B			sta PUTCHAR_008E.Y
   1389 15E7 AD F2 2A			lda PLAYER1.X
-  1390 15EA 8D 25 2B			sta PUTCHAR_008E.X
+  1390 15EA 8D 15 2B			sta PUTCHAR_008E.X
   1391 15ED 20 82 11			jsr PUTCHAR_008E
   1392
   1393 				; --- RepeatUntilProlog
@@ -1307,20 +1307,20 @@ Source: main.a65
   1396 				; optimize FAIL ('CHECKJOYSTATUS', tools.inc), line = 153
   1397
   1398 15F0 20 4C 15			jsr CHECKJOYSTATUS
-  1399 15F3 A5 63			lda JOYSTATUS
+  1399 15F3 A5 5D			lda JOYSTATUS
   1400 15F5 C9 40			cmp #$40
   1401 15F7 D0 F7			jne l_0503
   1402
   1403 				; optimize OK (tools.inc), line = 154
   1404
   1405 15F9 AD F5 2A			lda PLAYER1.COLOUR
-  1406 15FC 8D 28 2B			sta PUTCHAR_008E.C
+  1406 15FC 8D 18 2B			sta PUTCHAR_008E.C
   1407 15FF AD F4 2A			lda PLAYER1.HEAD
-  1408 1602 8D 27 2B			sta PUTCHAR_008E.V
+  1408 1602 8D 17 2B			sta PUTCHAR_008E.V
   1409 1605 AD F3 2A			lda PLAYER1.Y
-  1410 1608 8D 26 2B			sta PUTCHAR_008E.Y
+  1410 1608 8D 16 2B			sta PUTCHAR_008E.Y
   1411 160B AD F2 2A			lda PLAYER1.X
-  1412 160E 8D 25 2B			sta PUTCHAR_008E.X
+  1412 160E 8D 15 2B			sta PUTCHAR_008E.X
   1413 1611 20 82 11			jsr PUTCHAR_008E
   1414 1614			@exit
   1415 					.ifdef @new
@@ -1375,7 +1375,7 @@ Source: main.a65
   1464 				; optimize OK (tools.inc), line = 165
   1465
   1466 1645 AD F1 2A			lda GAMEOVER
-  1467 1648 8D 3C 2B			sta RESULT
+  1467 1648 8D 2C 2B			sta RESULT
   1468 164B			@exit
   1469
   1470 				; ------------------------------------------------------------
@@ -1384,7 +1384,7 @@ Source: main.a65
   1473 				; as Pointer
   1474
   1475 164B E8				inx
-  1476 164C AD 3C 2B 95 18		mva RESULT :STACKORIGIN,x
+  1476 164C AD 2C 2B 95 18		mva RESULT :STACKORIGIN,x
   1477
   1478 					.ifdef @new
   1479 					lda <@VarData
@@ -1396,9 +1396,9 @@ Source: main.a65
   1485
   1486 				; ------------------------------------------------------------
   1487
-  1488 = 2B3C			RESULT	= DATAORIGIN+$005C
+  1488 = 2B2C			RESULT	= DATAORIGIN+$004C
   1489
-  1490 = 2B3C			@VarData	= RESULT
+  1490 = 2B2C			@VarData	= RESULT
   1491 = 0001			@VarDataSize	= 1
   1492
   1493 1651 60				rts						; ret
@@ -1422,7 +1422,7 @@ Source: main.a65
   1511 1664			@
   1512 1664 98				tya
   1513 1665 05 21			ora :STACKORIGIN+9
-  1514 1667 8D 3D 2B			sta RESULT
+  1514 1667 8D 2D 2B			sta RESULT
   1515 166A			@exit
   1516
   1517 				; ------------------------------------------------------------
@@ -1431,7 +1431,7 @@ Source: main.a65
   1520 				; as Pointer
   1521
   1522 166A E8				inx
-  1523 166B AD 3D 2B 95 18		mva RESULT :STACKORIGIN,x
+  1523 166B AD 2D 2B 95 18		mva RESULT :STACKORIGIN,x
   1524
   1525 					.ifdef @new
   1526 					lda <@VarData
@@ -1443,9 +1443,9 @@ Source: main.a65
   1532
   1533 				; ------------------------------------------------------------
   1534
-  1535 = 2B3D			RESULT	= DATAORIGIN+$005D
+  1535 = 2B2D			RESULT	= DATAORIGIN+$004D
   1536
-  1537 = 2B3D			@VarData	= RESULT
+  1537 = 2B2D			@VarData	= RESULT
   1538 = 0001			@VarDataSize	= 1
   1539
   1540 1670 60				rts						; ret
@@ -1463,8 +1463,8 @@ Source: main.a65
   1552
   1553 				; optimize OK (ai.inc), line = 6
   1554
-  1555 1684 A5 63			lda JOYSTATUS
-  1556 1686 8D 3E 2B			sta @CASETMP_0004
+  1555 1684 A5 5D			lda JOYSTATUS
+  1556 1686 8D 2E 2B			sta @CASETMP_0004
   1557 1689 C9 01			cmp #$01
   1558 168B D0 19			jne l_05C4
   1559 168D			@
@@ -1554,9 +1554,9 @@ Source: main.a65
   1643
   1644 				; ------------------------------------------------------------
   1645
-  1646 = 2B3E			@CASETMP_0004	= DATAORIGIN+$005E
+  1646 = 2B2E			@CASETMP_0004	= DATAORIGIN+$004E
   1647
-  1648 = 2B3E			@VarData	= @CASETMP_0004
+  1648 = 2B2E			@VarData	= @CASETMP_0004
   1649 = 0001			@VarDataSize	= 1
   1650
   1651 1718			@exit
@@ -1602,7 +1602,7 @@ Source: main.a65
   1691 				; optimize OK (ai.inc), line = 26
   1692
   1693 1748 A5 5C			lda AVAILDIR
-  1694 174A 8D 3F 2B			sta @CASETMP_0005
+  1694 174A 8D 2F 2B			sta @CASETMP_0005
   1695 174D C9 01			cmp #$01
   1696 174F D0 07			jne l_06CD
   1697 1751			@
@@ -1647,7 +1647,7 @@ Source: main.a65
   1736 				; optimize OK (ai.inc), line = 33
   1737
   1738 177D A5 5C			lda AVAILDIR
-  1739 177F 8D 40 2B			sta @CASETMP_0006
+  1739 177F 8D 30 2B			sta @CASETMP_0006
   1740 1782 C9 04			cmp #$04
   1741 1784 D0 07			jne l_0717
   1742 1786			@
@@ -1675,10 +1675,10 @@ Source: main.a65
   1764
   1765 				; ------------------------------------------------------------
   1766
-  1767 = 2B3F			@CASETMP_0005	= DATAORIGIN+$005F
-  1768 = 2B40			@CASETMP_0006	= DATAORIGIN+$0060
+  1767 = 2B2F			@CASETMP_0005	= DATAORIGIN+$004F
+  1768 = 2B30			@CASETMP_0006	= DATAORIGIN+$0050
   1769
-  1770 = 2B3F			@VarData	= @CASETMP_0005
+  1770 = 2B2F			@VarData	= @CASETMP_0005
   1771 = 0002			@VarDataSize	= 2
   1772
   1773 1795			@exit
@@ -1698,10 +1698,10 @@ Source: main.a65
   1787 				; optimize OK (ai.inc), line = 48
   1788
   1789 1796 A9 00			lda #$00
-  1790 1798 8D 41 2B			sta L
-  1791 179B 8D 42 2B			sta R
-  1792 179E 8D 43 2B			sta U
-  1793 17A1 8D 44 2B			sta D
+  1790 1798 8D 31 2B			sta L
+  1791 179B 8D 32 2B			sta R
+  1792 179E 8D 33 2B			sta U
+  1793 17A1 8D 34 2B			sta D
   1794
   1795 				; optimize OK (ai.inc), line = 49
   1796
@@ -1719,10 +1719,10 @@ Source: main.a65
   1808 17C3 A0 00			ldy #PLY.X-DATAORIGIN
   1809 17C5 A5 21			lda :STACKORIGIN+9
   1810 17C7 18 71 12			add (:bp2),y
-  1811 17CA 85 5D			sta T0W
+  1811 17CA 85 5E			sta T0W
   1812 17CC A5 31			lda :STACKORIGIN+STACKWIDTH+9
   1813 17CE 69 00			adc #$00
-  1814 17D0 85 5E			sta T0W+1
+  1814 17D0 85 5F			sta T0W+1
   1815
   1816 				; optimize OK (ai.inc), line = 51
   1817
@@ -1745,17 +1745,17 @@ Source: main.a65
   1834
   1835 17E2 0A				asl @
   1836 17E3 A8				tay
-  1837 17E4 A5 5D			lda T0W
+  1837 17E4 A5 5E			lda T0W
   1838 17E6 38 F9 0E 10			sub adr.MUL40,y
   1839 17EA 85 21			sta :STACKORIGIN+9
-  1840 17EC A5 5E			lda T0W+1
+  1840 17EC A5 5F			lda T0W+1
   1841 17EE F9 0F 10			sbc adr.MUL40+1,y
   1842 17F1 85 11			sta :bp+1
   1843 17F3 A4 21			ldy :STACKORIGIN+9
   1844 17F5 B1 10			lda (:bp),y
   1845 17F7 C9 20			cmp #$20
   1846 17F9 D0 03			jne l_079C
-  1847 17FB EE 43 2B			inc U
+  1847 17FB EE 33 2B			inc U
   1848 17FE			l_079C
   1849
   1850 				; optimize OK (ai.inc), line = 54
@@ -1763,10 +1763,10 @@ Source: main.a65
   1852 17FE A5 59			lda I0B
   1853 1800 0A				asl @
   1854 1801 A8				tay
-  1855 1802 A5 5D			lda T0W
+  1855 1802 A5 5E			lda T0W
   1856 1804 38 F9 0E 10			sub adr.MUL40,y
   1857 1808 85 21			sta :STACKORIGIN+9
-  1858 180A A5 5E			lda T0W+1
+  1858 180A A5 5F			lda T0W+1
   1859 180C F9 0F 10			sbc adr.MUL40+1,y
   1860 180F 85 11			sta :bp+1
   1861 1811 A5 21			lda :STACKORIGIN+9
@@ -1777,7 +1777,7 @@ Source: main.a65
   1866 181B B1 10			lda (:bp),y
   1867 181D C9 20			cmp #$20
   1868 181F D0 03			jne l_07C1
-  1869 1821 EE 43 2B			inc U
+  1869 1821 EE 33 2B			inc U
   1870 1824			l_07C1
   1871
   1872 				; optimize OK (ai.inc), line = 55
@@ -1785,10 +1785,10 @@ Source: main.a65
   1874 1824 A5 59			lda I0B
   1875 1826 0A				asl @
   1876 1827 A8				tay
-  1877 1828 A5 5D			lda T0W
+  1877 1828 A5 5E			lda T0W
   1878 182A 38 F9 0E 10			sub adr.MUL40,y
   1879 182E 85 21			sta :STACKORIGIN+9
-  1880 1830 A5 5E			lda T0W+1
+  1880 1830 A5 5F			lda T0W+1
   1881 1832 F9 0F 10			sbc adr.MUL40+1,y
   1882 1835 85 11			sta :bp+1
   1883 1837 A4 21			ldy :STACKORIGIN+9
@@ -1798,7 +1798,7 @@ Source: main.a65
   1887 183E B1 10			lda (:bp),y
   1888 1840 C9 20			cmp #$20
   1889 1842 D0 03			jne l_07E6
-  1890 1844 EE 43 2B			inc U
+  1890 1844 EE 33 2B			inc U
   1891 1847			l_07E6
   1892
   1893 				; --- ForToDoEpilog
@@ -1828,17 +1828,17 @@ Source: main.a65
   1917
   1918 185B 0A				asl @
   1919 185C A8				tay
-  1920 185D A5 5D			lda T0W
+  1920 185D A5 5E			lda T0W
   1921 185F 18 79 0E 10			add adr.MUL40,y
   1922 1863 85 21			sta :STACKORIGIN+9
-  1923 1865 A5 5E			lda T0W+1
+  1923 1865 A5 5F			lda T0W+1
   1924 1867 79 0F 10			adc adr.MUL40+1,y
   1925 186A 85 11			sta :bp+1
   1926 186C A4 21			ldy :STACKORIGIN+9
   1927 186E B1 10			lda (:bp),y
   1928 1870 C9 20			cmp #$20
   1929 1872 D0 03			jne l_083C
-  1930 1874 EE 44 2B			inc D
+  1930 1874 EE 34 2B			inc D
   1931 1877			l_083C
   1932
   1933 				; optimize OK (ai.inc), line = 62
@@ -1846,10 +1846,10 @@ Source: main.a65
   1935 1877 A5 59			lda I0B
   1936 1879 0A				asl @
   1937 187A A8				tay
-  1938 187B A5 5D			lda T0W
+  1938 187B A5 5E			lda T0W
   1939 187D 18 79 0E 10			add adr.MUL40,y
   1940 1881 85 21			sta :STACKORIGIN+9
-  1941 1883 A5 5E			lda T0W+1
+  1941 1883 A5 5F			lda T0W+1
   1942 1885 79 0F 10			adc adr.MUL40+1,y
   1943 1888 85 11			sta :bp+1
   1944 188A A5 21			lda :STACKORIGIN+9
@@ -1860,7 +1860,7 @@ Source: main.a65
   1949 1894 B1 10			lda (:bp),y
   1950 1896 C9 20			cmp #$20
   1951 1898 D0 03			jne l_0861
-  1952 189A EE 44 2B			inc D
+  1952 189A EE 34 2B			inc D
   1953 189D			l_0861
   1954
   1955 				; optimize OK (ai.inc), line = 63
@@ -1868,10 +1868,10 @@ Source: main.a65
   1957 189D A5 59			lda I0B
   1958 189F 0A				asl @
   1959 18A0 A8				tay
-  1960 18A1 A5 5D			lda T0W
+  1960 18A1 A5 5E			lda T0W
   1961 18A3 18 79 0E 10			add adr.MUL40,y
   1962 18A7 85 21			sta :STACKORIGIN+9
-  1963 18A9 A5 5E			lda T0W+1
+  1963 18A9 A5 5F			lda T0W+1
   1964 18AB 79 0F 10			adc adr.MUL40+1,y
   1965 18AE 85 11			sta :bp+1
   1966 18B0 A4 21			ldy :STACKORIGIN+9
@@ -1881,7 +1881,7 @@ Source: main.a65
   1970 18B7 B1 10			lda (:bp),y
   1971 18B9 C9 20			cmp #$20
   1972 18BB D0 03			jne l_0886
-  1973 18BD EE 44 2B			inc D
+  1973 18BD EE 34 2B			inc D
   1974 18C0			l_0886
   1975
   1976 				; --- ForToDoEpilog
@@ -1909,24 +1909,24 @@ Source: main.a65
   1998
   1999 				; optimize OK (ai.inc), line = 69
   2000
-  2001 18D4 A5 5D			lda T0W
+  2001 18D4 A5 5E			lda T0W
   2002 18D6 38 E5 59			sub I0B
   2003 18D9 A8				tay
-  2004 18DA A5 5E			lda T0W+1
+  2004 18DA A5 5F			lda T0W+1
   2005 18DC E9 00			sbc #$00
   2006 18DE 85 11			sta :bp+1
   2007 18E0 B1 10			lda (:bp),y
   2008 18E2 C9 20			cmp #$20
   2009 18E4 D0 03			jne l_08DA
-  2010 18E6 EE 41 2B			inc L
+  2010 18E6 EE 31 2B			inc L
   2011 18E9			l_08DA
   2012
   2013 				; optimize OK (ai.inc), line = 70
   2014
-  2015 18E9 A5 5D			lda T0W
+  2015 18E9 A5 5E			lda T0W
   2016 18EB 38 E5 59			sub I0B
   2017 18EE A8				tay
-  2018 18EF A5 5E			lda T0W+1
+  2018 18EF A5 5F			lda T0W+1
   2019 18F1 E9 00			sbc #$00
   2020 18F3 85 11			sta :bp+1
   2021 18F5 98				tya
@@ -1937,15 +1937,15 @@ Source: main.a65
   2026 18FE B1 10			lda (:bp),y
   2027 1900 C9 20			cmp #$20
   2028 1902 D0 03			jne l_08FD
-  2029 1904 EE 41 2B			inc L
+  2029 1904 EE 31 2B			inc L
   2030 1907			l_08FD
   2031
   2032 				; optimize OK (ai.inc), line = 71
   2033
-  2034 1907 A5 5D			lda T0W
+  2034 1907 A5 5E			lda T0W
   2035 1909 38 E5 59			sub I0B
   2036 190C A8				tay
-  2037 190D A5 5E			lda T0W+1
+  2037 190D A5 5F			lda T0W+1
   2038 190F E9 00			sbc #$00
   2039 1911 85 11			sta :bp+1
   2040 1913 98				tya
@@ -1956,7 +1956,7 @@ Source: main.a65
   2045 191C B1 10			lda (:bp),y
   2046 191E C9 20			cmp #$20
   2047 1920 D0 03			jne l_0920
-  2048 1922 EE 41 2B			inc L
+  2048 1922 EE 31 2B			inc L
   2049 1925			l_0920
   2050
   2051 				; --- ForToDoEpilog
@@ -1984,20 +1984,20 @@ Source: main.a65
   2073
   2074 				; optimize OK (ai.inc), line = 77
   2075
-  2076 1939 A4 5D 84 12 A4 5E + 	mwy T0W :bp2
+  2076 1939 A4 5E 84 12 A4 5F + 	mwy T0W :bp2
   2077 1941 A4 59			ldy I0B
   2078 1943 B1 12			lda (:bp2),y
   2079 1945 C9 20			cmp #$20
   2080 1947 D0 03			jne l_0974
-  2081 1949 EE 42 2B			inc R
+  2081 1949 EE 32 2B			inc R
   2082 194C			l_0974
   2083
   2084 				; optimize OK (ai.inc), line = 78
   2085
-  2086 194C A5 5D			lda T0W
+  2086 194C A5 5E			lda T0W
   2087 194E 18 65 59			add I0B
   2088 1951 A8				tay
-  2089 1952 A5 5E			lda T0W+1
+  2089 1952 A5 5F			lda T0W+1
   2090 1954 69 00			adc #$00
   2091 1956 85 11			sta :bp+1
   2092 1958 98				tya
@@ -2008,15 +2008,15 @@ Source: main.a65
   2097 1961 B1 10			lda (:bp),y
   2098 1963 C9 20			cmp #$20
   2099 1965 D0 03			jne l_0997
-  2100 1967 EE 42 2B			inc R
+  2100 1967 EE 32 2B			inc R
   2101 196A			l_0997
   2102
   2103 				; optimize OK (ai.inc), line = 79
   2104
-  2105 196A A5 5D			lda T0W
+  2105 196A A5 5E			lda T0W
   2106 196C 18 65 59			add I0B
   2107 196F A8				tay
-  2108 1970 A5 5E			lda T0W+1
+  2108 1970 A5 5F			lda T0W+1
   2109 1972 69 00			adc #$00
   2110 1974 85 11			sta :bp+1
   2111 1976 98				tya
@@ -2027,7 +2027,7 @@ Source: main.a65
   2116 197F B1 10			lda (:bp),y
   2117 1981 C9 20			cmp #$20
   2118 1983 D0 03			jne l_09BA
-  2119 1985 EE 42 2B			inc R
+  2119 1985 EE 32 2B			inc R
   2120 1988			l_09BA
   2121
   2122 				; --- ForToDoEpilog
@@ -2038,39 +2038,39 @@ Source: main.a65
   2127
   2128 				; optimize OK (ai.inc), line = 83
   2129
-  2130 198C AD 44 2B			lda D
+  2130 198C AD 34 2B			lda D
   2131 198F 85 58			sta T0B
   2132
   2133 				; optimize OK (ai.inc), line = 84
   2134
-  2135 1991 CD 43 2B			cmp U
+  2135 1991 CD 33 2B			cmp U
   2136 1994 B0 05			jcs l_09E2
-  2137 1996 AD 43 2B			lda U
+  2137 1996 AD 33 2B			lda U
   2138 1999 85 58			sta T0B
   2139 199B			l_09E2
   2140
   2141 				; optimize OK (ai.inc), line = 85
   2142
   2143 199B A5 58			lda T0B
-  2144 199D CD 41 2B			cmp L
+  2144 199D CD 31 2B			cmp L
   2145 19A0 B0 05			jcs l_09FF
-  2146 19A2 AD 41 2B			lda L
+  2146 19A2 AD 31 2B			lda L
   2147 19A5 85 58			sta T0B
   2148 19A7			l_09FF
   2149
   2150 				; optimize OK (ai.inc), line = 86
   2151
   2152 19A7 A5 58			lda T0B
-  2153 19A9 CD 42 2B			cmp R
+  2153 19A9 CD 32 2B			cmp R
   2154 19AC B0 05			jcs l_0A1C
-  2155 19AE AD 42 2B			lda R
+  2155 19AE AD 32 2B			lda R
   2156 19B1 85 58			sta T0B
   2157 19B3			l_0A1C
   2158
   2159 				; optimize OK (ai.inc), line = 88
   2160
   2161 19B3 A5 58			lda T0B
-  2162 19B5 CD 44 2B			cmp D
+  2162 19B5 CD 34 2B			cmp D
   2163 19B8 D0 04			jne l_0A39
   2164 19BA A9 02			lda #$02
   2165 19BC 85 58			sta T0B
@@ -2079,7 +2079,7 @@ Source: main.a65
   2168 				; optimize OK (ai.inc), line = 89
   2169
   2170 19BE A5 58			lda T0B
-  2171 19C0 CD 43 2B			cmp U
+  2171 19C0 CD 33 2B			cmp U
   2172 19C3 D0 04			jne l_0A54
   2173 19C5 A9 01			lda #$01
   2174 19C7 85 58			sta T0B
@@ -2088,7 +2088,7 @@ Source: main.a65
   2177 				; optimize OK (ai.inc), line = 90
   2178
   2179 19C9 A5 58			lda T0B
-  2180 19CB CD 41 2B			cmp L
+  2180 19CB CD 31 2B			cmp L
   2181 19CE D0 04			jne l_0A6F
   2182 19D0 A9 04			lda #$04
   2183 19D2 85 58			sta T0B
@@ -2097,7 +2097,7 @@ Source: main.a65
   2186 				; optimize OK (ai.inc), line = 91
   2187
   2188 19D4 A5 58			lda T0B
-  2189 19D6 CD 42 2B			cmp R
+  2189 19D6 CD 32 2B			cmp R
   2190 19D9 D0 04			jne l_0A8A
   2191 19DB A9 08			lda #$08
   2192 19DD 85 58			sta T0B
@@ -2120,16 +2120,16 @@ Source: main.a65
   2209
   2210 				; ------------------------------------------------------------
   2211
-  2212 = 2B41			L	= DATAORIGIN+$0061
-  2213 = 2B42			R	= DATAORIGIN+$0062
-  2214 = 2B43			U	= DATAORIGIN+$0063
-  2215 = 2B44			D	= DATAORIGIN+$0064
+  2212 = 2B31			L	= DATAORIGIN+$0051
+  2213 = 2B32			R	= DATAORIGIN+$0052
+  2214 = 2B33			U	= DATAORIGIN+$0053
+  2215 = 2B34			D	= DATAORIGIN+$0054
   2216 = 0001			@FORTMP_0771	= $01
   2217 = 0001			@FORTMP_0811	= $01
   2218 = 0001			@FORTMP_08B1	= $01
   2219 = 0001			@FORTMP_094B	= $01
   2220
-  2221 = 2B41			@VarData	= L
+  2221 = 2B31			@VarData	= L
   2222 = 0004			@VarDataSize	= 4
   2223
   2224 19EF			@exit
@@ -2274,7 +2274,7 @@ Source: main.a65
   2363 				; optimize OK (ai.inc), line = 125
   2364
   2365 1AD3 AD F6 2A			lda PLAYER1.DIR
-  2366 1AD6 8D 45 2B			sta @CASETMP_0007
+  2366 1AD6 8D 35 2B			sta @CASETMP_0007
   2367 1AD9 C9 01			cmp #$01
   2368 1ADB D0 07			jne l_0BB9
   2369 1ADD			@
@@ -2338,9 +2338,9 @@ Source: main.a65
   2427
   2428 				; ------------------------------------------------------------
   2429
-  2430 = 2B45			@CASETMP_0007	= DATAORIGIN+$0065
+  2430 = 2B35			@CASETMP_0007	= DATAORIGIN+$0055
   2431
-  2432 = 2B45			@VarData	= @CASETMP_0007
+  2432 = 2B35			@VarData	= @CASETMP_0007
   2433 = 0001			@VarDataSize	= 1
   2434
   2435 1B12			@exit
@@ -2360,45 +2360,45 @@ Source: main.a65
   2449 				; optimize OK (levels.inc), line = 5
   2450
   2451 1B13 A9 01			lda #$01
-  2452 1B15 8D 3B 2B			sta SETPLAYER.ISALIVE
+  2452 1B15 8D 2B 2B			sta SETPLAYER.ISALIVE
   2453 1B18 A9 62			lda #$62
-  2454 1B1A 8D 3A 2B			sta SETPLAYER.COLOUR
+  2454 1B1A 8D 2A 2B			sta SETPLAYER.COLOUR
   2455 1B1D A9 51			lda #$51
-  2456 1B1F 8D 39 2B			sta SETPLAYER.HEAD
+  2456 1B1F 8D 29 2B			sta SETPLAYER.HEAD
   2457 1B22 A9 00			lda #$00
-  2458 1B24 8D 38 2B			sta SETPLAYER.BRAIN
+  2458 1B24 8D 28 2B			sta SETPLAYER.BRAIN
   2459 1B27 A9 08			lda #$08
-  2460 1B29 8D 37 2B			sta SETPLAYER.DIR
+  2460 1B29 8D 27 2B			sta SETPLAYER.DIR
   2461 1B2C A9 0C			lda #$0C
-  2462 1B2E 8D 36 2B			sta SETPLAYER.Y
+  2462 1B2E 8D 26 2B			sta SETPLAYER.Y
   2463 1B31 A9 0A			lda #$0A
-  2464 1B33 8D 35 2B			sta SETPLAYER.X
+  2464 1B33 8D 25 2B			sta SETPLAYER.X
   2465 1B36 AD D4 2A			lda PLAYER1
-  2466 1B39 8D 33 2B			sta SETPLAYER.P
+  2466 1B39 8D 23 2B			sta SETPLAYER.P
   2467 1B3C AD D5 2A			lda PLAYER1+1
-  2468 1B3F 8D 34 2B			sta SETPLAYER.P+1
+  2468 1B3F 8D 24 2B			sta SETPLAYER.P+1
   2469 1B42 20 5E 15			jsr SETPLAYER
   2470
   2471 				; optimize OK (levels.inc), line = 6
   2472
   2473 1B45 A9 01			lda #$01
-  2474 1B47 8D 3B 2B			sta SETPLAYER.ISALIVE
+  2474 1B47 8D 2B 2B			sta SETPLAYER.ISALIVE
   2475 1B4A A9 5D			lda #$5D
-  2476 1B4C 8D 3A 2B			sta SETPLAYER.COLOUR
+  2476 1B4C 8D 2A 2B			sta SETPLAYER.COLOUR
   2477 1B4F A9 51			lda #$51
-  2478 1B51 8D 39 2B			sta SETPLAYER.HEAD
+  2478 1B51 8D 29 2B			sta SETPLAYER.HEAD
   2479 1B54 A9 01			lda #$01
-  2480 1B56 8D 38 2B			sta SETPLAYER.BRAIN
+  2480 1B56 8D 28 2B			sta SETPLAYER.BRAIN
   2481 1B59 A9 04			lda #$04
-  2482 1B5B 8D 37 2B			sta SETPLAYER.DIR
+  2482 1B5B 8D 27 2B			sta SETPLAYER.DIR
   2483 1B5E A9 0C			lda #$0C
-  2484 1B60 8D 36 2B			sta SETPLAYER.Y
+  2484 1B60 8D 26 2B			sta SETPLAYER.Y
   2485 1B63 A9 1E			lda #$1E
-  2486 1B65 8D 35 2B			sta SETPLAYER.X
+  2486 1B65 8D 25 2B			sta SETPLAYER.X
   2487 1B68 AD D6 2A			lda PLAYER2
-  2488 1B6B 8D 33 2B			sta SETPLAYER.P
+  2488 1B6B 8D 23 2B			sta SETPLAYER.P
   2489 1B6E AD D7 2A			lda PLAYER2+1
-  2490 1B71 8D 34 2B			sta SETPLAYER.P+1
+  2490 1B71 8D 24 2B			sta SETPLAYER.P+1
   2491 1B74 20 5E 15			jsr SETPLAYER
   2492
   2493 				; optimize FAIL (1, levels.inc), line = 8
@@ -2407,28 +2407,28 @@ Source: main.a65
   2496 1B78 A9 00 95 18			mva #$00 :STACKORIGIN,x
   2497 1B7C 95 28			sta :STACKORIGIN+STACKWIDTH,x
   2498 1B7E A9 06			lda #$06
-  2499 1B80 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  2499 1B80 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   2500 1B83 A9 0A			lda #$0A
-  2501 1B85 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  2501 1B85 8D 1E 2B			sta CALCOBSTACLEADDR.X
   2502 1B88 20 36 13			jsr CALCOBSTACLEADDR
   2503 1B8B B4 17			ldy :STACKORIGIN-1,x
   2504 1B8D B5 18			lda :STACKORIGIN,x
-  2505 1B8F 99 12 2B			sta adr.OBSTACLES,y
+  2505 1B8F 99 60 00			sta adr.OBSTACLES,y
   2506 1B92 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  2507 1B94 99 13 2B			sta adr.OBSTACLES+1,y
+  2507 1B94 99 61 00			sta adr.OBSTACLES+1,y
   2508 1B97 CA				dex
   2509 1B98 A9 02 95 18			mva #$02 :STACKORIGIN,x
   2510 1B9C A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   2511 1BA0 A9 06			lda #$06
-  2512 1BA2 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  2512 1BA2 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   2513 1BA5 A9 1E			lda #$1E
-  2514 1BA7 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  2514 1BA7 8D 1E 2B			sta CALCOBSTACLEADDR.X
   2515 1BAA 20 36 13			jsr CALCOBSTACLEADDR
   2516 1BAD B4 17			ldy :STACKORIGIN-1,x
   2517 1BAF B5 18			lda :STACKORIGIN,x
-  2518 1BB1 99 12 2B			sta adr.OBSTACLES,y
+  2518 1BB1 99 60 00			sta adr.OBSTACLES,y
   2519 1BB4 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  2520 1BB6 99 13 2B			sta adr.OBSTACLES+1,y
+  2520 1BB6 99 61 00			sta adr.OBSTACLES+1,y
   2521 1BB9 CA				dex
   2522
   2523 				; optimize FAIL (1, levels.inc), line = 9
@@ -2436,28 +2436,28 @@ Source: main.a65
   2525 1BBA A9 04 95 18			mva #$04 :STACKORIGIN,x
   2526 1BBE A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   2527 1BC2 A9 12			lda #$12
-  2528 1BC4 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  2528 1BC4 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   2529 1BC7 A9 0A			lda #$0A
-  2530 1BC9 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  2530 1BC9 8D 1E 2B			sta CALCOBSTACLEADDR.X
   2531 1BCC 20 36 13			jsr CALCOBSTACLEADDR
   2532 1BCF B4 17			ldy :STACKORIGIN-1,x
   2533 1BD1 B5 18			lda :STACKORIGIN,x
-  2534 1BD3 99 12 2B			sta adr.OBSTACLES,y
+  2534 1BD3 99 60 00			sta adr.OBSTACLES,y
   2535 1BD6 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  2536 1BD8 99 13 2B			sta adr.OBSTACLES+1,y
+  2536 1BD8 99 61 00			sta adr.OBSTACLES+1,y
   2537 1BDB CA				dex
   2538 1BDC A9 06 95 18			mva #$06 :STACKORIGIN,x
   2539 1BE0 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   2540 1BE4 A9 12			lda #$12
-  2541 1BE6 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  2541 1BE6 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   2542 1BE9 A9 1E			lda #$1E
-  2543 1BEB 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  2543 1BEB 8D 1E 2B			sta CALCOBSTACLEADDR.X
   2544 1BEE 20 36 13			jsr CALCOBSTACLEADDR
   2545 1BF1 B4 17			ldy :STACKORIGIN-1,x
   2546 1BF3 B5 18			lda :STACKORIGIN,x
-  2547 1BF5 99 12 2B			sta adr.OBSTACLES,y
+  2547 1BF5 99 60 00			sta adr.OBSTACLES,y
   2548 1BF8 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  2549 1BFA 99 13 2B			sta adr.OBSTACLES+1,y
+  2549 1BFA 99 61 00			sta adr.OBSTACLES+1,y
   2550 1BFD CA				dex
   2551
   2552 				; optimize FAIL (1, levels.inc), line = 10
@@ -2465,28 +2465,28 @@ Source: main.a65
   2554 1BFE A9 08 95 18			mva #$08 :STACKORIGIN,x
   2555 1C02 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   2556 1C06 A9 02			lda #$02
-  2557 1C08 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  2557 1C08 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   2558 1C0B A9 14			lda #$14
-  2559 1C0D 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  2559 1C0D 8D 1E 2B			sta CALCOBSTACLEADDR.X
   2560 1C10 20 36 13			jsr CALCOBSTACLEADDR
   2561 1C13 B4 17			ldy :STACKORIGIN-1,x
   2562 1C15 B5 18			lda :STACKORIGIN,x
-  2563 1C17 99 12 2B			sta adr.OBSTACLES,y
+  2563 1C17 99 60 00			sta adr.OBSTACLES,y
   2564 1C1A B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  2565 1C1C 99 13 2B			sta adr.OBSTACLES+1,y
+  2565 1C1C 99 61 00			sta adr.OBSTACLES+1,y
   2566 1C1F CA				dex
   2567 1C20 A9 0A 95 18			mva #$0A :STACKORIGIN,x
   2568 1C24 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   2569 1C28 A9 16			lda #$16
-  2570 1C2A 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  2570 1C2A 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   2571 1C2D A9 14			lda #$14
-  2572 1C2F 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  2572 1C2F 8D 1E 2B			sta CALCOBSTACLEADDR.X
   2573 1C32 20 36 13			jsr CALCOBSTACLEADDR
   2574 1C35 B4 17			ldy :STACKORIGIN-1,x
   2575 1C37 B5 18			lda :STACKORIGIN,x
-  2576 1C39 99 12 2B			sta adr.OBSTACLES,y
+  2576 1C39 99 60 00			sta adr.OBSTACLES,y
   2577 1C3C B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  2578 1C3E 99 13 2B			sta adr.OBSTACLES+1,y
+  2578 1C3E 99 61 00			sta adr.OBSTACLES+1,y
   2579 1C41 CA				dex
   2580 1C42 CA				dex
   2581 1C43			@exit
@@ -2506,45 +2506,45 @@ Source: main.a65
   2595 				; optimize OK (levels.inc), line = 17
   2596
   2597 1C44 A9 01			lda #$01
-  2598 1C46 8D 3B 2B			sta SETPLAYER.ISALIVE
+  2598 1C46 8D 2B 2B			sta SETPLAYER.ISALIVE
   2599 1C49 A9 62			lda #$62
-  2600 1C4B 8D 3A 2B			sta SETPLAYER.COLOUR
+  2600 1C4B 8D 2A 2B			sta SETPLAYER.COLOUR
   2601 1C4E A9 51			lda #$51
-  2602 1C50 8D 39 2B			sta SETPLAYER.HEAD
+  2602 1C50 8D 29 2B			sta SETPLAYER.HEAD
   2603 1C53 A9 00			lda #$00
-  2604 1C55 8D 38 2B			sta SETPLAYER.BRAIN
+  2604 1C55 8D 28 2B			sta SETPLAYER.BRAIN
   2605 1C58 A9 08			lda #$08
-  2606 1C5A 8D 37 2B			sta SETPLAYER.DIR
+  2606 1C5A 8D 27 2B			sta SETPLAYER.DIR
   2607 1C5D A9 0C			lda #$0C
-  2608 1C5F 8D 36 2B			sta SETPLAYER.Y
+  2608 1C5F 8D 26 2B			sta SETPLAYER.Y
   2609 1C62 A9 0A			lda #$0A
-  2610 1C64 8D 35 2B			sta SETPLAYER.X
+  2610 1C64 8D 25 2B			sta SETPLAYER.X
   2611 1C67 AD D4 2A			lda PLAYER1
-  2612 1C6A 8D 33 2B			sta SETPLAYER.P
+  2612 1C6A 8D 23 2B			sta SETPLAYER.P
   2613 1C6D AD D5 2A			lda PLAYER1+1
-  2614 1C70 8D 34 2B			sta SETPLAYER.P+1
+  2614 1C70 8D 24 2B			sta SETPLAYER.P+1
   2615 1C73 20 5E 15			jsr SETPLAYER
   2616
   2617 				; optimize OK (levels.inc), line = 18
   2618
   2619 1C76 A9 01			lda #$01
-  2620 1C78 8D 3B 2B			sta SETPLAYER.ISALIVE
+  2620 1C78 8D 2B 2B			sta SETPLAYER.ISALIVE
   2621 1C7B A9 5D			lda #$5D
-  2622 1C7D 8D 3A 2B			sta SETPLAYER.COLOUR
+  2622 1C7D 8D 2A 2B			sta SETPLAYER.COLOUR
   2623 1C80 A9 51			lda #$51
-  2624 1C82 8D 39 2B			sta SETPLAYER.HEAD
+  2624 1C82 8D 29 2B			sta SETPLAYER.HEAD
   2625 1C85 A9 01			lda #$01
-  2626 1C87 8D 38 2B			sta SETPLAYER.BRAIN
+  2626 1C87 8D 28 2B			sta SETPLAYER.BRAIN
   2627 1C8A A9 04			lda #$04
-  2628 1C8C 8D 37 2B			sta SETPLAYER.DIR
+  2628 1C8C 8D 27 2B			sta SETPLAYER.DIR
   2629 1C8F A9 0C			lda #$0C
-  2630 1C91 8D 36 2B			sta SETPLAYER.Y
+  2630 1C91 8D 26 2B			sta SETPLAYER.Y
   2631 1C94 A9 1E			lda #$1E
-  2632 1C96 8D 35 2B			sta SETPLAYER.X
+  2632 1C96 8D 25 2B			sta SETPLAYER.X
   2633 1C99 AD D6 2A			lda PLAYER2
-  2634 1C9C 8D 33 2B			sta SETPLAYER.P
+  2634 1C9C 8D 23 2B			sta SETPLAYER.P
   2635 1C9F AD D7 2A			lda PLAYER2+1
-  2636 1CA2 8D 34 2B			sta SETPLAYER.P+1
+  2636 1CA2 8D 24 2B			sta SETPLAYER.P+1
   2637 1CA5 20 5E 15			jsr SETPLAYER
   2638
   2639 				; optimize FAIL (1, levels.inc), line = 20
@@ -2553,28 +2553,28 @@ Source: main.a65
   2642 1CA9 A9 00 95 18			mva #$00 :STACKORIGIN,x
   2643 1CAD 95 28			sta :STACKORIGIN+STACKWIDTH,x
   2644 1CAF A9 06			lda #$06
-  2645 1CB1 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  2645 1CB1 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   2646 1CB4 A9 0A			lda #$0A
-  2647 1CB6 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  2647 1CB6 8D 1E 2B			sta CALCOBSTACLEADDR.X
   2648 1CB9 20 36 13			jsr CALCOBSTACLEADDR
   2649 1CBC B4 17			ldy :STACKORIGIN-1,x
   2650 1CBE B5 18			lda :STACKORIGIN,x
-  2651 1CC0 99 12 2B			sta adr.OBSTACLES,y
+  2651 1CC0 99 60 00			sta adr.OBSTACLES,y
   2652 1CC3 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  2653 1CC5 99 13 2B			sta adr.OBSTACLES+1,y
+  2653 1CC5 99 61 00			sta adr.OBSTACLES+1,y
   2654 1CC8 CA				dex
   2655 1CC9 A9 02 95 18			mva #$02 :STACKORIGIN,x
   2656 1CCD A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   2657 1CD1 A9 06			lda #$06
-  2658 1CD3 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  2658 1CD3 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   2659 1CD6 A9 1E			lda #$1E
-  2660 1CD8 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  2660 1CD8 8D 1E 2B			sta CALCOBSTACLEADDR.X
   2661 1CDB 20 36 13			jsr CALCOBSTACLEADDR
   2662 1CDE B4 17			ldy :STACKORIGIN-1,x
   2663 1CE0 B5 18			lda :STACKORIGIN,x
-  2664 1CE2 99 12 2B			sta adr.OBSTACLES,y
+  2664 1CE2 99 60 00			sta adr.OBSTACLES,y
   2665 1CE5 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  2666 1CE7 99 13 2B			sta adr.OBSTACLES+1,y
+  2666 1CE7 99 61 00			sta adr.OBSTACLES+1,y
   2667 1CEA CA				dex
   2668
   2669 				; optimize FAIL (1, levels.inc), line = 21
@@ -2582,28 +2582,28 @@ Source: main.a65
   2671 1CEB A9 04 95 18			mva #$04 :STACKORIGIN,x
   2672 1CEF A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   2673 1CF3 A9 12			lda #$12
-  2674 1CF5 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  2674 1CF5 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   2675 1CF8 A9 0A			lda #$0A
-  2676 1CFA 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  2676 1CFA 8D 1E 2B			sta CALCOBSTACLEADDR.X
   2677 1CFD 20 36 13			jsr CALCOBSTACLEADDR
   2678 1D00 B4 17			ldy :STACKORIGIN-1,x
   2679 1D02 B5 18			lda :STACKORIGIN,x
-  2680 1D04 99 12 2B			sta adr.OBSTACLES,y
+  2680 1D04 99 60 00			sta adr.OBSTACLES,y
   2681 1D07 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  2682 1D09 99 13 2B			sta adr.OBSTACLES+1,y
+  2682 1D09 99 61 00			sta adr.OBSTACLES+1,y
   2683 1D0C CA				dex
   2684 1D0D A9 06 95 18			mva #$06 :STACKORIGIN,x
   2685 1D11 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   2686 1D15 A9 12			lda #$12
-  2687 1D17 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  2687 1D17 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   2688 1D1A A9 1E			lda #$1E
-  2689 1D1C 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  2689 1D1C 8D 1E 2B			sta CALCOBSTACLEADDR.X
   2690 1D1F 20 36 13			jsr CALCOBSTACLEADDR
   2691 1D22 B4 17			ldy :STACKORIGIN-1,x
   2692 1D24 B5 18			lda :STACKORIGIN,x
-  2693 1D26 99 12 2B			sta adr.OBSTACLES,y
+  2693 1D26 99 60 00			sta adr.OBSTACLES,y
   2694 1D29 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  2695 1D2B 99 13 2B			sta adr.OBSTACLES+1,y
+  2695 1D2B 99 61 00			sta adr.OBSTACLES+1,y
   2696 1D2E CA				dex
   2697
   2698 				; optimize FAIL (1, levels.inc), line = 22
@@ -2611,28 +2611,28 @@ Source: main.a65
   2700 1D2F A9 08 95 18			mva #$08 :STACKORIGIN,x
   2701 1D33 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   2702 1D37 A9 02			lda #$02
-  2703 1D39 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  2703 1D39 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   2704 1D3C A9 14			lda #$14
-  2705 1D3E 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  2705 1D3E 8D 1E 2B			sta CALCOBSTACLEADDR.X
   2706 1D41 20 36 13			jsr CALCOBSTACLEADDR
   2707 1D44 B4 17			ldy :STACKORIGIN-1,x
   2708 1D46 B5 18			lda :STACKORIGIN,x
-  2709 1D48 99 12 2B			sta adr.OBSTACLES,y
+  2709 1D48 99 60 00			sta adr.OBSTACLES,y
   2710 1D4B B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  2711 1D4D 99 13 2B			sta adr.OBSTACLES+1,y
+  2711 1D4D 99 61 00			sta adr.OBSTACLES+1,y
   2712 1D50 CA				dex
   2713 1D51 A9 0A 95 18			mva #$0A :STACKORIGIN,x
   2714 1D55 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   2715 1D59 A9 16			lda #$16
-  2716 1D5B 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  2716 1D5B 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   2717 1D5E A9 14			lda #$14
-  2718 1D60 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  2718 1D60 8D 1E 2B			sta CALCOBSTACLEADDR.X
   2719 1D63 20 36 13			jsr CALCOBSTACLEADDR
   2720 1D66 B4 17			ldy :STACKORIGIN-1,x
   2721 1D68 B5 18			lda :STACKORIGIN,x
-  2722 1D6A 99 12 2B			sta adr.OBSTACLES,y
+  2722 1D6A 99 60 00			sta adr.OBSTACLES,y
   2723 1D6D B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  2724 1D6F 99 13 2B			sta adr.OBSTACLES+1,y
+  2724 1D6F 99 61 00			sta adr.OBSTACLES+1,y
   2725 1D72 CA				dex
   2726 1D73 CA				dex
   2727 1D74			@exit
@@ -2652,45 +2652,45 @@ Source: main.a65
   2741 				; optimize OK (levels.inc), line = 29
   2742
   2743 1D75 A9 01			lda #$01
-  2744 1D77 8D 3B 2B			sta SETPLAYER.ISALIVE
+  2744 1D77 8D 2B 2B			sta SETPLAYER.ISALIVE
   2745 1D7A A9 62			lda #$62
-  2746 1D7C 8D 3A 2B			sta SETPLAYER.COLOUR
+  2746 1D7C 8D 2A 2B			sta SETPLAYER.COLOUR
   2747 1D7F A9 51			lda #$51
-  2748 1D81 8D 39 2B			sta SETPLAYER.HEAD
+  2748 1D81 8D 29 2B			sta SETPLAYER.HEAD
   2749 1D84 A9 00			lda #$00
-  2750 1D86 8D 38 2B			sta SETPLAYER.BRAIN
+  2750 1D86 8D 28 2B			sta SETPLAYER.BRAIN
   2751 1D89 A9 08			lda #$08
-  2752 1D8B 8D 37 2B			sta SETPLAYER.DIR
+  2752 1D8B 8D 27 2B			sta SETPLAYER.DIR
   2753 1D8E A9 0C			lda #$0C
-  2754 1D90 8D 36 2B			sta SETPLAYER.Y
+  2754 1D90 8D 26 2B			sta SETPLAYER.Y
   2755 1D93 A9 0A			lda #$0A
-  2756 1D95 8D 35 2B			sta SETPLAYER.X
+  2756 1D95 8D 25 2B			sta SETPLAYER.X
   2757 1D98 AD D4 2A			lda PLAYER1
-  2758 1D9B 8D 33 2B			sta SETPLAYER.P
+  2758 1D9B 8D 23 2B			sta SETPLAYER.P
   2759 1D9E AD D5 2A			lda PLAYER1+1
-  2760 1DA1 8D 34 2B			sta SETPLAYER.P+1
+  2760 1DA1 8D 24 2B			sta SETPLAYER.P+1
   2761 1DA4 20 5E 15			jsr SETPLAYER
   2762
   2763 				; optimize OK (levels.inc), line = 30
   2764
   2765 1DA7 A9 01			lda #$01
-  2766 1DA9 8D 3B 2B			sta SETPLAYER.ISALIVE
+  2766 1DA9 8D 2B 2B			sta SETPLAYER.ISALIVE
   2767 1DAC A9 5D			lda #$5D
-  2768 1DAE 8D 3A 2B			sta SETPLAYER.COLOUR
+  2768 1DAE 8D 2A 2B			sta SETPLAYER.COLOUR
   2769 1DB1 A9 51			lda #$51
-  2770 1DB3 8D 39 2B			sta SETPLAYER.HEAD
+  2770 1DB3 8D 29 2B			sta SETPLAYER.HEAD
   2771 1DB6 A9 03			lda #$03
-  2772 1DB8 8D 38 2B			sta SETPLAYER.BRAIN
+  2772 1DB8 8D 28 2B			sta SETPLAYER.BRAIN
   2773 1DBB A9 04			lda #$04
-  2774 1DBD 8D 37 2B			sta SETPLAYER.DIR
+  2774 1DBD 8D 27 2B			sta SETPLAYER.DIR
   2775 1DC0 A9 0C			lda #$0C
-  2776 1DC2 8D 36 2B			sta SETPLAYER.Y
+  2776 1DC2 8D 26 2B			sta SETPLAYER.Y
   2777 1DC5 A9 1E			lda #$1E
-  2778 1DC7 8D 35 2B			sta SETPLAYER.X
+  2778 1DC7 8D 25 2B			sta SETPLAYER.X
   2779 1DCA AD D6 2A			lda PLAYER2
-  2780 1DCD 8D 33 2B			sta SETPLAYER.P
+  2780 1DCD 8D 23 2B			sta SETPLAYER.P
   2781 1DD0 AD D7 2A			lda PLAYER2+1
-  2782 1DD3 8D 34 2B			sta SETPLAYER.P+1
+  2782 1DD3 8D 24 2B			sta SETPLAYER.P+1
   2783 1DD6 20 5E 15			jsr SETPLAYER
   2784
   2785 				; optimize FAIL (1, levels.inc), line = 32
@@ -2699,28 +2699,28 @@ Source: main.a65
   2788 1DDA A9 00 95 18			mva #$00 :STACKORIGIN,x
   2789 1DDE 95 28			sta :STACKORIGIN+STACKWIDTH,x
   2790 1DE0 A9 06			lda #$06
-  2791 1DE2 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  2791 1DE2 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   2792 1DE5 A9 0A			lda #$0A
-  2793 1DE7 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  2793 1DE7 8D 1E 2B			sta CALCOBSTACLEADDR.X
   2794 1DEA 20 36 13			jsr CALCOBSTACLEADDR
   2795 1DED B4 17			ldy :STACKORIGIN-1,x
   2796 1DEF B5 18			lda :STACKORIGIN,x
-  2797 1DF1 99 12 2B			sta adr.OBSTACLES,y
+  2797 1DF1 99 60 00			sta adr.OBSTACLES,y
   2798 1DF4 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  2799 1DF6 99 13 2B			sta adr.OBSTACLES+1,y
+  2799 1DF6 99 61 00			sta adr.OBSTACLES+1,y
   2800 1DF9 CA				dex
   2801 1DFA A9 02 95 18			mva #$02 :STACKORIGIN,x
   2802 1DFE A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   2803 1E02 A9 06			lda #$06
-  2804 1E04 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  2804 1E04 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   2805 1E07 A9 1E			lda #$1E
-  2806 1E09 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  2806 1E09 8D 1E 2B			sta CALCOBSTACLEADDR.X
   2807 1E0C 20 36 13			jsr CALCOBSTACLEADDR
   2808 1E0F B4 17			ldy :STACKORIGIN-1,x
   2809 1E11 B5 18			lda :STACKORIGIN,x
-  2810 1E13 99 12 2B			sta adr.OBSTACLES,y
+  2810 1E13 99 60 00			sta adr.OBSTACLES,y
   2811 1E16 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  2812 1E18 99 13 2B			sta adr.OBSTACLES+1,y
+  2812 1E18 99 61 00			sta adr.OBSTACLES+1,y
   2813 1E1B CA				dex
   2814
   2815 				; optimize FAIL (1, levels.inc), line = 33
@@ -2728,28 +2728,28 @@ Source: main.a65
   2817 1E1C A9 04 95 18			mva #$04 :STACKORIGIN,x
   2818 1E20 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   2819 1E24 A9 12			lda #$12
-  2820 1E26 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  2820 1E26 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   2821 1E29 A9 0A			lda #$0A
-  2822 1E2B 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  2822 1E2B 8D 1E 2B			sta CALCOBSTACLEADDR.X
   2823 1E2E 20 36 13			jsr CALCOBSTACLEADDR
   2824 1E31 B4 17			ldy :STACKORIGIN-1,x
   2825 1E33 B5 18			lda :STACKORIGIN,x
-  2826 1E35 99 12 2B			sta adr.OBSTACLES,y
+  2826 1E35 99 60 00			sta adr.OBSTACLES,y
   2827 1E38 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  2828 1E3A 99 13 2B			sta adr.OBSTACLES+1,y
+  2828 1E3A 99 61 00			sta adr.OBSTACLES+1,y
   2829 1E3D CA				dex
   2830 1E3E A9 06 95 18			mva #$06 :STACKORIGIN,x
   2831 1E42 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   2832 1E46 A9 12			lda #$12
-  2833 1E48 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  2833 1E48 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   2834 1E4B A9 1E			lda #$1E
-  2835 1E4D 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  2835 1E4D 8D 1E 2B			sta CALCOBSTACLEADDR.X
   2836 1E50 20 36 13			jsr CALCOBSTACLEADDR
   2837 1E53 B4 17			ldy :STACKORIGIN-1,x
   2838 1E55 B5 18			lda :STACKORIGIN,x
-  2839 1E57 99 12 2B			sta adr.OBSTACLES,y
+  2839 1E57 99 60 00			sta adr.OBSTACLES,y
   2840 1E5A B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  2841 1E5C 99 13 2B			sta adr.OBSTACLES+1,y
+  2841 1E5C 99 61 00			sta adr.OBSTACLES+1,y
   2842 1E5F CA				dex
   2843
   2844 				; optimize FAIL (1, levels.inc), line = 34
@@ -2757,28 +2757,28 @@ Source: main.a65
   2846 1E60 A9 08 95 18			mva #$08 :STACKORIGIN,x
   2847 1E64 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   2848 1E68 A9 02			lda #$02
-  2849 1E6A 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  2849 1E6A 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   2850 1E6D A9 14			lda #$14
-  2851 1E6F 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  2851 1E6F 8D 1E 2B			sta CALCOBSTACLEADDR.X
   2852 1E72 20 36 13			jsr CALCOBSTACLEADDR
   2853 1E75 B4 17			ldy :STACKORIGIN-1,x
   2854 1E77 B5 18			lda :STACKORIGIN,x
-  2855 1E79 99 12 2B			sta adr.OBSTACLES,y
+  2855 1E79 99 60 00			sta adr.OBSTACLES,y
   2856 1E7C B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  2857 1E7E 99 13 2B			sta adr.OBSTACLES+1,y
+  2857 1E7E 99 61 00			sta adr.OBSTACLES+1,y
   2858 1E81 CA				dex
   2859 1E82 A9 0A 95 18			mva #$0A :STACKORIGIN,x
   2860 1E86 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   2861 1E8A A9 16			lda #$16
-  2862 1E8C 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  2862 1E8C 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   2863 1E8F A9 14			lda #$14
-  2864 1E91 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  2864 1E91 8D 1E 2B			sta CALCOBSTACLEADDR.X
   2865 1E94 20 36 13			jsr CALCOBSTACLEADDR
   2866 1E97 B4 17			ldy :STACKORIGIN-1,x
   2867 1E99 B5 18			lda :STACKORIGIN,x
-  2868 1E9B 99 12 2B			sta adr.OBSTACLES,y
+  2868 1E9B 99 60 00			sta adr.OBSTACLES,y
   2869 1E9E B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  2870 1EA0 99 13 2B			sta adr.OBSTACLES+1,y
+  2870 1EA0 99 61 00			sta adr.OBSTACLES+1,y
   2871 1EA3 CA				dex
   2872 1EA4 CA				dex
   2873 1EA5			@exit
@@ -2798,45 +2798,45 @@ Source: main.a65
   2887 				; optimize OK (levels.inc), line = 41
   2888
   2889 1EA6 A9 01			lda #$01
-  2890 1EA8 8D 3B 2B			sta SETPLAYER.ISALIVE
+  2890 1EA8 8D 2B 2B			sta SETPLAYER.ISALIVE
   2891 1EAB A9 62			lda #$62
-  2892 1EAD 8D 3A 2B			sta SETPLAYER.COLOUR
+  2892 1EAD 8D 2A 2B			sta SETPLAYER.COLOUR
   2893 1EB0 A9 51			lda #$51
-  2894 1EB2 8D 39 2B			sta SETPLAYER.HEAD
+  2894 1EB2 8D 29 2B			sta SETPLAYER.HEAD
   2895 1EB5 A9 00			lda #$00
-  2896 1EB7 8D 38 2B			sta SETPLAYER.BRAIN
+  2896 1EB7 8D 28 2B			sta SETPLAYER.BRAIN
   2897 1EBA A9 08			lda #$08
-  2898 1EBC 8D 37 2B			sta SETPLAYER.DIR
+  2898 1EBC 8D 27 2B			sta SETPLAYER.DIR
   2899 1EBF A9 0C			lda #$0C
-  2900 1EC1 8D 36 2B			sta SETPLAYER.Y
+  2900 1EC1 8D 26 2B			sta SETPLAYER.Y
   2901 1EC4 A9 0A			lda #$0A
-  2902 1EC6 8D 35 2B			sta SETPLAYER.X
+  2902 1EC6 8D 25 2B			sta SETPLAYER.X
   2903 1EC9 AD D4 2A			lda PLAYER1
-  2904 1ECC 8D 33 2B			sta SETPLAYER.P
+  2904 1ECC 8D 23 2B			sta SETPLAYER.P
   2905 1ECF AD D5 2A			lda PLAYER1+1
-  2906 1ED2 8D 34 2B			sta SETPLAYER.P+1
+  2906 1ED2 8D 24 2B			sta SETPLAYER.P+1
   2907 1ED5 20 5E 15			jsr SETPLAYER
   2908
   2909 				; optimize OK (levels.inc), line = 42
   2910
   2911 1ED8 A9 01			lda #$01
-  2912 1EDA 8D 3B 2B			sta SETPLAYER.ISALIVE
+  2912 1EDA 8D 2B 2B			sta SETPLAYER.ISALIVE
   2913 1EDD A9 5D			lda #$5D
-  2914 1EDF 8D 3A 2B			sta SETPLAYER.COLOUR
+  2914 1EDF 8D 2A 2B			sta SETPLAYER.COLOUR
   2915 1EE2 A9 51			lda #$51
-  2916 1EE4 8D 39 2B			sta SETPLAYER.HEAD
+  2916 1EE4 8D 29 2B			sta SETPLAYER.HEAD
   2917 1EE7 A9 02			lda #$02
-  2918 1EE9 8D 38 2B			sta SETPLAYER.BRAIN
+  2918 1EE9 8D 28 2B			sta SETPLAYER.BRAIN
   2919 1EEC A9 04			lda #$04
-  2920 1EEE 8D 37 2B			sta SETPLAYER.DIR
+  2920 1EEE 8D 27 2B			sta SETPLAYER.DIR
   2921 1EF1 A9 0C			lda #$0C
-  2922 1EF3 8D 36 2B			sta SETPLAYER.Y
+  2922 1EF3 8D 26 2B			sta SETPLAYER.Y
   2923 1EF6 A9 1E			lda #$1E
-  2924 1EF8 8D 35 2B			sta SETPLAYER.X
+  2924 1EF8 8D 25 2B			sta SETPLAYER.X
   2925 1EFB AD D6 2A			lda PLAYER2
-  2926 1EFE 8D 33 2B			sta SETPLAYER.P
+  2926 1EFE 8D 23 2B			sta SETPLAYER.P
   2927 1F01 AD D7 2A			lda PLAYER2+1
-  2928 1F04 8D 34 2B			sta SETPLAYER.P+1
+  2928 1F04 8D 24 2B			sta SETPLAYER.P+1
   2929 1F07 20 5E 15			jsr SETPLAYER
   2930
   2931 				; optimize FAIL (1, levels.inc), line = 44
@@ -2845,28 +2845,28 @@ Source: main.a65
   2934 1F0B A9 00 95 18			mva #$00 :STACKORIGIN,x
   2935 1F0F 95 28			sta :STACKORIGIN+STACKWIDTH,x
   2936 1F11 A9 06			lda #$06
-  2937 1F13 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  2937 1F13 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   2938 1F16 A9 0A			lda #$0A
-  2939 1F18 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  2939 1F18 8D 1E 2B			sta CALCOBSTACLEADDR.X
   2940 1F1B 20 36 13			jsr CALCOBSTACLEADDR
   2941 1F1E B4 17			ldy :STACKORIGIN-1,x
   2942 1F20 B5 18			lda :STACKORIGIN,x
-  2943 1F22 99 12 2B			sta adr.OBSTACLES,y
+  2943 1F22 99 60 00			sta adr.OBSTACLES,y
   2944 1F25 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  2945 1F27 99 13 2B			sta adr.OBSTACLES+1,y
+  2945 1F27 99 61 00			sta adr.OBSTACLES+1,y
   2946 1F2A CA				dex
   2947 1F2B A9 02 95 18			mva #$02 :STACKORIGIN,x
   2948 1F2F A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   2949 1F33 A9 06			lda #$06
-  2950 1F35 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  2950 1F35 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   2951 1F38 A9 1E			lda #$1E
-  2952 1F3A 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  2952 1F3A 8D 1E 2B			sta CALCOBSTACLEADDR.X
   2953 1F3D 20 36 13			jsr CALCOBSTACLEADDR
   2954 1F40 B4 17			ldy :STACKORIGIN-1,x
   2955 1F42 B5 18			lda :STACKORIGIN,x
-  2956 1F44 99 12 2B			sta adr.OBSTACLES,y
+  2956 1F44 99 60 00			sta adr.OBSTACLES,y
   2957 1F47 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  2958 1F49 99 13 2B			sta adr.OBSTACLES+1,y
+  2958 1F49 99 61 00			sta adr.OBSTACLES+1,y
   2959 1F4C CA				dex
   2960
   2961 				; optimize FAIL (1, levels.inc), line = 45
@@ -2874,28 +2874,28 @@ Source: main.a65
   2963 1F4D A9 04 95 18			mva #$04 :STACKORIGIN,x
   2964 1F51 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   2965 1F55 A9 12			lda #$12
-  2966 1F57 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  2966 1F57 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   2967 1F5A A9 0A			lda #$0A
-  2968 1F5C 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  2968 1F5C 8D 1E 2B			sta CALCOBSTACLEADDR.X
   2969 1F5F 20 36 13			jsr CALCOBSTACLEADDR
   2970 1F62 B4 17			ldy :STACKORIGIN-1,x
   2971 1F64 B5 18			lda :STACKORIGIN,x
-  2972 1F66 99 12 2B			sta adr.OBSTACLES,y
+  2972 1F66 99 60 00			sta adr.OBSTACLES,y
   2973 1F69 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  2974 1F6B 99 13 2B			sta adr.OBSTACLES+1,y
+  2974 1F6B 99 61 00			sta adr.OBSTACLES+1,y
   2975 1F6E CA				dex
   2976 1F6F A9 06 95 18			mva #$06 :STACKORIGIN,x
   2977 1F73 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   2978 1F77 A9 12			lda #$12
-  2979 1F79 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  2979 1F79 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   2980 1F7C A9 1E			lda #$1E
-  2981 1F7E 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  2981 1F7E 8D 1E 2B			sta CALCOBSTACLEADDR.X
   2982 1F81 20 36 13			jsr CALCOBSTACLEADDR
   2983 1F84 B4 17			ldy :STACKORIGIN-1,x
   2984 1F86 B5 18			lda :STACKORIGIN,x
-  2985 1F88 99 12 2B			sta adr.OBSTACLES,y
+  2985 1F88 99 60 00			sta adr.OBSTACLES,y
   2986 1F8B B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  2987 1F8D 99 13 2B			sta adr.OBSTACLES+1,y
+  2987 1F8D 99 61 00			sta adr.OBSTACLES+1,y
   2988 1F90 CA				dex
   2989
   2990 				; optimize FAIL (1, levels.inc), line = 46
@@ -2903,28 +2903,28 @@ Source: main.a65
   2992 1F91 A9 08 95 18			mva #$08 :STACKORIGIN,x
   2993 1F95 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   2994 1F99 A9 0C			lda #$0C
-  2995 1F9B 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  2995 1F9B 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   2996 1F9E A9 01			lda #$01
-  2997 1FA0 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  2997 1FA0 8D 1E 2B			sta CALCOBSTACLEADDR.X
   2998 1FA3 20 36 13			jsr CALCOBSTACLEADDR
   2999 1FA6 B4 17			ldy :STACKORIGIN-1,x
   3000 1FA8 B5 18			lda :STACKORIGIN,x
-  3001 1FAA 99 12 2B			sta adr.OBSTACLES,y
+  3001 1FAA 99 60 00			sta adr.OBSTACLES,y
   3002 1FAD B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3003 1FAF 99 13 2B			sta adr.OBSTACLES+1,y
+  3003 1FAF 99 61 00			sta adr.OBSTACLES+1,y
   3004 1FB2 CA				dex
   3005 1FB3 A9 0A 95 18			mva #$0A :STACKORIGIN,x
   3006 1FB7 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   3007 1FBB A9 02			lda #$02
-  3008 1FBD 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3008 1FBD 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3009 1FC0 A9 14			lda #$14
-  3010 1FC2 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3010 1FC2 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3011 1FC5 20 36 13			jsr CALCOBSTACLEADDR
   3012 1FC8 B4 17			ldy :STACKORIGIN-1,x
   3013 1FCA B5 18			lda :STACKORIGIN,x
-  3014 1FCC 99 12 2B			sta adr.OBSTACLES,y
+  3014 1FCC 99 60 00			sta adr.OBSTACLES,y
   3015 1FCF B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3016 1FD1 99 13 2B			sta adr.OBSTACLES+1,y
+  3016 1FD1 99 61 00			sta adr.OBSTACLES+1,y
   3017 1FD4 CA				dex
   3018
   3019 				; optimize FAIL (1, levels.inc), line = 47
@@ -2932,15 +2932,15 @@ Source: main.a65
   3021 1FD5 A9 0C 95 18			mva #$0C :STACKORIGIN,x
   3022 1FD9 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   3023 1FDD A9 16			lda #$16
-  3024 1FDF 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3024 1FDF 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3025 1FE2 A9 14			lda #$14
-  3026 1FE4 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3026 1FE4 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3027 1FE7 20 36 13			jsr CALCOBSTACLEADDR
   3028 1FEA B4 17			ldy :STACKORIGIN-1,x
   3029 1FEC B5 18			lda :STACKORIGIN,x
-  3030 1FEE 99 12 2B			sta adr.OBSTACLES,y
+  3030 1FEE 99 60 00			sta adr.OBSTACLES,y
   3031 1FF1 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3032 1FF3 99 13 2B			sta adr.OBSTACLES+1,y
+  3032 1FF3 99 61 00			sta adr.OBSTACLES+1,y
   3033 1FF6 CA				dex
   3034 1FF7 CA				dex
   3035 1FF8			@exit
@@ -2960,45 +2960,45 @@ Source: main.a65
   3049 				; optimize OK (levels.inc), line = 54
   3050
   3051 1FF9 A9 01			lda #$01
-  3052 1FFB 8D 3B 2B			sta SETPLAYER.ISALIVE
+  3052 1FFB 8D 2B 2B			sta SETPLAYER.ISALIVE
   3053 1FFE A9 62			lda #$62
-  3054 2000 8D 3A 2B			sta SETPLAYER.COLOUR
+  3054 2000 8D 2A 2B			sta SETPLAYER.COLOUR
   3055 2003 A9 51			lda #$51
-  3056 2005 8D 39 2B			sta SETPLAYER.HEAD
+  3056 2005 8D 29 2B			sta SETPLAYER.HEAD
   3057 2008 A9 00			lda #$00
-  3058 200A 8D 38 2B			sta SETPLAYER.BRAIN
+  3058 200A 8D 28 2B			sta SETPLAYER.BRAIN
   3059 200D A9 04			lda #$04
-  3060 200F 8D 37 2B			sta SETPLAYER.DIR
+  3060 200F 8D 27 2B			sta SETPLAYER.DIR
   3061 2012 A9 0C			lda #$0C
-  3062 2014 8D 36 2B			sta SETPLAYER.Y
+  3062 2014 8D 26 2B			sta SETPLAYER.Y
   3063 2017 A9 12			lda #$12
-  3064 2019 8D 35 2B			sta SETPLAYER.X
+  3064 2019 8D 25 2B			sta SETPLAYER.X
   3065 201C AD D4 2A			lda PLAYER1
-  3066 201F 8D 33 2B			sta SETPLAYER.P
+  3066 201F 8D 23 2B			sta SETPLAYER.P
   3067 2022 AD D5 2A			lda PLAYER1+1
-  3068 2025 8D 34 2B			sta SETPLAYER.P+1
+  3068 2025 8D 24 2B			sta SETPLAYER.P+1
   3069 2028 20 5E 15			jsr SETPLAYER
   3070
   3071 				; optimize OK (levels.inc), line = 55
   3072
   3073 202B A9 01			lda #$01
-  3074 202D 8D 3B 2B			sta SETPLAYER.ISALIVE
+  3074 202D 8D 2B 2B			sta SETPLAYER.ISALIVE
   3075 2030 A9 5D			lda #$5D
-  3076 2032 8D 3A 2B			sta SETPLAYER.COLOUR
+  3076 2032 8D 2A 2B			sta SETPLAYER.COLOUR
   3077 2035 A9 51			lda #$51
-  3078 2037 8D 39 2B			sta SETPLAYER.HEAD
+  3078 2037 8D 29 2B			sta SETPLAYER.HEAD
   3079 203A A9 04			lda #$04
-  3080 203C 8D 38 2B			sta SETPLAYER.BRAIN
+  3080 203C 8D 28 2B			sta SETPLAYER.BRAIN
   3081 203F A9 08			lda #$08
-  3082 2041 8D 37 2B			sta SETPLAYER.DIR
+  3082 2041 8D 27 2B			sta SETPLAYER.DIR
   3083 2044 A9 0C			lda #$0C
-  3084 2046 8D 36 2B			sta SETPLAYER.Y
+  3084 2046 8D 26 2B			sta SETPLAYER.Y
   3085 2049 A9 16			lda #$16
-  3086 204B 8D 35 2B			sta SETPLAYER.X
+  3086 204B 8D 25 2B			sta SETPLAYER.X
   3087 204E AD D6 2A			lda PLAYER2
-  3088 2051 8D 33 2B			sta SETPLAYER.P
+  3088 2051 8D 23 2B			sta SETPLAYER.P
   3089 2054 AD D7 2A			lda PLAYER2+1
-  3090 2057 8D 34 2B			sta SETPLAYER.P+1
+  3090 2057 8D 24 2B			sta SETPLAYER.P+1
   3091 205A 20 5E 15			jsr SETPLAYER
   3092
   3093 				; optimize FAIL (1, levels.inc), line = 57
@@ -3007,28 +3007,28 @@ Source: main.a65
   3096 205E A9 00 95 18			mva #$00 :STACKORIGIN,x
   3097 2062 95 28			sta :STACKORIGIN+STACKWIDTH,x
   3098 2064 A9 06			lda #$06
-  3099 2066 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3099 2066 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3100 2069 A9 0A			lda #$0A
-  3101 206B 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3101 206B 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3102 206E 20 36 13			jsr CALCOBSTACLEADDR
   3103 2071 B4 17			ldy :STACKORIGIN-1,x
   3104 2073 B5 18			lda :STACKORIGIN,x
-  3105 2075 99 12 2B			sta adr.OBSTACLES,y
+  3105 2075 99 60 00			sta adr.OBSTACLES,y
   3106 2078 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3107 207A 99 13 2B			sta adr.OBSTACLES+1,y
+  3107 207A 99 61 00			sta adr.OBSTACLES+1,y
   3108 207D CA				dex
   3109 207E A9 02 95 18			mva #$02 :STACKORIGIN,x
   3110 2082 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   3111 2086 A9 06			lda #$06
-  3112 2088 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3112 2088 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3113 208B A9 1E			lda #$1E
-  3114 208D 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3114 208D 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3115 2090 20 36 13			jsr CALCOBSTACLEADDR
   3116 2093 B4 17			ldy :STACKORIGIN-1,x
   3117 2095 B5 18			lda :STACKORIGIN,x
-  3118 2097 99 12 2B			sta adr.OBSTACLES,y
+  3118 2097 99 60 00			sta adr.OBSTACLES,y
   3119 209A B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3120 209C 99 13 2B			sta adr.OBSTACLES+1,y
+  3120 209C 99 61 00			sta adr.OBSTACLES+1,y
   3121 209F CA				dex
   3122
   3123 				; optimize FAIL (1, levels.inc), line = 58
@@ -3036,28 +3036,28 @@ Source: main.a65
   3125 20A0 A9 04 95 18			mva #$04 :STACKORIGIN,x
   3126 20A4 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   3127 20A8 A9 12			lda #$12
-  3128 20AA 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3128 20AA 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3129 20AD A9 0A			lda #$0A
-  3130 20AF 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3130 20AF 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3131 20B2 20 36 13			jsr CALCOBSTACLEADDR
   3132 20B5 B4 17			ldy :STACKORIGIN-1,x
   3133 20B7 B5 18			lda :STACKORIGIN,x
-  3134 20B9 99 12 2B			sta adr.OBSTACLES,y
+  3134 20B9 99 60 00			sta adr.OBSTACLES,y
   3135 20BC B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3136 20BE 99 13 2B			sta adr.OBSTACLES+1,y
+  3136 20BE 99 61 00			sta adr.OBSTACLES+1,y
   3137 20C1 CA				dex
   3138 20C2 A9 06 95 18			mva #$06 :STACKORIGIN,x
   3139 20C6 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   3140 20CA A9 12			lda #$12
-  3141 20CC 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3141 20CC 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3142 20CF A9 1E			lda #$1E
-  3143 20D1 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3143 20D1 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3144 20D4 20 36 13			jsr CALCOBSTACLEADDR
   3145 20D7 B4 17			ldy :STACKORIGIN-1,x
   3146 20D9 B5 18			lda :STACKORIGIN,x
-  3147 20DB 99 12 2B			sta adr.OBSTACLES,y
+  3147 20DB 99 60 00			sta adr.OBSTACLES,y
   3148 20DE B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3149 20E0 99 13 2B			sta adr.OBSTACLES+1,y
+  3149 20E0 99 61 00			sta adr.OBSTACLES+1,y
   3150 20E3 CA				dex
   3151
   3152 				; optimize FAIL (1, levels.inc), line = 59
@@ -3065,28 +3065,28 @@ Source: main.a65
   3154 20E4 A9 08 95 18			mva #$08 :STACKORIGIN,x
   3155 20E8 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   3156 20EC A9 0C			lda #$0C
-  3157 20EE 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3157 20EE 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3158 20F1 A9 01			lda #$01
-  3159 20F3 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3159 20F3 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3160 20F6 20 36 13			jsr CALCOBSTACLEADDR
   3161 20F9 B4 17			ldy :STACKORIGIN-1,x
   3162 20FB B5 18			lda :STACKORIGIN,x
-  3163 20FD 99 12 2B			sta adr.OBSTACLES,y
+  3163 20FD 99 60 00			sta adr.OBSTACLES,y
   3164 2100 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3165 2102 99 13 2B			sta adr.OBSTACLES+1,y
+  3165 2102 99 61 00			sta adr.OBSTACLES+1,y
   3166 2105 CA				dex
   3167 2106 A9 0A 95 18			mva #$0A :STACKORIGIN,x
   3168 210A A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   3169 210E A9 02			lda #$02
-  3170 2110 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3170 2110 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3171 2113 A9 14			lda #$14
-  3172 2115 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3172 2115 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3173 2118 20 36 13			jsr CALCOBSTACLEADDR
   3174 211B B4 17			ldy :STACKORIGIN-1,x
   3175 211D B5 18			lda :STACKORIGIN,x
-  3176 211F 99 12 2B			sta adr.OBSTACLES,y
+  3176 211F 99 60 00			sta adr.OBSTACLES,y
   3177 2122 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3178 2124 99 13 2B			sta adr.OBSTACLES+1,y
+  3178 2124 99 61 00			sta adr.OBSTACLES+1,y
   3179 2127 CA				dex
   3180
   3181 				; optimize FAIL (1, levels.inc), line = 60
@@ -3094,28 +3094,28 @@ Source: main.a65
   3183 2128 A9 0C 95 18			mva #$0C :STACKORIGIN,x
   3184 212C A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   3185 2130 A9 16			lda #$16
-  3186 2132 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3186 2132 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3187 2135 A9 14			lda #$14
-  3188 2137 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3188 2137 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3189 213A 20 36 13			jsr CALCOBSTACLEADDR
   3190 213D B4 17			ldy :STACKORIGIN-1,x
   3191 213F B5 18			lda :STACKORIGIN,x
-  3192 2141 99 12 2B			sta adr.OBSTACLES,y
+  3192 2141 99 60 00			sta adr.OBSTACLES,y
   3193 2144 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3194 2146 99 13 2B			sta adr.OBSTACLES+1,y
+  3194 2146 99 61 00			sta adr.OBSTACLES+1,y
   3195 2149 CA				dex
   3196 214A A9 0E 95 18			mva #$0E :STACKORIGIN,x
   3197 214E A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   3198 2152 A9 0C			lda #$0C
-  3199 2154 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3199 2154 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3200 2157 A9 14			lda #$14
-  3201 2159 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3201 2159 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3202 215C 20 36 13			jsr CALCOBSTACLEADDR
   3203 215F B4 17			ldy :STACKORIGIN-1,x
   3204 2161 B5 18			lda :STACKORIGIN,x
-  3205 2163 99 12 2B			sta adr.OBSTACLES,y
+  3205 2163 99 60 00			sta adr.OBSTACLES,y
   3206 2166 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3207 2168 99 13 2B			sta adr.OBSTACLES+1,y
+  3207 2168 99 61 00			sta adr.OBSTACLES+1,y
   3208 216B CA				dex
   3209 216C CA				dex
   3210 216D			@exit
@@ -3135,88 +3135,88 @@ Source: main.a65
   3224 				; optimize OK (levels.inc), line = 67
   3225
   3226 216E A9 01			lda #$01
-  3227 2170 8D 3B 2B			sta SETPLAYER.ISALIVE
+  3227 2170 8D 2B 2B			sta SETPLAYER.ISALIVE
   3228 2173 A9 62			lda #$62
-  3229 2175 8D 3A 2B			sta SETPLAYER.COLOUR
+  3229 2175 8D 2A 2B			sta SETPLAYER.COLOUR
   3230 2178 A9 51			lda #$51
-  3231 217A 8D 39 2B			sta SETPLAYER.HEAD
+  3231 217A 8D 29 2B			sta SETPLAYER.HEAD
   3232 217D A9 00			lda #$00
-  3233 217F 8D 38 2B			sta SETPLAYER.BRAIN
+  3233 217F 8D 28 2B			sta SETPLAYER.BRAIN
   3234 2182 A9 08			lda #$08
-  3235 2184 8D 37 2B			sta SETPLAYER.DIR
+  3235 2184 8D 27 2B			sta SETPLAYER.DIR
   3236 2187 A9 0C			lda #$0C
-  3237 2189 8D 36 2B			sta SETPLAYER.Y
+  3237 2189 8D 26 2B			sta SETPLAYER.Y
   3238 218C A9 0A			lda #$0A
-  3239 218E 8D 35 2B			sta SETPLAYER.X
+  3239 218E 8D 25 2B			sta SETPLAYER.X
   3240 2191 AD D4 2A			lda PLAYER1
-  3241 2194 8D 33 2B			sta SETPLAYER.P
+  3241 2194 8D 23 2B			sta SETPLAYER.P
   3242 2197 AD D5 2A			lda PLAYER1+1
-  3243 219A 8D 34 2B			sta SETPLAYER.P+1
+  3243 219A 8D 24 2B			sta SETPLAYER.P+1
   3244 219D 20 5E 15			jsr SETPLAYER
   3245
   3246 				; optimize OK (levels.inc), line = 68
   3247
   3248 21A0 A9 01			lda #$01
-  3249 21A2 8D 3B 2B			sta SETPLAYER.ISALIVE
+  3249 21A2 8D 2B 2B			sta SETPLAYER.ISALIVE
   3250 21A5 A9 5D			lda #$5D
-  3251 21A7 8D 3A 2B			sta SETPLAYER.COLOUR
+  3251 21A7 8D 2A 2B			sta SETPLAYER.COLOUR
   3252 21AA A9 51			lda #$51
-  3253 21AC 8D 39 2B			sta SETPLAYER.HEAD
+  3253 21AC 8D 29 2B			sta SETPLAYER.HEAD
   3254 21AF A9 04			lda #$04
-  3255 21B1 8D 38 2B			sta SETPLAYER.BRAIN
-  3256 21B4 8D 37 2B			sta SETPLAYER.DIR
+  3255 21B1 8D 28 2B			sta SETPLAYER.BRAIN
+  3256 21B4 8D 27 2B			sta SETPLAYER.DIR
   3257 21B7 A9 0C			lda #$0C
-  3258 21B9 8D 36 2B			sta SETPLAYER.Y
+  3258 21B9 8D 26 2B			sta SETPLAYER.Y
   3259 21BC A9 1E			lda #$1E
-  3260 21BE 8D 35 2B			sta SETPLAYER.X
+  3260 21BE 8D 25 2B			sta SETPLAYER.X
   3261 21C1 AD D6 2A			lda PLAYER2
-  3262 21C4 8D 33 2B			sta SETPLAYER.P
+  3262 21C4 8D 23 2B			sta SETPLAYER.P
   3263 21C7 AD D7 2A			lda PLAYER2+1
-  3264 21CA 8D 34 2B			sta SETPLAYER.P+1
+  3264 21CA 8D 24 2B			sta SETPLAYER.P+1
   3265 21CD 20 5E 15			jsr SETPLAYER
   3266
   3267 				; optimize OK (levels.inc), line = 69
   3268
   3269 21D0 A9 01			lda #$01
-  3270 21D2 8D 3B 2B			sta SETPLAYER.ISALIVE
+  3270 21D2 8D 2B 2B			sta SETPLAYER.ISALIVE
   3271 21D5 A9 71			lda #$71
-  3272 21D7 8D 3A 2B			sta SETPLAYER.COLOUR
+  3272 21D7 8D 2A 2B			sta SETPLAYER.COLOUR
   3273 21DA A9 51			lda #$51
-  3274 21DC 8D 39 2B			sta SETPLAYER.HEAD
+  3274 21DC 8D 29 2B			sta SETPLAYER.HEAD
   3275 21DF A9 03			lda #$03
-  3276 21E1 8D 38 2B			sta SETPLAYER.BRAIN
+  3276 21E1 8D 28 2B			sta SETPLAYER.BRAIN
   3277 21E4 A9 02			lda #$02
-  3278 21E6 8D 37 2B			sta SETPLAYER.DIR
+  3278 21E6 8D 27 2B			sta SETPLAYER.DIR
   3279 21E9 A9 04			lda #$04
-  3280 21EB 8D 36 2B			sta SETPLAYER.Y
+  3280 21EB 8D 26 2B			sta SETPLAYER.Y
   3281 21EE A9 14			lda #$14
-  3282 21F0 8D 35 2B			sta SETPLAYER.X
+  3282 21F0 8D 25 2B			sta SETPLAYER.X
   3283 21F3 AD D8 2A			lda PLAYER3
-  3284 21F6 8D 33 2B			sta SETPLAYER.P
+  3284 21F6 8D 23 2B			sta SETPLAYER.P
   3285 21F9 AD D9 2A			lda PLAYER3+1
-  3286 21FC 8D 34 2B			sta SETPLAYER.P+1
+  3286 21FC 8D 24 2B			sta SETPLAYER.P+1
   3287 21FF 20 5E 15			jsr SETPLAYER
   3288
   3289 				; optimize OK (levels.inc), line = 70
   3290
   3291 2202 A9 01			lda #$01
-  3292 2204 8D 3B 2B			sta SETPLAYER.ISALIVE
+  3292 2204 8D 2B 2B			sta SETPLAYER.ISALIVE
   3293 2207 A9 55			lda #$55
-  3294 2209 8D 3A 2B			sta SETPLAYER.COLOUR
+  3294 2209 8D 2A 2B			sta SETPLAYER.COLOUR
   3295 220C A9 51			lda #$51
-  3296 220E 8D 39 2B			sta SETPLAYER.HEAD
+  3296 220E 8D 29 2B			sta SETPLAYER.HEAD
   3297 2211 A9 02			lda #$02
-  3298 2213 8D 38 2B			sta SETPLAYER.BRAIN
+  3298 2213 8D 28 2B			sta SETPLAYER.BRAIN
   3299 2216 A9 01			lda #$01
-  3300 2218 8D 37 2B			sta SETPLAYER.DIR
+  3300 2218 8D 27 2B			sta SETPLAYER.DIR
   3301 221B A9 12			lda #$12
-  3302 221D 8D 36 2B			sta SETPLAYER.Y
+  3302 221D 8D 26 2B			sta SETPLAYER.Y
   3303 2220 A9 14			lda #$14
-  3304 2222 8D 35 2B			sta SETPLAYER.X
+  3304 2222 8D 25 2B			sta SETPLAYER.X
   3305 2225 AD DA 2A			lda PLAYER4
-  3306 2228 8D 33 2B			sta SETPLAYER.P
+  3306 2228 8D 23 2B			sta SETPLAYER.P
   3307 222B AD DB 2A			lda PLAYER4+1
-  3308 222E 8D 34 2B			sta SETPLAYER.P+1
+  3308 222E 8D 24 2B			sta SETPLAYER.P+1
   3309 2231 20 5E 15			jsr SETPLAYER
   3310
   3311 				; optimize FAIL (1, levels.inc), line = 72
@@ -3225,28 +3225,28 @@ Source: main.a65
   3314 2235 A9 00 95 18			mva #$00 :STACKORIGIN,x
   3315 2239 95 28			sta :STACKORIGIN+STACKWIDTH,x
   3316 223B A9 06			lda #$06
-  3317 223D 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3317 223D 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3318 2240 A9 0A			lda #$0A
-  3319 2242 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3319 2242 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3320 2245 20 36 13			jsr CALCOBSTACLEADDR
   3321 2248 B4 17			ldy :STACKORIGIN-1,x
   3322 224A B5 18			lda :STACKORIGIN,x
-  3323 224C 99 12 2B			sta adr.OBSTACLES,y
+  3323 224C 99 60 00			sta adr.OBSTACLES,y
   3324 224F B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3325 2251 99 13 2B			sta adr.OBSTACLES+1,y
+  3325 2251 99 61 00			sta adr.OBSTACLES+1,y
   3326 2254 CA				dex
   3327 2255 A9 02 95 18			mva #$02 :STACKORIGIN,x
   3328 2259 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   3329 225D A9 06			lda #$06
-  3330 225F 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3330 225F 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3331 2262 A9 1E			lda #$1E
-  3332 2264 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3332 2264 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3333 2267 20 36 13			jsr CALCOBSTACLEADDR
   3334 226A B4 17			ldy :STACKORIGIN-1,x
   3335 226C B5 18			lda :STACKORIGIN,x
-  3336 226E 99 12 2B			sta adr.OBSTACLES,y
+  3336 226E 99 60 00			sta adr.OBSTACLES,y
   3337 2271 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3338 2273 99 13 2B			sta adr.OBSTACLES+1,y
+  3338 2273 99 61 00			sta adr.OBSTACLES+1,y
   3339 2276 CA				dex
   3340
   3341 				; optimize FAIL (1, levels.inc), line = 73
@@ -3254,28 +3254,28 @@ Source: main.a65
   3343 2277 A9 04 95 18			mva #$04 :STACKORIGIN,x
   3344 227B A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   3345 227F A9 12			lda #$12
-  3346 2281 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3346 2281 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3347 2284 A9 0A			lda #$0A
-  3348 2286 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3348 2286 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3349 2289 20 36 13			jsr CALCOBSTACLEADDR
   3350 228C B4 17			ldy :STACKORIGIN-1,x
   3351 228E B5 18			lda :STACKORIGIN,x
-  3352 2290 99 12 2B			sta adr.OBSTACLES,y
+  3352 2290 99 60 00			sta adr.OBSTACLES,y
   3353 2293 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3354 2295 99 13 2B			sta adr.OBSTACLES+1,y
+  3354 2295 99 61 00			sta adr.OBSTACLES+1,y
   3355 2298 CA				dex
   3356 2299 A9 06 95 18			mva #$06 :STACKORIGIN,x
   3357 229D A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   3358 22A1 A9 12			lda #$12
-  3359 22A3 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3359 22A3 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3360 22A6 A9 1E			lda #$1E
-  3361 22A8 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3361 22A8 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3362 22AB 20 36 13			jsr CALCOBSTACLEADDR
   3363 22AE B4 17			ldy :STACKORIGIN-1,x
   3364 22B0 B5 18			lda :STACKORIGIN,x
-  3365 22B2 99 12 2B			sta adr.OBSTACLES,y
+  3365 22B2 99 60 00			sta adr.OBSTACLES,y
   3366 22B5 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3367 22B7 99 13 2B			sta adr.OBSTACLES+1,y
+  3367 22B7 99 61 00			sta adr.OBSTACLES+1,y
   3368 22BA CA				dex
   3369
   3370 				; optimize FAIL (1, levels.inc), line = 74
@@ -3283,28 +3283,28 @@ Source: main.a65
   3372 22BB A9 08 95 18			mva #$08 :STACKORIGIN,x
   3373 22BF A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   3374 22C3 A9 0C			lda #$0C
-  3375 22C5 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3375 22C5 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3376 22C8 A9 01			lda #$01
-  3377 22CA 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3377 22CA 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3378 22CD 20 36 13			jsr CALCOBSTACLEADDR
   3379 22D0 B4 17			ldy :STACKORIGIN-1,x
   3380 22D2 B5 18			lda :STACKORIGIN,x
-  3381 22D4 99 12 2B			sta adr.OBSTACLES,y
+  3381 22D4 99 60 00			sta adr.OBSTACLES,y
   3382 22D7 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3383 22D9 99 13 2B			sta adr.OBSTACLES+1,y
+  3383 22D9 99 61 00			sta adr.OBSTACLES+1,y
   3384 22DC CA				dex
   3385 22DD A9 0A 95 18			mva #$0A :STACKORIGIN,x
   3386 22E1 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   3387 22E5 A9 02			lda #$02
-  3388 22E7 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3388 22E7 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3389 22EA A9 14			lda #$14
-  3390 22EC 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3390 22EC 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3391 22EF 20 36 13			jsr CALCOBSTACLEADDR
   3392 22F2 B4 17			ldy :STACKORIGIN-1,x
   3393 22F4 B5 18			lda :STACKORIGIN,x
-  3394 22F6 99 12 2B			sta adr.OBSTACLES,y
+  3394 22F6 99 60 00			sta adr.OBSTACLES,y
   3395 22F9 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3396 22FB 99 13 2B			sta adr.OBSTACLES+1,y
+  3396 22FB 99 61 00			sta adr.OBSTACLES+1,y
   3397 22FE CA				dex
   3398
   3399 				; optimize FAIL (1, levels.inc), line = 75
@@ -3312,15 +3312,15 @@ Source: main.a65
   3401 22FF A9 0C 95 18			mva #$0C :STACKORIGIN,x
   3402 2303 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   3403 2307 A9 16			lda #$16
-  3404 2309 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3404 2309 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3405 230C A9 14			lda #$14
-  3406 230E 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3406 230E 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3407 2311 20 36 13			jsr CALCOBSTACLEADDR
   3408 2314 B4 17			ldy :STACKORIGIN-1,x
   3409 2316 B5 18			lda :STACKORIGIN,x
-  3410 2318 99 12 2B			sta adr.OBSTACLES,y
+  3410 2318 99 60 00			sta adr.OBSTACLES,y
   3411 231B B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3412 231D 99 13 2B			sta adr.OBSTACLES+1,y
+  3412 231D 99 61 00			sta adr.OBSTACLES+1,y
   3413 2320 CA				dex
   3414 2321 CA				dex
   3415 2322			@exit
@@ -3340,87 +3340,87 @@ Source: main.a65
   3429 				; optimize OK (levels.inc), line = 82
   3430
   3431 2323 A9 01			lda #$01
-  3432 2325 8D 3B 2B			sta SETPLAYER.ISALIVE
+  3432 2325 8D 2B 2B			sta SETPLAYER.ISALIVE
   3433 2328 A9 62			lda #$62
-  3434 232A 8D 3A 2B			sta SETPLAYER.COLOUR
+  3434 232A 8D 2A 2B			sta SETPLAYER.COLOUR
   3435 232D A9 51			lda #$51
-  3436 232F 8D 39 2B			sta SETPLAYER.HEAD
+  3436 232F 8D 29 2B			sta SETPLAYER.HEAD
   3437 2332 A9 00			lda #$00
-  3438 2334 8D 38 2B			sta SETPLAYER.BRAIN
+  3438 2334 8D 28 2B			sta SETPLAYER.BRAIN
   3439 2337 A9 04			lda #$04
-  3440 2339 8D 37 2B			sta SETPLAYER.DIR
+  3440 2339 8D 27 2B			sta SETPLAYER.DIR
   3441 233C A9 0C			lda #$0C
-  3442 233E 8D 36 2B			sta SETPLAYER.Y
+  3442 233E 8D 26 2B			sta SETPLAYER.Y
   3443 2341 A9 12			lda #$12
-  3444 2343 8D 35 2B			sta SETPLAYER.X
+  3444 2343 8D 25 2B			sta SETPLAYER.X
   3445 2346 AD D4 2A			lda PLAYER1
-  3446 2349 8D 33 2B			sta SETPLAYER.P
+  3446 2349 8D 23 2B			sta SETPLAYER.P
   3447 234C AD D5 2A			lda PLAYER1+1
-  3448 234F 8D 34 2B			sta SETPLAYER.P+1
+  3448 234F 8D 24 2B			sta SETPLAYER.P+1
   3449 2352 20 5E 15			jsr SETPLAYER
   3450
   3451 				; optimize OK (levels.inc), line = 83
   3452
   3453 2355 A9 01			lda #$01
-  3454 2357 8D 3B 2B			sta SETPLAYER.ISALIVE
+  3454 2357 8D 2B 2B			sta SETPLAYER.ISALIVE
   3455 235A A9 5D			lda #$5D
-  3456 235C 8D 3A 2B			sta SETPLAYER.COLOUR
+  3456 235C 8D 2A 2B			sta SETPLAYER.COLOUR
   3457 235F A9 51			lda #$51
-  3458 2361 8D 39 2B			sta SETPLAYER.HEAD
+  3458 2361 8D 29 2B			sta SETPLAYER.HEAD
   3459 2364 A9 02			lda #$02
-  3460 2366 8D 38 2B			sta SETPLAYER.BRAIN
+  3460 2366 8D 28 2B			sta SETPLAYER.BRAIN
   3461 2369 A9 08			lda #$08
-  3462 236B 8D 37 2B			sta SETPLAYER.DIR
+  3462 236B 8D 27 2B			sta SETPLAYER.DIR
   3463 236E A9 0C			lda #$0C
-  3464 2370 8D 36 2B			sta SETPLAYER.Y
+  3464 2370 8D 26 2B			sta SETPLAYER.Y
   3465 2373 A9 16			lda #$16
-  3466 2375 8D 35 2B			sta SETPLAYER.X
+  3466 2375 8D 25 2B			sta SETPLAYER.X
   3467 2378 AD D6 2A			lda PLAYER2
-  3468 237B 8D 33 2B			sta SETPLAYER.P
+  3468 237B 8D 23 2B			sta SETPLAYER.P
   3469 237E AD D7 2A			lda PLAYER2+1
-  3470 2381 8D 34 2B			sta SETPLAYER.P+1
+  3470 2381 8D 24 2B			sta SETPLAYER.P+1
   3471 2384 20 5E 15			jsr SETPLAYER
   3472
   3473 				; optimize OK (levels.inc), line = 84
   3474
   3475 2387 A9 01			lda #$01
-  3476 2389 8D 3B 2B			sta SETPLAYER.ISALIVE
+  3476 2389 8D 2B 2B			sta SETPLAYER.ISALIVE
   3477 238C A9 71			lda #$71
-  3478 238E 8D 3A 2B			sta SETPLAYER.COLOUR
+  3478 238E 8D 2A 2B			sta SETPLAYER.COLOUR
   3479 2391 A9 51			lda #$51
-  3480 2393 8D 39 2B			sta SETPLAYER.HEAD
+  3480 2393 8D 29 2B			sta SETPLAYER.HEAD
   3481 2396 A9 02			lda #$02
-  3482 2398 8D 38 2B			sta SETPLAYER.BRAIN
-  3483 239B 8D 37 2B			sta SETPLAYER.DIR
+  3482 2398 8D 28 2B			sta SETPLAYER.BRAIN
+  3483 239B 8D 27 2B			sta SETPLAYER.DIR
   3484 239E A9 06			lda #$06
-  3485 23A0 8D 36 2B			sta SETPLAYER.Y
-  3486 23A3 8D 35 2B			sta SETPLAYER.X
+  3485 23A0 8D 26 2B			sta SETPLAYER.Y
+  3486 23A3 8D 25 2B			sta SETPLAYER.X
   3487 23A6 AD D8 2A			lda PLAYER3
-  3488 23A9 8D 33 2B			sta SETPLAYER.P
+  3488 23A9 8D 23 2B			sta SETPLAYER.P
   3489 23AC AD D9 2A			lda PLAYER3+1
-  3490 23AF 8D 34 2B			sta SETPLAYER.P+1
+  3490 23AF 8D 24 2B			sta SETPLAYER.P+1
   3491 23B2 20 5E 15			jsr SETPLAYER
   3492
   3493 				; optimize OK (levels.inc), line = 85
   3494
   3495 23B5 A9 01			lda #$01
-  3496 23B7 8D 3B 2B			sta SETPLAYER.ISALIVE
+  3496 23B7 8D 2B 2B			sta SETPLAYER.ISALIVE
   3497 23BA A9 55			lda #$55
-  3498 23BC 8D 3A 2B			sta SETPLAYER.COLOUR
+  3498 23BC 8D 2A 2B			sta SETPLAYER.COLOUR
   3499 23BF A9 51			lda #$51
-  3500 23C1 8D 39 2B			sta SETPLAYER.HEAD
+  3500 23C1 8D 29 2B			sta SETPLAYER.HEAD
   3501 23C4 A9 03			lda #$03
-  3502 23C6 8D 38 2B			sta SETPLAYER.BRAIN
+  3502 23C6 8D 28 2B			sta SETPLAYER.BRAIN
   3503 23C9 A9 08			lda #$08
-  3504 23CB 8D 37 2B			sta SETPLAYER.DIR
+  3504 23CB 8D 27 2B			sta SETPLAYER.DIR
   3505 23CE A9 12			lda #$12
-  3506 23D0 8D 36 2B			sta SETPLAYER.Y
+  3506 23D0 8D 26 2B			sta SETPLAYER.Y
   3507 23D3 A9 24			lda #$24
-  3508 23D5 8D 35 2B			sta SETPLAYER.X
+  3508 23D5 8D 25 2B			sta SETPLAYER.X
   3509 23D8 AD DA 2A			lda PLAYER4
-  3510 23DB 8D 33 2B			sta SETPLAYER.P
+  3510 23DB 8D 23 2B			sta SETPLAYER.P
   3511 23DE AD DB 2A			lda PLAYER4+1
-  3512 23E1 8D 34 2B			sta SETPLAYER.P+1
+  3512 23E1 8D 24 2B			sta SETPLAYER.P+1
   3513 23E4 20 5E 15			jsr SETPLAYER
   3514
   3515 				; optimize FAIL (1, levels.inc), line = 87
@@ -3429,28 +3429,28 @@ Source: main.a65
   3518 23E8 A9 00 95 18			mva #$00 :STACKORIGIN,x
   3519 23EC 95 28			sta :STACKORIGIN+STACKWIDTH,x
   3520 23EE A9 06			lda #$06
-  3521 23F0 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3521 23F0 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3522 23F3 A9 0A			lda #$0A
-  3523 23F5 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3523 23F5 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3524 23F8 20 36 13			jsr CALCOBSTACLEADDR
   3525 23FB B4 17			ldy :STACKORIGIN-1,x
   3526 23FD B5 18			lda :STACKORIGIN,x
-  3527 23FF 99 12 2B			sta adr.OBSTACLES,y
+  3527 23FF 99 60 00			sta adr.OBSTACLES,y
   3528 2402 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3529 2404 99 13 2B			sta adr.OBSTACLES+1,y
+  3529 2404 99 61 00			sta adr.OBSTACLES+1,y
   3530 2407 CA				dex
   3531 2408 A9 02 95 18			mva #$02 :STACKORIGIN,x
   3532 240C A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   3533 2410 A9 06			lda #$06
-  3534 2412 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3534 2412 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3535 2415 A9 1E			lda #$1E
-  3536 2417 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3536 2417 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3537 241A 20 36 13			jsr CALCOBSTACLEADDR
   3538 241D B4 17			ldy :STACKORIGIN-1,x
   3539 241F B5 18			lda :STACKORIGIN,x
-  3540 2421 99 12 2B			sta adr.OBSTACLES,y
+  3540 2421 99 60 00			sta adr.OBSTACLES,y
   3541 2424 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3542 2426 99 13 2B			sta adr.OBSTACLES+1,y
+  3542 2426 99 61 00			sta adr.OBSTACLES+1,y
   3543 2429 CA				dex
   3544
   3545 				; optimize FAIL (1, levels.inc), line = 88
@@ -3458,28 +3458,28 @@ Source: main.a65
   3547 242A A9 04 95 18			mva #$04 :STACKORIGIN,x
   3548 242E A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   3549 2432 A9 12			lda #$12
-  3550 2434 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3550 2434 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3551 2437 A9 0A			lda #$0A
-  3552 2439 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3552 2439 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3553 243C 20 36 13			jsr CALCOBSTACLEADDR
   3554 243F B4 17			ldy :STACKORIGIN-1,x
   3555 2441 B5 18			lda :STACKORIGIN,x
-  3556 2443 99 12 2B			sta adr.OBSTACLES,y
+  3556 2443 99 60 00			sta adr.OBSTACLES,y
   3557 2446 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3558 2448 99 13 2B			sta adr.OBSTACLES+1,y
+  3558 2448 99 61 00			sta adr.OBSTACLES+1,y
   3559 244B CA				dex
   3560 244C A9 06 95 18			mva #$06 :STACKORIGIN,x
   3561 2450 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   3562 2454 A9 12			lda #$12
-  3563 2456 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3563 2456 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3564 2459 A9 1E			lda #$1E
-  3565 245B 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3565 245B 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3566 245E 20 36 13			jsr CALCOBSTACLEADDR
   3567 2461 B4 17			ldy :STACKORIGIN-1,x
   3568 2463 B5 18			lda :STACKORIGIN,x
-  3569 2465 99 12 2B			sta adr.OBSTACLES,y
+  3569 2465 99 60 00			sta adr.OBSTACLES,y
   3570 2468 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3571 246A 99 13 2B			sta adr.OBSTACLES+1,y
+  3571 246A 99 61 00			sta adr.OBSTACLES+1,y
   3572 246D CA				dex
   3573
   3574 				; optimize FAIL (1, levels.inc), line = 89
@@ -3487,28 +3487,28 @@ Source: main.a65
   3576 246E A9 08 95 18			mva #$08 :STACKORIGIN,x
   3577 2472 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   3578 2476 A9 0C			lda #$0C
-  3579 2478 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3579 2478 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3580 247B A9 01			lda #$01
-  3581 247D 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3581 247D 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3582 2480 20 36 13			jsr CALCOBSTACLEADDR
   3583 2483 B4 17			ldy :STACKORIGIN-1,x
   3584 2485 B5 18			lda :STACKORIGIN,x
-  3585 2487 99 12 2B			sta adr.OBSTACLES,y
+  3585 2487 99 60 00			sta adr.OBSTACLES,y
   3586 248A B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3587 248C 99 13 2B			sta adr.OBSTACLES+1,y
+  3587 248C 99 61 00			sta adr.OBSTACLES+1,y
   3588 248F CA				dex
   3589 2490 A9 0A 95 18			mva #$0A :STACKORIGIN,x
   3590 2494 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   3591 2498 A9 02			lda #$02
-  3592 249A 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3592 249A 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3593 249D A9 14			lda #$14
-  3594 249F 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3594 249F 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3595 24A2 20 36 13			jsr CALCOBSTACLEADDR
   3596 24A5 B4 17			ldy :STACKORIGIN-1,x
   3597 24A7 B5 18			lda :STACKORIGIN,x
-  3598 24A9 99 12 2B			sta adr.OBSTACLES,y
+  3598 24A9 99 60 00			sta adr.OBSTACLES,y
   3599 24AC B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3600 24AE 99 13 2B			sta adr.OBSTACLES+1,y
+  3600 24AE 99 61 00			sta adr.OBSTACLES+1,y
   3601 24B1 CA				dex
   3602
   3603 				; optimize FAIL (1, levels.inc), line = 90
@@ -3516,28 +3516,28 @@ Source: main.a65
   3605 24B2 A9 0C 95 18			mva #$0C :STACKORIGIN,x
   3606 24B6 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   3607 24BA A9 16			lda #$16
-  3608 24BC 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3608 24BC 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3609 24BF A9 14			lda #$14
-  3610 24C1 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3610 24C1 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3611 24C4 20 36 13			jsr CALCOBSTACLEADDR
   3612 24C7 B4 17			ldy :STACKORIGIN-1,x
   3613 24C9 B5 18			lda :STACKORIGIN,x
-  3614 24CB 99 12 2B			sta adr.OBSTACLES,y
+  3614 24CB 99 60 00			sta adr.OBSTACLES,y
   3615 24CE B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3616 24D0 99 13 2B			sta adr.OBSTACLES+1,y
+  3616 24D0 99 61 00			sta adr.OBSTACLES+1,y
   3617 24D3 CA				dex
   3618 24D4 A9 0E 95 18			mva #$0E :STACKORIGIN,x
   3619 24D8 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   3620 24DC A9 0C			lda #$0C
-  3621 24DE 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3621 24DE 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3622 24E1 A9 14			lda #$14
-  3623 24E3 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3623 24E3 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3624 24E6 20 36 13			jsr CALCOBSTACLEADDR
   3625 24E9 B4 17			ldy :STACKORIGIN-1,x
   3626 24EB B5 18			lda :STACKORIGIN,x
-  3627 24ED 99 12 2B			sta adr.OBSTACLES,y
+  3627 24ED 99 60 00			sta adr.OBSTACLES,y
   3628 24F0 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3629 24F2 99 13 2B			sta adr.OBSTACLES+1,y
+  3629 24F2 99 61 00			sta adr.OBSTACLES+1,y
   3630 24F5 CA				dex
   3631 24F6 CA				dex
   3632 24F7			@exit
@@ -3557,89 +3557,89 @@ Source: main.a65
   3646 				; optimize OK (levels.inc), line = 97
   3647
   3648 24F8 A9 01			lda #$01
-  3649 24FA 8D 3B 2B			sta SETPLAYER.ISALIVE
+  3649 24FA 8D 2B 2B			sta SETPLAYER.ISALIVE
   3650 24FD A9 62			lda #$62
-  3651 24FF 8D 3A 2B			sta SETPLAYER.COLOUR
+  3651 24FF 8D 2A 2B			sta SETPLAYER.COLOUR
   3652 2502 A9 51			lda #$51
-  3653 2504 8D 39 2B			sta SETPLAYER.HEAD
+  3653 2504 8D 29 2B			sta SETPLAYER.HEAD
   3654 2507 A9 00			lda #$00
-  3655 2509 8D 38 2B			sta SETPLAYER.BRAIN
+  3655 2509 8D 28 2B			sta SETPLAYER.BRAIN
   3656 250C A9 04			lda #$04
-  3657 250E 8D 37 2B			sta SETPLAYER.DIR
+  3657 250E 8D 27 2B			sta SETPLAYER.DIR
   3658 2511 A9 0C			lda #$0C
-  3659 2513 8D 36 2B			sta SETPLAYER.Y
+  3659 2513 8D 26 2B			sta SETPLAYER.Y
   3660 2516 A9 12			lda #$12
-  3661 2518 8D 35 2B			sta SETPLAYER.X
+  3661 2518 8D 25 2B			sta SETPLAYER.X
   3662 251B AD D4 2A			lda PLAYER1
-  3663 251E 8D 33 2B			sta SETPLAYER.P
+  3663 251E 8D 23 2B			sta SETPLAYER.P
   3664 2521 AD D5 2A			lda PLAYER1+1
-  3665 2524 8D 34 2B			sta SETPLAYER.P+1
+  3665 2524 8D 24 2B			sta SETPLAYER.P+1
   3666 2527 20 5E 15			jsr SETPLAYER
   3667
   3668 				; optimize OK (levels.inc), line = 98
   3669
   3670 252A A9 01			lda #$01
-  3671 252C 8D 3B 2B			sta SETPLAYER.ISALIVE
+  3671 252C 8D 2B 2B			sta SETPLAYER.ISALIVE
   3672 252F A9 5D			lda #$5D
-  3673 2531 8D 3A 2B			sta SETPLAYER.COLOUR
+  3673 2531 8D 2A 2B			sta SETPLAYER.COLOUR
   3674 2534 A9 51			lda #$51
-  3675 2536 8D 39 2B			sta SETPLAYER.HEAD
+  3675 2536 8D 29 2B			sta SETPLAYER.HEAD
   3676 2539 A9 03			lda #$03
-  3677 253B 8D 38 2B			sta SETPLAYER.BRAIN
+  3677 253B 8D 28 2B			sta SETPLAYER.BRAIN
   3678 253E A9 08			lda #$08
-  3679 2540 8D 37 2B			sta SETPLAYER.DIR
+  3679 2540 8D 27 2B			sta SETPLAYER.DIR
   3680 2543 A9 17			lda #$17
-  3681 2545 8D 36 2B			sta SETPLAYER.Y
+  3681 2545 8D 26 2B			sta SETPLAYER.Y
   3682 2548 A9 01			lda #$01
-  3683 254A 8D 35 2B			sta SETPLAYER.X
+  3683 254A 8D 25 2B			sta SETPLAYER.X
   3684 254D AD D6 2A			lda PLAYER2
-  3685 2550 8D 33 2B			sta SETPLAYER.P
+  3685 2550 8D 23 2B			sta SETPLAYER.P
   3686 2553 AD D7 2A			lda PLAYER2+1
-  3687 2556 8D 34 2B			sta SETPLAYER.P+1
+  3687 2556 8D 24 2B			sta SETPLAYER.P+1
   3688 2559 20 5E 15			jsr SETPLAYER
   3689
   3690 				; optimize OK (levels.inc), line = 99
   3691
   3692 255C A9 01			lda #$01
-  3693 255E 8D 3B 2B			sta SETPLAYER.ISALIVE
+  3693 255E 8D 2B 2B			sta SETPLAYER.ISALIVE
   3694 2561 A9 71			lda #$71
-  3695 2563 8D 3A 2B			sta SETPLAYER.COLOUR
+  3695 2563 8D 2A 2B			sta SETPLAYER.COLOUR
   3696 2566 A9 51			lda #$51
-  3697 2568 8D 39 2B			sta SETPLAYER.HEAD
+  3697 2568 8D 29 2B			sta SETPLAYER.HEAD
   3698 256B A9 03			lda #$03
-  3699 256D 8D 38 2B			sta SETPLAYER.BRAIN
+  3699 256D 8D 28 2B			sta SETPLAYER.BRAIN
   3700 2570 A9 02			lda #$02
-  3701 2572 8D 37 2B			sta SETPLAYER.DIR
+  3701 2572 8D 27 2B			sta SETPLAYER.DIR
   3702 2575 A9 04			lda #$04
-  3703 2577 8D 36 2B			sta SETPLAYER.Y
+  3703 2577 8D 26 2B			sta SETPLAYER.Y
   3704 257A A9 1E			lda #$1E
-  3705 257C 8D 35 2B			sta SETPLAYER.X
+  3705 257C 8D 25 2B			sta SETPLAYER.X
   3706 257F AD D8 2A			lda PLAYER3
-  3707 2582 8D 33 2B			sta SETPLAYER.P
+  3707 2582 8D 23 2B			sta SETPLAYER.P
   3708 2585 AD D9 2A			lda PLAYER3+1
-  3709 2588 8D 34 2B			sta SETPLAYER.P+1
+  3709 2588 8D 24 2B			sta SETPLAYER.P+1
   3710 258B 20 5E 15			jsr SETPLAYER
   3711
   3712 				; optimize OK (levels.inc), line = 100
   3713
   3714 258E A9 01			lda #$01
-  3715 2590 8D 3B 2B			sta SETPLAYER.ISALIVE
+  3715 2590 8D 2B 2B			sta SETPLAYER.ISALIVE
   3716 2593 A9 55			lda #$55
-  3717 2595 8D 3A 2B			sta SETPLAYER.COLOUR
+  3717 2595 8D 2A 2B			sta SETPLAYER.COLOUR
   3718 2598 A9 51			lda #$51
-  3719 259A 8D 39 2B			sta SETPLAYER.HEAD
+  3719 259A 8D 29 2B			sta SETPLAYER.HEAD
   3720 259D A9 02			lda #$02
-  3721 259F 8D 38 2B			sta SETPLAYER.BRAIN
+  3721 259F 8D 28 2B			sta SETPLAYER.BRAIN
   3722 25A2 A9 01			lda #$01
-  3723 25A4 8D 37 2B			sta SETPLAYER.DIR
+  3723 25A4 8D 27 2B			sta SETPLAYER.DIR
   3724 25A7 A9 15			lda #$15
-  3725 25A9 8D 36 2B			sta SETPLAYER.Y
+  3725 25A9 8D 26 2B			sta SETPLAYER.Y
   3726 25AC A9 24			lda #$24
-  3727 25AE 8D 35 2B			sta SETPLAYER.X
+  3727 25AE 8D 25 2B			sta SETPLAYER.X
   3728 25B1 AD DA 2A			lda PLAYER4
-  3729 25B4 8D 33 2B			sta SETPLAYER.P
+  3729 25B4 8D 23 2B			sta SETPLAYER.P
   3730 25B7 AD DB 2A			lda PLAYER4+1
-  3731 25BA 8D 34 2B			sta SETPLAYER.P+1
+  3731 25BA 8D 24 2B			sta SETPLAYER.P+1
   3732 25BD 20 5E 15			jsr SETPLAYER
   3733
   3734 				; optimize FAIL (1, levels.inc), line = 102
@@ -3648,28 +3648,28 @@ Source: main.a65
   3737 25C1 A9 00 95 18			mva #$00 :STACKORIGIN,x
   3738 25C5 95 28			sta :STACKORIGIN+STACKWIDTH,x
   3739 25C7 A9 06			lda #$06
-  3740 25C9 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3740 25C9 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3741 25CC A9 0A			lda #$0A
-  3742 25CE 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3742 25CE 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3743 25D1 20 36 13			jsr CALCOBSTACLEADDR
   3744 25D4 B4 17			ldy :STACKORIGIN-1,x
   3745 25D6 B5 18			lda :STACKORIGIN,x
-  3746 25D8 99 12 2B			sta adr.OBSTACLES,y
+  3746 25D8 99 60 00			sta adr.OBSTACLES,y
   3747 25DB B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3748 25DD 99 13 2B			sta adr.OBSTACLES+1,y
+  3748 25DD 99 61 00			sta adr.OBSTACLES+1,y
   3749 25E0 CA				dex
   3750 25E1 A9 02 95 18			mva #$02 :STACKORIGIN,x
   3751 25E5 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   3752 25E9 A9 06			lda #$06
-  3753 25EB 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3753 25EB 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3754 25EE A9 1E			lda #$1E
-  3755 25F0 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3755 25F0 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3756 25F3 20 36 13			jsr CALCOBSTACLEADDR
   3757 25F6 B4 17			ldy :STACKORIGIN-1,x
   3758 25F8 B5 18			lda :STACKORIGIN,x
-  3759 25FA 99 12 2B			sta adr.OBSTACLES,y
+  3759 25FA 99 60 00			sta adr.OBSTACLES,y
   3760 25FD B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3761 25FF 99 13 2B			sta adr.OBSTACLES+1,y
+  3761 25FF 99 61 00			sta adr.OBSTACLES+1,y
   3762 2602 CA				dex
   3763
   3764 				; optimize FAIL (1, levels.inc), line = 103
@@ -3677,28 +3677,28 @@ Source: main.a65
   3766 2603 A9 04 95 18			mva #$04 :STACKORIGIN,x
   3767 2607 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   3768 260B A9 12			lda #$12
-  3769 260D 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3769 260D 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3770 2610 A9 0A			lda #$0A
-  3771 2612 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3771 2612 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3772 2615 20 36 13			jsr CALCOBSTACLEADDR
   3773 2618 B4 17			ldy :STACKORIGIN-1,x
   3774 261A B5 18			lda :STACKORIGIN,x
-  3775 261C 99 12 2B			sta adr.OBSTACLES,y
+  3775 261C 99 60 00			sta adr.OBSTACLES,y
   3776 261F B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3777 2621 99 13 2B			sta adr.OBSTACLES+1,y
+  3777 2621 99 61 00			sta adr.OBSTACLES+1,y
   3778 2624 CA				dex
   3779 2625 A9 06 95 18			mva #$06 :STACKORIGIN,x
   3780 2629 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   3781 262D A9 12			lda #$12
-  3782 262F 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3782 262F 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3783 2632 A9 1E			lda #$1E
-  3784 2634 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3784 2634 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3785 2637 20 36 13			jsr CALCOBSTACLEADDR
   3786 263A B4 17			ldy :STACKORIGIN-1,x
   3787 263C B5 18			lda :STACKORIGIN,x
-  3788 263E 99 12 2B			sta adr.OBSTACLES,y
+  3788 263E 99 60 00			sta adr.OBSTACLES,y
   3789 2641 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3790 2643 99 13 2B			sta adr.OBSTACLES+1,y
+  3790 2643 99 61 00			sta adr.OBSTACLES+1,y
   3791 2646 CA				dex
   3792
   3793 				; optimize FAIL (1, levels.inc), line = 104
@@ -3706,28 +3706,28 @@ Source: main.a65
   3795 2647 A9 08 95 18			mva #$08 :STACKORIGIN,x
   3796 264B A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   3797 264F A9 0C			lda #$0C
-  3798 2651 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3798 2651 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3799 2654 A9 01			lda #$01
-  3800 2656 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3800 2656 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3801 2659 20 36 13			jsr CALCOBSTACLEADDR
   3802 265C B4 17			ldy :STACKORIGIN-1,x
   3803 265E B5 18			lda :STACKORIGIN,x
-  3804 2660 99 12 2B			sta adr.OBSTACLES,y
+  3804 2660 99 60 00			sta adr.OBSTACLES,y
   3805 2663 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3806 2665 99 13 2B			sta adr.OBSTACLES+1,y
+  3806 2665 99 61 00			sta adr.OBSTACLES+1,y
   3807 2668 CA				dex
   3808 2669 A9 0A 95 18			mva #$0A :STACKORIGIN,x
   3809 266D A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   3810 2671 A9 02			lda #$02
-  3811 2673 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3811 2673 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3812 2676 A9 14			lda #$14
-  3813 2678 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3813 2678 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3814 267B 20 36 13			jsr CALCOBSTACLEADDR
   3815 267E B4 17			ldy :STACKORIGIN-1,x
   3816 2680 B5 18			lda :STACKORIGIN,x
-  3817 2682 99 12 2B			sta adr.OBSTACLES,y
+  3817 2682 99 60 00			sta adr.OBSTACLES,y
   3818 2685 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3819 2687 99 13 2B			sta adr.OBSTACLES+1,y
+  3819 2687 99 61 00			sta adr.OBSTACLES+1,y
   3820 268A CA				dex
   3821
   3822 				; optimize FAIL (1, levels.inc), line = 105
@@ -3735,28 +3735,28 @@ Source: main.a65
   3824 268B A9 0C 95 18			mva #$0C :STACKORIGIN,x
   3825 268F A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   3826 2693 A9 16			lda #$16
-  3827 2695 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3827 2695 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3828 2698 A9 14			lda #$14
-  3829 269A 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3829 269A 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3830 269D 20 36 13			jsr CALCOBSTACLEADDR
   3831 26A0 B4 17			ldy :STACKORIGIN-1,x
   3832 26A2 B5 18			lda :STACKORIGIN,x
-  3833 26A4 99 12 2B			sta adr.OBSTACLES,y
+  3833 26A4 99 60 00			sta adr.OBSTACLES,y
   3834 26A7 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3835 26A9 99 13 2B			sta adr.OBSTACLES+1,y
+  3835 26A9 99 61 00			sta adr.OBSTACLES+1,y
   3836 26AC CA				dex
   3837 26AD A9 0E 95 18			mva #$0E :STACKORIGIN,x
   3838 26B1 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   3839 26B5 A9 0C			lda #$0C
-  3840 26B7 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3840 26B7 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3841 26BA A9 14			lda #$14
-  3842 26BC 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3842 26BC 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3843 26BF 20 36 13			jsr CALCOBSTACLEADDR
   3844 26C2 B4 17			ldy :STACKORIGIN-1,x
   3845 26C4 B5 18			lda :STACKORIGIN,x
-  3846 26C6 99 12 2B			sta adr.OBSTACLES,y
+  3846 26C6 99 60 00			sta adr.OBSTACLES,y
   3847 26C9 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3848 26CB 99 13 2B			sta adr.OBSTACLES+1,y
+  3848 26CB 99 61 00			sta adr.OBSTACLES+1,y
   3849 26CE CA				dex
   3850 26CF CA				dex
   3851 26D0			@exit
@@ -3776,87 +3776,87 @@ Source: main.a65
   3865 				; optimize OK (levels.inc), line = 112
   3866
   3867 26D1 A9 01			lda #$01
-  3868 26D3 8D 3B 2B			sta SETPLAYER.ISALIVE
+  3868 26D3 8D 2B 2B			sta SETPLAYER.ISALIVE
   3869 26D6 A9 62			lda #$62
-  3870 26D8 8D 3A 2B			sta SETPLAYER.COLOUR
+  3870 26D8 8D 2A 2B			sta SETPLAYER.COLOUR
   3871 26DB A9 51			lda #$51
-  3872 26DD 8D 39 2B			sta SETPLAYER.HEAD
+  3872 26DD 8D 29 2B			sta SETPLAYER.HEAD
   3873 26E0 A9 00			lda #$00
-  3874 26E2 8D 38 2B			sta SETPLAYER.BRAIN
+  3874 26E2 8D 28 2B			sta SETPLAYER.BRAIN
   3875 26E5 A9 08			lda #$08
-  3876 26E7 8D 37 2B			sta SETPLAYER.DIR
+  3876 26E7 8D 27 2B			sta SETPLAYER.DIR
   3877 26EA A9 17			lda #$17
-  3878 26EC 8D 36 2B			sta SETPLAYER.Y
+  3878 26EC 8D 26 2B			sta SETPLAYER.Y
   3879 26EF A9 01			lda #$01
-  3880 26F1 8D 35 2B			sta SETPLAYER.X
+  3880 26F1 8D 25 2B			sta SETPLAYER.X
   3881 26F4 AD D4 2A			lda PLAYER1
-  3882 26F7 8D 33 2B			sta SETPLAYER.P
+  3882 26F7 8D 23 2B			sta SETPLAYER.P
   3883 26FA AD D5 2A			lda PLAYER1+1
-  3884 26FD 8D 34 2B			sta SETPLAYER.P+1
+  3884 26FD 8D 24 2B			sta SETPLAYER.P+1
   3885 2700 20 5E 15			jsr SETPLAYER
   3886
   3887 				; optimize OK (levels.inc), line = 113
   3888
   3889 2703 A9 01			lda #$01
-  3890 2705 8D 3B 2B			sta SETPLAYER.ISALIVE
+  3890 2705 8D 2B 2B			sta SETPLAYER.ISALIVE
   3891 2708 A9 5D			lda #$5D
-  3892 270A 8D 3A 2B			sta SETPLAYER.COLOUR
+  3892 270A 8D 2A 2B			sta SETPLAYER.COLOUR
   3893 270D A9 51			lda #$51
-  3894 270F 8D 39 2B			sta SETPLAYER.HEAD
+  3894 270F 8D 29 2B			sta SETPLAYER.HEAD
   3895 2712 A9 03			lda #$03
-  3896 2714 8D 38 2B			sta SETPLAYER.BRAIN
+  3896 2714 8D 28 2B			sta SETPLAYER.BRAIN
   3897 2717 A9 04			lda #$04
-  3898 2719 8D 37 2B			sta SETPLAYER.DIR
+  3898 2719 8D 27 2B			sta SETPLAYER.DIR
   3899 271C A9 17			lda #$17
-  3900 271E 8D 36 2B			sta SETPLAYER.Y
+  3900 271E 8D 26 2B			sta SETPLAYER.Y
   3901 2721 A9 26			lda #$26
-  3902 2723 8D 35 2B			sta SETPLAYER.X
+  3902 2723 8D 25 2B			sta SETPLAYER.X
   3903 2726 AD D6 2A			lda PLAYER2
-  3904 2729 8D 33 2B			sta SETPLAYER.P
+  3904 2729 8D 23 2B			sta SETPLAYER.P
   3905 272C AD D7 2A			lda PLAYER2+1
-  3906 272F 8D 34 2B			sta SETPLAYER.P+1
+  3906 272F 8D 24 2B			sta SETPLAYER.P+1
   3907 2732 20 5E 15			jsr SETPLAYER
   3908
   3909 				; optimize OK (levels.inc), line = 114
   3910
   3911 2735 A9 01			lda #$01
-  3912 2737 8D 3B 2B			sta SETPLAYER.ISALIVE
+  3912 2737 8D 2B 2B			sta SETPLAYER.ISALIVE
   3913 273A A9 71			lda #$71
-  3914 273C 8D 3A 2B			sta SETPLAYER.COLOUR
+  3914 273C 8D 2A 2B			sta SETPLAYER.COLOUR
   3915 273F A9 51			lda #$51
-  3916 2741 8D 39 2B			sta SETPLAYER.HEAD
+  3916 2741 8D 29 2B			sta SETPLAYER.HEAD
   3917 2744 A9 02			lda #$02
-  3918 2746 8D 38 2B			sta SETPLAYER.BRAIN
-  3919 2749 8D 37 2B			sta SETPLAYER.DIR
+  3918 2746 8D 28 2B			sta SETPLAYER.BRAIN
+  3919 2749 8D 27 2B			sta SETPLAYER.DIR
   3920 274C A9 01			lda #$01
-  3921 274E 8D 36 2B			sta SETPLAYER.Y
+  3921 274E 8D 26 2B			sta SETPLAYER.Y
   3922 2751 A9 0A			lda #$0A
-  3923 2753 8D 35 2B			sta SETPLAYER.X
+  3923 2753 8D 25 2B			sta SETPLAYER.X
   3924 2756 AD D8 2A			lda PLAYER3
-  3925 2759 8D 33 2B			sta SETPLAYER.P
+  3925 2759 8D 23 2B			sta SETPLAYER.P
   3926 275C AD D9 2A			lda PLAYER3+1
-  3927 275F 8D 34 2B			sta SETPLAYER.P+1
+  3927 275F 8D 24 2B			sta SETPLAYER.P+1
   3928 2762 20 5E 15			jsr SETPLAYER
   3929
   3930 				; optimize OK (levels.inc), line = 115
   3931
   3932 2765 A9 01			lda #$01
-  3933 2767 8D 3B 2B			sta SETPLAYER.ISALIVE
+  3933 2767 8D 2B 2B			sta SETPLAYER.ISALIVE
   3934 276A A9 55			lda #$55
-  3935 276C 8D 3A 2B			sta SETPLAYER.COLOUR
+  3935 276C 8D 2A 2B			sta SETPLAYER.COLOUR
   3936 276F A9 51			lda #$51
-  3937 2771 8D 39 2B			sta SETPLAYER.HEAD
+  3937 2771 8D 29 2B			sta SETPLAYER.HEAD
   3938 2774 A9 04			lda #$04
-  3939 2776 8D 38 2B			sta SETPLAYER.BRAIN
-  3940 2779 8D 37 2B			sta SETPLAYER.DIR
+  3939 2776 8D 28 2B			sta SETPLAYER.BRAIN
+  3940 2779 8D 27 2B			sta SETPLAYER.DIR
   3941 277C A9 01			lda #$01
-  3942 277E 8D 36 2B			sta SETPLAYER.Y
+  3942 277E 8D 26 2B			sta SETPLAYER.Y
   3943 2781 A9 26			lda #$26
-  3944 2783 8D 35 2B			sta SETPLAYER.X
+  3944 2783 8D 25 2B			sta SETPLAYER.X
   3945 2786 AD DA 2A			lda PLAYER4
-  3946 2789 8D 33 2B			sta SETPLAYER.P
+  3946 2789 8D 23 2B			sta SETPLAYER.P
   3947 278C AD DB 2A			lda PLAYER4+1
-  3948 278F 8D 34 2B			sta SETPLAYER.P+1
+  3948 278F 8D 24 2B			sta SETPLAYER.P+1
   3949 2792 20 5E 15			jsr SETPLAYER
   3950
   3951 				; optimize FAIL (1, levels.inc), line = 117
@@ -3865,28 +3865,28 @@ Source: main.a65
   3954 2796 A9 00 95 18			mva #$00 :STACKORIGIN,x
   3955 279A 95 28			sta :STACKORIGIN+STACKWIDTH,x
   3956 279C A9 06			lda #$06
-  3957 279E 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3957 279E 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3958 27A1 A9 0A			lda #$0A
-  3959 27A3 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3959 27A3 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3960 27A6 20 36 13			jsr CALCOBSTACLEADDR
   3961 27A9 B4 17			ldy :STACKORIGIN-1,x
   3962 27AB B5 18			lda :STACKORIGIN,x
-  3963 27AD 99 12 2B			sta adr.OBSTACLES,y
+  3963 27AD 99 60 00			sta adr.OBSTACLES,y
   3964 27B0 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3965 27B2 99 13 2B			sta adr.OBSTACLES+1,y
+  3965 27B2 99 61 00			sta adr.OBSTACLES+1,y
   3966 27B5 CA				dex
   3967 27B6 A9 02 95 18			mva #$02 :STACKORIGIN,x
   3968 27BA A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   3969 27BE A9 06			lda #$06
-  3970 27C0 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3970 27C0 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3971 27C3 A9 1E			lda #$1E
-  3972 27C5 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3972 27C5 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3973 27C8 20 36 13			jsr CALCOBSTACLEADDR
   3974 27CB B4 17			ldy :STACKORIGIN-1,x
   3975 27CD B5 18			lda :STACKORIGIN,x
-  3976 27CF 99 12 2B			sta adr.OBSTACLES,y
+  3976 27CF 99 60 00			sta adr.OBSTACLES,y
   3977 27D2 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3978 27D4 99 13 2B			sta adr.OBSTACLES+1,y
+  3978 27D4 99 61 00			sta adr.OBSTACLES+1,y
   3979 27D7 CA				dex
   3980
   3981 				; optimize FAIL (1, levels.inc), line = 118
@@ -3894,28 +3894,28 @@ Source: main.a65
   3983 27D8 A9 04 95 18			mva #$04 :STACKORIGIN,x
   3984 27DC A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   3985 27E0 A9 12			lda #$12
-  3986 27E2 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3986 27E2 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   3987 27E5 A9 0A			lda #$0A
-  3988 27E7 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  3988 27E7 8D 1E 2B			sta CALCOBSTACLEADDR.X
   3989 27EA 20 36 13			jsr CALCOBSTACLEADDR
   3990 27ED B4 17			ldy :STACKORIGIN-1,x
   3991 27EF B5 18			lda :STACKORIGIN,x
-  3992 27F1 99 12 2B			sta adr.OBSTACLES,y
+  3992 27F1 99 60 00			sta adr.OBSTACLES,y
   3993 27F4 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  3994 27F6 99 13 2B			sta adr.OBSTACLES+1,y
+  3994 27F6 99 61 00			sta adr.OBSTACLES+1,y
   3995 27F9 CA				dex
   3996 27FA A9 06 95 18			mva #$06 :STACKORIGIN,x
   3997 27FE A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   3998 2802 A9 12			lda #$12
-  3999 2804 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  3999 2804 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   4000 2807 A9 1E			lda #$1E
-  4001 2809 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  4001 2809 8D 1E 2B			sta CALCOBSTACLEADDR.X
   4002 280C 20 36 13			jsr CALCOBSTACLEADDR
   4003 280F B4 17			ldy :STACKORIGIN-1,x
   4004 2811 B5 18			lda :STACKORIGIN,x
-  4005 2813 99 12 2B			sta adr.OBSTACLES,y
+  4005 2813 99 60 00			sta adr.OBSTACLES,y
   4006 2816 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  4007 2818 99 13 2B			sta adr.OBSTACLES+1,y
+  4007 2818 99 61 00			sta adr.OBSTACLES+1,y
   4008 281B CA				dex
   4009
   4010 				; optimize FAIL (1, levels.inc), line = 119
@@ -3923,28 +3923,28 @@ Source: main.a65
   4012 281C A9 08 95 18			mva #$08 :STACKORIGIN,x
   4013 2820 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   4014 2824 A9 0C			lda #$0C
-  4015 2826 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  4015 2826 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   4016 2829 A9 01			lda #$01
-  4017 282B 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  4017 282B 8D 1E 2B			sta CALCOBSTACLEADDR.X
   4018 282E 20 36 13			jsr CALCOBSTACLEADDR
   4019 2831 B4 17			ldy :STACKORIGIN-1,x
   4020 2833 B5 18			lda :STACKORIGIN,x
-  4021 2835 99 12 2B			sta adr.OBSTACLES,y
+  4021 2835 99 60 00			sta adr.OBSTACLES,y
   4022 2838 B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  4023 283A 99 13 2B			sta adr.OBSTACLES+1,y
+  4023 283A 99 61 00			sta adr.OBSTACLES+1,y
   4024 283D CA				dex
   4025 283E A9 0A 95 18			mva #$0A :STACKORIGIN,x
   4026 2842 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   4027 2846 A9 02			lda #$02
-  4028 2848 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  4028 2848 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   4029 284B A9 14			lda #$14
-  4030 284D 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  4030 284D 8D 1E 2B			sta CALCOBSTACLEADDR.X
   4031 2850 20 36 13			jsr CALCOBSTACLEADDR
   4032 2853 B4 17			ldy :STACKORIGIN-1,x
   4033 2855 B5 18			lda :STACKORIGIN,x
-  4034 2857 99 12 2B			sta adr.OBSTACLES,y
+  4034 2857 99 60 00			sta adr.OBSTACLES,y
   4035 285A B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  4036 285C 99 13 2B			sta adr.OBSTACLES+1,y
+  4036 285C 99 61 00			sta adr.OBSTACLES+1,y
   4037 285F CA				dex
   4038
   4039 				; optimize FAIL (1, levels.inc), line = 120
@@ -3952,28 +3952,28 @@ Source: main.a65
   4041 2860 A9 0C 95 18			mva #$0C :STACKORIGIN,x
   4042 2864 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   4043 2868 A9 16			lda #$16
-  4044 286A 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  4044 286A 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   4045 286D A9 14			lda #$14
-  4046 286F 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  4046 286F 8D 1E 2B			sta CALCOBSTACLEADDR.X
   4047 2872 20 36 13			jsr CALCOBSTACLEADDR
   4048 2875 B4 17			ldy :STACKORIGIN-1,x
   4049 2877 B5 18			lda :STACKORIGIN,x
-  4050 2879 99 12 2B			sta adr.OBSTACLES,y
+  4050 2879 99 60 00			sta adr.OBSTACLES,y
   4051 287C B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  4052 287E 99 13 2B			sta adr.OBSTACLES+1,y
+  4052 287E 99 61 00			sta adr.OBSTACLES+1,y
   4053 2881 CA				dex
   4054 2882 A9 0E 95 18			mva #$0E :STACKORIGIN,x
   4055 2886 A9 00 95 28			mva #$00 :STACKORIGIN+STACKWIDTH,x
   4056 288A A9 0C			lda #$0C
-  4057 288C 8D 2F 2B			sta CALCOBSTACLEADDR.Y
+  4057 288C 8D 1F 2B			sta CALCOBSTACLEADDR.Y
   4058 288F A9 14			lda #$14
-  4059 2891 8D 2E 2B			sta CALCOBSTACLEADDR.X
+  4059 2891 8D 1E 2B			sta CALCOBSTACLEADDR.X
   4060 2894 20 36 13			jsr CALCOBSTACLEADDR
   4061 2897 B4 17			ldy :STACKORIGIN-1,x
   4062 2899 B5 18			lda :STACKORIGIN,x
-  4063 289B 99 12 2B			sta adr.OBSTACLES,y
+  4063 289B 99 60 00			sta adr.OBSTACLES,y
   4064 289E B5 28			lda :STACKORIGIN+STACKWIDTH,x
-  4065 28A0 99 13 2B			sta adr.OBSTACLES+1,y
+  4065 28A0 99 61 00			sta adr.OBSTACLES+1,y
   4066 28A3 CA				dex
   4067 28A4 CA				dex
   4068 28A5			@exit
@@ -4102,10 +4102,10 @@ Source: main.a65
   4191 2929 A5 59			lda I0B
   4192 292B 0A				asl @
   4193 292C A8				tay
-  4194 292D A9 7E			lda #$7E
-  4195 292F 99 12 2B			sta adr.OBSTACLES,y
+  4194 292D A9 5E			lda #$5E
+  4195 292F 99 60 00			sta adr.OBSTACLES,y
   4196 2932 A9 00			lda #$00
-  4197 2934 99 13 2B			sta adr.OBSTACLES+1,y
+  4197 2934 99 61 00			sta adr.OBSTACLES+1,y
   4198
   4199 				; --- ForToDoEpilog
   4200 2937 C6 59			dec I0B
@@ -4192,7 +4192,7 @@ Source: main.a65
   4281 				; optimize OK (init.inc), line = 46
   4282
   4283 2964 AD F0 2A			lda LEVEL
-  4284 2967 8D 46 2B			sta @CASETMP_0008
+  4284 2967 8D 36 2B			sta @CASETMP_0008
   4285 296A C9 00			cmp #$00
   4286 296C D0 06			jne l_0FE1
   4287 296E			@
@@ -4283,9 +4283,9 @@ Source: main.a65
   4372
   4373 				; ------------------------------------------------------------
   4374
-  4375 = 2B46			@CASETMP_0008	= DATAORIGIN+$0066
+  4375 = 2B36			@CASETMP_0008	= DATAORIGIN+$0056
   4376
-  4377 = 2B46			@VarData	= @CASETMP_0008
+  4377 = 2B36			@VarData	= @CASETMP_0008
   4378 = 0001			@VarDataSize	= 1
   4379
   4380 29CA			@exit
@@ -4329,7 +4329,7 @@ Source: main.a65
   4418 29E8 AC D0 2A 84 12 AC + 	mwy PLY :bp2
   4419 29F2 A0 05			ldy #PLY.BRAIN-DATAORIGIN
   4420 29F4 B1 12			lda (:bp2),y
-  4421 29F6 8D 47 2B			sta @CASETMP_0009
+  4421 29F6 8D 37 2B			sta @CASETMP_0009
   4422 29F9 C9 00			cmp #$00
   4423 29FB D0 06			jne l_107C
   4424 29FD			@
@@ -4384,9 +4384,9 @@ Source: main.a65
   4473
   4474 				; ------------------------------------------------------------
   4475
-  4476 = 2B47			@CASETMP_0009	= DATAORIGIN+$0067
+  4476 = 2B37			@CASETMP_0009	= DATAORIGIN+$0057
   4477
-  4478 = 2B47			@VarData	= @CASETMP_0009
+  4478 = 2B37			@VarData	= @CASETMP_0009
   4479 = 0001			@VarDataSize	= 1
   4480
   4481 2A2B			@exit
@@ -4528,7 +4528,7 @@ Source: main.a65
   4617 = 0000			BOREDER_COLOUR	= $00
   4618 = 0009			VICTORIES	= $09
   4619 = 0005			LOOK_AHEAD	= $05
-  4620 = 007E			TRASH	= $7E
+  4620 = 005E			TRASH	= $5E
   4621 = 0020			EMPTY	= $20
   4622 = 00A0			WALL	= $A0
   4623 = 0041			WALL_COLOUR	= $41
@@ -4575,28 +4575,28 @@ Source: main.a65
   4664 = 005A			ALIVE	= $5A
   4665 = 005B			NEWDIR	= $5B
   4666 = 005C			AVAILDIR	= $5C
-  4667 = 005D			T0W	= $5D
-  4668 = 005F			adr.PLY	= $5F
-  4669 2AC8			.var PLY	= adr.PLY .word
-  4670 = 2AE0			PLY.X	= DATAORIGIN+$0000
-  4671 = 2AE1			PLY.Y	= DATAORIGIN+$0001
-  4672 = 2AE2			PLY.HEAD	= DATAORIGIN+$0002
-  4673 = 2AE3			PLY.COLOUR	= DATAORIGIN+$0003
-  4674 = 2AE4			PLY.DIR	= DATAORIGIN+$0004
-  4675 = 2AE5			PLY.BRAIN	= DATAORIGIN+$0005
-  4676 = 2AE6			PLY.SCORE	= DATAORIGIN+$0006
-  4677 = 2AE7			PLY.ISALIVE	= DATAORIGIN+$0007
-  4678 = 0061			adr.TMPPLY	= $61
-  4679 2AC8			.var TMPPLY	= adr.TMPPLY .word
-  4680 = 2AE0			TMPPLY.X	= DATAORIGIN+$0000
-  4681 = 2AE1			TMPPLY.Y	= DATAORIGIN+$0001
-  4682 = 2AE2			TMPPLY.HEAD	= DATAORIGIN+$0002
-  4683 = 2AE3			TMPPLY.COLOUR	= DATAORIGIN+$0003
-  4684 = 2AE4			TMPPLY.DIR	= DATAORIGIN+$0004
-  4685 = 2AE5			TMPPLY.BRAIN	= DATAORIGIN+$0005
-  4686 = 2AE6			TMPPLY.SCORE	= DATAORIGIN+$0006
-  4687 = 2AE7			TMPPLY.ISALIVE	= DATAORIGIN+$0007
-  4688 = 0063			JOYSTATUS	= $63
+  4667 = 005D			JOYSTATUS	= $5D
+  4668 = 005E			T0W	= $5E
+  4669 = 0070			adr.PLY	= $70
+  4670 2AC8			.var PLY	= adr.PLY .word
+  4671 = 2AE0			PLY.X	= DATAORIGIN+$0000
+  4672 = 2AE1			PLY.Y	= DATAORIGIN+$0001
+  4673 = 2AE2			PLY.HEAD	= DATAORIGIN+$0002
+  4674 = 2AE3			PLY.COLOUR	= DATAORIGIN+$0003
+  4675 = 2AE4			PLY.DIR	= DATAORIGIN+$0004
+  4676 = 2AE5			PLY.BRAIN	= DATAORIGIN+$0005
+  4677 = 2AE6			PLY.SCORE	= DATAORIGIN+$0006
+  4678 = 2AE7			PLY.ISALIVE	= DATAORIGIN+$0007
+  4679 = 0072			adr.TMPPLY	= $72
+  4680 2AC8			.var TMPPLY	= adr.TMPPLY .word
+  4681 = 2AE0			TMPPLY.X	= DATAORIGIN+$0000
+  4682 = 2AE1			TMPPLY.Y	= DATAORIGIN+$0001
+  4683 = 2AE2			TMPPLY.HEAD	= DATAORIGIN+$0002
+  4684 = 2AE3			TMPPLY.COLOUR	= DATAORIGIN+$0003
+  4685 = 2AE4			TMPPLY.DIR	= DATAORIGIN+$0004
+  4686 = 2AE5			TMPPLY.BRAIN	= DATAORIGIN+$0005
+  4687 = 2AE6			TMPPLY.SCORE	= DATAORIGIN+$0006
+  4688 = 2AE7			TMPPLY.ISALIVE	= DATAORIGIN+$0007
   4689 = 2AF0			LEVEL	= DATAORIGIN+$0010
   4690 = 2AF1			GAMEOVER	= DATAORIGIN+$0011
   4691 = 2AF2			adr.PLAYER1	= [DATAORIGIN+$0012] .array [6]
@@ -4639,7 +4639,7 @@ Source: main.a65
   4728 = 2B0F			PLAYER4.BRAIN	= DATAORIGIN+$002F
   4729 = 2B10			PLAYER4.SCORE	= DATAORIGIN+$0030
   4730 = 2B11			PLAYER4.ISALIVE	= DATAORIGIN+$0031
-  4731 = 2B12			adr.OBSTACLES	= [DATAORIGIN+$0032] .array [8] .word
+  4731 = 0060			adr.OBSTACLES	= $60
   4732 2AC8			.var OBSTACLES	= adr.OBSTACLES .word
   4733 2AC8			@exit
   4734
@@ -4661,13 +4661,13 @@ Source: main.a65
   4750
   4751 = 2ACC 0E 10		MUL40
   4751 = 2ACE 40 10		DIRECTION
-  4751 = 2AD0 5F 00		PLY
-  4751 = 2AD2 61 00		TMPPLY
+  4751 = 2AD0 70 00		PLY
+  4751 = 2AD2 72 00		TMPPLY
   4751 = 2AD4 F2 2A		PLAYER1
   4751 = 2AD6 FA 2A		PLAYER2
   4751 = 2AD8 02 2B		PLAYER3
   4751 = 2ADA 0A 2B		PLAYER4
-  4751 = 2ADC 12 2B		OBSTACLES
+  4751 = 2ADC 60 00		OBSTACLES
   4751 				.endl							; MAIN
   4752
   4753 				; ------------------------------------------------------------
@@ -4698,12 +4698,12 @@ Source: main.a65
   4776 2AE0 28 00 18 00 2D 0C	.by  $28 $00 $18 $00 $2D $0C
   4777
   4778 = 0006			VARINITSIZE	= *-DATAORIGIN
-  4779 = 0068			VARDATASIZE	= 104
+  4779 = 0058			VARDATASIZE	= 88
   4780
-  4781 = 2B48			PROGRAMSTACK	= DATAORIGIN+VARDATASIZE
+  4781 = 2B38			PROGRAMSTACK	= DATAORIGIN+VARDATASIZE
   4782
   4783 					.print 'DATA: ',DATAORIGIN,'..',PROGRAMSTACK
-  4783 				DATA: $2AE0..$2B48
+  4783 				DATA: $2AE0..$2B38
   4784
   4785 				; ------------------------------------------------------------
   4786

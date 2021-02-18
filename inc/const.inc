@@ -7,7 +7,7 @@ const
   VICTORIES = 9; // possible values: 1-9
   LOOK_AHEAD = 5;
 
-  TRASH = $7e; // this dirty trick make me sick ;)
+  TRASH = $5e; // t0w -> this dirty trick make me sick ;)
 
   EMPTY = $20; WALL = $a0; WALL_COLOUR = $41; ZERO = $30;
   OBSTACLE_1 = $56; OBSTACLE_2 = $5b; OBST_COLOUR = $35;
