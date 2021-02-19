@@ -158,10 +158,33 @@ end;
 //-----------------------------------------------------------------------------
 
 procedure startScreen;
+var
+  info: string = #6#9#18#5#33;
 begin
+  Move(info[1], pointer(SCREEN_ADDR + 2), length(info));
+  FillChar(pointer(ATTRIBUTE_ADDR + 2), length(info), $71 + $80);
   putChar(player1.x, player1.y, player1.head, byte(player1.colour + $80));
+
   repeat checkJoyStatus until joyStatus = JOY_FIRE;
+
+  FillChar(pointer(SCREEN_ADDR + 2), length(info), WALL);
+  FillChar(pointer(ATTRIBUTE_ADDR + 2), length(info), WALL_COLOUR);
   putChar(player1.x, player1.y, player1.head, player1.colour);
+end;
+
+//-----------------------------------------------------------------------------
+
+procedure endScreen;
+var
+  winner: string = #23#9#14#14#5#18#33;
+  loser : string = #12#15#19#5#18#33;
+  tmp   : string;
+begin
+  if player1.score = ZERO + VICTORIES then tmp := winner
+  else tmp := loser;
+
+  Move(tmp[1], pointer(SCREEN_ADDR + 2), length(tmp));
+  FillChar(pointer(ATTRIBUTE_ADDR + 2), length(tmp), $71 + $80);
 end;
 
 //-----------------------------------------------------------------------------
@@ -186,17 +209,21 @@ end;
 
 procedure setFonts;
 var fonts: array [0..(8 * 6 - 1)] of byte = (
-  24,24,36,36,36,60,102,90,    // ship up
-  0,3,62,197,197,62,3,0,       // ship left
-  0,192,124,163,163,124,192,0, // ship right
-  90,102,60,36,36,36,24,24,    // ship down
-  0,60,110,98,70,118,60,0,     // obstacle 1
-  0,60,118,70,98,110,60,0      // obstacle 2
+  24,24,36,36,36,60,102,90,       // ship up
+  0,3,62,197,197,62,3,0,          // ship left
+  0,192,124,163,163,124,192,0,    // ship right
+  90,102,60,36,36,36,24,24,       // ship down
+  0,60,110,98,70,118,60,0,        // obstacle 1
+  0,60,118,70,98,110,60,0         // obstacle 2
 );
 begin
   Move(pointer($d000), pointer($6000), $400);
   Move(fonts, pointer($6000 + (8 * $50)), 8 * 6);
+
+  // set bit 2
   RAMROMSEL := RAMROMSEL and %11111011;
+
+  // 24 = $6000 / $400 on 2-7 bits
   CHBAS := (CHBAS and %11) or 24 shl 2;
 end;
 

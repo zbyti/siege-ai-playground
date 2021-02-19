@@ -62,7 +62,7 @@ begin
 
     repeat mainLoop until isGameOver;
 
-    showScore; pause(200);
+    showScore; endScreen; pause(200);
   until false;
 
 end.
