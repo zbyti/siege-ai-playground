@@ -12,7 +12,7 @@ begin
   t0w := SCREEN_ADDR + mul40[y] + x;
 
   Move(s[1], pointer(t0w), length(s));
-  FillChar(pointer(t0w - (SCREEN_ADDR - ATTRIBUTE_ADDR)), length(s), c);
+  FillChar(pointer(t0w - OFFSET), length(s), c);
 end;
 
 
@@ -21,7 +21,7 @@ end;
 procedure putChar(x, y, v, c: byte); overload;
 begin
   t0w := ATTRIBUTE_ADDR + mul40[y] + x;
-  Poke(t0w, c); Poke(t0w + (SCREEN_ADDR - ATTRIBUTE_ADDR), v);
+  Poke(t0w, c); Poke(t0w + OFFSET), v);
 end;
 
 //-----------------------------------------------------------------------------
