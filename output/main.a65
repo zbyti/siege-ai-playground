@@ -560,9 +560,114 @@ V	= DATAORIGIN+$0034
 	eif
 .endl
 
-.local	PUTCHAR_00A8					; PROCEDURE | OVERLOAD
+.local	PRINTXY						; PROCEDURE
+
+; ------------------------------------------------------------
+
+; Generate Assignment for BYTE / CHAR / SHORTINT / BOOLEAN
+; as Pointer
+	lda :STACKORIGIN,x
+	sta C
+	dex
+
+; ------------------------------------------------------------
+
+; Generate Assignment for BYTE / CHAR / SHORTINT / BOOLEAN
+; as Pointer
+	lda :STACKORIGIN,x
+	sta Y
+	dex
+
+; ------------------------------------------------------------
+
+; Generate Assignment for BYTE / CHAR / SHORTINT / BOOLEAN
+; as Pointer
+	lda :STACKORIGIN,x
+	sta X
+	dex
+
+; ------------------------------------------------------------
+
+; Generate Assignment for WORD / SMALLINT / SHORTREAL / POINTER
+; as Pointer
+	lda :STACKORIGIN,x
+	sta :bp2
+	lda :STACKORIGIN+STACKWIDTH,x
+	sta :bp2+1
+	ldy #$00
+	mva:rne (:bp2),y adr.S,y+
+	mwa #adr.S S
+	dex
 
 ; optimize OK (tools.inc), line = 12
+
+	lda Y
+	asl @
+	tay
+	lda adr.MUL40,y
+	add X
+	sta T0W
+	lda adr.MUL40+1,y
+	adc #$0C
+	sta T0W+1
+
+; optimize OK (tools.inc), line = 14
+
+	lda <adr.S+$01
+	sta SYSTEM.MOVE_0070.SOURCE
+	lda >adr.S+$01
+	sta SYSTEM.MOVE_0070.SOURCE+1
+	lda adr.S
+	sta SYSTEM.MOVE_0070.COUNT
+	lda #$00
+	sta SYSTEM.MOVE_0070.COUNT+1
+	lda T0W
+	sta SYSTEM.MOVE_0070.DEST
+	lda T0W+1
+	sta SYSTEM.MOVE_0070.DEST+1
+	jsr SYSTEM.MOVE_0070
+
+; optimize OK (tools.inc), line = 15
+
+	lda T0W
+	sta SYSTEM.FILLCHAR_006E.A
+	lda T0W+1
+	sub #$04
+	sta SYSTEM.FILLCHAR_006E.A+1
+	lda adr.S
+	sta SYSTEM.FILLCHAR_006E.COUNT
+	lda C
+	sta SYSTEM.FILLCHAR_006E.VALUE
+	lda #$00
+	sta SYSTEM.FILLCHAR_006E.COUNT+1
+	jsr SYSTEM.FILLCHAR_006E
+
+; ------------------------------------------------------------
+
+adr.S	= [DATAORIGIN+$0035] .array [256]
+.var S	= adr.S .word
+X	= DATAORIGIN+$0135
+Y	= DATAORIGIN+$0136
+C	= DATAORIGIN+$0137
+
+@VarData	= S
+@VarDataSize	= 259
+
+@exit
+	.ifdef @new
+	lda <@VarData
+	sta :ztmp
+	lda >@VarData
+	ldy #@VarDataSize-1
+	jmp @FreeMem
+	els
+	rts						; ret
+	eif
+.endl
+
+.local	PUTCHAR_00D8					; PROCEDURE | OVERLOAD
+
+; optimize OK (tools.inc), line = 23
 
 	lda Y
 	asl @
@@ -574,7 +679,7 @@ V	= DATAORIGIN+$0034
 	adc #$08
 	sta T0W+1
 
-; optimize OK (tools.inc), line = 13
+; optimize OK (tools.inc), line = 24
 
 	sta :bp+1
 	ldy T0W
@@ -588,10 +693,10 @@ V	= DATAORIGIN+$0034
 
 ; ------------------------------------------------------------
 
-X	= DATAORIGIN+$0035
-Y	= DATAORIGIN+$0036
-V	= DATAORIGIN+$0037
-C	= DATAORIGIN+$0038
+X	= DATAORIGIN+$0138
+Y	= DATAORIGIN+$0139
+V	= DATAORIGIN+$013A
+C	= DATAORIGIN+$013B
 
 @VarData	= X
 @VarDataSize	= 4
@@ -610,65 +715,65 @@ C	= DATAORIGIN+$0038
 
 .local	SHOWSCORE					; PROCEDURE
 
-; optimize OK (tools.inc), line = 28
+; optimize OK (tools.inc), line = 39
 
 	lda PLAYER1.ISALIVE
-	jeq l_00DD
-	lda PLAYER1.COLOUR
-	sta PUTCHAR_00A8.C
-	lda PLAYER1.SCORE
-	sta PUTCHAR_00A8.V
-	lda #$00
-	sta PUTCHAR_00A8.Y
-	lda #$1E
-	sta PUTCHAR_00A8.X
-	jsr PUTCHAR_00A8
-l_00DD
-
-; optimize OK (tools.inc), line = 29
-
-	lda PLAYER2.ISALIVE
-	jeq l_00F5
-	lda PLAYER2.COLOUR
-	sta PUTCHAR_00A8.C
-	lda PLAYER2.SCORE
-	sta PUTCHAR_00A8.V
-	lda #$00
-	sta PUTCHAR_00A8.Y
-	lda #$20
-	sta PUTCHAR_00A8.X
-	jsr PUTCHAR_00A8
-l_00F5
-
-; optimize OK (tools.inc), line = 30
-
-	lda PLAYER3.ISALIVE
 	jeq l_010D
-	lda PLAYER3.COLOUR
-	sta PUTCHAR_00A8.C
-	lda PLAYER3.SCORE
-	sta PUTCHAR_00A8.V
+	lda PLAYER1.COLOUR
+	sta PUTCHAR_00D8.C
+	lda PLAYER1.SCORE
+	sta PUTCHAR_00D8.V
 	lda #$00
-	sta PUTCHAR_00A8.Y
-	lda #$22
-	sta PUTCHAR_00A8.X
-	jsr PUTCHAR_00A8
+	sta PUTCHAR_00D8.Y
+	lda #$1E
+	sta PUTCHAR_00D8.X
+	jsr PUTCHAR_00D8
 l_010D
 
-; optimize OK (tools.inc), line = 31
+; optimize OK (tools.inc), line = 40
+
+	lda PLAYER2.ISALIVE
+	jeq l_0125
+	lda PLAYER2.COLOUR
+	sta PUTCHAR_00D8.C
+	lda PLAYER2.SCORE
+	sta PUTCHAR_00D8.V
+	lda #$00
+	sta PUTCHAR_00D8.Y
+	lda #$20
+	sta PUTCHAR_00D8.X
+	jsr PUTCHAR_00D8
+l_0125
+
+; optimize OK (tools.inc), line = 41
+
+	lda PLAYER3.ISALIVE
+	jeq l_013D
+	lda PLAYER3.COLOUR
+	sta PUTCHAR_00D8.C
+	lda PLAYER3.SCORE
+	sta PUTCHAR_00D8.V
+	lda #$00
+	sta PUTCHAR_00D8.Y
+	lda #$22
+	sta PUTCHAR_00D8.X
+	jsr PUTCHAR_00D8
+l_013D
+
+; optimize OK (tools.inc), line = 42
 
 	lda PLAYER4.ISALIVE
-	jeq l_0125
+	jeq l_0155
 	lda PLAYER4.COLOUR
-	sta PUTCHAR_00A8.C
+	sta PUTCHAR_00D8.C
 	lda PLAYER4.SCORE
-	sta PUTCHAR_00A8.V
+	sta PUTCHAR_00D8.V
 	lda #$00
-	sta PUTCHAR_00A8.Y
+	sta PUTCHAR_00D8.Y
 	lda #$24
-	sta PUTCHAR_00A8.X
-	jsr PUTCHAR_00A8
-l_0125
+	sta PUTCHAR_00D8.X
+	jsr PUTCHAR_00D8
+l_0155
 @exit
 	.ifdef @new
 	lda <@VarData
@@ -683,33 +788,33 @@ l_0125
 
 .local	UPDATESCORE					; PROCEDURE
 
-; optimize OK (tools.inc), line = 38
+; optimize OK (tools.inc), line = 49
 
 	lda PLAYER1.ISALIVE
-	jeq l_0141
+	jeq l_0171
 	inc PLAYER1.SCORE
-l_0141
+l_0171
 
-; optimize OK (tools.inc), line = 39
+; optimize OK (tools.inc), line = 50
 
 	lda PLAYER2.ISALIVE
-	jeq l_0154
+	jeq l_0184
 	inc PLAYER2.SCORE
-l_0154
+l_0184
 
-; optimize OK (tools.inc), line = 40
+; optimize OK (tools.inc), line = 51
 
 	lda PLAYER3.ISALIVE
-	jeq l_0167
+	jeq l_0197
 	inc PLAYER3.SCORE
-l_0167
+l_0197
 
-; optimize OK (tools.inc), line = 41
+; optimize OK (tools.inc), line = 52
 
 	lda PLAYER4.ISALIVE
-	jeq l_017A
+	jeq l_01AA
 	inc PLAYER4.SCORE
-l_017A
+l_01AA
 @exit
 	.ifdef @new
 	lda <@VarData
@@ -724,12 +829,12 @@ l_017A
 
 .local	CHECKAVAILDIR					; PROCEDURE
 
-; optimize OK (tools.inc), line = 48
+; optimize OK (tools.inc), line = 59
 
 	lda #$00
 	sta AVAILDIR
 
-; optimize OK (tools.inc), line = 49
+; optimize OK (tools.inc), line = 60
 
 	mwy PLY :bp2
 	ldy #PLY.Y-DATAORIGIN
@@ -750,7 +855,7 @@ l_017A
 	adc #$00
 	sta T0W+1
 
-; optimize OK (tools.inc), line = 51
+; optimize OK (tools.inc), line = 62
 
 	lda T0W
 	sub #$28
@@ -761,25 +866,25 @@ l_017A
 	ldy :STACKORIGIN+9
 	lda (:bp),y
 	cmp #$20
-	jne l_01B1
+	jne l_01E1
 	lda AVAILDIR
 	ora #$01
 	sta AVAILDIR
-l_01B1
+l_01E1
 
-; optimize OK (tools.inc), line = 52
+; optimize OK (tools.inc), line = 63
 
 	mwy T0W :bp2
 	ldy #$28
 	lda (:bp2),y
 	cmp #$20
-	jne l_01D4
+	jne l_0204
 	lda AVAILDIR
 	ora #$02
 	sta AVAILDIR
-l_01D4
+l_0204
 
-; optimize OK (tools.inc), line = 53
+; optimize OK (tools.inc), line = 64
 
 	lda T0W
 	sub #$01
@@ -790,23 +895,23 @@ l_01D4
 	ldy :STACKORIGIN+9
 	lda (:bp),y
 	cmp #$20
-	jne l_01F7
+	jne l_0227
 	lda AVAILDIR
 	ora #$04
 	sta AVAILDIR
-l_01F7
+l_0227
 
-; optimize OK (tools.inc), line = 54
+; optimize OK (tools.inc), line = 65
 
 	mwy T0W :bp2
 	ldy #$01
 	lda (:bp2),y
 	cmp #$20
-	jne l_021A
+	jne l_024A
 	lda AVAILDIR
 	ora #$08
 	sta AVAILDIR
-l_021A
+l_024A
 @exit
 	.ifdef @new
 	lda <@VarData
@@ -821,29 +926,29 @@ l_021A
 
 .local	ANIMATEOBSTACLES				; PROCEDURE
 
-; optimize FAIL (0, tools.inc), line = 63
+; optimize FAIL (0, tools.inc), line = 74
 
 	inc COUNTER
 
-; optimize OK (tools.inc), line = 64
+; optimize OK (tools.inc), line = 75
 
 	lda COUNTER
 	and #$01
-	jeq l_0245
+	jeq l_0275
 	lda #$54
 	sta OBST
-	jmp l_0253
-l_0245
+	jmp l_0283
+l_0275
 	lda #$55
 	sta OBST
-l_0253
+l_0283
 
-; optimize OK (tools.inc), line = 65
+; optimize OK (tools.inc), line = 76
 
 	lda #$07
 	sta I0B
 
-l_0260
+l_0290
 ; --- ForToDoCondition
 	lda I0B
 	asl @
@@ -856,14 +961,14 @@ l_0260
 	lda OBST
 	sta (:bp),y
 	dec I0B
-	jpl l_0260
-l_026E
+	jpl l_0290
+l_029E
 
 ; ------------------------------------------------------------
 
-COUNTER	= DATAORIGIN+$0039
-OBST	= DATAORIGIN+$003A
-@FORTMP_025D	= $00
+COUNTER	= DATAORIGIN+$013C
+OBST	= DATAORIGIN+$013D
+@FORTMP_028D	= $00
 
 @VarData	= COUNTER
 @VarDataSize	= 2
@@ -882,7 +987,7 @@ OBST	= DATAORIGIN+$003A
 
 .local	CALCOBSTACLEADDR				; FUNCTION
 
-; optimize OK (tools.inc), line = 72
+; optimize OK (tools.inc), line = 83
 
 	lda Y
 	asl @
@@ -914,9 +1019,9 @@ OBST	= DATAORIGIN+$003A
 
 ; ------------------------------------------------------------
 
-X	= DATAORIGIN+$003B
-Y	= DATAORIGIN+$003C
-RESULT	= DATAORIGIN+$003D
+X	= DATAORIGIN+$013E
+Y	= DATAORIGIN+$013F
+RESULT	= DATAORIGIN+$0140
 
 @VarData	= X
 @VarDataSize	= 4
@@ -926,15 +1031,15 @@ RESULT	= DATAORIGIN+$003D
 
 .local	SAVEOBSTACLES					; PROCEDURE
 
-; optimize OK (tools.inc), line = 79
+; optimize OK (tools.inc), line = 90
 
 	lda #$07
 	sta I0B
 
-l_02A1
+l_02D1
 ; --- ForToDoCondition
 
-; optimize OK (tools.inc), line = 80
+; optimize OK (tools.inc), line = 91
 
 	lda I0B
 	asl @
@@ -945,9 +1050,9 @@ l_02A1
 	lda adr.OBSTACLES,y
 	cmp #$5E
 @
-	jeq l_02C3
+	jeq l_02F3
 
-; optimize OK (tools.inc), line = 81
+; optimize OK (tools.inc), line = 92
 
 	lda adr.OBSTACLES,y
 	sta :STACKORIGIN+9
@@ -957,7 +1062,7 @@ l_02A1
 	lda #$54
 	sta (:bp),y
 
-; optimize OK (tools.inc), line = 82
+; optimize OK (tools.inc), line = 93
 
 	lda I0B
 	asl @
@@ -971,16 +1076,16 @@ l_02A1
 	ldy :STACKORIGIN+9
 	lda #$65
 	sta (:bp),y
-l_02C3
+l_02F3
 
 ; --- ForToDoEpilog
 	dec I0B
-	jpl l_02A1
-l_02AF
+	jpl l_02D1
+l_02DF
 
 ; ------------------------------------------------------------
 
-@FORTMP_029E	= $00
+@FORTMP_02CE	= $00
 @exit
 	.ifdef @new
 	lda <@VarData
@@ -995,87 +1100,87 @@ l_02AF
 
 .local	DRAWPLAYER					; PROCEDURE
 
-; optimize OK (tools.inc), line = 91
+; optimize OK (tools.inc), line = 102
 
 	mwy PLY :bp2
 	ldy #PLY.DIR-DATAORIGIN
 	lda (:bp2),y
 	cmp NEWDIR
-	jne l_02F5
+	jne l_0325
 
-; optimize OK (tools.inc), line = 92
+; optimize OK (tools.inc), line = 103
 
 	lda NEWDIR
 	and #$0C
-	jeq l_030C
+	jeq l_033C
 	lda #$40
 	sta T0B
-	jmp l_031A
-l_030C
+	jmp l_034A
+l_033C
 	lda #$42
 	sta T0B
-l_031A
-	jmp l_0327
-l_02F5
+l_034A
+	jmp l_0357
+l_0325
 
-; optimize OK (tools.inc), line = 94
+; optimize OK (tools.inc), line = 105
 
 	mwy PLY :bp2
 	ldy #PLY.DIR-DATAORIGIN
 	lda (:bp2),y
 	and #$0A
-	jeq l_034D
+	jeq l_037D
 	lda NEWDIR
 	and #$05
-	jeq l_034D
+	jeq l_037D
 	lda #$7D
 	sta T0B
-l_034D
+l_037D
 
-; optimize OK (tools.inc), line = 95
+; optimize OK (tools.inc), line = 106
 
 	mwy PLY :bp2
 	ldy #PLY.DIR-DATAORIGIN
 	lda (:bp2),y
 	and #$09
-	jeq l_037A
+	jeq l_03AA
 	lda NEWDIR
 	and #$06
-	jeq l_037A
+	jeq l_03AA
 	lda #$6E
 	sta T0B
-l_037A
+l_03AA
 
-; optimize OK (tools.inc), line = 96
+; optimize OK (tools.inc), line = 107
 
 	mwy PLY :bp2
 	ldy #PLY.DIR-DATAORIGIN
 	lda (:bp2),y
 	and #$06
-	jeq l_03A7
+	jeq l_03D7
 	lda NEWDIR
 	and #$09
-	jeq l_03A7
+	jeq l_03D7
 	lda #$6D
 	sta T0B
-l_03A7
+l_03D7
 
-; optimize OK (tools.inc), line = 97
+; optimize OK (tools.inc), line = 108
 
 	mwy PLY :bp2
 	ldy #PLY.DIR-DATAORIGIN
 	lda (:bp2),y
 	and #$05
-	jeq l_03D4
+	jeq l_0404
 	lda NEWDIR
 	and #$0A
-	jeq l_03D4
+	jeq l_0404
 	lda #$70
 	sta T0B
-l_03D4
-l_0327
+l_0404
+l_0357
 
-; optimize OK (tools.inc), line = 99
+; optimize OK (tools.inc), line = 110
 
 	mwy PLY :bp2
 	ldy #PLY.X-DATAORIGIN
@@ -1088,22 +1193,22 @@ l_0327
 	sta PUTCHAR_008C.V
 	jsr PUTCHAR_008C
 
-; optimize OK (tools.inc), line = 101
+; optimize OK (tools.inc), line = 112
 
 	mwy PLY :bp2
 	ldy #PLY.DIR-DATAORIGIN
 	lda NEWDIR
 	sta (:bp2),y
 
-; optimize OK (tools.inc), line = 103
+; optimize OK (tools.inc), line = 114
 
 	lda NEWDIR
 	sta @CASETMP_0003
 	cmp #$01
-	jne l_03F6
+	jne l_0426
 @
 
-; optimize OK (tools.inc), line = 104
+; optimize OK (tools.inc), line = 115
 
 	mwy PLY :bp2
 	ldy #PLY.Y-DATAORIGIN
@@ -1114,12 +1219,12 @@ l_0327
 	sta T0B
 
 	jmp a_0003
-l_03F6
+l_0426
 	cmp #$02
-	jne l_0404
+	jne l_0434
 @
 
-; optimize OK (tools.inc), line = 105
+; optimize OK (tools.inc), line = 116
 
 	mwy PLY :bp2
 	ldy #PLY.Y-DATAORIGIN
@@ -1130,12 +1235,12 @@ l_03F6
 	sta T0B
 
 	jmp a_0003
-l_0404
+l_0434
 	cmp #$04
-	jne l_0412
+	jne l_0442
 @
 
-; optimize OK (tools.inc), line = 106
+; optimize OK (tools.inc), line = 117
 
 	mwy PLY :bp2
 	ldy #PLY.X-DATAORIGIN
@@ -1146,12 +1251,12 @@ l_0404
 	sta T0B
 
 	jmp a_0003
-l_0412
+l_0442
 	cmp #$08
-	jne l_0420
+	jne l_0450
 @
 
-; optimize OK (tools.inc), line = 107
+; optimize OK (tools.inc), line = 118
 
 	mwy PLY :bp2
 	ldy #PLY.X-DATAORIGIN
@@ -1161,35 +1266,35 @@ l_0412
 	lda #$52
 	sta T0B
 
-l_0420
+l_0450
 a_0003
 
-; optimize OK (tools.inc), line = 110
+; optimize OK (tools.inc), line = 121
 
 	mwy PLY :bp2
 	ldy #PLY.HEAD-DATAORIGIN
 	lda T0B
 	sta (:bp2),y
 
-; optimize OK (tools.inc), line = 112
+; optimize OK (tools.inc), line = 123
 
 	ldy #PLY.X-DATAORIGIN
 	lda (:bp2),y
-	sta PUTCHAR_00A8.X
+	sta PUTCHAR_00D8.X
 	ldy #PLY.Y-DATAORIGIN
 	lda (:bp2),y
-	sta PUTCHAR_00A8.Y
+	sta PUTCHAR_00D8.Y
 	ldy #PLY.HEAD-DATAORIGIN
 	lda (:bp2),y
-	sta PUTCHAR_00A8.V
+	sta PUTCHAR_00D8.V
 	ldy #PLY.COLOUR-DATAORIGIN
 	lda (:bp2),y
-	sta PUTCHAR_00A8.C
-	jsr PUTCHAR_00A8
+	sta PUTCHAR_00D8.C
+	jsr PUTCHAR_00D8
 
 ; ------------------------------------------------------------
 
-@CASETMP_0003	= DATAORIGIN+$003F
+@CASETMP_0003	= DATAORIGIN+$0142
 
 @VarData	= @CASETMP_0003
 @VarDataSize	= 1
@@ -1208,7 +1313,7 @@ a_0003
 
 .local	PLAYERBUSTED					; PROCEDURE
 
-; optimize OK (tools.inc), line = 119
+; optimize OK (tools.inc), line = 130
 
 	mwy PLY :bp2
 	ldy #PLY.ISALIVE-DATAORIGIN
@@ -1216,22 +1321,22 @@ a_0003
 	sta (:bp2),y
 	dec ALIVE
 
-; optimize OK (tools.inc), line = 120
+; optimize OK (tools.inc), line = 131
 
 	ldy #PLY.X-DATAORIGIN
 	lda (:bp2),y
-	sta PUTCHAR_00A8.X
+	sta PUTCHAR_00D8.X
 	ldy #PLY.Y-DATAORIGIN
 	lda (:bp2),y
-	sta PUTCHAR_00A8.Y
+	sta PUTCHAR_00D8.Y
 	ldy #PLY.HEAD-DATAORIGIN
 	lda (:bp2),y
-	sta PUTCHAR_00A8.V
+	sta PUTCHAR_00D8.V
 	ldy #PLY.COLOUR-DATAORIGIN
 	lda (:bp2),y
 	add #$80
-	sta PUTCHAR_00A8.C
-	jsr PUTCHAR_00A8
+	sta PUTCHAR_00D8.C
+	jsr PUTCHAR_00D8
 @exit
 	.ifdef @new
 	lda <@VarData
@@ -1246,14 +1351,14 @@ a_0003
 
 .local	CHECKJOYSTATUS					; PROCEDURE
 
-; optimize OK (tools.inc), line = 127
+; optimize OK (tools.inc), line = 138
 
 	lda #$02
 	sta JOY
 	lda #$FF
 	sta KEYSCAN
 
-; optimize OK (tools.inc), line = 128
+; optimize OK (tools.inc), line = 139
 
 	lda JOY
 	eor #$FF
@@ -1272,63 +1377,63 @@ a_0003
 
 .local	SETPLAYER					; PROCEDURE
 
-; optimize OK (tools.inc), line = 135
+; optimize OK (tools.inc), line = 146
 
 	lda P
 	sta PLY
 	lda P+1
 	sta PLY+1
 
-; optimize OK (tools.inc), line = 137
+; optimize OK (tools.inc), line = 148
 
 	lda DIR
 	sta @CASETMP_0004
 	cmp #$01
-	jne l_0487
+	jne l_04B7
 @
 
-; optimize OK (tools.inc), line = 138
+; optimize OK (tools.inc), line = 149
 
 	lda #$50
 	sta T0B
 
 	jmp a_0004
-l_0487
+l_04B7
 	cmp #$02
-	jne l_0494
+	jne l_04C4
 @
 
-; optimize OK (tools.inc), line = 139
+; optimize OK (tools.inc), line = 150
 
 	lda #$53
 	sta T0B
 
 	jmp a_0004
-l_0494
+l_04C4
 	cmp #$04
-	jne l_04A1
+	jne l_04D1
 @
 
-; optimize OK (tools.inc), line = 140
+; optimize OK (tools.inc), line = 151
 
 	lda #$51
 	sta T0B
 
 	jmp a_0004
-l_04A1
+l_04D1
 	cmp #$08
-	jne l_04AE
+	jne l_04DE
 @
 
-; optimize OK (tools.inc), line = 141
+; optimize OK (tools.inc), line = 152
 
 	lda #$52
 	sta T0B
 
-l_04AE
+l_04DE
 a_0004
 
-; optimize OK (tools.inc), line = 144
+; optimize OK (tools.inc), line = 155
 
 	mwy PLY :bp2
 	ldy #PLY.BRAIN-DATAORIGIN
@@ -1344,7 +1449,7 @@ a_0004
 	lda DIR
 	sta (:bp2),y
 
-; optimize OK (tools.inc), line = 145
+; optimize OK (tools.inc), line = 156
 
 	ldy #PLY.HEAD-DATAORIGIN
 	lda T0B
@@ -1356,35 +1461,35 @@ a_0004
 	lda ISALIVE
 	sta (:bp2),y
 
-; optimize OK (tools.inc), line = 146
+; optimize OK (tools.inc), line = 157
 
 	lda ISALIVE
-	jeq l_04F0
+	jeq l_0520
 
-; optimize FAIL (0, tools.inc), line = 147
+; optimize FAIL (0, tools.inc), line = 158
 
 	inc ALIVE
 	lda COLOUR
-	sta PUTCHAR_00A8.C
+	sta PUTCHAR_00D8.C
 	lda T0B
-	sta PUTCHAR_00A8.V
+	sta PUTCHAR_00D8.V
 	lda Y
-	sta PUTCHAR_00A8.Y
+	sta PUTCHAR_00D8.Y
 	lda X
-	sta PUTCHAR_00A8.X
-	jsr PUTCHAR_00A8
-l_04F0
+	sta PUTCHAR_00D8.X
+	jsr PUTCHAR_00D8
+l_0520
 
 ; ------------------------------------------------------------
 
-P	= DATAORIGIN+$0040
-X	= DATAORIGIN+$0042
-Y	= DATAORIGIN+$0043
-DIR	= DATAORIGIN+$0044
-BRAIN	= DATAORIGIN+$0045
-COLOUR	= DATAORIGIN+$0046
-ISALIVE	= DATAORIGIN+$0047
-@CASETMP_0004	= DATAORIGIN+$0048
+P	= DATAORIGIN+$0143
+X	= DATAORIGIN+$0145
+Y	= DATAORIGIN+$0146
+DIR	= DATAORIGIN+$0147
+BRAIN	= DATAORIGIN+$0148
+COLOUR	= DATAORIGIN+$0149
+ISALIVE	= DATAORIGIN+$014A
+@CASETMP_0004	= DATAORIGIN+$014B
 
 @VarData	= P
 @VarDataSize	= 9
@@ -1403,15 +1508,15 @@ ISALIVE	= DATAORIGIN+$0047
 
 .local	NEXTLEVEL					; PROCEDURE
 
-; optimize FAIL (0, tools.inc), line = 155
+; optimize FAIL (0, tools.inc), line = 166
 
 	inc LEVEL
 	lda LEVEL
 	cmp #$08
-	jne l_051E
+	jne l_054E
 	lda #$05
 	sta LEVEL
-l_051E
+l_054E
 @exit
 	.ifdef @new
 	lda <@VarData
@@ -1426,49 +1531,43 @@ l_051E
 
 .local	STARTSCREEN					; PROCEDURE
 
-; optimize OK (tools.inc), line = 164
+; optimize FAIL ('PRINTXY', tools.inc), line = 175
 
-	ldy adr.INFO
-	mva:rne adr.INFO+$01-$01,y $0C01,y-
+	inx
+	mva INFO :STACKORIGIN,x
+	mva INFO+1 :STACKORIGIN+STACKWIDTH,x
+	inx
+	mva #$02 :STACKORIGIN,x
+	inx
+	mva #$00 :STACKORIGIN,x
+	inx
+	mva #$F1 :STACKORIGIN,x
+	jsr PRINTXY
 
-; optimize OK (tools.inc), line = 165
-
-	lda adr.INFO
-	sta SYSTEM.FILLCHAR_006E.COUNT
-	lda #$F1
-	sta SYSTEM.FILLCHAR_006E.VALUE
-	lda #$00
-	sta SYSTEM.FILLCHAR_006E.COUNT+1
-	lda #$02
-	sta SYSTEM.FILLCHAR_006E.A
-	lda #$08
-	sta SYSTEM.FILLCHAR_006E.A+1
-	jsr SYSTEM.FILLCHAR_006E
-
-; optimize OK (tools.inc), line = 166
+; optimize OK (tools.inc), line = 176
 
 	lda PLAYER1.COLOUR
 	add #$80
-	sta PUTCHAR_00A8.C
+	sta PUTCHAR_00D8.C
 	lda PLAYER1.HEAD
-	sta PUTCHAR_00A8.V
+	sta PUTCHAR_00D8.V
 	lda PLAYER1.Y
-	sta PUTCHAR_00A8.Y
+	sta PUTCHAR_00D8.Y
 	lda PLAYER1.X
-	sta PUTCHAR_00A8.X
-	jsr PUTCHAR_00A8
+	sta PUTCHAR_00D8.X
+	jsr PUTCHAR_00D8
 
 ; --- RepeatUntilProlog
-l_0541
+l_0571
 
-; optimize FAIL ('CHECKJOYSTATUS', tools.inc), line = 168
+; optimize FAIL ('CHECKJOYSTATUS', tools.inc), line = 178
 
 	jsr CHECKJOYSTATUS
 	lda JOYSTATUS
 	cmp #$40
-	jne l_0541
+	jne l_0571
 
-; optimize OK (tools.inc), line = 170
+; optimize OK (tools.inc), line = 180
 
 	lda adr.INFO
 	sta SYSTEM.FILLCHAR_006E.COUNT
@@ -1482,7 +1581,7 @@ l_0541
 	sta SYSTEM.FILLCHAR_006E.A+1
 	jsr SYSTEM.FILLCHAR_006E
 
-; optimize OK (tools.inc), line = 171
+; optimize OK (tools.inc), line = 181
 
 	lda adr.INFO
 	sta SYSTEM.FILLCHAR_006E.COUNT
@@ -1496,21 +1595,21 @@ l_0541
 	sta SYSTEM.FILLCHAR_006E.A+1
 	jsr SYSTEM.FILLCHAR_006E
 
-; optimize OK (tools.inc), line = 172
+; optimize OK (tools.inc), line = 182
 
 	lda PLAYER1.COLOUR
-	sta PUTCHAR_00A8.C
+	sta PUTCHAR_00D8.C
 	lda PLAYER1.HEAD
-	sta PUTCHAR_00A8.V
+	sta PUTCHAR_00D8.V
 	lda PLAYER1.Y
-	sta PUTCHAR_00A8.Y
+	sta PUTCHAR_00D8.Y
 	lda PLAYER1.X
-	sta PUTCHAR_00A8.X
-	jsr PUTCHAR_00A8
+	sta PUTCHAR_00D8.X
+	jsr PUTCHAR_00D8
 
 ; ------------------------------------------------------------
 
-adr.INFO	= [DATAORIGIN+$0049] .array [256]
+adr.INFO	= [DATAORIGIN+$014C] .array [256]
 .var INFO	= adr.INFO .word
 
 @VarData	= INFO
@@ -1530,62 +1629,47 @@ adr.INFO	= [DATAORIGIN+$0049] .array [256]
 
 .local	ENDSCREEN					; PROCEDURE
 
-; optimize OK (tools.inc), line = 183
+; optimize OK (tools.inc), line = 192
 
 	lda PLAYER1.SCORE
 	cmp #$39
-	jne l_0578
-	lda WINNER
-	sta @move.src
-	lda WINNER+1
-	sta @move.src+1
-	mwy TMP :bp2
-	ldy #$00
-	mva:rne (@move.src),y (:bp2),y+
-	jmp l_0584
-l_0578
+	jne l_05A8
+	inx
+	mva WINNER :STACKORIGIN,x
+	mva WINNER+1 :STACKORIGIN+STACKWIDTH,x
+	inx
+	mva #$02 :STACKORIGIN,x
+	inx
+	mva #$00 :STACKORIGIN,x
+	inx
+	mva #$F1 :STACKORIGIN,x
+	jsr PRINTXY
+	jmp l_05B8
+l_05A8
 
-; optimize OK (tools.inc), line = 184
+; optimize FAIL ('PRINTXY', tools.inc), line = 193
 
-	lda LOSER
-	sta @move.src
-	lda LOSER+1
-	sta @move.src+1
-	mwy TMP :bp2
-	ldy #$00
-	mva:rne (@move.src),y (:bp2),y+
-l_0584
-
-; optimize OK (tools.inc), line = 186
-
-	ldy adr.TMP
-	mva:rne adr.TMP+$01-$01,y $0C01,y-
-
-; optimize OK (tools.inc), line = 187
-
-	lda adr.TMP
-	sta SYSTEM.FILLCHAR_006E.COUNT
-	lda #$F1
-	sta SYSTEM.FILLCHAR_006E.VALUE
-	lda #$00
-	sta SYSTEM.FILLCHAR_006E.COUNT+1
-	lda #$02
-	sta SYSTEM.FILLCHAR_006E.A
-	lda #$08
-	sta SYSTEM.FILLCHAR_006E.A+1
-	jsr SYSTEM.FILLCHAR_006E
+	inx
+	mva LOSER :STACKORIGIN,x
+	mva LOSER+1 :STACKORIGIN+STACKWIDTH,x
+	inx
+	mva #$02 :STACKORIGIN,x
+	inx
+	mva #$00 :STACKORIGIN,x
+	inx
+	mva #$F1 :STACKORIGIN,x
+	jsr PRINTXY
+l_05B8
 
 ; ------------------------------------------------------------
 
-adr.WINNER	= [DATAORIGIN+$0149] .array [256]
+adr.WINNER	= [DATAORIGIN+$024C] .array [256]
 .var WINNER	= adr.WINNER .word
-adr.LOSER	= [DATAORIGIN+$0249] .array [256]
+adr.LOSER	= [DATAORIGIN+$034C] .array [256]
 .var LOSER	= adr.LOSER .word
-adr.TMP	= [DATAORIGIN+$0349] .array [256]
-.var TMP	= adr.TMP .word
 
 @VarData	= WINNER
-@VarDataSize	= 768
+@VarDataSize	= 512
 
 @exit
 	.ifdef @new
@@ -1601,43 +1685,43 @@ adr.TMP	= [DATAORIGIN+$0349] .array [256]
 
 .local	ISGAMEOVER					; FUNCTION
 
-; optimize OK (tools.inc), line = 194
+; optimize OK (tools.inc), line = 200
 
 	lda PLAYER1.SCORE
-	cmp #$39
-	jne l_05A2
-	lda #$01
-	sta GAMEOVER
-l_05A2
-
-; optimize OK (tools.inc), line = 195
-
-	lda PLAYER2.SCORE
-	cmp #$39
-	jne l_05BB
-	lda #$01
-	sta GAMEOVER
-l_05BB
-
-; optimize OK (tools.inc), line = 196
-
-	lda PLAYER3.SCORE
 	cmp #$39
 	jne l_05D4
 	lda #$01
 	sta GAMEOVER
 l_05D4
 
-; optimize OK (tools.inc), line = 197
+; optimize OK (tools.inc), line = 201
 
-	lda PLAYER4.SCORE
+	lda PLAYER2.SCORE
 	cmp #$39
 	jne l_05ED
 	lda #$01
 	sta GAMEOVER
 l_05ED
 
-; optimize OK (tools.inc), line = 198
+; optimize OK (tools.inc), line = 202
+
+	lda PLAYER3.SCORE
+	cmp #$39
+	jne l_0606
+	lda #$01
+	sta GAMEOVER
+l_0606
+
+; optimize OK (tools.inc), line = 203
+
+	lda PLAYER4.SCORE
+	cmp #$39
+	jne l_061F
+	lda #$01
+	sta GAMEOVER
+l_061F
+
+; optimize OK (tools.inc), line = 204
 
 	lda GAMEOVER
 	sta RESULT
@@ -1661,7 +1745,7 @@ l_05ED
 
 ; ------------------------------------------------------------
 
-RESULT	= DATAORIGIN+$0449
+RESULT	= DATAORIGIN+$044C
 
 @VarData	= RESULT
 @VarDataSize	= 1
@@ -1671,7 +1755,7 @@ RESULT	= DATAORIGIN+$0449
 
 .local	ISONELEFT					; FUNCTION
 
-; optimize OK (tools.inc), line = 205
+; optimize OK (tools.inc), line = 211
 
 	ldy #1
 	lda ALIVE
@@ -1708,7 +1792,7 @@ RESULT	= DATAORIGIN+$0449
 
 ; ------------------------------------------------------------
 
-RESULT	= DATAORIGIN+$044A
+RESULT	= DATAORIGIN+$044D
 
 @VarData	= RESULT
 @VarDataSize	= 1
@@ -1718,7 +1802,7 @@ RESULT	= DATAORIGIN+$044A
 
 .local	SETFONTS					; PROCEDURE
 
-; optimize OK (tools.inc), line = 220
+; optimize OK (tools.inc), line = 226
 
 	lda #$00
 	sta SYSTEM.MOVE_006F.COUNT
@@ -1734,7 +1818,7 @@ RESULT	= DATAORIGIN+$044A
 	sta SYSTEM.MOVE_006F.SOURCE+1
 	jsr SYSTEM.MOVE_006F
 
-; optimize OK (tools.inc), line = 221
+; optimize OK (tools.inc), line = 227
 
 	lda FONTS
 	sta :bp2
@@ -1743,13 +1827,13 @@ RESULT	= DATAORIGIN+$044A
 	ldy #$2F
 	mva:rpl (:bp2),y $6280,y-
 
-; optimize OK (tools.inc), line = 224
+; optimize OK (tools.inc), line = 230
 
 	lda RAMROMSEL
 	and #$FB
 	sta RAMROMSEL
 
-; optimize OK (tools.inc), line = 227
+; optimize OK (tools.inc), line = 233
 
 	lda CHBAS
 	and #$03
@@ -1762,7 +1846,7 @@ RESULT	= DATAORIGIN+$044A
 
 ; ------------------------------------------------------------
 
-adr.FONTS	= [DATAORIGIN+$044B] .array [48]
+adr.FONTS	= [DATAORIGIN+$044E] .array [48]
 .var FONTS	= adr.FONTS .word
 
 @VarData	= FONTS
@@ -1795,7 +1879,7 @@ adr.FONTS	= [DATAORIGIN+$044B] .array [48]
 	lda JOYSTATUS
 	sta @CASETMP_0005
 	cmp #$01
-	jne l_065B
+	jne l_068D
 @
 
 ; optimize OK (ai.inc), line = 7
@@ -1804,15 +1888,15 @@ adr.FONTS	= [DATAORIGIN+$044B] .array [48]
 	ldy #PLY.DIR-DATAORIGIN
 	lda (:bp2),y
 	cmp #$02
-	jeq l_066D
+	jeq l_069F
 	lda #$01
 	sta NEWDIR
-l_066D
+l_069F
 
 	jmp a_0005
-l_065B
+l_068D
 	cmp #$02
-	jne l_067D
+	jne l_06AF
 @
 
 ; optimize OK (ai.inc), line = 8
@@ -1821,15 +1905,15 @@ l_065B
 	ldy #PLY.DIR-DATAORIGIN
 	lda (:bp2),y
 	cmp #$01
-	jeq l_068F
+	jeq l_06C1
 	lda #$02
 	sta NEWDIR
-l_068F
+l_06C1
 
 	jmp a_0005
-l_067D
+l_06AF
 	cmp #$04
-	jne l_069F
+	jne l_06D1
 @
 
 ; optimize OK (ai.inc), line = 9
@@ -1838,15 +1922,15 @@ l_067D
 	ldy #PLY.DIR-DATAORIGIN
 	lda (:bp2),y
 	cmp #$08
-	jeq l_06B1
+	jeq l_06E3
 	lda #$04
 	sta NEWDIR
-l_06B1
+l_06E3
 
 	jmp a_0005
-l_069F
+l_06D1
 	cmp #$08
-	jne l_06C1
+	jne l_06F3
 @
 
 ; optimize OK (ai.inc), line = 10
@@ -1855,19 +1939,19 @@ l_069F
 	ldy #PLY.DIR-DATAORIGIN
 	lda (:bp2),y
 	cmp #$04
-	jeq l_06D3
+	jeq l_0705
 	lda #$08
 	sta NEWDIR
-l_06D3
+l_0705
 
-l_06C1
+l_06F3
 a_0005
 
 ; optimize OK (ai.inc), line = 13
 
 	lda NEWDIR
 	and AVAILDIR
-	jne l_06FA
+	jne l_072C
 
 ; optimize OK (ai.inc), line = 14
 
@@ -1876,11 +1960,11 @@ a_0005
 	lda #$00
 	sta (:bp2),y
 	dec ALIVE
-l_06FA
+l_072C
 
 ; ------------------------------------------------------------
 
-@CASETMP_0005	= DATAORIGIN+$047B
+@CASETMP_0005	= DATAORIGIN+$047E
 
 @VarData	= @CASETMP_0005
 @VarDataSize	= 1
@@ -1905,32 +1989,32 @@ l_06FA
 	ldy #PLY.DIR-DATAORIGIN
 	lda (:bp2),y
 	and AVAILDIR
-	jeq l_0721
+	jeq l_0753
 	lda (:bp2),y
 	sta NEWDIR
-	jmp l_0731
-l_0721
+	jmp l_0763
+l_0753
 
 ; optimize OK (ai.inc), line = 24
 
 	lda AVAILDIR
 	cmp #$03
-	jne l_0743
+	jne l_0775
 	lda #$02
 	jsr SYSTEM.RANDOM_0087
 	ldy :STACKORIGIN,x
 	lda adr.DIRECTION,y
 	sta NEWDIR
 	dex
-	jmp l_0755
-l_0743
+	jmp l_0787
+l_0775
 
 ; optimize OK (ai.inc), line = 26
 
 	lda AVAILDIR
 	sta @CASETMP_0006
 	cmp #$01
-	jne l_0760
+	jne l_0792
 @
 
 ; optimize OK (ai.inc), line = 27
@@ -1939,9 +2023,9 @@ l_0743
 	sta NEWDIR
 
 	jmp a_0006
-l_0760
+l_0792
 	cmp #$02
-	jne l_076D
+	jne l_079F
 @
 
 ; optimize OK (ai.inc), line = 28
@@ -1949,15 +2033,15 @@ l_0760
 	lda #$02
 	sta NEWDIR
 
-l_076D
+l_079F
 a_0006
-l_0755
+l_0787
 
 ; optimize OK (ai.inc), line = 31
 
 	lda AVAILDIR
 	cmp #$0C
-	jne l_0789
+	jne l_07BB
 	lda #$02
 	jsr SYSTEM.RANDOM_0087
 	lda :STACKORIGIN,x
@@ -1967,15 +2051,15 @@ l_0755
 	lda adr.DIRECTION,y
 	sta NEWDIR
 	dex
-	jmp l_079F
-l_0789
+	jmp l_07D1
+l_07BB
 
 ; optimize OK (ai.inc), line = 33
 
 	lda AVAILDIR
 	sta @CASETMP_0007
 	cmp #$04
-	jne l_07AA
+	jne l_07DC
 @
 
 ; optimize OK (ai.inc), line = 34
@@ -1984,9 +2068,9 @@ l_0789
 	sta NEWDIR
 
 	jmp a_0007
-l_07AA
+l_07DC
 	cmp #$08
-	jne l_07B7
+	jne l_07E9
 @
 
 ; optimize OK (ai.inc), line = 35
@@ -1994,15 +2078,15 @@ l_07AA
 	lda #$08
 	sta NEWDIR
 
-l_07B7
+l_07E9
 a_0007
-l_079F
-l_0731
+l_07D1
+l_0763
 
 ; ------------------------------------------------------------
 
-@CASETMP_0006	= DATAORIGIN+$047C
-@CASETMP_0007	= DATAORIGIN+$047D
+@CASETMP_0006	= DATAORIGIN+$047F
+@CASETMP_0007	= DATAORIGIN+$0480
 
 @VarData	= @CASETMP_0006
 @VarDataSize	= 2
@@ -2054,18 +2138,18 @@ l_0731
 
 	lda AVAILDIR
 	and #$01
-	jeq l_07FD
+	jeq l_082F
 
 ; optimize OK (ai.inc), line = 52
 
 	lda #$05
 	sta I0B
 
-l_0807
+l_0839
 ; --- ForToDoCondition
 	lda I0B
 	cmp #$01
-	jcc l_0815
+	jcc l_0847
 
 ; optimize OK (ai.inc), line = 53
 
@@ -2080,9 +2164,9 @@ l_0807
 	ldy :STACKORIGIN+9
 	lda (:bp),y
 	cmp #$20
-	jne l_082F
+	jne l_0861
 	inc U
-l_082F
+l_0861
 
 ; optimize OK (ai.inc), line = 54
 
@@ -2102,9 +2186,9 @@ l_082F
 	inc :bp+1
 	lda (:bp),y
 	cmp #$20
-	jne l_0854
+	jne l_0886
 	inc U
-l_0854
+l_0886
 
 ; optimize OK (ai.inc), line = 55
 
@@ -2123,32 +2207,32 @@ l_0854
 	dec :bp+1
 	lda (:bp),y
 	cmp #$20
-	jne l_0879
+	jne l_08AB
 	inc U
-l_0879
+l_08AB
 
 ; --- ForToDoEpilog
 	dec I0B
-	jpl l_0807
-l_0815
-l_07FD
+	jpl l_0839
+l_0847
+l_082F
 
 ; optimize OK (ai.inc), line = 59
 
 	lda AVAILDIR
 	and #$02
-	jeq l_089D
+	jeq l_08CF
 
 ; optimize OK (ai.inc), line = 60
 
 	lda #$05
 	sta I0B
 
-l_08A7
+l_08D9
 ; --- ForToDoCondition
 	lda I0B
 	cmp #$01
-	jcc l_08B5
+	jcc l_08E7
 
 ; optimize OK (ai.inc), line = 61
 
@@ -2163,9 +2247,9 @@ l_08A7
 	ldy :STACKORIGIN+9
 	lda (:bp),y
 	cmp #$20
-	jne l_08CF
+	jne l_0901
 	inc D
-l_08CF
+l_0901
 
 ; optimize OK (ai.inc), line = 62
 
@@ -2185,9 +2269,9 @@ l_08CF
 	inc :bp+1
 	lda (:bp),y
 	cmp #$20
-	jne l_08F4
+	jne l_0926
 	inc D
-l_08F4
+l_0926
 
 ; optimize OK (ai.inc), line = 63
 
@@ -2206,32 +2290,32 @@ l_08F4
 	dec :bp+1
 	lda (:bp),y
 	cmp #$20
-	jne l_0919
+	jne l_094B
 	inc D
-l_0919
+l_094B
 
 ; --- ForToDoEpilog
 	dec I0B
-	jpl l_08A7
-l_08B5
-l_089D
+	jpl l_08D9
+l_08E7
+l_08CF
 
 ; optimize OK (ai.inc), line = 67
 
 	lda AVAILDIR
 	and #$04
-	jeq l_093D
+	jeq l_096F
 
 ; optimize OK (ai.inc), line = 68
 
 	lda #$05
 	sta I0B
 
-l_0947
+l_0979
 ; --- ForToDoCondition
 	lda I0B
 	cmp #$01
-	jcc l_0955
+	jcc l_0987
 
 ; optimize OK (ai.inc), line = 69
 
@@ -2243,9 +2327,9 @@ l_0947
 	sta :bp+1
 	lda (:bp),y
 	cmp #$20
-	jne l_096D
+	jne l_099F
 	inc L
-l_096D
+l_099F
 
 ; optimize OK (ai.inc), line = 70
 
@@ -2262,9 +2346,9 @@ l_096D
 	inc :bp+1
 	lda (:bp),y
 	cmp #$20
-	jne l_0990
+	jne l_09C2
 	inc L
-l_0990
+l_09C2
 
 ; optimize OK (ai.inc), line = 71
 
@@ -2281,32 +2365,32 @@ l_0990
 	dec :bp+1
 	lda (:bp),y
 	cmp #$20
-	jne l_09B3
+	jne l_09E5
 	inc L
-l_09B3
+l_09E5
 
 ; --- ForToDoEpilog
 	dec I0B
-	jpl l_0947
-l_0955
-l_093D
+	jpl l_0979
+l_0987
+l_096F
 
 ; optimize OK (ai.inc), line = 75
 
 	lda AVAILDIR
 	and #$08
-	jeq l_09D7
+	jeq l_0A09
 
 ; optimize OK (ai.inc), line = 76
 
 	lda #$05
 	sta I0B
 
-l_09E1
+l_0A13
 ; --- ForToDoCondition
 	lda I0B
 	cmp #$01
-	jcc l_09EF
+	jcc l_0A21
 
 ; optimize OK (ai.inc), line = 77
 
@@ -2314,9 +2398,9 @@ l_09E1
 	ldy I0B
 	lda (:bp2),y
 	cmp #$20
-	jne l_0A07
+	jne l_0A39
 	inc R
-l_0A07
+l_0A39
 
 ; optimize OK (ai.inc), line = 78
 
@@ -2333,9 +2417,9 @@ l_0A07
 	inc :bp+1
 	lda (:bp),y
 	cmp #$20
-	jne l_0A2A
+	jne l_0A5C
 	inc R
-l_0A2A
+l_0A5C
 
 ; optimize OK (ai.inc), line = 79
 
@@ -2352,15 +2436,15 @@ l_0A2A
 	dec :bp+1
 	lda (:bp),y
 	cmp #$20
-	jne l_0A4D
+	jne l_0A7F
 	inc R
-l_0A4D
+l_0A7F
 
 ; --- ForToDoEpilog
 	dec I0B
-	jpl l_09E1
-l_09EF
-l_09D7
+	jpl l_0A13
+l_0A21
+l_0A09
 
 ; optimize OK (ai.inc), line = 83
 
@@ -2370,90 +2454,90 @@ l_09D7
 ; optimize OK (ai.inc), line = 84
 
 	cmp U
-	jcs l_0A75
+	jcs l_0AA7
 	lda U
 	sta T0B
-l_0A75
+l_0AA7
 
 ; optimize OK (ai.inc), line = 85
 
 	lda T0B
 	cmp L
-	jcs l_0A92
+	jcs l_0AC4
 	lda L
 	sta T0B
-l_0A92
+l_0AC4
 
 ; optimize OK (ai.inc), line = 86
 
 	lda T0B
 	cmp R
-	jcs l_0AAF
+	jcs l_0AE1
 	lda R
 	sta T0B
-l_0AAF
+l_0AE1
 
 ; optimize OK (ai.inc), line = 88
 
 	lda T0B
 	cmp D
-	jne l_0ACC
+	jne l_0AFE
 	lda #$02
 	sta T0B
-l_0ACC
+l_0AFE
 
 ; optimize OK (ai.inc), line = 89
 
 	lda T0B
 	cmp U
-	jne l_0AE7
+	jne l_0B19
 	lda #$01
 	sta T0B
-l_0AE7
+l_0B19
 
 ; optimize OK (ai.inc), line = 90
 
 	lda T0B
 	cmp L
-	jne l_0B02
+	jne l_0B34
 	lda #$04
 	sta T0B
-l_0B02
+l_0B34
 
 ; optimize OK (ai.inc), line = 91
 
 	lda T0B
 	cmp R
-	jne l_0B1D
+	jne l_0B4F
 	lda #$08
 	sta T0B
-l_0B1D
+l_0B4F
 
 ; optimize OK (ai.inc), line = 93
 
 	lda AVAILDIR
 	and T0B
-	jeq l_0B3C
+	jeq l_0B6E
 	lda T0B
 	sta NEWDIR
-	jmp l_0B4C
-l_0B3C
+	jmp l_0B7E
+l_0B6E
 
 ; optimize FAIL ('AISTRAIGHT', ai.inc), line = 94
 
 	jsr AISTRAIGHT
-l_0B4C
+l_0B7E
 
 ; ------------------------------------------------------------
 
-L	= DATAORIGIN+$047E
-R	= DATAORIGIN+$047F
-U	= DATAORIGIN+$0480
-D	= DATAORIGIN+$0481
-@FORTMP_0804	= $01
-@FORTMP_08A4	= $01
-@FORTMP_0944	= $01
-@FORTMP_09DE	= $01
+L	= DATAORIGIN+$0481
+R	= DATAORIGIN+$0482
+U	= DATAORIGIN+$0483
+D	= DATAORIGIN+$0484
+@FORTMP_0836	= $01
+@FORTMP_08D6	= $01
+@FORTMP_0976	= $01
+@FORTMP_0A10	= $01
 
 @VarData	= L
 @VarDataSize	= 4
@@ -2483,23 +2567,23 @@ D	= DATAORIGIN+$0481
 
 	lda PLAYER1.ISALIVE
 	ora PLAYER2.ISALIVE
-	jeq l_0B69
+	jeq l_0B9B
 
 ; optimize OK (ai.inc), line = 105
 
 	lda PLAYER1.ISALIVE
-	jeq l_0B76
+	jeq l_0BA8
 	lda PLAYER1
 	sta TMPPLY
 	lda PLAYER1+1
 	sta TMPPLY+1
-	jmp l_0B85
-l_0B76
+	jmp l_0BB7
+l_0BA8
 	lda PLAYER2
 	sta TMPPLY
 	lda PLAYER2+1
 	sta TMPPLY+1
-l_0B85
+l_0BB7
 
 ; optimize OK (ai.inc), line = 107
 
@@ -2511,14 +2595,14 @@ l_0B85
 	ldy #TMPPLY.Y-DATAORIGIN
 	lda (:bp2),y
 	cmp :STACKORIGIN+9
-	jcs l_0B9E
+	jcs l_0BD0
 	lda #$01
 	sta T0B
-	jmp l_0BAC
-l_0B9E
+	jmp l_0BDE
+l_0BD0
 	lda #$02
 	sta T0B
-l_0BAC
+l_0BDE
 
 ; optimize OK (ai.inc), line = 108
 
@@ -2530,11 +2614,11 @@ l_0BAC
 	ldy #TMPPLY.Y-DATAORIGIN
 	lda (:bp2),y
 	cmp :STACKORIGIN+9
-	jeq l_0BD6x
+	jeq l_0C08x
 	lda AVAILDIR
 	and T0B
-	jne l_0BD6
-l_0BD6x
+	jne l_0C08
+l_0C08x
 
 ; optimize OK (ai.inc), line = 109
 
@@ -2546,31 +2630,31 @@ l_0BD6x
 	ldy #TMPPLY.X-DATAORIGIN
 	lda (:bp2),y
 	cmp :STACKORIGIN+9
-	jcs l_0BEB
+	jcs l_0C1D
 	lda #$04
 	sta T0B
-	jmp l_0BF9
-l_0BEB
+	jmp l_0C2B
+l_0C1D
 	lda #$08
 	sta T0B
-l_0BF9
-l_0BD6
-l_0B69
+l_0C2B
+l_0C08
+l_0B9B
 
 ; optimize OK (ai.inc), line = 113
 
 	lda AVAILDIR
 	and T0B
-	jeq l_0C19
+	jeq l_0C4B
 	lda T0B
 	sta NEWDIR
-	jmp l_0C29
-l_0C19
+	jmp l_0C5B
+l_0C4B
 
 ; optimize FAIL ('AISAPPER', ai.inc), line = 114
 
 	jsr AISAPPER
-l_0C29
+l_0C5B
 @exit
 	.ifdef @new
 	lda <@VarData
@@ -2595,14 +2679,14 @@ l_0C29
 ; optimize OK (ai.inc), line = 124
 
 	lda PLAYER1.ISALIVE
-	jeq l_0C40
+	jeq l_0C72
 
 ; optimize OK (ai.inc), line = 125
 
 	lda PLAYER1.DIR
 	sta @CASETMP_0008
 	cmp #$01
-	jne l_0C4C
+	jne l_0C7E
 @
 
 ; optimize OK (ai.inc), line = 126
@@ -2611,9 +2695,9 @@ l_0C29
 	sta T0B
 
 	jmp a_0008
-l_0C4C
+l_0C7E
 	cmp #$02
-	jne l_0C59
+	jne l_0C8B
 @
 
 ; optimize OK (ai.inc), line = 127
@@ -2622,9 +2706,9 @@ l_0C4C
 	sta T0B
 
 	jmp a_0008
-l_0C59
+l_0C8B
 	cmp #$04
-	jne l_0C66
+	jne l_0C98
 @
 
 ; optimize OK (ai.inc), line = 128
@@ -2633,9 +2717,9 @@ l_0C59
 	sta T0B
 
 	jmp a_0008
-l_0C66
+l_0C98
 	cmp #$08
-	jne l_0C73
+	jne l_0CA5
 @
 
 ; optimize OK (ai.inc), line = 129
@@ -2643,28 +2727,28 @@ l_0C66
 	lda #$04
 	sta T0B
 
-l_0C73
+l_0CA5
 a_0008
-l_0C40
+l_0C72
 
 ; optimize OK (ai.inc), line = 133
 
 	lda AVAILDIR
 	and T0B
-	jeq l_0C99
+	jeq l_0CCB
 	lda T0B
 	sta NEWDIR
-	jmp l_0CA9
-l_0C99
+	jmp l_0CDB
+l_0CCB
 
 ; optimize FAIL ('AISAPPER', ai.inc), line = 134
 
 	jsr AISAPPER
-l_0CA9
+l_0CDB
 
 ; ------------------------------------------------------------
 
-@CASETMP_0008	= DATAORIGIN+$0482
+@CASETMP_0008	= DATAORIGIN+$0485
 
 @VarData	= @CASETMP_0008
 @VarDataSize	= 1
@@ -4290,7 +4374,7 @@ l_0CA9
 	lda #$27
 	sta T0B
 
-l_0F91
+l_0FC3
 ; --- ForToDoCondition
 
 ; optimize OK (init.inc), line = 9
@@ -4314,19 +4398,19 @@ l_0F91
 
 ; --- ForToDoEpilog
 	dec T0B
-	jpl l_0F91
-l_0F9F
+	jpl l_0FC3
+l_0FD1
 
 ; optimize OK (init.inc), line = 15
 
 	lda #$18
 	sta T0B
 
-l_0FD1
+l_1003
 ; --- ForToDoCondition
 	lda T0B
 	cmp #$01
-	jcc l_0FDF
+	jcc l_1011
 
 ; optimize OK (init.inc), line = 16
 
@@ -4363,15 +4447,15 @@ l_0FD1
 
 ; --- ForToDoEpilog
 	dec T0B
-	jpl l_0FD1
-l_0FDF
+	jpl l_1003
+l_1011
 
 ; optimize OK (init.inc), line = 20
 
 	lda #$07
 	sta I0B
 
-l_1003
+l_1035
 ; --- ForToDoCondition
 	lda I0B
 	asl @
@@ -4383,14 +4467,14 @@ l_1003
 
 ; --- ForToDoEpilog
 	dec I0B
-	jpl l_1003
-l_1011
+	jpl l_1035
+l_1043
 
 ; ------------------------------------------------------------
 
-@FORTMP_0F8E	= $00
-@FORTMP_0FCE	= $01
-@FORTMP_1000	= $00
+@FORTMP_0FC0	= $00
+@FORTMP_1000	= $01
+@FORTMP_1032	= $00
 @exit
 	.ifdef @new
 	lda <@VarData
@@ -4468,85 +4552,85 @@ l_1011
 	lda LEVEL
 	sta @CASETMP_0009
 	cmp #$00
-	jne l_105A
+	jne l_108C
 @
 
 ; optimize FAIL ('SETLEVEL00', init.inc), line = 47
 
 	jsr SETLEVEL00
 	jmp a_0009
-l_105A
+l_108C
 	cmp #$01
-	jne l_1064
+	jne l_1096
 @
 
 ; optimize FAIL ('SETLEVEL01', init.inc), line = 48
 
 	jsr SETLEVEL01
 	jmp a_0009
-l_1064
+l_1096
 	cmp #$02
-	jne l_106E
+	jne l_10A0
 @
 
 ; optimize FAIL ('SETLEVEL02', init.inc), line = 49
 
 	jsr SETLEVEL02
 	jmp a_0009
-l_106E
+l_10A0
 	cmp #$03
-	jne l_1078
+	jne l_10AA
 @
 
 ; optimize FAIL ('SETLEVEL03', init.inc), line = 50
 
 	jsr SETLEVEL03
 	jmp a_0009
-l_1078
+l_10AA
 	cmp #$04
-	jne l_1082
+	jne l_10B4
 @
 
 ; optimize FAIL ('SETLEVEL04', init.inc), line = 51
 
 	jsr SETLEVEL04
 	jmp a_0009
-l_1082
+l_10B4
 	cmp #$05
-	jne l_108C
+	jne l_10BE
 @
 
 ; optimize FAIL ('SETLEVEL05', init.inc), line = 52
 
 	jsr SETLEVEL05
 	jmp a_0009
-l_108C
+l_10BE
 	cmp #$06
-	jne l_1096
+	jne l_10C8
 @
 
 ; optimize FAIL ('SETLEVEL06', init.inc), line = 53
 
 	jsr SETLEVEL06
 	jmp a_0009
-l_1096
+l_10C8
 	cmp #$07
-	jne l_10A0
+	jne l_10D2
 @
 
 ; optimize FAIL ('SETLEVEL07', init.inc), line = 54
 
 	jsr SETLEVEL07
 	jmp a_0009
-l_10A0
+l_10D2
 	cmp #$08
-	jne l_10AA
+	jne l_10DC
 @
 
 ; optimize FAIL ('SETLEVEL08', init.inc), line = 55
 
 	jsr SETLEVEL08
-l_10AA
+l_10DC
 a_0009
 
 ; optimize FAIL ('SAVEOBSTACLES', init.inc), line = 58
@@ -4557,7 +4641,7 @@ a_0009
 
 ; ------------------------------------------------------------
 
-@CASETMP_0009	= DATAORIGIN+$0483
+@CASETMP_0009	= DATAORIGIN+$0486
 
 @VarData	= @CASETMP_0009
 @VarDataSize	= 1
@@ -4581,7 +4665,7 @@ a_0009
 	mwy PLY :bp2
 	ldy #PLY.ISALIVE-DATAORIGIN
 	lda (:bp2),y
-	jeq l_10CB
+	jeq l_10FD
 
 ; optimize FAIL ('CHECKAVAILDIR', main.pas), line = 17
 
@@ -4590,13 +4674,13 @@ a_0009
 ; optimize OK (main.pas), line = 18
 
 	lda AVAILDIR
-	jne l_10DF
+	jne l_1111
 
 ; optimize FAIL ('PLAYERBUSTED', main.pas), line = 19
 
 	jsr PLAYERBUSTED
-	jmp l_10EA
-l_10DF
+	jmp l_111C
+l_1111
 
 ; optimize OK (main.pas), line = 21
 
@@ -4605,60 +4689,60 @@ l_10DF
 	lda (:bp2),y
 	sta @CASETMP_000A
 	cmp #$00
-	jne l_10F5
+	jne l_1127
 @
 
 ; optimize FAIL ('HUMAN', main.pas), line = 22
 
 	jsr HUMAN
 	jmp a_000A
-l_10F5
+l_1127
 	cmp #$01
-	jne l_10FF
+	jne l_1131
 @
 
 ; optimize FAIL ('AISTRAIGHT', main.pas), line = 23
 
 	jsr AISTRAIGHT
 	jmp a_000A
-l_10FF
+l_1131
 	cmp #$02
-	jne l_1109
+	jne l_113B
 @
 
 ; optimize FAIL ('AISAPPER', main.pas), line = 24
 
 	jsr AISAPPER
 	jmp a_000A
-l_1109
+l_113B
 	cmp #$03
-	jne l_1113
+	jne l_1145
 @
 
 ; optimize FAIL ('AIBULLY', main.pas), line = 25
 
 	jsr AIBULLY
 	jmp a_000A
-l_1113
+l_1145
 	cmp #$04
-	jne l_111D
+	jne l_114F
 @
 
 ; optimize FAIL ('AIMIRROR', main.pas), line = 26
 
 	jsr AIMIRROR
-l_111D
+l_114F
 a_000A
 
 ; optimize FAIL ('DRAWPLAYER', main.pas), line = 29
 
 	jsr DRAWPLAYER
-l_10EA
-l_10CB
+l_111C
+l_10FD
 
 ; ------------------------------------------------------------
 
-@CASETMP_000A	= DATAORIGIN+$0484
+@CASETMP_000A	= DATAORIGIN+$0487
 
 @VarData	= @CASETMP_000A
 @VarDataSize	= 1
@@ -4683,7 +4767,7 @@ l_10CB
 	jsr STARTSCREEN
 
 ; --- RepeatUntilProlog
-l_1131
+l_1163
 
 ; optimize FAIL ('SYSTEM.PAUSE_0085', main.pas), line = 42
 
@@ -4735,7 +4819,7 @@ l_1131
 	jsr ISONELEFT
 	dex
 	lda :STACKORIGIN+1,x
-	jeq l_1131
+	jeq l_1163
 
 ; optimize FAIL ('UPDATESCORE', main.pas), line = 52
 
@@ -4764,7 +4848,7 @@ l_001F
 	jsr SETFONTS
 
 ; --- RepeatUntilProlog
-l_1159
+l_118B
 
 ; optimize FAIL ('INITSCORE', main.pas), line = 61
 
@@ -4775,7 +4859,7 @@ l_1159
 	sta LEVEL
 
 ; --- RepeatUntilProlog
-l_1163
+l_1195
 
 ; optimize FAIL ('MAINLOOP', main.pas), line = 63
 
@@ -4783,7 +4867,7 @@ l_1163
 	jsr ISGAMEOVER
 	dex
 	lda :STACKORIGIN+1,x
-	jeq l_1163
+	jeq l_1195
 
 ; optimize FAIL ('SHOWSCORE', main.pas), line = 65
 
@@ -4797,7 +4881,7 @@ l_1163
 
 ; optimize OK (main.pas), line = 66
 
-	jmp l_1159
+	jmp l_118B
 
 ; ------------------------------------------------------------
 
@@ -4971,28 +5055,6 @@ DATAORIGIN
 .by  $28 $00 $18 $00 $2D $0C $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
 .by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
 .by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
-.by  $00 $05 $06 $09 $12 $05 $21 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
-.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
-.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
-.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
-.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
-.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
-.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
-.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
-.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
-.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
-.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $07 $17 $09 $0E $0E $05 $12
-.by  $21 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
-.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
-.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
-.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
-.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
-.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
-.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
-.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
-.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
-.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
-.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $06 $0C $0F $13 $05 $12 $21  $00 $00 $00 $00 $00 $00 $00 $00
 .by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
 .by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
 .by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
@@ -5003,6 +5065,18 @@ DATAORIGIN
 .by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
 .by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
 .by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
+.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $05 $06 $09 $12
+.by  $05 $21 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
+.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
+.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
+.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
+.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
+.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
+.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
+.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
+.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
+.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
+.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $07 $17 $09 $0E  $0E $05 $12 $21 $00 $00 $00 $00
 .by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
 .by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
 .by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
@@ -5013,12 +5087,22 @@ DATAORIGIN
 .by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
 .by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
 .by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
-.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $18 $18 $24 $24 $24
-.by  $3C $66 $5A $00 $03 $3E $C5 $C5  $3E $03 $00 $00 $C0 $7C $A3 $A3  $7C $C0 $00 $5A $66 $3C $24 $24
-.by  $24 $18 $18 $00 $3C $6E $62 $46  $76 $3C $00 $00 $3C $76 $46 $62  $6E $3C
+.by  $00 $00 $00 $00 $06 $0C $0F $13  $05 $12 $21 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
+.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
+.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
+.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
+.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
+.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
+.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
+.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
+.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
+.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00
+.by  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $00 $00  $00 $00 $00 $00 $00 $00 $18 $18
+.by  $24 $24 $24 $3C $66 $5A $00 $03  $3E $C5 $C5 $3E $03 $00 $00 $C0  $7C $A3 $A3 $7C $C0 $00 $5A $66
+.by  $3C $24 $24 $24 $18 $18 $00 $3C  $6E $62 $46 $76 $3C $00 $00 $3C  $76 $46 $62 $6E $3C
 
 VARINITSIZE	= *-DATAORIGIN
-VARDATASIZE	= 1157
+VARDATASIZE	= 1160
 
 PROGRAMSTACK	= DATAORIGIN+VARDATASIZE
 
