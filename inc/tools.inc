@@ -7,6 +7,14 @@ end;
 
 //-----------------------------------------------------------------------------
 
+procedure putChar(x, y, v, c: byte); overload;
+begin
+  t0w := ATTRIBUTE_ADDR + mul40[y] + x;
+  Poke(t0w, c); Poke(t0w + OFFSET, v);
+end;
+
+//-----------------------------------------------------------------------------
+
 procedure printXY(s: string; x, y, c: byte);
 begin
   t0w := SCREEN_ADDR + mul40[y] + x;
@@ -15,14 +23,6 @@ begin
   FillChar(pointer(t0w - OFFSET), length(s), c);
 end;
 
-
-//-----------------------------------------------------------------------------
-
-procedure putChar(x, y, v, c: byte); overload;
-begin
-  t0w := ATTRIBUTE_ADDR + mul40[y] + x;
-  Poke(t0w, c); Poke(t0w + OFFSET, v);
-end;
 
 //-----------------------------------------------------------------------------
 
