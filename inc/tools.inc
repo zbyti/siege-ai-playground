@@ -21,7 +21,7 @@ end;
 procedure putChar(x, y, v, c: byte); overload;
 begin
   t0w := ATTRIBUTE_ADDR + mul40[y] + x;
-  Poke(t0w, c); Poke(t0w + OFFSET), v);
+  Poke(t0w, c); Poke(t0w + OFFSET, v);
 end;
 
 //-----------------------------------------------------------------------------
