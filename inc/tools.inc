@@ -171,7 +171,7 @@ var
   info: string = #6#9#18#5#33;
 begin
   printXY(info, 2, 0, $71 + $80);
-  putChar(player1.x, player1.y, player1.head, byte(player1.colour + $80));
+  putChar(player1.x, player1.y, player1.head, player1.colour + $80);
 
   repeat checkJoyStatus until joyStatus = JOY_FIRE;
 
