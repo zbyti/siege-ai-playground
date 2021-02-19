@@ -96,16 +96,18 @@ begin
     if ((ply.dir and %0110) <> 0) and ((newDir and %1001) <> 0) then t0b := PLY_TAIL_LD;
     if ((ply.dir and %0101) <> 0) and ((newDir and %1010) <> 0) then t0b := PLY_TAIL_LU;
   end;
-  if getChar(ply.x, ply.y) <> PLY_CRASH then putChar(ply.x, ply.y, t0b);
+  putChar(ply.x, ply.y, t0b);
 
   ply.dir := newDir;
 
   case newDir of
-    JOY_UP    : Dec(ply.y);
-    JOY_DOWN  : Inc(ply.y);
-    JOY_LEFT  : Dec(ply.x);
-    JOY_RIGHT : Inc(ply.x);
+    JOY_UP    : begin Dec(ply.y); t0b := PLY_HEAD_UP    end;
+    JOY_DOWN  : begin Inc(ply.y); t0b := PLY_HEAD_DOWN  end;
+    JOY_LEFT  : begin Dec(ply.x); t0b := PLY_HEAD_LEFT  end;
+    JOY_RIGHT : begin Inc(ply.x); t0b := PLY_HEAD_RIGHT end;
   end;
+
+  ply.head := t0b;
 
   putChar(ply.x, ply.y, ply.head, ply.colour);
 end;
@@ -115,7 +117,7 @@ end;
 procedure playerBusted;
 begin
   ply.isAlive := false; Dec(alive);
-  putChar(ply.x, ply.y, PLY_BUSTED, byte(ply.colour + $80));
+  putChar(ply.x, ply.y, ply.head, byte(ply.colour + $80));
 end;
 
 //-----------------------------------------------------------------------------
@@ -128,13 +130,21 @@ end;
 
 //-----------------------------------------------------------------------------
 
-procedure setPlayer(p: pointer; x, y, dir, brain, head, colour: byte; isAlive: boolean);
+procedure setPlayer(p: pointer; x, y, dir, brain, colour: byte; isAlive: boolean);
 begin
   ply := p;
+
+  case dir of
+    JOY_UP    : t0b := PLY_HEAD_UP;
+    JOY_DOWN  : t0b := PLY_HEAD_DOWN;
+    JOY_LEFT  : t0b := PLY_HEAD_LEFT;
+    JOY_RIGHT : t0b := PLY_HEAD_RIGHT;
+  end;
+
   ply.brain := brain; ply.x := x; ply.y := y; ply.dir := dir;
-  ply.head := head; ply.colour := colour; ply.isAlive := isAlive;
+  ply.head := t0b; ply.colour := colour; ply.isAlive := isAlive;
   if isAlive then begin
-    Inc(alive); putChar(x, y, head, colour);
+    Inc(alive); putChar(x, y, t0b, colour);
   end;
 end;
 
@@ -170,6 +180,24 @@ end;
 function isOneLeft: boolean;
 begin
   Result := (alive = 0) or (alive = $ff);
+end;
+
+//-----------------------------------------------------------------------------
+
+procedure setFonts;
+var fonts: array [0..(8 * 6 - 1)] of byte = (
+  24,24,36,36,36,60,102,90,    // ship up
+  0,3,62,197,197,62,3,0,       // ship left
+  0,192,124,163,163,124,192,0, // ship right
+  90,102,60,36,36,36,24,24,    // ship down
+  0,60,110,98,70,118,60,0,     // obstacle 1
+  0,60,118,70,98,110,60,0      // obstacle 2
+);
+begin
+  Move(pointer($d000), pointer($6000), $400);
+  Move(fonts, pointer($6000 + (8 * $50)), 8 * 6);
+  RAMROMSEL := RAMROMSEL and %11111011;
+  CHBAS := (CHBAS and %11) or 24 shl 2;
 end;
 
 //-----------------------------------------------------------------------------

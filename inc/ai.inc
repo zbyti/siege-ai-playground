@@ -11,7 +11,7 @@ begin
   end;
 
   if (newDir and availDir) = 0 then begin
-    ply.isAlive := false; ply.head := PLY_CRASH; Dec(alive);
+    ply.isAlive := false; Dec(alive);
   end;
 end;
 

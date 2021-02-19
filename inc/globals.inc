@@ -3,6 +3,8 @@
 var
   KEYSCAN                            : byte absolute $fd30;
   JOY                                : byte absolute $ff08;
+  RAMROMSEL                          : byte absolute $ff12;
+  CHBAS                              : byte absolute $ff13;
   BACKGROUND                         : byte absolute $ff15;
   BOREDER                            : byte absolute $ff19;
 
