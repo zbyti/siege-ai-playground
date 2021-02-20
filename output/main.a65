@@ -1,5 +1,5 @@
 ; ------------------------------------------------------------
-; Mad Pascal Compiler version 1.6.5 [2021/02/18] for 6502
+; Mad Pascal Compiler version 1.6.5 [2021/02/20] for 6502
 ; ------------------------------------------------------------
 
 STACKWIDTH	= 16
@@ -723,10 +723,10 @@ C	= DATAORIGIN+$003C
 	lda T0W+1
 	sub #$04
 	sta SYSTEM.FILLCHAR_006E.A+1
-	lda adr.S
-	sta SYSTEM.FILLCHAR_006E.COUNT
 	lda C
 	sta SYSTEM.FILLCHAR_006E.VALUE
+	lda adr.S
+	sta SYSTEM.FILLCHAR_006E.COUNT
 	lda #$00
 	sta SYSTEM.FILLCHAR_006E.COUNT+1
 	jsr SYSTEM.FILLCHAR_006E
@@ -1179,10 +1179,10 @@ l_0332
 	lda (:bp2),y
 	sta PUTCHAR_00A4.X
 	ldy #PLY.Y-DATAORIGIN
-	lda (:bp2),y
-	sta PUTCHAR_00A4.Y
 	lda T0B
 	sta PUTCHAR_00A4.V
+	lda (:bp2),y
+	sta PUTCHAR_00A4.Y
 	jsr PUTCHAR_00A4
 
 ; optimize OK (tools.inc), line = 110
@@ -1561,10 +1561,10 @@ l_054C
 
 ; optimize OK (tools.inc), line = 178
 
-	lda adr.INFO
-	sta SYSTEM.FILLCHAR_006E.COUNT
 	lda #$A0
 	sta SYSTEM.FILLCHAR_006E.VALUE
+	lda adr.INFO
+	sta SYSTEM.FILLCHAR_006E.COUNT
 	lda #$00
 	sta SYSTEM.FILLCHAR_006E.COUNT+1
 	lda #$02
@@ -1575,10 +1575,10 @@ l_054C
 
 ; optimize OK (tools.inc), line = 179
 
-	lda adr.INFO
-	sta SYSTEM.FILLCHAR_006E.COUNT
 	lda #$41
 	sta SYSTEM.FILLCHAR_006E.VALUE
+	lda adr.INFO
+	sta SYSTEM.FILLCHAR_006E.COUNT
 	lda #$00
 	sta SYSTEM.FILLCHAR_006E.COUNT+1
 	lda #$02
