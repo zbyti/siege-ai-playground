@@ -126,7 +126,7 @@ end;
 procedure playerBusted;
 begin
   ply.isAlive := false; Dec(alive);
-  putChar(ply.x, ply.y, ply.head, byte(ply.colour + $80));
+  putChar(ply.x, ply.y, ply.head, ply.colour + $80);
 end;
 
 //-----------------------------------------------------------------------------
@@ -184,7 +184,7 @@ end;
 
 procedure endScreen;
 var
-  winner: string = 'winer!'~;
+  winner: string = 'winner!'~;
   loser : string = 'loser!'~;
 begin
   if player1.score = ZERO + VICTORIES then printXY(winner, 2, 0, $71 + $80)
