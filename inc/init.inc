@@ -63,7 +63,7 @@ end;
 procedure initFonts;
 begin
   Move(pointer($d000), pointer($6000), $400);
-  Move(fonts, pointer($6000 + (8 * $50)), 8 * SizeOf(fonts));
+  Move(fonts, pointer($6000 + (8 * $50)), SizeOf(fonts));
 
   // set bit 2
   RAMROMSEL := RAMROMSEL and %11111011;
