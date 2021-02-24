@@ -189,6 +189,8 @@ var
 begin
   if player1.score = ZERO + VICTORIES then printXY(winner, 2, 0, $71 + $80)
   else printXY(loser, 2, 0, $71 + $80);
+
+  pause(200);
 end;
 
 //-----------------------------------------------------------------------------
