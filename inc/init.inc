@@ -44,7 +44,6 @@ begin
   initPlayfield; initPlayers;
 
   case level of
-    0 : setLevel00; // test
     1 : setLevel01; // easy
     2 : setLevel02; // easy
     3 : setLevel03; // easy

@@ -13,18 +13,6 @@ end;
 
 //-----------------------------------------------------------------------------
 
-procedure setLevel00; // test
-begin
-  setPlayer(@player1, 10, 12, JOY_RIGHT, PLY_CTRL   , PLY1_COLOUR, true);
-  setPlayer(@player2, 30, 12, JOY_LEFT,  AI_STRAIGHT, PLY2_COLOUR, true);
-
-  obstacles[0] := calcScrAddr(10,  6); obstacles[1] := calcScrAddr(30,  6);
-  obstacles[2] := calcScrAddr(10, 18); obstacles[3] := calcScrAddr(30, 18);
-  obstacles[4] := calcScrAddr(20,  2); obstacles[5] := calcScrAddr(20, 22);
-end;
-
-//-----------------------------------------------------------------------------
-
 procedure setLevel01;
 begin
   setPlayer(@player1, 10, 12, JOY_RIGHT, PLY_CTRL,    PLY1_COLOUR, true);
