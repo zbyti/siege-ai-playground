@@ -81,6 +81,12 @@ begin
   for i0b := OBST_QUANTITY downto 0 do Poke(obstacles[i0b], obst);
 end;
 
+procedure animateBackGround;
+begin
+  DPoke($62B3, DPeek($62B3) shl 1);
+  if peek($62B3) = 0 then DPoke($62B3, $0101);
+end;
+
 //-----------------------------------------------------------------------------
 
 procedure saveObstacles;

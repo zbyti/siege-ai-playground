@@ -41,7 +41,7 @@ begin
   repeat
     pause; ply := @player1; playerMove;
 
-    animateObstacles;
+    animateObstacles; animateBackGround;
 
     pause(2); // 1 fast; 2 normal; 3 slow
     ply := @player2; playerMove;

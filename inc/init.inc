@@ -4,6 +4,7 @@ procedure initPlayfield;
 begin
   BACKGROUND := BACKGROUND_COLOUR; BOREDER := BOREDER_COLOUR;
   FillChar(pointer(SCREEN_ADDR), 24 * 40, EMPTY);
+  FillChar(pointer(ATTRIBUTE_ADDR), 24 * 40, PLAYFIELD_COLOUR);
 
   for t0b := 39 downto 0 do begin
     Poke(SCREEN_ADDR + t0b, WALL);
