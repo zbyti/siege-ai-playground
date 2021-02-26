@@ -83,8 +83,10 @@ end;
 
 procedure animateBackGround;
 begin
-  DPoke($62B3, DPeek($62B3) shl 1);
-  if peek($62B3) = 0 then DPoke($62B3, $0101);
+  Poke($62B3, Peek($62B3) shl 1);
+  DPoke($62B6, DPeek($62B6) shl 2);
+  if Peek($62B3) = 0 then Poke($62B3, 1);
+  if DPeek($62B6) = 0 then DPoke($62B6, 1);
 end;
 
 //-----------------------------------------------------------------------------

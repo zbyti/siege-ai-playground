@@ -3,7 +3,7 @@
 const
   ATTRIBUTE_ADDR = $0800; SCREEN_ADDR = $0c00; OFFSET = SCREEN_ADDR - ATTRIBUTE_ADDR;
 
-  BACKGROUND_COLOUR = $1f; BOREDER_COLOUR = 0; PLAYFIELD_COLOUR = $71;
+  BACKGROUND_COLOUR = $1f; BOREDER_COLOUR = 0; PLAYFIELD_COLOUR = $61;
   PLY1_COLOUR = $62; PLY2_COLOUR = $5d; PLY3_COLOUR = $71; PLY4_COLOUR = $55;
   OBST_COLOUR = $65;
 
@@ -48,7 +48,7 @@ const
     90,102,60,36,36,36,24,24,       // ship down
     0,60,110,98,70,118,60,0,        // obstacle 1
     0,60,118,70,98,110,60,0,        // obstacle 2
-    0,1,0,16,16,0,1,0                 // playfield
+    0,0,0,16,0,0,0,1                // playfield
   );
 
 //-----------------------------------------------------------------------------
