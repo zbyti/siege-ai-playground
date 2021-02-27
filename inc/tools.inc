@@ -78,11 +78,11 @@ var
 begin
   Inc(counter);
   if (counter and 1) <> 0 then
-    t0w := CHARSET + (8 * $54)
+    t0w := CHARSET + (8 * OBSTACLE_1)
   else
-    t0w := CHARSET + (8 * $55);
+    t0w := CHARSET + (8 * OBSTACLE_2);
 
-  Move(pointer(t0w), pointer(CHARSET + (8 * $57)), 8);
+  Move(pointer(t0w), pointer(CHARSET + (8 * OBSTACLE)), 8);
 end;
 
 //-----------------------------------------------------------------------------
