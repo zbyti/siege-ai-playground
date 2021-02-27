@@ -2,9 +2,8 @@
 
 procedure initPlayfield;
 begin
-  //restore font
-  Poke($62B3, 16);
-  Poke($62B7,  1);
+  //restore 7 custom char
+  Poke(CHARSET + $2B3, 16); Poke(CHARSET + $2B7, 1);
 
   BACKGROUND := BACKGROUND_COLOUR; BOREDER := BOREDER_COLOUR;
   FillChar(pointer(SCREEN_ADDR), 24 * 40, EMPTY);
@@ -66,8 +65,8 @@ end;
 
 procedure initFonts;
 begin
-  Move(pointer($d000), pointer($6000), $400);
-  Move(fonts, pointer($6000 + (8 * $50)), SizeOf(fonts));
+  Move(pointer($d000), pointer(CHARSET), $400);
+  Move(fonts, pointer(CHARSET + (8 * $50)), SizeOf(fonts));
 
   // set bit 2
   RAMROMSEL := RAMROMSEL and %11111011;
