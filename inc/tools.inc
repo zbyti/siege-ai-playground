@@ -79,12 +79,14 @@ end;
 
 procedure updateScore;
 begin
+  t0b := 0;
+
   if player1.isAlive then begin Inc(player1.score); t0b := player1.colour end;
   if player2.isAlive then begin Inc(player2.score); t0b := player2.colour end;
   if player3.isAlive then begin Inc(player3.score); t0b := player3.colour end;
   if player4.isAlive then begin Inc(player4.score); t0b := player4.colour end;
 
-  printBigCharXY(16,  8, PLY_HEAD_UP, t0b);
+  if t0b <> 0 then printBigCharXY(16,  8, PLY_HEAD_UP, t0b);
 end;
 
 //-----------------------------------------------------------------------------
