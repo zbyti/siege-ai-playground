@@ -17,12 +17,8 @@ var
   availDir                           : byte absolute $5c;
   joyStatus                          : byte absolute $5d;
   t0w                                : word absolute $5e;
-  ply                                : ^Player absolute $70;
-  tmpPly                             : ^Player absolute $72;
-
-//-----------------------------------------------------------------------------
-
-  obstacles                          : array [0..7] of word absolute $60;
+  ply                                : ^Player absolute $60;
+  tmpPly                             : ^Player absolute $62;
 
 //-----------------------------------------------------------------------------
 

@@ -11,8 +11,7 @@ const
   JOY_UP = 1; JOY_DOWN = 2; JOY_LEFT = 4; JOY_RIGHT = 8; JOY_FIRE = 64;
   JOY_SELECT_1 = %00000010; JOY_SELECT_2 = %00000100;
 
-  EMPTY = $56; WALL = $a0; ZERO = $30;
-  OBSTACLE_1 = $54; OBSTACLE_2 = $55;
+  EMPTY = $56; WALL = $a0; ZERO = $30; OBSTACLE = $57;
 
   PLY_CRASH = $2a; PLY_BUSTED = $57;
   PLY_TAIL_UD = $42; PLY_TAIL_LR = $40;
@@ -21,7 +20,6 @@ const
 
   OBST_QUANTITY = 7; // means 8 (fixed value)
   VICTORIES = 9;     // possible values: 1-9
-  TRASH = $5e;       // t0w -> this dirty trick make me sick ;)
   LOOK_AHEAD = 5;
 
   PLY_CTRL = 0; AI_STRAIGHT = 1; AI_SAPPER = 2; AI_BULLY = 3; AI_MIRROR = 4;

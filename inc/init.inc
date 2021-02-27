@@ -20,8 +20,6 @@ begin
     DPoke((SCREEN_ADDR - 1) + mul40[t0b], WALL * 256 + WALL);
     DPoke((ATTRIBUTE_ADDR - 1) + mul40[t0b], WALL_COLOUR * 256 + WALL_COLOUR);
   end;
-
-  for i0b := OBST_QUANTITY downto 0 do obstacles[i0b] := TRASH;
 end;
 
 //-----------------------------------------------------------------------------
@@ -58,7 +56,7 @@ begin
     8 : setLevel08; // very hard
   end;
 
-  saveObstacles; animateObstacles; showScore;
+  animateObstacles; showScore;
 end;
 
 //-----------------------------------------------------------------------------

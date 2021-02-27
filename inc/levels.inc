@@ -3,12 +3,12 @@
 procedure setObstacles;
 begin
   //SCREEN_ADDR + x + mul40[y];
-  obstacles[0] := SCREEN_ADDR + 10 + (40 *  6);
-  obstacles[1] := SCREEN_ADDR + 30 + (40 *  6);
-  obstacles[2] := SCREEN_ADDR + 10 + (40 * 18);
-  obstacles[3] := SCREEN_ADDR + 30 + (40 * 18);
-  obstacles[4] := SCREEN_ADDR + 20 + (40 *  2);
-  obstacles[5] := SCREEN_ADDR + 20 + (40 * 22);
+  Poke(SCREEN_ADDR + 10 + (40 *  6), OBSTACLE);
+  Poke(SCREEN_ADDR + 30 + (40 *  6), OBSTACLE);
+  Poke(SCREEN_ADDR + 10 + (40 * 18), OBSTACLE);
+  Poke(SCREEN_ADDR + 30 + (40 * 18), OBSTACLE);
+  Poke(SCREEN_ADDR + 20 + (40 *  2), OBSTACLE);
+  Poke(SCREEN_ADDR + 20 + (40 * 22), OBSTACLE);
 end;
 
 //-----------------------------------------------------------------------------
@@ -39,7 +39,7 @@ begin
   setPlayer(@player2, 30, 12, JOY_LEFT,  AI_SAPPER, PLY2_COLOUR, true);
 
   setObstacles;
-  obstacles[7] := SCREEN_ADDR + 1 + (40 * 12);
+  Poke(SCREEN_ADDR + 1 + (40 * 12), OBSTACLE);
 end;
 
 //-----------------------------------------------------------------------------
@@ -50,8 +50,8 @@ begin
   setPlayer(@player2, 22, 12, JOY_RIGHT, AI_MIRROR, PLY2_COLOUR, true);
 
   setObstacles;
-  obstacles[6] := SCREEN_ADDR +  1 + (40 * 12);
-  obstacles[7] := SCREEN_ADDR + 20 + (40 * 12);
+  Poke(SCREEN_ADDR +  1 + (40 * 12), OBSTACLE);
+  Poke(SCREEN_ADDR + 20 + (40 * 12), OBSTACLE);
 end;
 
 //-----------------------------------------------------------------------------
@@ -64,7 +64,7 @@ begin
   setPlayer(@player4, 20, 18, JOY_UP,    AI_SAPPER, PLY4_COLOUR, true);
 
   setObstacles;
-  obstacles[6] := SCREEN_ADDR + 1 + (40 * 12);
+  Poke(SCREEN_ADDR + 1 + (40 * 12), OBSTACLE);
 end;
 
 //-----------------------------------------------------------------------------
@@ -77,8 +77,8 @@ begin
   setPlayer(@player4, 36, 18, JOY_RIGHT, AI_BULLY,  PLY4_COLOUR, true);
 
   setObstacles;
-  obstacles[6] := SCREEN_ADDR +  1 + (40 * 12);
-  obstacles[7] := SCREEN_ADDR + 20 + (40 * 12);
+  Poke(SCREEN_ADDR +  1 + (40 * 12), OBSTACLE);
+  Poke(SCREEN_ADDR + 20 + (40 * 12), OBSTACLE);
 end;
 
 //-----------------------------------------------------------------------------
@@ -91,8 +91,8 @@ begin
   setPlayer(@player4, 36, 21, JOY_UP,    AI_SAPPER, PLY4_COLOUR, true);
 
   setObstacles;
-  obstacles[6] := SCREEN_ADDR +  1 + (40 * 12);
-  obstacles[7] := SCREEN_ADDR + 20 + (40 * 12);
+  Poke(SCREEN_ADDR +  1 + (40 * 12), OBSTACLE);
+  Poke(SCREEN_ADDR + 20 + (40 * 12), OBSTACLE);
 end;
 
 //-----------------------------------------------------------------------------
@@ -105,8 +105,8 @@ begin
   setPlayer(@player4, 38,  1, JOY_LEFT,  AI_MIRROR, PLY4_COLOUR, true);
 
   setObstacles;
-  obstacles[6] := SCREEN_ADDR +  1 + (40 * 12);
-  obstacles[7] := SCREEN_ADDR + 20 + (40 * 12);
+  Poke(SCREEN_ADDR +  1 + (40 * 12), OBSTACLE);
+  Poke(SCREEN_ADDR + 20 + (40 * 12), OBSTACLE);
 end;
 
 //-----------------------------------------------------------------------------

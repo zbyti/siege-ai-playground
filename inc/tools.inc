@@ -74,31 +74,25 @@ end;
 
 procedure animateObstacles;
 var
-  counter, obst: byte;
+  counter: byte;
 begin
   Inc(counter);
-  if (counter and 1) <> 0 then obst := OBSTACLE_1 else obst := OBSTACLE_2;
-  for i0b := OBST_QUANTITY downto 0 do Poke(obstacles[i0b], obst);
-end;
+  if (counter and 1) <> 0 then
+    t0w := CHARSET + (8 * $54)
+  else
+    t0w := CHARSET + (8 * $55);
 
-procedure animateBackGround;
-begin
-  Poke($62B3, Peek($62B3) shl 1);
-  Poke($62B7, Peek($62B7) shl 2);
-  if Peek($62B3) = 0 then Poke($62B3, 1);
-  if Peek($62B7) = 0 then Poke($62B7, 1);
+  Move(pointer(t0w), pointer(CHARSET + (8 * $57)), 8);
 end;
 
 //-----------------------------------------------------------------------------
 
-procedure saveObstacles;
+procedure animateBackGround;
 begin
-  for i0b := OBST_QUANTITY downto 0 do begin
-    if obstacles[i0b] <> TRASH then begin
-      Poke(obstacles[i0b], OBSTACLE_1);
-      Poke(obstacles[i0b] - OFFSET, OBST_COLOUR);
-    end;
-  end;
+  Poke(CHARSET + $2B3, Peek(CHARSET + $2B3) shl 1);
+  Poke(CHARSET + $2B7, Peek(CHARSET + $2B7) shl 2);
+  if Peek(CHARSET + $2B3) = 0 then Poke(CHARSET + $2B3, 1);
+  if Peek(CHARSET + $2B7) = 0 then Poke(CHARSET + $2B7, 1);
 end;
 
 //-----------------------------------------------------------------------------
