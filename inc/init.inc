@@ -69,8 +69,8 @@ begin
   // set bit 2
   RAMROMSEL := RAMROMSEL and %11111011;
 
-  // 24 = $6000 / $400 on 2-7 bits
-  CHBAS := (CHBAS and %11) or 24 shl 2;
+  // 12 = $3000 / $400 on 2-7 bits
+  CHBAS := (CHBAS and %11) or 12 shl 2;
 end;
 
 //-----------------------------------------------------------------------------

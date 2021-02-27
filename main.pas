@@ -54,10 +54,37 @@ end;
 
 //-----------------------------------------------------------------------------
 
+procedure welcome;
+begin
+  initPlayfield;
+
+  setPlayer(@player1,  3, 3, direction[Random(4)], AI_SAPPER, PLY1_COLOUR, true);
+  setPlayer(@player2, 36, 3, direction[Random(4)], AI_SAPPER, PLY2_COLOUR, true);
+
+  printXY('ai calibration, computing,'~, 2, 0, $71);
+  printXY(' * wait * '~, 28, 0, $71 + $80);
+
+  printBigXY(3, 3, $51, 'tron'~);
+  printBigXY(11, 13, $51, '+4'~);
+
+  repeat
+    pause(4);
+
+    ply := @player1; playerMove;
+    ply := @player2; playerMove;
+
+    animateBackGround;;
+  until (not player1.isAlive) or (not player2.isAlive);
+end;
+
+//-----------------------------------------------------------------------------
+
 begin
   initFonts;
 
   repeat
+    welcome;
+
     initScore; gameOver := false; level := 1;
 
     repeat mainLoop until isGameOver;

@@ -29,6 +29,34 @@ begin
   FillChar(pointer(t0w - OFFSET), length(s), c);
 end;
 
+//-----------------------------------------------------------------------------
+
+procedure printBigCharXY(x, y, ch, c: byte);
+begin
+  t0w := calcScrAddr(x, y);
+  t1w := CHARSET + (8 * ch);
+
+  for i0b := 0 to 7 do begin
+    t0b := Peek(t1w + i0b);
+    for i1b := 7 downto 0 do begin
+      if (t0b and 1) = 1 then begin
+        poke(t0w + i1b, $a0);
+        poke(t0w - OFFSET + i1b, c);
+      end;
+      t0b := t0b shr 1;
+    end;
+    Inc(t0w, 40);
+  end;
+end;
+
+//-----------------------------------------------------------------------------
+
+procedure printBigXY(x, y, c: byte; s: string);
+var
+  i0b : byte;
+begin
+  for i0b := 1 to length(s) do printBigCharXY(x + (8 * (i0b - 1)), y, ord(s[i0b]), c);
+end;
 
 //-----------------------------------------------------------------------------
 
@@ -51,10 +79,12 @@ end;
 
 procedure updateScore;
 begin
-  if player1.isAlive then Inc(player1.score);
-  if player2.isAlive then Inc(player2.score);
-  if player3.isAlive then Inc(player3.score);
-  if player4.isAlive then Inc(player4.score);
+  if player1.isAlive then begin Inc(player1.score); t0b := player1.colour end;
+  if player2.isAlive then begin Inc(player2.score); t0b := player2.colour end;
+  if player3.isAlive then begin Inc(player3.score); t0b := player3.colour end;
+  if player4.isAlive then begin Inc(player4.score); t0b := player4.colour end;
+
+  printBigCharXY(16,  8, PLY_HEAD_UP, t0b);
 end;
 
 //-----------------------------------------------------------------------------
@@ -189,10 +219,17 @@ var
   winner: string = 'winner!'~;
   loser : string = 'loser!'~;
 begin
-  if player1.score = ZERO + VICTORIES then printXY(winner, 2, 0, $71 + $80)
-  else printXY(loser, 2, 0, $71 + $80);
+  if player1.score = ZERO + VICTORIES then
+    printXY(winner, 2, 0, $71 + $80)
+  else begin
+    printXY(loser, 2, 0, $71 + $80);
+    printBigCharXY(12,  5, ROGER + 0, $71);
+    printBigCharXY(20,  5, ROGER + 1, $71);
+    printBigCharXY(12, 13, ROGER + 2, $71);
+    printBigCharXY(20, 13, ROGER + 3, $71);
+  end;
 
-  pause(200);
+  pause(250);
 end;
 
 //-----------------------------------------------------------------------------

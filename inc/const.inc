@@ -2,7 +2,7 @@
 
 const
   ATTRIBUTE_ADDR = $0800; SCREEN_ADDR = $0c00; OFFSET = SCREEN_ADDR - ATTRIBUTE_ADDR;
-  CHARSET = $6000;
+  CHARSET = $3000;
 
   BACKGROUND_COLOUR = $21; BOREDER_COLOUR = 0; PLAYFIELD_COLOUR = $51;
   PLY1_COLOUR = $62; PLY2_COLOUR = $5d; PLY3_COLOUR = $71; PLY4_COLOUR = $55;
@@ -13,6 +13,7 @@ const
 
   EMPTY = $56; WALL = $a0; ZERO = $30;
   OBSTACLE = $57; OBSTACLE_1 = $54; OBSTACLE_2 = $55;
+  ROGER = OBSTACLE + 5;
 
   PLY_BUSTED = $57; PLY_TAIL_UD = $42; PLY_TAIL_LR = $40;
   PLY_TAIL_RD = $7d; PLY_TAIL_RU = $6e; PLY_TAIL_LD = $6d; PLY_TAIL_LU = $70;
@@ -40,7 +41,7 @@ const
 
 //-----------------------------------------------------------------------------
 
-  fonts: array [0..(8 * 12 - 1)] of byte = (
+  fonts: array [0..(8 * 16 - 1)] of byte = (
     24,24,36,36,36,60,102,90,       // ship up
     0,3,62,197,197,62,3,0,          // ship left
     0,192,124,163,163,124,192,0,    // ship right
@@ -52,7 +53,11 @@ const
     24,24,52,36,44,60,231,153,      // ship crash up
     3,2,62,205,229,62,2,3,          // ship crash left
     192,64,124,179,167,124,64,192,  // ship crash right
-    153,231,60,44,36,52,24,24       // ship crash down
+    153,231,60,44,36,52,24,24,      // ship crash down
+    0,7,15,25,81,115,95,14,         // roger up-left
+    0,224,240,152,138,206,250,112,  // roger up-right
+    6,6,3,0,0,0,0,0,                // roger down-left
+    96,96,192,0,0,0,0,0             // roger down-right
   );
 
 //-----------------------------------------------------------------------------
