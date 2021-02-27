@@ -118,7 +118,7 @@ begin
     JOY_RIGHT : begin Inc(ply.x); t0b := PLY_HEAD_RIGHT end;
   end;
 
-  ply.head := t0b;
+  if ply.isAlive then ply.head := t0b else ply.head := t0b + 8;
 
   putChar(ply.x, ply.y, ply.head, ply.colour);
 end;

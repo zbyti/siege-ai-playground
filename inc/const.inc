@@ -14,8 +14,7 @@ const
   EMPTY = $56; WALL = $a0; ZERO = $30;
   OBSTACLE = $57; OBSTACLE_1 = $54; OBSTACLE_2 = $55;
 
-  PLY_CRASH = $2a; PLY_BUSTED = $57;
-  PLY_TAIL_UD = $42; PLY_TAIL_LR = $40;
+  PLY_BUSTED = $57; PLY_TAIL_UD = $42; PLY_TAIL_LR = $40;
   PLY_TAIL_RD = $7d; PLY_TAIL_RU = $6e; PLY_TAIL_LD = $6d; PLY_TAIL_LU = $70;
   PLY_HEAD_UP = $50; PLY_HEAD_LEFT = $51; PLY_HEAD_RIGHT = $52; PLY_HEAD_DOWN = $53;
 
@@ -41,14 +40,19 @@ const
 
 //-----------------------------------------------------------------------------
 
-  fonts: array [0..(8 * 7 - 1)] of byte = (
+  fonts: array [0..(8 * 12 - 1)] of byte = (
     24,24,36,36,36,60,102,90,       // ship up
     0,3,62,197,197,62,3,0,          // ship left
     0,192,124,163,163,124,192,0,    // ship right
     90,102,60,36,36,36,24,24,       // ship down
     0,60,110,98,70,118,60,0,        // obstacle 1
     0,60,118,70,98,110,60,0,        // obstacle 2
-    0,0,0,16,0,0,0,1                // playfield
+    0,0,0,16,0,0,0,1,               // playfield
+    0,0,0,0,0,0,0,0,                // obstacle
+    24,24,52,36,44,60,231,153,      // ship crash up
+    3,2,62,205,229,62,2,3,          // ship crash left
+    192,64,124,179,167,124,64,192,  // ship crash right
+    153,231,60,44,36,52,24,24       // ship crash down
   );
 
 //-----------------------------------------------------------------------------
