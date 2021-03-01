@@ -21,7 +21,6 @@ const
   PLY_HEAD_RIGHT = CHBASE + 2; PLY_HEAD_DOWN = CHBASE + 3;
 
   VICTORIES = 9;     // possible values: 1-9
-  LOOK_AHEAD = 5;
 
   PLY_CTRL = 0; AI_STRAIGHT = 1; AI_SAPPER = 2; AI_BULLY = 3; AI_MIRROR = 4;
 

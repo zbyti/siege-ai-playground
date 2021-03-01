@@ -42,6 +42,8 @@ end;
 
 
 procedure aiSapper; // brain = 2
+const
+  LOOK_AHEAD = 5;
 var
   l, r, u, d: byte;
 begin
