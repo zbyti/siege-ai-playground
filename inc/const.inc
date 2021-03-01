@@ -20,7 +20,6 @@ const
   PLY_HEAD_UP = CHBASE; PLY_HEAD_LEFT = CHBASE + 1;
   PLY_HEAD_RIGHT = CHBASE + 2; PLY_HEAD_DOWN = CHBASE + 3;
 
-  OBST_QUANTITY = 7; // means 8 (fixed value)
   VICTORIES = 9;     // possible values: 1-9
   LOOK_AHEAD = 5;
 
