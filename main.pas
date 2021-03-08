@@ -104,10 +104,7 @@ begin
   initFonts;
 
   asm { sei \ sta $ff3f};
-
-  RC := 204; SETIRQSRC := 2; DETIRQSRC := 2;
-  IRQVEC := word(@vbi);
-
+  RC := 204; SETIRQSRC := 2; DETIRQSRC := 2; IRQVEC := word(@vbi);
   asm { cli };
 
   repeat
