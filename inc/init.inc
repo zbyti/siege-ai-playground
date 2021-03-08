@@ -2,9 +2,6 @@
 
 procedure initPlayfield;
 begin
-  //restore 7 custom char
-  Poke(CHARSET + $2B3, 16); Poke(CHARSET + $2B7, 1);
-
   BACKGROUND := BACKGROUND_COLOUR; BOREDER := BOREDER_COLOUR;
   FillChar(pointer(SCREEN_ADDR), 24 * 40, EMPTY);
   FillChar(pointer(ATTRIBUTE_ADDR), 24 * 40, PLAYFIELD_COLOUR);
@@ -56,7 +53,7 @@ begin
     8 : setLevel08; // very hard
   end;
 
-  animateObstacles; showScore;
+  showScore;
 end;
 
 //-----------------------------------------------------------------------------
